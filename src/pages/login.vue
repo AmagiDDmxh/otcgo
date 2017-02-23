@@ -89,7 +89,7 @@ export default {
                     //登录时效 
                     setTimeout(function() {
                         window.LJWallet = null;
-                    }, 1000 * 60 * 60)
+                    }, 1000 * 60 * 60);
 
                     // console.log("验证成功!")
                     this.$message({
@@ -102,20 +102,14 @@ export default {
                         self.$router.push({
                             path: '/admin'
                         });
-
                     }, 1000);
 
-
                 } else {
-
-                     this.$message.error('验证失败,请重试！');
+                    this.$message.error('验证失败,请重试!');
                     this.filename = "";
                     this.password = "";
                     this.filevalue = "";
                 }
-
-
-
             }
         },
 
@@ -165,7 +159,6 @@ export default {
                         self.filevalue = "";
                         return;
                     }
-
 
                 }
 

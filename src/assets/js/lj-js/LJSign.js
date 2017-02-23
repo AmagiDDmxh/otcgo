@@ -1,3 +1,7 @@
+/*
+* flow@蓝鲸淘
+* Licensed under the MIT License.
+*/
 //secp256r1
 _p =  LJBigInteger('0xFFFFFFFF00000001000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF');
 _a =  LJBigInteger('0xFFFFFFFF00000001000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFC');
@@ -212,10 +216,13 @@ function calcHash(msghex) {
 	return hashObj.getHash("HEX");
 }//test OK
 function toHexString(bytes) {
-  return bytes.map(function(byte) {
-    return (byte & 0xFF).toString(16)
-  }).join('')
-}//test OK
+	var s = '';
+	var x = bytes;
+	for(var i=0;i<x.length;i++){
+		s = s + ('00'+(x[i]&0xFF).toString(16)).slice(-2);
+	}
+	return s;
+}
 randrange = function(order){
     while(true){
         var bytes = new Array(32);
@@ -269,7 +276,7 @@ LJSigningKey = function(prvhex, curve=SECP256r1){
     var n = curve.order;
     this.order = n;
     this.secexp = LJBigInteger.parse(prvhex, 16);
-    if(-1==this.secexp.compare(1) || 0<=this.secexp.compare(n)){alert('invalid private key for SECP256r1');}
+    if(-1==this.secexp.compare(1) || 0<=this.secexp.compare(n)){throw 'invalid private key for SECP256r1';}
     pubkey_point = curve.generator.mul(this.secexp);
     //console.log('x:'+pubkey_point.x().toString()+'\ny:'+pubkey_point.y().toString());
     pubkey = new LJPublic_key(curve.generator, pubkey_point);
@@ -294,4 +301,28 @@ ljSign = function(prvhex, msghex){
     var ljs = new LJSigningKey(prvhex);
     sighex = ljs.sign(msghex);
     return sighex;
+};
+ljWifkeyToBinkey = function(wif){
+	return Base58.decode(wif).subarray(1,33);
+};
+ljWifkeyToHexkey = function(wif){
+	var s = '';
+	var x = ljWifkeyToBinkey(wif);
+	for(var i=0;i<x.length;i++){
+		s = s + ('00'+(x[i]&0xFF).toString(16)).slice(-2);
+	}
+	return s;
+};
+ljPrikeyToPubkey = function(prvhex){
+	var secexp = LJBigInteger.parse(prvhex, 16);
+	var n =  LJBigInteger('0xFFFFFFFF00000000FFFFFFFFFFFFFFFFBCE6FAADA7179E84F3B9CAC2FC632551');
+	if(-1==secexp.compare(1) || 0<=secexp.compare(n)){
+		throw('invalid private key for SECP256r1');
+	}
+	var pubkey_point = generator_secp256r1.mul(secexp);
+	return ("04"+pubkey_point.x().toString(16)+pubkey_point.y().toString(16)).toLowerCase();
+};
+ljWifkeyToPubkey = function(wif){
+	var prvhex = ljWifkeyToHexkey(wif);
+	return ljPrikeyToPubkey(prvhex);
 };
