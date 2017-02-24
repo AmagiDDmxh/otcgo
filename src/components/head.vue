@@ -11,7 +11,7 @@
                         <router-link to="/login" id="header-a" class="header-a">{{loginText}}</router-link>
                     </li>
                     <li>
-                        <router-link to="/creatWallet" class="header-a">创建钱包</router-link>
+                        <router-link to="/creatWallet" target="_blank" class="header-a">创建钱包</router-link>
                     </li>
                 </ul>
             </div>
@@ -24,7 +24,7 @@
                                    分类资产
                                     <ul class="menulist">
                                         <li>
-                                           <router-link class="text-center" :to="{ path: '/bazaar', query: { 'class': 'anscny' }}"> 
+                                           <router-link class="text-center" :to="{ path: '/bazaar', query: { 'class': 'anscny' }}">
 
                                            小蚁股</router-link>
                                         </li>
@@ -40,10 +40,10 @@
                     <router-link class="menu active" to="/">首 &nbsp 页</router-link>
                 </li>
                 <li>
-                    <router-link class="menu" to="/login">区块浏览</router-link>
+                    <a class="menu" href="http://antchain.xyz/" target="_blank">区块浏览</a>
                 </li>
                 <li>
-                    <router-link class="menu" to="/">加入Q群 </router-link>
+                    <a class="menu" href="//shang.qq.com/wpa/qunwpa?idkey=24250f89f770858cb6e518fae271a588f847f8bfdc2e604a1ef40dea20b9beae">加入Q群</a>
                 </li>
             </ul>
             <form class="navbar-form navbar-left" role="search">

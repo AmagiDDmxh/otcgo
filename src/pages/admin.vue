@@ -15,7 +15,7 @@
                 <div class="ad-tips admin-tips">
                     <div class="left-menu">
                         <ul class="nav nav-pills nav-stacked">
-                            <li><a class="text-center title">菜&nbsp; &nbsp;&nbsp;单</a></li>
+                            <li><a class="text-center title">菜&nbsp;&nbsp;&nbsp;单</a></li>
                             <li>
                                 <router-link class="text-center" :to="{ path: '/admin/propertylist'}"> 资产列表</router-link>
                             </li>
@@ -48,6 +48,7 @@
                 </div>
             </div>
         </div>
+
         <div class="row">
             <div class="col-xs-3">
             </div>
@@ -74,7 +75,7 @@ export default {
 .container-padding {
     margin-top: 15px;
     padding: 32px;
-    color:#747474; 
+    color:#747474;
 }
 
 .panel-state {
@@ -90,7 +91,7 @@ export default {
     padding-left: 27px;
     padding-right: 27px;
     background-color: #f2f2f2;
-    color: #939393;
+    color: #009cfd;
 }
 
 

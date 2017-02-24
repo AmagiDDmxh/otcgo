@@ -1,8 +1,8 @@
 <template>
-	<div class="container-padding">
+	<div class="container container-padding">
 		<div class="panel panel-default panel-state">
 			<div class="panel-body">
-				<span class="link-span">创建离线钱包</span>
+				创建离线钱包
 			</div>
 		</div>
 		<div class="login-body row">
@@ -91,7 +91,7 @@
 							<span class="error-text" style="display:inline-block;margin-top:5px;"
 							      v-if="password2.length < 8 && password1.length > 0">  密码不能小于8位 </span>
 							<span v-else-if="password2 != password1" class="error-text" style="display:inline-block;margin-top:5px;">
- 两次密码输入不一致               
+ 两次密码输入不一致
                              </span>
 							<span v-else-if="password2==''" class="error-text" style="display:inline-block;margin-top:5px;">
  密码不能为空

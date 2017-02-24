@@ -2,7 +2,7 @@
 	<div class="container-padding">
 		<div class="panel panel-default panel-state">
 			<div class="panel-body">
-				<span class="link-span">创建离线钱包</span>
+				创建离线钱包
 			</div>
 		</div>
 		<div class="login-body row">
@@ -14,12 +14,12 @@
 						<div style="background-color:#f2f2f2;color:#aeaeae;padding:20px 15px">
 							<p style="margin-bottom:10px">关于 钱包文件</p>
 							<p>
-								钱包文件是您登录个人钱包的唯一 凭证。损坏、遗失、被盗将会造成 无法挽回的资产损失。请妥善保管
+								钱包文件是您登录个人钱包的唯一凭证。损坏、遗失、被盗将会造成无法挽回的资产损失。请妥善保管
 							</p>
 							<p style="margin-bottom:10px">
 								关于 登录密码</p>
 							<p>
-								登录密码是您钱包资产的第二道安 全防线。请牢记登录密码，一旦遗 忘，无法找回，造成资产损失。
+								登录密码是您钱包资产的第二道安 全防线。请牢记登录密码，一旦遗忘，无法找回，造成资产损失。
 							</p>
 						</div>
 					</div>

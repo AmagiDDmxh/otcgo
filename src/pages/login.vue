@@ -2,16 +2,16 @@
     <div class="container container-padding">
         <div class="panel panel-default panel-state">
             <div class="panel-body">
-                <span class="link-span"> 登录离线钱包</span>
+                登录离线钱包
             </div>
         </div>
-        <div class="login-body">
+        <div class="login-body row">
             <div class="col-xs-3 col-lg-3">
                 <div class="ad-tips">
                     <ol>
                         <li>点击"浏览"按钮，找到钱包备份文件所在的硬盘位置，并导入。</li>
                         <li>输入您在创建钱包时,设置的钱包密码。</li>
-                        <li>当前钱包页面为WED离线钱包页面，请放心导入钱包备份文件。（可通过断网验证）</li>
+                        <li>当前钱包页面为WED离线钱包页面，请放心导入钱包备份文件。</li>
                     </ol>
                 </div>
             </div>
@@ -32,7 +32,7 @@
                         <div class="input-group">
                             <input type="password" class="form-control pwd" v-model="password" placeholder="输入钱包密码">
                             <span v-if="password==''" style="display:inline-block;padding-left:10px;margin-top:5px;" class="error-text">
-                                
+
                               密码不能为空
                             </span>
                             <span v-else-if="password.length< 8" style="display:inline-block;padding-left:10px;margin-top:5px;" class="error-text">
@@ -45,7 +45,7 @@
                                 登 &nbsp &nbsp 录
                             </button>
                         </div>
-                        <div class="register text-right ">
+                        <div class="register text-center">
                             <router-link to="/creatWallet">没有钱包?立即创建!</router-link>
                         </div>
                     </form>
@@ -86,7 +86,7 @@ export default {
                 var result = doValidatePwd(privateKey, window.LJWallet['publicKey']);
                 if (result) {
                     window.LJWallet['privateKey'] = privateKey;
-                    //登录时效 
+                    //登录时效
                     setTimeout(function() {
                         window.LJWallet = null;
                     }, 1000 * 60 * 60);
@@ -96,7 +96,7 @@ export default {
                         message: '验证成功!',
                         type: 'success'
                     });
-                      
+
                       $("#header-a").text("我的钱包");
                     setTimeout(function() {
                         self.$router.push({
@@ -168,7 +168,7 @@ export default {
 
 
 
-// function: 
+// function:
 
 // 登录钱包
 function decrypt(enckey, pwd) {
@@ -243,7 +243,7 @@ function doValidatePwd(prvkey, pubkey) {
 }
 
 .register a:hover {
-    text-decoration: none;
+    color: #337ab7;
 }
 
 .h2 {
@@ -279,7 +279,6 @@ function doValidatePwd(prvkey, pubkey) {
 
 .tips {
     border-top: 1px solid #b1b1b1;
-    padding-top: 15px;
     width: 100%;
     color: #b1b1b1;
     bottom: 40px;
@@ -293,7 +292,6 @@ function doValidatePwd(prvkey, pubkey) {
 
 .register {
     color: #b1b1b1;
-    cursor: pointer;
     padding-right: 162px;
     padding-top: 15px;
 }

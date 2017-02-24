@@ -12,7 +12,7 @@
                         </ol>
                         <!-- 轮播（Carousel）项目 -->
                         <div class="carousel-inner">
-                            <img class="item active" src="../assets/slide1.png" alt="蓝鲸淘">
+                            <img class="item active" src="../assets/banner_1.png" alt="蓝鲸淘">
                             <img class="item " src="../assets/slide2.png" alt="蓝鲸淘">
                             <img class="item " src="../assets/slide3.png" alt="蓝鲸淘">
                         </div>

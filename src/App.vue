@@ -1,5 +1,5 @@
 <template>
-    <div class="pageDiv container" style="background-color:#fff">
+    <div class="pageDiv container" style="background-color:#fff;">
         <h>
         </h>
         <router-view></router-view>
@@ -26,7 +26,6 @@ export default {
 </script>
 <style>
 /*common css*/
-
 .error-text {
     color: red;
     margin: 0px;
@@ -78,9 +77,8 @@ a:hover {
 }
 
 .logo {
-    width: 1200px;
+    width: 100%;
     margin: 0 auto;
-    padding-left: 20px;
 }
 
 .logo>img {
@@ -131,6 +129,7 @@ ul>li>.menu {
 
 .container>div {
     height: 100%;
+    width: 100%;
 }
 
 .msg {

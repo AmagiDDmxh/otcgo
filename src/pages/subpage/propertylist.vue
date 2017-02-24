@@ -35,8 +35,9 @@
             <div class="col-xs-12">
                 <ul class="pagination pagePath  pull-right">
                     <li class="active"><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
+                    <!-- TODO: 每页展示7行信息（7行资产品类、7行挂单、7行成交记录等）。当用户的某菜单栏信息超过7行时，才出现这样的页面按钮。没有超过7行的，不用展示按钮（或只展示第一页）。 -->
+                    <!-- <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li> -->
                 </ul>
             </div>
         </div>
@@ -52,19 +53,21 @@
                     </div>
                     <div class="col-xs-3">
                         <span v-if="rechangeValue =='' " class="error-text">
-                    充值额度
+                            充值额度
                         </span>
                         <span v-else-if=" isNaN(parseInt(rechangeValue)) || parseInt(rechangeValue)< 100" class="error-text">
                              额度错误
                         </span>
-                        <span v-else> <img src="/src/assets/yes.png"/> 
+                        <span v-else> <img src="/src/assets/yes.png"/>
                         </span>
                     </div>
                 </div>
                 <div class="row" style="margin-top:10px;">
                     <div class="col-xs-3"></div>
                     <div class="col-xs-6">
-                        <button class=" btn btn-block ljbutton" @click="rechange">确认充值</button>
+                        <button
+                            class="btn btn-block ljbutton"
+                            @click="rechange">确认充值</button>
                     </div>
                 </div>
                 <div class="row  ">
@@ -81,16 +84,19 @@
                 <div class="row">
                     <div class="col-xs-10 col-xs-offset-1">
                         <p style="color:#717171">
-                            1.登录您的支付宝账户，选择“转账-转到支付宝账户” （建议使用手机支付宝账户转账）。
+                            1.本次充值金额为<span class="blue-span">{{ rechangeValue }}</span>元
                         </p>
                         <p style="color:#717171">
-                            2.将充值资金转至下方支付宝账户：支付宝账户：<span class="link-span">xxxxxxxx@qq.com </span>户名：蓝鲸兑网关
+                            2.登录您的支付宝账户，选择“转账-转到支付宝账户” （建议使用手机支付宝账户转账）。
                         </p>
                         <p style="color:#717171">
-                            3.在“添加备注”一栏，填写您的UID号（格式：<span class="link-span">UID：XXXX</span>）
+                            3.将充值资金转至下方支付宝账户：支付宝账户：<span class="blue-span">xxxxxxxx@qq.com  </span>户名：蓝鲸兑网关
+                        </p>
+                        <p style="color:#717171">
+                            4.在“添加备注”一栏，填写您的UID号（格式：<span class="blue-span">UID：XXXX</span>）
                         </p>
                         <p style="color:red">
-                            4.转账时，请正确填写转账金额（需与充值金额一致）；仔 细核对您的UID号码。否则将造成您的资金损失！
+                            5.转账时，请正确填写转账金额（需与充值金额一致）；仔细核对您的UID号码。否则将造成您的资金损失！
                         </p>
                         <div class="row">
                             <div class="col-xs-6 col-xs-offset-3">
@@ -104,14 +110,14 @@
             </div>
             <div v-else-if="rechangeState ==2">
                 <div class="row text-center">
-                    <span> <img src="/src/assets/yes.png"/> 
+                    <span> <img src="/src/assets/yes.png"/>
                         </span>
                     <p style="margin-top:5px;"><b>充值成功！</b></p>
                 </div>
                 <div class="row" style="margin-top:10px;">
                     <div class="col-xs-6 col-xs-offset-3">
                         <p style="color:#717171">
-                            充值金额将在30分钟内到达您的个人账户，否则请联系客户咨询！
+                            充值金额将在30分钟内到达您的个人账户，否则请联系客服咨询！
                         </p>
                     </div>
                 </div>
@@ -132,7 +138,7 @@
                         <span v-else-if="isNaN(parseInt(fetchValue)) || parseInt(fetchValue) < 5 " class="error-text">
                          额度错误
                         </span>
-                        <span v-else> <img src="/src/assets/yes.png"/> 
+                        <span v-else> <img src="/src/assets/yes.png"/>
                         </span>
                     </div>
                 </div>
@@ -147,10 +153,10 @@
                          输入账号
                         </span>
 
-                        <span v-else-if="isNaN(parseInt(alipay_account)) || alipay_account.length > 32 " class="error-text">
+                        <span v-else-if="!(/^0?(13[0-9]|15[012356789]|18[0123456789]|14[0123456789]|17[0123456789])[0-9]{8}$/.test(alipay_account)) || alipay_account.length > 32 " class="error-text">
                          账号错误
                         </span>
-                        <span v-else> <img src="/src/assets/yes.png"/> 
+                        <span v-else> <img src="/src/assets/yes.png"/>
                         </span>
                     </div>
                 </div>
@@ -168,7 +174,7 @@
                         <span v-else-if="alipay_account_name.length > 24 ||alipay_account_name==''  " class="error-text">
                          账号名错误
                         </span>
-                        <span v-else> <img src="/src/assets/yes.png"/> 
+                        <span v-else> <img src="/src/assets/yes.png"/>
                         </span>
                     </div>
                 </div>
@@ -181,7 +187,7 @@
                 <div class="dialog-shuoming">
                     <p>说明：</p>
                     <p>
-                        1.人民币提现费率0.2%。单笔最低提现费5元。
+                        1.人民币提现费率<span class="blue-span">0.2%</span>,&nbsp;单笔最低提现费<span class="blue-span">5元</span>。
                     </p>
                     <p> 2.目前只支持支付宝提现通道。</p>
                     <p style="color:red"> 3.请仔细核对您的支付宝账户和账户名信息，以免造成财产损失！</p>
@@ -191,14 +197,14 @@
             <div v-else-if="fetchState == 1">
                 <div class="row fetchState1">
                     <div class="col-xs-6 col-xs-offset-3">
-                        <p> 本次提现的额度: <span class="link-span"> {{confirmInfo.value}}</span></p>
-                        <p> 本次提现的费用: <span class="link-span"> {{confirmInfo.fee}}</span></p>
-                        <p> 我的支付宝账号: <span class="link-span"> {{confirmInfo.alipay_account_name}}</span></p>
-                        <p> 我的支付宝账号名: <span class="link-span">{{confirmInfo.alipay_account}}</span></p>
-                        <p> 本次扣除提现抵用卷<span class="link-span"> {{confirmInfo.fee_first_value}} 元</span> 人民币<span class="link-span">
+                        <p> 本次提现的额度: <span class="blue-span"> {{confirmInfo.value}}</span></p>
+                        <p> 本次提现的费用: <span class="blue-span"> {{confirmInfo.fee}}</span></p>
+                        <p> 我的支付宝账号: <span class="blue-span"> {{confirmInfo.alipay_account_name}}</span></p>
+                        <p> 我的支付宝账号名: <span class="blue-span">{{confirmInfo.alipay_account}}</span></p>
+                        <p> 本次扣除提现抵用卷<span class="blue-span"> {{confirmInfo.fee_first_value}} 元</span> 人民币<span class="blue-span">
                              {{confirmInfo.fee_cash}}元
                          </span></p>
-                        <p> 实到帐 <span class="link-span">{{confirmInfo.receive_value}}元</span>。
+                        <p> 实到帐 <span class="blue-span">{{confirmInfo.receive_value}}元</span>。
                         </p>
                         <div style="margin-top:10px">
                             <button class="btn btn-block ljbutton" @click="confirmfn">我已确认信息</button>
@@ -208,14 +214,14 @@
             </div>
             <div v-else>
                 <div class="row text-center">
-                    <span> <img src="/src/assets/yes.png"/> 
+                    <span> <img src="/src/assets/yes.png"/>
                         </span>
                     <p style="margin-top:5px;"><b>提现成功！</b></p>
                 </div>
                 <div class="row" style="margin-top:10px;">
                     <div class="col-xs-6 col-xs-offset-3">
                         <p style="color:#717171">
-                            提现金额将在30分钟内到达您的支付宝账户，否则请联系客户咨询！
+                            提现金额将在30分钟内到达您的支付宝账户，否则请联系客服咨询！
                         </p>
                     </div>
                 </div>
@@ -244,7 +250,7 @@
                         <span v-else-if="transfer_num ==''" class="error-text">
                           数量不能为空
                         </span>
-                        <span v-else> <img src="/src/assets/yes.png"/> 
+                        <span v-else> <img src="/src/assets/yes.png"/>
                         </span>
                     </div>
                 </div>
@@ -263,7 +269,7 @@
                         <span v-else-if="transfer_address_value.length!=34" class="error-text">
                           地址必须是34位
                         </span>
-                        <span v-else> <img src="/src/assets/yes.png"/> 
+                        <span v-else> <img src="/src/assets/yes.png"/>
                         </span>
                     </div>
                 </div>
@@ -335,7 +341,7 @@
                             <input type="text" class="form-control" v-model="sellPriceValue" style="width:100%!important" placeholder="输入价格" />
                         </div>
                         <div class="col-xs-3" style="line-height: 30px;">
-                            <span class="error-text" v-if=" sellPriceValue =='' || isNaN(parseInt(sellPriceValue))  ">数量错误</span>
+                            <span class="error-text" v-if=" sellPriceValue =='' || isNaN(parseInt(sellPriceValue))">数量错误</span>
                             <span v-else><img src="src/assets/yes.png"/></span>
                         </div>
                     </div>
@@ -698,6 +704,11 @@ export default {
                 }, (response) => {
                     self.$message.error('提现失败,请重试！' + response.data.non_field_errors);
                 });
+            },
+
+            // Check out the transfer value when keyup
+            checkOutKeyValue: function(transfer_num) {
+                return isNaN(parseInt(transfer_num))
             }
 
 
@@ -710,6 +721,10 @@ export default {
 };
 </script>
 <style lang="css">
+.blue-span {
+    color: #009cfd;
+}
+
 .tiny-dialog>div {
     width: 544px;
 }
@@ -755,7 +770,7 @@ export default {
 }
 
 .dialog-shuoming p {
-    color: #ccc;
+    color: #999;
     margin-bottom: 0px;
     margin-top: 5px;
 }
