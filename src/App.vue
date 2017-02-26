@@ -56,7 +56,7 @@ export default {
 /*common css*/
 
 #app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    font-family: 'Microsoft Yahei', 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
@@ -216,5 +216,7 @@ ul>li>.menu {
     background: #000;
     height: 135px!important;
     border-top: 5px solid #009cff;
+    margin: 0 -15px;
+    width: 1224px !important;
 }
 </style>

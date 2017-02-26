@@ -18,7 +18,12 @@
                         {{item.price*item.amount}}
                     </td>
                     <td style="width:260px">
-                        <button class="btn ljbutton" style="margin:0 auto" v-if="item.status==0" @click="cancel(item.id)">撤单</button>
+                        <button
+                                class="btn ljbutton"
+                                style="margin:0 auto"
+                                v-if="item.status==0"
+                                @click="cancel(item.id)"> 撤单
+                        </button>
                     </td>
                 </tr>
             </tbody>
@@ -64,11 +69,11 @@ export default {
                         emulateJSON: true
                     }).then((response) => {
                         // cancel succuss!
-                        console.log('cancel succuss!')
+                        // console.log('cancel succuss!')
                         var posdata2 = posdata1;
                         var signatrue1 = ljSign(window.LJWallet.privateKey, response.data.transaction);
                         posdata2.signature = signatrue1;
-                        self.$http.post('sign/', postData2, {
+                        self.$http.post('sign/', posdData2, {
                             emulateHTTP: true,
                             emulateJSON: true
                         }).then((response) => {

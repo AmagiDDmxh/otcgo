@@ -17,17 +17,33 @@
                         <ul class="nav nav-pills nav-stacked">
                             <li><a class="text-center title">菜&nbsp;&nbsp;&nbsp;单</a></li>
                             <li>
-                                <router-link class="text-center" :to="{ path: '/admin/propertylist'}"> 资产列表</router-link>
+                                <router-link
+                                        class="text-center"
+                                        :to="{ path: '/admin/propertylist'}"
+                                > 资产列表
+                                </router-link>
                             </li>
                             <li>
-                                <a class=" sub-li-title text-center" v-on:click="sub_li=!sub_li">我的委托单</a>
+                                <a class=" sub-li-title text-center" v-on:click="sub_li=!sub_li"> 我的委托单 </a>
                             </li>
                             <template v-if="sub_li">
                                 <li class="sub-li">
-                                    <router-link class="text-center" :to="{ path: '/admin/mybill', query: { type: 'buy' }}"> 我的买单</router-link>
+                                    <router-link
+                                            class="text-center"
+                                            :to="{
+                                            path: '/admin/mybill',
+                                            query: { type: 'buy' }
+                                        }"> 我的买单
+                                    </router-link>
                                 </li>
                                 <li class="sub-li">
-                                    <router-link class="text-center" :to="{ path: '/admin/mybill', query: { type: 'sell' }}"> 我的卖单</router-link>
+                                    <router-link
+                                            class="text-center"
+                                            :to="{
+                                            path: '/admin/mybill',
+                                            query: { type: 'sell' }
+                                        }"> 我的卖单
+                                    </router-link>
                                 </li>
                             </template>
                           <!--   <li>

@@ -9,13 +9,21 @@
             <div class="col-xs-3 col-lg-3">
                 <div class="ad-tips">
                     <div class="tips-title">交易指南</div>
-                    <div style="background-color:#f2f2f2;color:#928f8c;padding:20px 15px">
-                        <p style="margin-bottom:20px"> 请<router-link to="/login" target="_blank"> 登录个人钱包 </router-link>创建交易订单。</p>
+                    <div style="background-color:#f2f2f2; color:#928f8c; padding:20px 15px">
+                        <p style="margin-bottom:20px">
+                            请
+                            <router-link to="/login" target="_blank"> 登录个人钱包</router-link>
+                            创建交易订单。
+                        </p>
                         <p>
                             登录个人钱包后，点击“资产列表”
                         </p>
-                        <p>中该类资产的“交易”功能，</p>
-                        <p>完成订 单的创建。 </p>
+                        <p>
+                            中该类资产的“交易”功能，
+                        </p>
+                        <p>
+                            完成订 单的创建。
+                        </p>
                     </div>
                 </div>
             </div>
@@ -76,36 +84,38 @@ export default {
 
     data() {
             return {
-                buyList: [],
-                sellList: [],
+                buyList: [],  // 买单列表
+                sellList: [],  // 卖单列表
                 amountMax: 0,
                 name: ""
             }
         },
 
-        watch: {
-            '$route' (to, from) {
-                this.$route.query.class == 'anscny' ? this.name = '小蚁股' : this.name = '小蚁币'
-                this.get_rder_book(to.query.class);
+    watch: {
+        '$route' (to, from) {
+            this.$route.query.class == 'anscny' ? this.name = '小蚁股' : this.name = '小蚁币'
+            this.get_rder_book(to.query.class);
 
+        }
+    },
+
+    methods: {
+
+        get_rder_book: function (type) {
+            Array.prototype.max = function () {
+                return Math.max.apply({}, this)
             }
-        },
-
-        methods: {
-
-            get_rder_book: function(type) {
-                Array.prototype.max = function() {
-                    return Math.max.apply({}, this)
-                }
-                this.$http.get('order_book/' + type).then((response) => {
+            this.$http.get('order_book/' + type)
+                .then((response) => {
                     var buyname = ["买一", "买二", "买三", "买四", "买五", "买六", "买七", "买八", "买九", "买十"];
                     var sellname = ["卖十", "卖九", "卖八", "卖七", "卖六", "卖五", "卖四", "卖三", "卖二", "卖一"];
-                    var buydata = response.data.bids;
-                    var selldata = response.data.asks.reverse();
-                    for (var i = 0; i < 10; i++) {
-                        buydata[i].name = buyname[i];
-                        selldata[i].name = sellname[i]
-                    }
+                    var buydata = response.data.bids || buyname.map(name => {
+                            return {'name': name, 'amount': 0, 'price': 0}
+                        });
+                    var selldata = response.data.asks.reverse() || sellname.map(name => {
+                            return {name}
+                        });
+
                     this.buyList = buydata;
                     this.sellList = selldata;
 
@@ -118,21 +128,17 @@ export default {
                         amountArray.push(selldata[i]['amount']);
                     }
                     this.amountMax = amountArray.max();
-
-
                 }, (response) => {
                     this.$message.error('获取集市买(卖)单错误');
                     throw response;
                 });
-
-            }
-        },
-
-        mounted: function() {
-            this.$route.query.class == 'anscny' ? this.name = '小蚁股' : this.name = '小蚁币';
-            this.get_rder_book(this.$route.query.class);
-
         }
+    },
+
+    mounted: function () {
+        this.$route.query.class == 'anscny' ? this.name = '小蚁股' : this.name = '小蚁币';
+        this.get_rder_book(this.$route.query.class);
+    }
 
 }
 </script>

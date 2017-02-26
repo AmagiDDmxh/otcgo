@@ -6,16 +6,25 @@
 			</div>
 		</div>
 		<div class="login-body row">
-			<!-- tiao -->
+			<!-- Left side Warning: -->
 			<div class="col-xs-3 col-lg-3">
 				<div class="ad-tips">
 					<ol>
-						<li> 请输入不超过20个字符的账户名。（可包含中文、英文、下划线，但不能以下划线开头）</li>
-						<li> 请输入8～16位便于牢记的登陆密码。（字母、数字、特殊字符的组合）</li>
-						<li> 请重复输入登录密码。</li>
+						<li>
+							请输入不超过20个字符的账户名。（可包含中文、英文、下划线，但不能以下划线开头）
+						</li>
+						<li>
+							请输入8～16位便于牢记的登陆密码。（字母、数字、特殊字符的组合）
+						</li>
+						<li>
+							请重复输入登录密码。
+						</li>
 					</ol>
 				</div>
 			</div>
+			<!-- Warning End -->
+
+			<!-- SignUp account Interface: -->
 			<div class="content col-xs-9 col-lg-9">
 				<h3 class="h2">创建离线钱包</h3>
 				<div class="creatWallet-body" style="width:100%">
@@ -33,13 +42,18 @@
 							<span
 									class="error-text"
 									style="display:inline-block;margin-top:5px;"
-									v-if="username.length >=20"> 用户名不能超过20位 </span>
+									v-if="username.length >=20"
+							> 用户名不能超过20位 </span>
 
-							<span v-else-if="username==''"
-							      class="error-text"
-							      style="display:inline-block;margin-top:5px;"> 用户名不能为空</span>
+							<span
+									v-else-if="username==''"
+									class="error-text"
+									style="display:inline-block;margin-top:5px;"
+							> 用户名不能为空</span>
 
-							<span v-else> <img src="/src/assets/yes.png"/> </span>
+							<span v-else>
+								<img src="/src/assets/yes.png"/>
+							</span>
 						</div>
 					</div>
 
@@ -56,7 +70,8 @@
 							<span
 									class="error-text"
 									style="display:inline-block;margin-top:5px;"
-									v-show="falseWIFMessage">私钥验证错误请重试 </span>
+									v-show="falseWIFMessage"
+							> 私钥验证错误请重试 </span>
 						</div>
 					</div>
 					<!---->
@@ -66,36 +81,48 @@
 							<p class="text-right" style="line-height: 30px;">登录密码: </p>
 						</div>
 						<div class="col-xs-4">
-							<input type="password" class="form-control" v-model="password1" name="password1"/>
+							<input
+									type="password"
+									class="form-control"
+									v-model="password1"
+									name="password1"/>
 						</div>
 						<div class="col-xs-3" style="padding-left:0px;">
-							<span class="error-text" style="display:inline-block;margin-top:5px;"
-							      v-if="password1.length < 8 && password1.length >0">  密码不能小于8位 </span>
-							<span v-else-if="password1==''" class="error-text" style="display:inline-block;margin-top:5px;">
- 密码不能为空
-                             </span>
+							<span
+									class="error-text"
+									style="display:inline-block;margin-top:5px;"
+									v-if="password1.length < 8 && password1.length >0"> 密码不能小于8位 </span>
+							<span
+									v-else-if="password1==''"
+									class="error-text"
+									style="display:inline-block;margin-top:5px;"> 密码不能为空 </span>
 							<span v-else> <img src="/src/assets/yes.png"/> </span>
 						</div>
 					</div>
 					<div class="row" style="margin-top:10px">
 						<div class="col-xs-3">
-							<p class="text-right" style="line-height: 30px;">重复密码: </p>
+							<p class="text-right" style="line-height: 30px;"> 重复密码: </p>
 						</div>
 						<div class="col-xs-4">
-							<input type="password" class="form-control" v-model="password2" name="password2"/>
+							<input
+									type="password" class="form-control"
+									v-model="password2" name="password2"/>
 							<p v-show="passwordError" class="error-text">
-								{{passwordError}}
+								{{ passwordError }}
 							</p>
 						</div>
 						<div class="col-xs-3" style="padding-left:0px;">
-							<span class="error-text" style="display:inline-block;margin-top:5px;"
-							      v-if="password2.length < 8 && password1.length > 0">  密码不能小于8位 </span>
-							<span v-else-if="password2 != password1" class="error-text" style="display:inline-block;margin-top:5px;">
- 两次密码输入不一致
-                             </span>
-							<span v-else-if="password2==''" class="error-text" style="display:inline-block;margin-top:5px;">
- 密码不能为空
-                             </span>
+							<span
+									v-if="password2.length < 8 && password1.length > 0"
+									class="error-text" style="display:inline-block;margin-top:5px;"> 密码不能小于8位 </span>
+							<span
+									v-else-if="password2 != password1"
+									class="error-text"
+									style="display:inline-block;margin-top:5px;"> 两次密码输入不一致 </span>
+							<span
+									v-else-if="password2==''"
+									class="error-text"
+									style="display:inline-block;margin-top:5px;"> 密码不能为空 </span>
 							<span v-else> <img src="/src/assets/yes.png"/> </span>
 						</div>
 					</div>
@@ -123,12 +150,12 @@
 	export default {
 		data() {
 			return {
-				username     : "",
-				password1    : "",
-				password2    : "",
-				filename     : "",
-				passwordError: "",
-				wif          : "",
+                username: "",  // 用户名
+                password1: "",  // 密码框 1
+                password2: "",  // 密码框 2
+                filename: "",  // 文件名
+                passwordError: "",  //
+                wif: "",  // 私钥
 				falseWIFMessage   : false
 			}
 		},
@@ -147,7 +174,7 @@
 						var publicKey = ljWifkeyToPubkey(this.wif);
 						var privateKey = ljWifkeyToHexkey(this.wif);
 					} else {
-						this.falseWIFMessage = true;
+                        this.falseWIFMessage = !this.falseWIFMessage;
 						return;
 					}
 				} else {

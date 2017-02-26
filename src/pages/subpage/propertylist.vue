@@ -49,17 +49,18 @@
                 <div class="row ">
                     <span class="col-xs-3" style="margin-top:8px">人民币充值:</span>
                     <div class="col-xs-6">
-                        <input type="text" class="form-control" placeholder="请输入充值金额" v-model="rechangeValue" style="width:100%!important">
+                        <input
+                                type="text" class="form-control" placeholder="请输入充值金额"
+                                v-model="rechangeValue" style="width:100%!important">
                     </div>
                     <div class="col-xs-3">
-                        <span v-if="rechangeValue =='' " class="error-text">
-                            充值额度
-                        </span>
-                        <span v-else-if=" isNaN(parseInt(rechangeValue)) || parseInt(rechangeValue)< 100" class="error-text">
-                             额度错误
-                        </span>
-                        <span v-else> <img src="/src/assets/yes.png"/>
-                        </span>
+                        <span
+                                v-if="rechangeValue =='' " class="error-text"
+                        >充值额度</span>
+                        <span
+                                v-else-if=" isNaN(parseInt(rechangeValue)) || parseInt(rechangeValue)< 100"
+                                class="error-text">额度错误</span>
+                        <span v-else> <img src="/src/assets/yes.png"/> </span>
                     </div>
                 </div>
                 <div class="row" style="margin-top:10px;">
@@ -80,7 +81,7 @@
                     </div>
                 </div>
             </div>
-            <div v-else-if="rechangeState ==1">
+            <div v-else-if="rechangeState == 1">
                 <div class="row">
                     <div class="col-xs-10 col-xs-offset-1">
                         <p style="color:#717171">
@@ -135,47 +136,53 @@
                         <span v-if="fetchValue==''" class="error-text">
                         提现金额
                     </span>
-                        <span v-else-if="isNaN(parseInt(fetchValue)) || parseInt(fetchValue) < 5 " class="error-text">
-                         额度错误
-                        </span>
-                        <span v-else> <img src="/src/assets/yes.png"/>
-                        </span>
+                        <span
+                                v-else-if="isNaN(parseInt(fetchValue)) || parseInt(fetchValue) < 5 "
+                                class="error-text"
+                        > 额度错误 </span>
+                        <span v-else> <img src="/src/assets/yes.png"/> </span>
                     </div>
                 </div>
                 <div class="row " style="margin-top:10px">
                     <span class="col-xs-3" style="margin-top:8px">支付宝账号:</span>
                     <div class="col-xs-6">
-                        <input type="text" class="form-control" placeholder="请输入您的支付宝账户地址" v-model="alipay_account" style="width:100%!important">
+                        <input
+                                type="text" class="form-control" placeholder="请输入您的支付宝账户地址"
+                                v-model="alipay_account" style="width:100%!important">
                     </div>
                     <div class="col-xs-3">
+                        <span
+                                v-if="alipay_account==''"
+                                class="error-text"
+                        > 输入账号 </span>
 
-                     <span v-if="alipay_account==''" class="error-text">
-                         输入账号
-                        </span>
-
-                        <span v-else-if="!(/^0?(13[0-9]|15[012356789]|18[0123456789]|14[0123456789]|17[0123456789])[0-9]{8}$/.test(alipay_account)) || alipay_account.length > 32 " class="error-text">
-                         账号错误
-                        </span>
-                        <span v-else> <img src="/src/assets/yes.png"/>
-                        </span>
+                        <span
+                                v-else-if="!(/^0?(13[0-9]|15[012356789]|18[0123456789]|14[0123456789]|17[0123456789])[0-9]{8}$/.test(alipay_account))
+                            || alipay_account.length > 32 "
+                                class="error-text"
+                        > 账号错误 </span>
+                        <span v-else> <img src="/src/assets/yes.png"/> </span>
                     </div>
                 </div>
                 <div class="row " style="margin-top:10px">
                     <span class="col-xs-3" style="margin-top:8px">账号名:</span>
                     <div class="col-xs-6">
-                        <input type="text" class="form-control" placeholder="请输入您的支付宝账户名" v-model="alipay_account_name" style="width:100%!important">
+                        <input
+                                type="text" class="form-control" placeholder="请输入您的支付宝账户名"
+                                v-model="alipay_account_name" style="width:100%!important">
                     </div>
                     <div class="col-xs-3">
 
-                       <span v-if="alipay_account_name==''" class="error-text">
-                         输入账号名
-                        </span>
+                        <span
+                                v-if="alipay_account_name==''"
+                                class="error-text"
+                        > 输入账号名 </span>
 
-                        <span v-else-if="alipay_account_name.length > 24 ||alipay_account_name==''  " class="error-text">
-                         账号名错误
-                        </span>
-                        <span v-else> <img src="/src/assets/yes.png"/>
-                        </span>
+                        <span
+                                v-else-if="alipay_account_name.length > 24 || alipay_account_name==''  "
+                                class="error-text"
+                        > 账号名错误 </span>
+                        <span v-else> <img src="/src/assets/yes.png"/> </span>
                     </div>
                 </div>
                 <div class="row" style="margin-top:10px;">
@@ -232,45 +239,52 @@
             <div style="padding-left:10px;padding-right:20px">
                 <div class="row">
                     <div class="col-xs-6">
-                        <b>资产类型:{{transfer_name }}</b>
+                        <b>资产类型:{{ transfer_name }}</b>
                     </div>
                     <div class="col-xs-6 text-right">
-                        <b>可用数量:{{transfer_valid}}</b>
+                        <b>可用数量:{{ transfer_valid }}</b>
                     </div>
                 </div>
                 <div class="row" style="margin-top:20px">
                     <span class="col-xs-3" style="margin-top:8px">转账数量:</span>
                     <div class="col-xs-6">
-                        <input type="text" class="form-control" v-model="transfer_num" style="width:100%!important">
+                        <input
+                                type="text" class="form-control"
+                                v-model="transfer_num" style="width:100%!important">
                     </div>
                     <div class="col-xs-3">
-                        <span v-if="isNaN(parseInt(transfer_num))" class="error-text">
-                         数量错误
-                        </span>
-                        <span v-else-if="transfer_num ==''" class="error-text">
-                          数量不能为空
-                        </span>
-                        <span v-else> <img src="/src/assets/yes.png"/>
-                        </span>
+                        <span
+                                v-if="isNaN(parseInt(transfer_num))"
+                                class="error-text"
+                        > 数量错误 </span>
+                        <span
+                                v-else-if="transfer_num ==''"
+                                class="error-text"
+                        > 数量不能为空 </span>
+                        <span v-else> <img src="/src/assets/yes.png"/> </span>
                     </div>
                 </div>
                 <div class="row" style="margin-top:20px">
                     <span class="col-xs-3" style="margin-top:8px">转账地址:</span>
                     <div class="col-xs-6">
-                        <input type="text" class="form-control" v-model="transfer_address_value" style="width:100%!important">
+                        <input
+                                type="text" class="form-control"
+                                v-model="transfer_address_value" style="width:100%!important">
                     </div>
                     <div class="col-xs-3">
-                        <span v-if="transfer_address_value[0]!='a' && transfer_address_value[0]!='A' " class="error-text">
-                         地址格式错误
-                        </span>
-                        <span v-else-if="transfer_address_value ==''" class="error-text">
-                          地址不能为空
-                        </span>
-                        <span v-else-if="transfer_address_value.length!=34" class="error-text">
-                          地址必须是34位
-                        </span>
-                        <span v-else> <img src="/src/assets/yes.png"/>
-                        </span>
+                        <span
+                                v-if="transfer_address_value[0]!='a' && transfer_address_value[0]!='A' "
+                                class="error-text"
+                        > 地址格式错误 </span>
+                        <span
+                                v-else-if="transfer_address_value ==''"
+                                class="error-text"
+                        > 地址不能为空 </span>
+                        <span
+                                v-else-if="transfer_address_value.length!=34"
+                                class="error-text"
+                        > 地址必须是34位 </span>
+                        <span v-else> <img src="/src/assets/yes.png"/> </span>
                     </div>
                 </div>
                 <div class="row" style="margin-top:20px;">
@@ -281,7 +295,8 @@
                 </div>
             </div>
         </el-dialog>
-        <!-- 交易-->
+
+        <!-- 交易 -->
         <el-dialog v-model="dialogTransaction" id="dialogTransaction">
             <div class="row">
                 <div class="col-xs-2">小蚁币：</div>
@@ -300,21 +315,31 @@
                     <div class="row">
                         <div class="col-xs-3" style="line-height: 30px;">买入量：</div>
                         <div class="col-xs-6">
-                            <input type="text" class="form-control" v-model.number="buyNumValue" style="width:100%!important" placeholder="输入数量" />
+                            <input
+                                    type="text" class="form-control" placeholder="输入数量"
+                                    v-model.number="buyNumValue" style="width:100%!important"/>
                         </div>
                         <div class="col-xs-3" style="line-height: 30px;">
-                            <span class="error-text" v-if=" buyNumValue =='' || isNaN(parseInt(buyNumValue))  ">数量错误</span>
-                            <span v-else><img src="src/assets/yes.png"/></span>
+                            <span
+                                    class="error-text"
+                                    v-if=" buyNumValue =='' || isNaN(parseInt(buyNumValue))  "
+                            >数量错误</span>
+                            <span v-else> <img src="src/assets/yes.png"/> </span>
                         </div>
                     </div>
                     <div class="row" style="margin-top:10px">
                         <div class="col-xs-3" style="line-height: 30px;">买入价：</div>
                         <div class="col-xs-6">
-                            <input type="text" class="form-control" v-model="buyPriceValue" style="width:100%!important" placeholder="输入价格" />
+                            <input
+                                    type="text" class="form-control" placeholder="输入价格"
+                                    v-model="buyPriceValue" style="width:100%!important"/>
                         </div>
                         <div class="col-xs-3" style="line-height: 30px;">
-                            <span class="error-text" v-if=" buyPriceValue =='' || isNaN(parseInt(buyPriceValue))  ">数量错误</span>
-                            <span v-else><img src="src/assets/yes.png"/></span>
+                            <span
+                                    class="error-text"
+                                    v-if=" buyPriceValue =='' || isNaN(parseInt(buyPriceValue))  "
+                            >数量错误</span>
+                            <span v-else> <img src="src/assets/yes.png"/> </span>
                         </div>
                     </div>
                     <div class="row" style="margin-top:10px">
@@ -328,21 +353,31 @@
                     <div class="row">
                         <div class="col-xs-3" style="line-height: 30px;">卖出量：</div>
                         <div class="col-xs-6">
-                            <input type="text" class="form-control" v-model="sellNumValue" style="width:100%!important" placeholder="输入数量" />
+                            <input
+                                    type="text" class="form-control" placeholder="输入数量"
+                                    v-model="sellNumValue" style="width:100%!important"/>
                         </div>
                         <div class="col-xs-3" style="line-height:30px;">
-                            <span class="error-text" v-if=" sellNumValue =='' || isNaN(parseInt(sellNumValue))  ">数量错误</span>
-                            <span v-else><img src="src/assets/yes.png"/></span>
+                            <span
+                                    class="error-text"
+                                    v-if=" sellNumValue =='' || isNaN(parseInt(sellNumValue))  "
+                            >数量错误</span>
+                            <span v-else> <img src="src/assets/yes.png"/> </span>
                         </div>
                     </div>
                     <div class="row" style="margin-top:10px">
                         <div class="col-xs-3" style="line-height: 30px;">卖出价：</div>
                         <div class="col-xs-6">
-                            <input type="text" class="form-control" v-model="sellPriceValue" style="width:100%!important" placeholder="输入价格" />
+                            <input
+                                    type="text" class="form-control"
+                                    v-model="sellPriceValue" style="width:100%!important" placeholder="输入价格"/>
                         </div>
                         <div class="col-xs-3" style="line-height: 30px;">
-                            <span class="error-text" v-if=" sellPriceValue =='' || isNaN(parseInt(sellPriceValue))">数量错误</span>
-                            <span v-else><img src="src/assets/yes.png"/></span>
+                            <span
+                                    class="error-text"
+                                    v-if=" sellPriceValue =='' || isNaN(parseInt(sellPriceValue))"
+                            >数量错误</span>
+                            <span v-else> <img src="src/assets/yes.png"/> </span>
                         </div>
                     </div>
                     <div class="row" style="margin-top:10px">
@@ -402,7 +437,7 @@ export default {
                     fullscreen: true,
                     text: "正在获取资产列表..."
                 });
-                this.$http.get('balances/' + window.LJWallet.address).then((response) => {
+                this.$http.get('balances/' + window.LJWallet.address + '/').then((response) => {
                     this.balances = response.data.balances;
                     this.valueassetid = response.data.balances[0].asset;
                     loading.close();

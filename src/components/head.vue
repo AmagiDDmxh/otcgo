@@ -8,10 +8,18 @@
             <div class="logo-right">
                 <ul>
                     <li class="border">
-                        <router-link to="/login" id="header-a" class="header-a">{{loginText}}</router-link>
+                        <router-link v-if="!creationText" to="/login" id="header-a" class="header-a" target="_blank">{{
+                            loginText }}
+                        </router-link>
+                        <router-link v-else-if="creationText" to="/login" id="header-a" class="header-a">{{ loginText
+                            }}
+                        </router-link>
                     </li>
                     <li>
-                        <router-link to="/creatWallet" target="_blank" class="header-a">创建钱包</router-link>
+                        <router-link v-if="!creationText" to="/creatWallet" target="_blank" class="header-a">创建钱包
+                        </router-link>
+                        <a v-else to="/creatWallet" class="header-a" style="text-decoration: none; color: #7c7c7c">{{
+                            creationText }}</a>
                     </li>
                 </ul>
             </div>
@@ -24,26 +32,37 @@
                                    分类资产
                                     <ul class="menulist">
                                         <li>
-                                           <router-link class="text-center" :to="{ path: '/bazaar', query: { 'class': 'anscny' }}">
-
-                                           小蚁股</router-link>
+                                            <router-link
+                                                    class="text-center"
+                                                    :to="{
+                                                    path: '/bazaar',
+                                                    query: { 'class': 'anscny' }
+                                                }"> 小蚁股
+                                            </router-link>
                                         </li>
                                         <li>
-                                         <router-link class="text-center" :to="{ path: '/bazaar', query: { 'class': 'anccny' }}"> 小蚁币</router-link>
-
+                                            <router-link
+                                                    class="text-center"
+                                                    :to="{
+                                                    path: '/bazaar',
+                                                    query: { 'class': 'anccny' }
+                                                }"> 小蚁币
+                                            </router-link>
                                          </li>
                                         <!-- <li><router-link>开拍币</router-link></li> -->
                                     </ul>
                                 </a>
                 </li>
                 <li>
-                    <router-link class="menu active" to="/">首 &nbsp 页</router-link>
+                    <router-link class="menu active" to="/">首 &nbsp; 页</router-link>
                 </li>
                 <li>
                     <a class="menu" href="http://antchain.xyz/" target="_blank">区块浏览</a>
                 </li>
                 <li>
-                    <a class="menu" href="//shang.qq.com/wpa/qunwpa?idkey=24250f89f770858cb6e518fae271a588f847f8bfdc2e604a1ef40dea20b9beae">加入Q群</a>
+                    <a class="menu"
+                       href="//shang.qq.com/wpa/qunwpa?idkey=24250f89f770858cb6e518fae271a588f847f8bfdc2e604a1ef40dea20b9beae"
+                       target="_blank">加入Q群</a>
                 </li>
             </ul>
             <form class="navbar-form navbar-left" role="search">
@@ -64,13 +83,22 @@ export default {
         return {
             msg: '基于智能合约的数字资产交易平台',
 
-            loginText: "登录钱包"
+            loginText: "登录钱包",
+
+            creationText: "",
+
+            UID: ''
         }
     },
 
     mounted: function() {
         if (window.LJWallet) {
-            loginText: "我的钱包"
+            this.loginText = "我的钱包";
+            this.creationText = "我的UID：" + this.UID;
+            this.$http.get('uid/' + window.LJWallet.address).then((response) => {
+                window.LJWallet.UID = response.data.uid;
+                this.UID = response.data.uid;
+            })
         }
     }
 }

@@ -34,6 +34,7 @@
                 </div>
             </div>
         </div>
+        <hr class="cut-line"/>
         <div class="row">
             <div class="col-lg-12 col-md-12">
                 <div class="row about">
@@ -89,10 +90,17 @@ export default {}
 <style lang="css">
 #footer {
     background-color: #F4F4F4;
-    margin-top: 25px
+    margin: 25px -15px 0;
+    width: 1224px;
 }
 .footer-top{
-  padding: 40px 20px;
+    padding: 80px;
+}
+
+.cut-line {
+    margin: 0 auto;
+    border-color: #e9e9e9;
+    width: 95%;
 }
 .bg-blue {
     background-color: #009cff;
