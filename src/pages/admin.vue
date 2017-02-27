@@ -19,7 +19,7 @@
                             <li>
                                 <router-link
                                         class="text-center"
-                                        :to="{ path: '/admin/propertylist'}"
+                                        :to="{ path: '/admin/balances'}"
                                 > 资产列表
                                 </router-link>
                             </li>
@@ -31,7 +31,7 @@
                                     <router-link
                                             class="text-center"
                                             :to="{
-                                            path: '/admin/mybill',
+                                            path: '/admin/order',
                                             query: { type: 'buy' }
                                         }"> 我的买单
                                     </router-link>
@@ -40,7 +40,7 @@
                                     <router-link
                                             class="text-center"
                                             :to="{
-                                            path: '/admin/mybill',
+                                            path: '/admin/order',
                                             query: { type: 'sell' }
                                         }"> 我的卖单
                                     </router-link>
@@ -50,7 +50,11 @@
                                 <router-link class="text-center" :to="{ path: '/admin/obligation'}"> 代付款</router-link>
                             </li> -->
                             <li>
-                                <router-link class="text-center" :to="{ path: '/admin/user'}"> 个人中心</router-link>
+                                <router-link class="text-center" :to="{path: '/admin/redeem'}">已完成订单</router-link>
+                            </li>
+
+                            <li>
+                                <router-link class="text-center" :to="{ path: '/admin/uid'}"> 个人中心</router-link>
                             </li>
                         </ul>
                     </div>

@@ -5,10 +5,11 @@ import wallet from '../pages/wallet.vue'
 import bazaar from '../pages/bazaar.vue'
 
 import admin from '../pages/admin.vue'
-import propertylist from '../pages/subpage/propertylist.vue';
+import balances from '../pages/subpage/balances.vue';
 import obligation from '../pages/subpage/obligation.vue';
-import mybill from '../pages/subpage/mybill.vue';
-import user from '../pages/subpage/user.vue';
+import redeem from '../pages/subpage/redeem.vue';
+import order from '../pages/subpage/order.vue';
+import uid from '../pages/subpage/uid.vue';
 
 
 const routes = [{
@@ -24,32 +25,43 @@ const routes = [{
     path: '/admin',
     component: admin,
     children: [{
-        path: "user",
-        component: user,
+        path: "uid",
+        component: uid,
         beforeEnter: (to, from, next) => {
             if (!window.LJWallet) {
-                next({ path: '/login' })
+                next({path: '/login'});
                 return;
             };
             next();
         }
     }, {
-        path: "propertylist",
-        component: propertylist,
+        path: "redeem",
+        component: redeem,
         beforeEnter: (to, from, next) => {
             if (!window.LJWallet) {
-                next({ path: '/login' })
+                next({path: '/login'});
                 return;
-            };
+            }
+            next();
+        }
+    }, {
+        path: "balances",
+        component: balances,
+        beforeEnter: (to, from, next) => {
+            if (!window.LJWallet) {
+                next({path: '/login'});
+                return;
+            }
+            ;
             next();
         }
 
     }, {
-        path: "mybill",
-        component: mybill,
+        path: "order",
+        component: order,
         beforeEnter: (to, from, next) => {
             if (!window.LJWallet) {
-                next({ path: '/login' })
+                next({path: '/login'});
                 return;
             };
             next();
@@ -66,7 +78,7 @@ const routes = [{
         }
     }, */{
         path: "",
-        component: propertylist,
+        component: balances,
         beforeEnter: (to, from, next) => {
             if (!window.LJWallet) {
                 next({ path: '/login' })

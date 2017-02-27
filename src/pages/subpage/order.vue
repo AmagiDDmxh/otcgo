@@ -46,8 +46,8 @@ export default {
         },
         methods: {
             getorders: function() {
-                this.$http.get('order/' + window.LJWallet.address).then((response) => {
-                    this.type == 'buy' ? this.listData = response.data.bids : this.listData = response.data.asks;
+                this.$http.get(`order/${window.LJWallet.address}/`).then((response) => {
+                    this.listData = this.type == 'buy' ? response.data.bids : response.data.asks;
                 }, (response) => {
                     console.log(response);
                 })
@@ -57,23 +57,23 @@ export default {
                 var loading = self.$loading({
                     fullscreen: true
                 });
-                var posdata1 = {};
-                posdata1.id = id;
-
                 self.$http.get('nonce/').then((response) => {
+                    var posdata1 = {};
+                    posdata1.id = id;
                     posdata1.nonce = response.data.nonce;
                     var signature0 = ljSign(window.LJWallet.privateKey, response.data.nonce);
                     posdata1.signature = signature0;
+
                     self.$http.post('cancel/', posdata1, {
                         emulateHTTP: true,
                         emulateJSON: true
                     }).then((response) => {
                         // cancel succuss!
-                        // console.log('cancel succuss!')
+                        console.log('cancel succuss!')
                         var posdata2 = posdata1;
                         var signatrue1 = ljSign(window.LJWallet.privateKey, response.data.transaction);
                         posdata2.signature = signatrue1;
-                        self.$http.post('sign/', posdData2, {
+                        self.$http.post('sign/', posdata2, {
                             emulateHTTP: true,
                             emulateJSON: true
                         }).then((response) => {
@@ -86,10 +86,10 @@ export default {
                             self.$message.error('撤单失败,请重试');
                         });
 
-                    }, (response) => {
-                        console.log('cancel', response)
+                    }, (error) => {
+                        console.log('cancel', error)
                         loading.close();
-                        self.$message.error('撤单失败,请重试 : ' + response.data.error);
+                        self.$message.error('撤单失败,请重试 : ' + error);
                     })
 
                 }); //nonce

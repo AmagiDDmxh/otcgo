@@ -24,7 +24,11 @@
                         </span>
                             <span style="font-size:12px"> 结算成功！几秒后可在资产列表中查询。</span>
                         </div>
-                        <button v-if="settled == 0" class="btn ljbutton" v-on:click="settleAccounts">结算</button>
+                        <button
+                                v-if="settled == 0"
+                                class="btn ljbutton"
+                                v-on:click="settleAccounts">结算
+                        </button>
                         <!-- -1-->
                         <div v-if="settled == -1">
                             <button class="btn ljbutton" v-on:click="settleAccounts">结算</button>
@@ -40,7 +44,6 @@
 export default {
 
     data() {
-
             return {
                 settled: -1
             }

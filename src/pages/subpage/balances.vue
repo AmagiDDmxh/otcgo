@@ -437,6 +437,7 @@ export default {
                     fullscreen: true,
                     text: "正在获取资产列表..."
                 });
+                this.$http.head
                 this.$http.get('balances/' + window.LJWallet.address + '/').then((response) => {
                     this.balances = response.data.balances;
                     this.valueassetid = response.data.balances[0].asset;

@@ -65,7 +65,7 @@
                             <td> {{ item.amount }}</td>
                             <td>{{ item.price }}</td>
                             <td>
-                                {{ (item.amount * item.price).toFixed(4) }}
+                                {{ (item.amount * item.price).toFixed(4) || '' }}
                             </td>
                             <td class="amount-tb-bar" style="width:200px;">
                                 <div class=" amount-bar amount-bar-buy" v-bind:style="{width: (item.amount/ amountMax)*100+ '%'}"></div>
@@ -104,28 +104,39 @@ export default {
         get_rder_book: function (type) {
             Array.prototype.max = function () {
                 return Math.max.apply({}, this)
-            }
-            this.$http.get('order_book/' + type)
+            };
+
+
+            this.$http.get('order_book/' + type + '/')
                 .then((response) => {
                     var buyname = ["买一", "买二", "买三", "买四", "买五", "买六", "买七", "买八", "买九", "买十"];
                     var sellname = ["卖十", "卖九", "卖八", "卖七", "卖六", "卖五", "卖四", "卖三", "卖二", "卖一"];
-                    var buydata = response.data.bids || buyname.map(name => {
-                            return {'name': name, 'amount': 0, 'price': 0}
-                        });
-                    var selldata = response.data.asks.reverse() || sellname.map(name => {
-                            return {name}
-                        });
+                    buyname.map((name, index) => {
+                        this.buyList[index] = {name}
+                    });
+                    sellname.map((name, index) => {
+                        this.sellList[index] = {name}
+                    });
 
-                    this.buyList = buydata;
-                    this.sellList = selldata;
+                    this.buyList.map(function (obj, index) {
+                        var sort = response.data.bids.sort((cur, pre) => cur.price < pre.price ? 1 : -1);
+                        obj.amount = typeof sort[index] == 'undefined' ? '' : sort[index].amount;
+                        obj.price = typeof sort[index] == 'undefined' ? '' : sort[index].price;
+                    });
+
+                    this.sellList.map(function (obj, index) {
+                        var sort = response.data.asks.sort((cur, pre) => cur.price < pre.price ? 1 : -1);
+                        obj.amount = typeof sort[index] == 'undefined' ? '' : sort[index].amount;
+                        obj.price = typeof sort[index] == 'undefined' ? '' : sort[index].price;
+                    });
 
                     // 取两个数组的最大
                     var amountArray = [];
-                    for (var i = 0; i < buydata.length; i++) {
-                        amountArray.push(buydata[i]['amount']);
+                    for (var i = 0; i < this.buyList.length; i++) {
+                        amountArray.push(this.buyList[i]['amount']);
                     }
-                    for (var i = 0; i < selldata.length; i++) {
-                        amountArray.push(selldata[i]['amount']);
+                    for (var i = 0; i < this.sellList.length; i++) {
+                        amountArray.push(this.sellList[i]['amount']);
                     }
                     this.amountMax = amountArray.max();
                 }, (response) => {

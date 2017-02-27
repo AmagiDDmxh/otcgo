@@ -18,7 +18,7 @@ export default {
         },
 
     mounted: function () {
-        this.$http.get('uid/' + window.LJWallet.address).then((response) => {
+        this.$http.get('uid/' + window.LJWallet.address + '/').then((response) => {
             window.LJWallet.UID = response.data.uid;
             this.UID = response.data.uid;
         })

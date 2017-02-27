@@ -252,11 +252,11 @@
 	function download(text, name, type) {
 		var file = new Blob([text], {
 			type: type
-		})
+        });
 		var aLink = document.createElement('a');
-		aLink.href = URL.createObjectURL(file)
+        aLink.href = URL.createObjectURL(file);
 		aLink.download = name;
-		aLink.click()
+        aLink.click();
 	}
 </script>
 <style lang="css">
