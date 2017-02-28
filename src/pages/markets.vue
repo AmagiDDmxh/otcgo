@@ -114,17 +114,17 @@ export default {
                     buyname.map((name, index) => {
                         this.buyList[index] = {name}
                     });
-                    sellname.map((name, index) => {
+                    sellname.reverse().map((name, index) => {
                         this.sellList[index] = {name}
                     });
 
-                    this.buyList.map(function (obj, index) {
+                    this.buyList.map(function (obj, home) {
                         var sort = response.data.bids.sort((cur, pre) => cur.price < pre.price ? 1 : -1);
                         obj.amount = typeof sort[index] == 'undefined' ? '' : sort[index].amount;
                         obj.price = typeof sort[index] == 'undefined' ? '' : sort[index].price;
                     });
 
-                    this.sellList.map(function (obj, index) {
+                    this.sellList.map(function (obj, home) {
                         var sort = response.data.asks.sort((cur, pre) => cur.price < pre.price ? 1 : -1);
                         obj.amount = typeof sort[index] == 'undefined' ? '' : sort[index].amount;
                         obj.price = typeof sort[index] == 'undefined' ? '' : sort[index].price;
@@ -147,7 +147,7 @@ export default {
     },
 
     mounted: function () {
-        this.$route.query.class == 'anscny' ? this.name = '小蚁股' : this.name = '小蚁币';
+        this.name = this.$route.query.class == 'anscny' ? '小蚁股' : '小蚁币';
         this.get_rder_book(this.$route.query.class);
     }
 

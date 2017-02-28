@@ -35,7 +35,7 @@
                     </a>
                 </div>
                 <div class="col-xs-6 col-lg-6">
-                    <router-link class="text-center" :to="{ path: '/bazaar', query: { 'class': 'anscny' }}">
+                    <router-link class="text-center" :to="{ path: '/markets', query: { 'class': 'anscny' }}">
                         <span></span>
                         <img src="../assets/images/content_05.png" alt="">
                     </router-link>
@@ -44,7 +44,7 @@
             <div class="row content-2">
                 <p></p>
                 <div class="col-xs-6 col-lg-6">
-                    <router-link class="text-center" :to="{ path: '/bazaar', query: { 'class': 'anccny' }}">
+                    <router-link class="text-center" :to="{ path: '/markets', query: { 'class': 'anccny' }}">
                         <span></span>
                         <img src="../assets/images/content_09.png" alt=""></router-link>
                 </div>

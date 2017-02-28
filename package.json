@@ -18,7 +18,8 @@
     "vue-axios": "^1.2.2",
     "vue-resource": "^1.1.2",
     "vue-router": "^2.2.0",
-    "vue-validator": "^3.0.0-alpha.2"
+    "vue-validator": "^3.0.0-alpha.2",
+    "vuex": "^2.2.1"
   },
   "devDependencies": {
     "babel-core": "^6.0.0",

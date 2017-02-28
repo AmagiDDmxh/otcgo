@@ -1,26 +1,28 @@
 import login from '../pages/login.vue'
-import index from '../pages/index.vue'
+import home from '../pages/home.vue'
 import creatWallet from '../pages/creatWallet.vue'
 import wallet from '../pages/wallet.vue'
-import bazaar from '../pages/bazaar.vue'
+import markets from '../pages/markets.vue'
+
+// This page is been canceled;
+import obligation from '../pages/subpage/obligation.vue';
 
 import admin from '../pages/admin.vue'
 import balances from '../pages/subpage/balances.vue';
-import obligation from '../pages/subpage/obligation.vue';
 import redeem from '../pages/subpage/redeem.vue';
 import order from '../pages/subpage/order.vue';
 import uid from '../pages/subpage/uid.vue';
 
 
 const routes = [{
-    path: '/index',
-    component: index
+    path: '/home',
+    component: home
 }, {
     path: '/login',
     component: login
 }, {
     path: '/',
-    component: index
+    component: home
 }, {
     path: '/admin',
     component: admin,
@@ -94,8 +96,8 @@ const routes = [{
     path: '/wallet',
     component: wallet
 }, {
-    path: '/bazaar',
-    component: bazaar
+    path: '/markets',
+    component: markets
 }]
 
 
