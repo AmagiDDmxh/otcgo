@@ -8,7 +8,7 @@ import uid from '../pages/subpage/uid.vue';
 
 
 const routes = [{
-    path: '/betaHome',
+    path: '/home',
     component: betaHome
 }, {
     path: '/login',

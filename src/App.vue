@@ -10,20 +10,12 @@
     </div>-->
 </template>
 <script>
-import h from './components/head.vue'
-import foot from './components/footer.vue'
 export default {
     data() {
         return {
-            msg: '基于智能合约的数字资产OTC平台',
-            LJWallet: false
         }
     },
-    mounted: {},
-    components: {
-        h,
-        foot
-    }
+    mounted: {}
 }
 </script>
 <style>

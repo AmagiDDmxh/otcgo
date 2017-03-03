@@ -50,7 +50,7 @@ module.exports = {
         noInfo: true,
         proxy: {
             '/api/*': {
-                target: 'http://otcgo.cn/',
+                target: 'https://otcgo.cn/',
                 secure: false,
                 changeOrigin: true
             }
