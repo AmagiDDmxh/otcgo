@@ -46,7 +46,7 @@ const routes = [{
         component: balances,
         beforeEnter: (to, from, next) => {
             if (!window.LJWallet) {
-                next({path: '/betaHome'})
+                next({path: '/login'})
                 return;
             };
             next();

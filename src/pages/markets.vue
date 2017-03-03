@@ -75,6 +75,7 @@
                 </table>
                 <p class="tips">
                      离线钱包由小蚁区块链提供技术支持
+                </p>
             </div>
         </div>
     </div>

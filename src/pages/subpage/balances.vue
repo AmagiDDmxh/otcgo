@@ -20,8 +20,8 @@
                     </td>
                     <td class="tb-btn">
                         <template v-if="balance['name']=='人民币'">
-                            <button class="btn ljbutton" @click="openPay">充值</button>
-                            <button class="btn ljbutton" @click="openFetch">提现</button>
+                            <button class="link-span" @click="openPay">充值</button>
+                            <button class="link-span" @click="openFetch">提现</button>
                         </template>
                         <template v-else>
                             <span class="link-span" @click="balanceTransaction(balance['asset'],balance['divisible'],balance['current_price'])"> 交易</span>
@@ -748,7 +748,6 @@ export default {
         },
         mounted: function() {
             this.getbalances();
-            setInterval(this.getbalances, 1000 * 60 * 20)
         }
 
 };

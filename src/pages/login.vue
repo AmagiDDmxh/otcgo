@@ -1,11 +1,12 @@
 <template>
+<div class="container tontainer-padding">
     <div class="container container-padding">
         <div class="panel panel-default panel-state">
             <div class="panel-body">
                 登录离线钱包
             </div>
         </div>
-        <div class="login-body row">
+        <div class="login-bopy row">
             <div class="col-xs-3 col-lg-3">
                 <div class="ad-tips">
                     <ol>
@@ -56,6 +57,7 @@
             </div>
         </div>
     </div>
+</div>
 </template>
 <script>
 export default {
@@ -238,6 +240,10 @@ function doValidatePwd(prvkey, pubkey) {
     border-top-right-radius: 0
 }
 
+.login-body {
+    height: 500px!important;
+}
+
 .register a {
     color: #aeaeae;
 }
@@ -259,10 +265,16 @@ function doValidatePwd(prvkey, pubkey) {
 
 .input-group {
     margin-top: 20px;
+    width: 400px;
 }
 
 .form-control {
     border-radius: 6px;
+}
+
+.form-control,
+.from-group {
+    width: 255px!important;
 }
 
 .select-file {
@@ -292,7 +304,6 @@ function doValidatePwd(prvkey, pubkey) {
 
 .register {
     color: #b1b1b1;
-    padding-right: 162px;
     padding-top: 15px;
 }
 
