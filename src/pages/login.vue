@@ -266,7 +266,7 @@ function doValidatePwd(prvkey, pubkey) {
 }
 
 .select-file {
-    background-color: #009cff !important;
+    background-color: #2c9 !important;
     color: #fff !important;
     border-radius: 6px;
     border: none;
@@ -324,13 +324,13 @@ function doValidatePwd(prvkey, pubkey) {
 
 .btn-bs-file {
     position: relative;
-    background: #009cff;
-    border-color: #009cff;
+    background: #2c9;
+    border-color: #2c9;
 }
 
 .btn-bs-file:hover {
-    background: #009cff;
-    border-color: #009cff;
+    background: #297;
+    border-color: #297;
 }
 
 .btn-bs-file input[type="file"] {
@@ -350,7 +350,7 @@ function doValidatePwd(prvkey, pubkey) {
 }
 
 .link-span {
-    color: #009cff;
+    color: #2c9;
 }
 
 .link-span:hover {

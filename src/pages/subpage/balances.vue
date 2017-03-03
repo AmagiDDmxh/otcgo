@@ -437,11 +437,10 @@ export default {
                     fullscreen: true,
                     text: "正在获取资产列表..."
                 });
-                this.$http.head
                 this.$http.get('balances/' + window.LJWallet.address + '/').then((response) => {
+                    loading.close();
                     this.balances = response.data.balances;
                     this.valueassetid = response.data.balances[0].asset;
-                    loading.close();
                 }, (response) => {
                     loading.close();
                 });
@@ -501,11 +500,9 @@ export default {
                             emulateHTTP: true,
                             emulateJSON: true
                         }).then((response) => {
-                            console.log('交易步骤3->debug:', response);
                             self.$message.success('转账成功！txid:' + response.body.txid);
                             self.dialogTransaction = false;
                         }, (response) => {
-                            console.log('交易步骤3->debug:', response);
                             self.$message.error('交易失败！ :' + response.body.non_field_errors[0]);
                             self.dialogTransaction = false;
                         })
@@ -758,7 +755,7 @@ export default {
 </script>
 <style lang="css">
 .blue-span {
-    color: #009cfd;
+    color: #2c9;
 }
 
 .tiny-dialog>div {
@@ -791,7 +788,7 @@ export default {
 }
 
 .ljbutton {
-    background: #009cff;
+    background: #2c9;
     color: #fff;
 }
 
@@ -835,8 +832,8 @@ export default {
 }
 
 .pagePath .active a {
-    background: #009cff !important;
-    border-color: #009cff !important;
+    background: #2c9 !important;
+    border-color: #2c9 !important;
 }
 
 .fetchState1 p {

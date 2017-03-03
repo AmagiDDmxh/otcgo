@@ -261,12 +261,12 @@
 </script>
 <style lang="css">
 	.btn-lj {
-		background-color: #009cff;
+        background-color: #2c9;
 		color: #fff;
 	}
 
 	.btn-lj:hover {
-		background-color: #0585d6 !important;
+        background-color: #297;
 		color: #fff;
 	}
 </style>

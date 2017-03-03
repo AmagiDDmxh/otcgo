@@ -1,27 +1,29 @@
 <template>
-    <div class="pageDiv container" style="background-color:#fff;">
+    <router-view></router-view>
+    <!--<div class="pageDiv container" style="background-color:#fff;">
         <h>
         </h>
         <router-view></router-view>
-        <foot></foot>
+        &lt;!&ndash;<foot></foot>&ndash;&gt;
         <div class="footer-link">
         </div>
-    </div>
-    </div>
+    </div>-->
 </template>
 <script>
 import h from './components/head.vue'
 import foot from './components/footer.vue'
 export default {
     data() {
-            return {
-                msg: '基于智能合约的数字资产OTC平台'
-            }
-        },
-        components: {
-            h,
-            foot
+        return {
+            msg: '基于智能合约的数字资产OTC平台',
+            LJWallet: false
         }
+    },
+    mounted: {},
+    components: {
+        h,
+        foot
+    }
 }
 </script>
 <style>
@@ -88,6 +90,10 @@ a:hover {
 .navbar {
     background-color: #000 !important;
     border: none !important;
+}
+
+.container {
+    background: #ffffff;
 }
 
 .container-fluid {
@@ -215,7 +221,7 @@ ul>li>.menu {
 .footer-link {
     background: #000;
     height: 135px!important;
-    border-top: 5px solid #009cff;
+    border-top: 5px solid #2c9;
     margin: 0 -15px;
     width: 1224px !important;
 }

@@ -106,25 +106,25 @@ export default {
                 return Math.max.apply({}, this)
             };
 
+            var buyname = ["买一", "买二", "买三", "买四", "买五", "买六", "买七", "买八", "买九", "买十"];
+            var sellname = ["卖十", "卖九", "卖八", "卖七", "卖六", "卖五", "卖四", "卖三", "卖二", "卖一"];
+            buyname.map((name, index) => {
+                this.buyList[index] = {name}
+            });
+            sellname.reverse().map((name, index) => {
+                this.sellList[index] = {name}
+            });
 
             this.$http.get('order_book/' + type + '/')
                 .then((response) => {
-                    var buyname = ["买一", "买二", "买三", "买四", "买五", "买六", "买七", "买八", "买九", "买十"];
-                    var sellname = ["卖十", "卖九", "卖八", "卖七", "卖六", "卖五", "卖四", "卖三", "卖二", "卖一"];
-                    buyname.map((name, index) => {
-                        this.buyList[index] = {name}
-                    });
-                    sellname.reverse().map((name, index) => {
-                        this.sellList[index] = {name}
-                    });
 
-                    this.buyList.map(function (obj, home) {
+                    this.buyList.map(function (obj, betaHome) {
                         var sort = response.data.bids.sort((cur, pre) => cur.price < pre.price ? 1 : -1);
                         obj.amount = typeof sort[index] == 'undefined' ? '' : sort[index].amount;
                         obj.price = typeof sort[index] == 'undefined' ? '' : sort[index].price;
                     });
 
-                    this.sellList.map(function (obj, home) {
+                    this.sellList.map(function (obj, betaHome) {
                         var sort = response.data.asks.sort((cur, pre) => cur.price < pre.price ? 1 : -1);
                         obj.amount = typeof sort[index] == 'undefined' ? '' : sort[index].amount;
                         obj.price = typeof sort[index] == 'undefined' ? '' : sort[index].price;
@@ -157,7 +157,7 @@ export default {
 .tips-title {
     width: 100%;
     height: 40px;
-    background: #009cff;
+    background: #2c9;
     color: #fff;
     line-height: 40px;
     text-align: center;

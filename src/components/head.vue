@@ -1,5 +1,5 @@
 <template>
-    <div id="head">
+    <!--<div id="head">
         <div class="logo">
             <div class="logo-left">
                 <router-link to="/index"><img src="../assets/logo.png" alt="" /></router-link>
@@ -23,7 +23,7 @@
                     </li>
                 </ul>
             </div>
-        </div>
+        </div>-->
         <nav class="navbar navbar-default" role="navigation">
             <!-- Collect the nav links, forms, and other content for toggling -->
             <ul class="nav navbar-nav">
@@ -85,7 +85,7 @@ export default {
 
             loginText: "登录钱包",
 
-            creationText: "",
+            creationText: "创建钱包",
 
             UID: ''
         }
@@ -118,7 +118,9 @@ export default {
 
 .logo {
     height: 148px;
-    padding: 50px;
+    padding: 0 30px;
+    position: absolute;
+    z-index: 99;
 }
 
 .logo img {
@@ -127,35 +129,37 @@ export default {
 
 .logo-left {
     float: left;
-    margin-top: 20px;
+    margin: 20px;
 }
 
 .logo-right {
     float: right;
-    padding: 50px 20px 0 0;
+    padding: 10px 0;
+    background: #fff;
+    width: 60%;
+    margin: 20px 0;
+    border-radius: 10px;
 }
 
 .logo-right li {
     list-style: none;
     float: left;
-    border-right: 1px solid #dadada;
 }
 
 .logo-right .border {
-    border-left: 1px solid #dadada;
+    /*border-left: 1px solid #dadada;*/
 }
 
 .logo-right .border a {
-    color: #009cfd;
+    color: #2c9;
 }
 
 .logo-right li a {
-    color: #7c7c7c;
-    margin: 0 13px;
+    color: #2c9;
 }
 
 .logo-right li a:hover {
-    color: #009cfd;
+    color: #2c9;
 }
 
 .navbar {

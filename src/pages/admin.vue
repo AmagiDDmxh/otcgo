@@ -23,7 +23,7 @@
                                 > 资产列表
                                 </router-link>
                             </li>
-                            <li>
+                            <!--<li>
                                 <a class=" sub-li-title text-center" v-on:click="sub_li=!sub_li"> 我的委托单 </a>
                             </li>
                             <template v-if="sub_li">
@@ -45,13 +45,13 @@
                                         }"> 我的卖单
                                     </router-link>
                                 </li>
-                            </template>
+                            </template>-->
                           <!--   <li>
                                 <router-link class="text-center" :to="{ path: '/admin/obligation'}"> 代付款</router-link>
                             </li> -->
-                            <li>
+                            <!--<li>
                                 <router-link class="text-center" :to="{path: '/admin/redeem'}">已完成订单</router-link>
-                            </li>
+                            </li>-->
 
                             <li>
                                 <router-link class="text-center" :to="{ path: '/admin/uid'}"> 个人中心</router-link>
@@ -80,6 +80,7 @@
         </div>
     </div>
 </template>
+
 <script>
 export default {
     data() {
@@ -89,6 +90,7 @@ export default {
     }
 }
 </script>
+
 <style lang="css">
 
 
@@ -111,7 +113,7 @@ export default {
     padding-left: 27px;
     padding-right: 27px;
     background-color: #f2f2f2;
-    color: #009cfd;
+    color: #2c9;
 }
 
 
@@ -130,12 +132,11 @@ export default {
 }
 
 .left-menu .nav .title {
-    background: #009cff;
+    background: #2c9;
     color: #fff;
 }
 
 .left-menu .nav .title:hover {
-    background: #009cff !important;
     color: #fff;
 }
 
