@@ -738,7 +738,7 @@ export default {
         },
         mounted: function() {
             this.getbalances();
-            setInterval(this.getbalances, 1000 * 5)
+            setInterval(this.getbalances, 1000 * 60 * 5)
         }
 
 };
