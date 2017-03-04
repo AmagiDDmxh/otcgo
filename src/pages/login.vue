@@ -43,7 +43,7 @@
                         </div>
                         <div class="input-group">
                             <button type="button" style="border-radius:6px;" @click="login" class="form-control text-center select-file btn-lj">
-                                登 &nbsp &nbsp 录
+                                登 &nbsp; &nbsp; 录
                             </button>
                         </div>
                         <div class="register text-center">
@@ -108,9 +108,7 @@ export default {
 
                 } else {
                     this.$message.error('验证失败,请重试!');
-                    this.filename = "";
                     this.password = "";
-                    this.filevalue = "";
                 }
             }
         },

@@ -20,11 +20,12 @@
                     </td>
                     <td class="tb-btn">
                         <template v-if="balance['name']=='人民币'">
-                            <button class="link-span" @click="openPay">充值</button>
-                            <button class="link-span" @click="openFetch">提现</button>
+                            <!-- <span class="link-span" @click="openPay">充值</span> -->
+                            <!-- <span class="link-span" @click="openFetch">提现</span> -->
+                            <span class="link-span" @click="balanceTransfer(balance['asset'], balance['divisible'],balance['name'],balancec['valid'])">转账</span>
                         </template>
                         <template v-else>
-                            <span class="link-span" @click="balanceTransaction(balance['asset'],balance['divisible'],balance['current_price'])"> 交易</span>
+                            <!-- <span class="link-span" @click="balanceTransaction(balance['asset'],balance['divisible'],balance['current_price'])"> 交易</span> -->
                             <span class="link-span" @click="balanceTransfer(balance['asset'],balance['divisible'],balance['name'],balance['valid'])"> 转账</span>
                         </template>
                     </td>
@@ -34,7 +35,7 @@
         <div class="row">
             <div class="col-xs-12">
                 <ul class="pagination pagePath  pull-right">
-                    <li class="active"><a href="#">1</a></li>
+                    <li class="active"><a href="/">&lt;</a></li>
                     <!-- TODO: 每页展示7行信息（7行资产品类、7行挂单、7行成交记录等）。当用户的某菜单栏信息超过7行时，才出现这样的页面按钮。没有超过7行的，不用展示按钮（或只展示第一页）。 -->
                     <!-- <li><a href="#">2</a></li>
                     <li><a href="#">3</a></li> -->
@@ -617,6 +618,7 @@ export default {
                                 self.transfer_num = "";
                                 loading.close();
                                 self.dialogTransfer = false;
+                                this.getbalances();
 
                             }, (response) => {
                                 self.$message.error('转账失败,请重试! txid:' + response.body.txid);
@@ -741,18 +743,23 @@ export default {
 
             // Check out the transfer value when keyup
             checkOutKeyValue: function(transfer_num) {
-                return isNaN(parseInt(transfer_num))
+                return isNaN(parseInt(transfer_num) )
             }
 
 
         },
         mounted: function() {
             this.getbalances();
+            setIn
         }
 
 };
 </script>
 <style lang="css">
+.active a:hover {
+    cursor: pointer;
+}
+
 .blue-span {
     color: #2c9;
 }

@@ -52,7 +52,9 @@
                             <!--<li>
                                 <router-link class="text-center" :to="{path: '/admin/redeem'}">已完成订单</router-link>
                             </li>-->
-
+                            <li>
+                                <a class="text-center" href="https://antchain.xyz/" target="_blank">区块浏览</a>
+                            </li>
                             <li>
                                 <router-link class="text-center" :to="{ path: '/admin/uid'}"> 个人中心</router-link>
                             </li>
