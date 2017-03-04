@@ -1,7 +1,7 @@
 <template>
-    <div id="head">
+    <div>
         <div class="background">
-            <img class="background__image" src="../assets/background.png" alt="background">
+            <img class="background__img" src="../assets/background.png" alt="background!!">
         </div>
         <div class="sign">
             <div class="betalogo">
@@ -31,10 +31,6 @@
 </script>
 
 <style>
-    #head {
-        position: relative;
-    }
-
     .betalogo {
         background: #fff;
         margin: 20px 0;
@@ -59,8 +55,8 @@
 
     .sign {
         position: absolute;
-        left: 40%;
-        top: 30%;
+        left: 42%;
+        top: 31%;
         width: 540px;
     }
 
@@ -86,10 +82,13 @@
     }
 
     .background {
-        position: relative;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
     }
 
-    .background-image {
-
+    .background__img {
+        position: fixed;
     }
 </style>

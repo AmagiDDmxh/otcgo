@@ -1,4 +1,8 @@
 <template>
+<div style="position: absolute; top: 20%; left: 20%;">
+    <div class="exit">
+        <router-link class="btn exit__button" to="/" >退出钱包</router-link>
+    </div>
     <div class="container container-padding">
         <div class="row">
             <div class="col-xs-12">
@@ -23,37 +27,11 @@
                                 > 资产列表
                                 </router-link>
                             </li>
-                            <!--<li>
-                                <a class=" sub-li-title text-center" v-on:click="sub_li=!sub_li"> 我的委托单 </a>
-                            </li>
-                            <template v-if="sub_li">
-                                <li class="sub-li">
-                                    <router-link
-                                            class="text-center"
-                                            :to="{
-                                            path: '/admin/order',
-                                            query: { type: 'buy' }
-                                        }"> 我的买单
-                                    </router-link>
-                                </li>
-                                <li class="sub-li">
-                                    <router-link
-                                            class="text-center"
-                                            :to="{
-                                            path: '/admin/order',
-                                            query: { type: 'sell' }
-                                        }"> 我的卖单
-                                    </router-link>
-                                </li>
-                            </template>-->
-                          <!--   <li>
-                                <router-link class="text-center" :to="{ path: '/admin/obligation'}"> 代付款</router-link>
-                            </li> -->
-                            <!--<li>
-                                <router-link class="text-center" :to="{path: '/admin/redeem'}">已完成订单</router-link>
-                            </li>-->
                             <li>
                                 <a class="text-center" href="https://antchain.xyz/" target="_blank">区块浏览</a>
+                            </li>
+                            <li>
+                                <router-link class="text-center" :to="{path: '/admin/history'}">转账记录</router-link>
                             </li>
                             <li>
                                 <router-link class="text-center" :to="{ path: '/admin/uid'}"> 个人中心</router-link>
@@ -81,6 +59,7 @@
             </div>
         </div>
     </div>
+    </div>
 </template>
 
 <script>
@@ -94,7 +73,16 @@ export default {
 </script>
 
 <style lang="css">
+.exit {
+    position: absolute;
+    right: 0;
+    top: -35px;
+}
 
+.exit__button {
+    background: #22cc99;
+    color: #fff;
+}
 
 .container-padding {
     margin-top: 15px;

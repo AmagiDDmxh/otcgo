@@ -1,5 +1,5 @@
 <template>
-<div class="container tontainer-padding">
+<div class="container tontainer-padding" style="position: absolute; top: 20%; left: 20%;">
     <div class="container container-padding">
         <div class="panel panel-default panel-state">
             <div class="panel-body">

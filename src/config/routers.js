@@ -5,6 +5,7 @@ import wallet from '../pages/wallet.vue'
 import admin from '../pages/admin.vue'
 import balances from '../pages/subpage/balances.vue';
 import uid from '../pages/subpage/uid.vue';
+import history from '../pages/subpage/history.vue';
 
 
 const routes = [{
@@ -20,6 +21,16 @@ const routes = [{
     path: '/admin',
     component: admin,
     children: [{
+        path: "history",
+        component: history,
+        beforeEnter: (to, from, next) => {
+            if (!window.LJWallet) {
+                next({path: '/betaHome'});
+                return;
+            };
+            next();
+        }
+    },{
         path: "uid",
         component: uid,
         beforeEnter: (to, from, next) => {
