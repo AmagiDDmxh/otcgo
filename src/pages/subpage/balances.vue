@@ -35,7 +35,7 @@
         <div class="row">
             <div class="col-xs-12">
                 <ul class="pagination pagePath  pull-right">
-                    <li class="active"><a href="/">&lt;</a></li>
+                    <li class="active"><a href="/">退出钱包</a></li>
                     <!-- TODO: 每页展示7行信息（7行资产品类、7行挂单、7行成交记录等）。当用户的某菜单栏信息超过7行时，才出现这样的页面按钮。没有超过7行的，不用展示按钮（或只展示第一页）。 -->
                     <!-- <li><a href="#">2</a></li>
                     <li><a href="#">3</a></li> -->

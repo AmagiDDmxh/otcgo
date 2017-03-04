@@ -31,7 +31,7 @@
                             </span>
                         </div>
                         <div class="input-group">
-                            <input type="password" class="form-control pwd" v-model="password" placeholder="输入钱包密码">
+                            <input type="password" class="form-control pwd" @keyup.enter="login" v-model="password" placeholder="输入钱包密码">
                             <span v-if="password==''" style="display:inline-block;padding-left:10px;margin-top:5px;" class="error-text">
 
                               密码不能为空
