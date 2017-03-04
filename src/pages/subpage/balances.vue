@@ -434,16 +434,10 @@ export default {
         methods: {
             getbalances: function() {
 
-                var loading = this.$loading({
-                    fullscreen: true,
-                    text: "正在获取资产列表..."
-                });
                 this.$http.get('balances/' + window.LJWallet.address + '/').then((response) => {
-                    loading.close();
                     this.balances = response.data.balances;
                     this.valueassetid = response.data.balances[0].asset;
                 }, (response) => {
-                    loading.close();
                 });
             },
 
@@ -582,9 +576,6 @@ export default {
                         self.transfer_num = Math.floor(self.transfer_num)
                     }
 
-                    var loading = self.$loading({
-                        fullscreen: true
-                    });
                     var postData = {
                             dest: self.transfer_address_value,
                             source: window.LJWallet.address,
@@ -616,7 +607,6 @@ export default {
                                 self.$message.success('转账成功！txid:' + response.body.txid);
                                 self.transfer_address_value = "";
                                 self.transfer_num = "";
-                                loading.close();
                                 self.dialogTransfer = false;
                                 this.getbalances();
 
@@ -624,7 +614,6 @@ export default {
                                 self.$message.error('转账失败,请重试! txid:' + response.body.txid);
                                 self.transfer_address_value = "";
                                 self.transfer_num = "";
-                                loading.close();
                                 self.dialogTransfer = false;
 
                             });
@@ -633,7 +622,6 @@ export default {
                             self.$message.error('转账失败,请重试！');
                             self.transfer_address_value = "";
                             self.transfer_num = "";
-                            loading.close();
                             self.dialogTransfer = false;
                             throw response;
                         })
@@ -642,8 +630,8 @@ export default {
                         self.$message.error('转账失败,请重试！');
                         self.transfer_address_value = "";
                         self.transfer_num = "";
-                        loading.close();
                         self.dialogTransfer = false;
+                        this.getbalances();
                         throw response;
                     });
                 }
@@ -750,7 +738,7 @@ export default {
         },
         mounted: function() {
             this.getbalances();
-            setIn
+            setInterval(this.getbalances, 1000 * 5)
         }
 
 };

@@ -16,7 +16,6 @@
                 登录钱包
             </router-link>
         </div>
-        <p class="tips tips--cover">离线钱包由小蚁区块链提供技术支持</p>
     </div>
 </template>
 
