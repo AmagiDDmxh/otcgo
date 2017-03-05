@@ -257,7 +257,7 @@
         });
 		var aLink = document.createElement('a');
     aLink.href = URL.createObjectURL(file);
-		aLink.download = name.replace(/[.].(.*)/, 'json');
+		aLink.download = name.replace(/[.]\.(.*)/, 'json');
     aLink.click();
 	}
 </script>

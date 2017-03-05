@@ -276,8 +276,6 @@ function doValidatePwd(prvkey, pubkey) {
 }
 
 .select-file {
-    background-color: #2c9 !important;
-    color: #fff !important;
     border-radius: 6px;
     border: none;
     cursor: pointer;

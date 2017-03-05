@@ -1,4 +1,5 @@
 <template>
+<div style="margin: 100px 0;">
 	<div class="container container-padding">
 		<div class="panel panel-default panel-state">
 			<div class="panel-body">
@@ -32,7 +33,7 @@
 						</div>
 						<div class="col-xs-6">
 							<p style="margin-bottom:15px">
-								<span class="link-span"> {{ $route.query.filename }}</span>
+								<span class="blue-span"> {{ $route.query.filename }}</span>
                                 的钱包文件已生成在浏览器的下载路径， 请注意查收并妥善保管！
 							</p>
 							<p style="margin-bottom:15px;">
@@ -40,7 +41,7 @@
 								<span class="link-span" @click="downloadfile">点此下载！</span>
 							</p>
 							<p style="margin-bottom:15px;">
-								请认真阅读关于 <span class="link-span">钱包文件,登录密码</span>的注意事项！
+								请认真阅读关于 <span class="blue-span">钱包文件,登录密码</span>的注意事项！
 							</p>
 						</div>
 					</div>
@@ -60,12 +61,13 @@
 			</div>
 		</div>
 	</div>
+	</div>
 </template>
 <script>
 	export default {
 		data() {
 			return {
-				filename: ""
+				filename: this.$route.query.filename
 			}
 		},
 		methods: {
@@ -82,9 +84,18 @@
 		});
 		var aLink = document.createElement('a');
 		aLink.href = URL.createObjectURL(file);
-        aLink.download = name.replace(/[.].(.*)/, 'json');
+    aLink.download = name;
 		aLink.click();
 	}
 </script>
 <style lang="css">
+
+.tips-title {
+	color: #fff;
+	background: #2c9;
+	padding: 10px 15px;
+	display: block;
+	text-align: center;
+}
+
 </style>
