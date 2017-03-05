@@ -5,9 +5,7 @@
         </div>
         <div class="sign">
             <div class="betalogo">
-                <router-link to="/">
-                    <img class="betalogo__img" src="../assets/logo.png" alt="logo">
-                </router-link>
+                <img class="betalogo__img" src="../assets/logo.png" alt="logo">
             </div>
             <router-link class="sign__link" to="/creatWallet">
                 创建钱包

@@ -1,5 +1,5 @@
 <template>
-<div style="position: absolute; top: 20%; left: 20%;">
+<div style="margin: 100px 0;">
     <div class="exit">
         <router-link class="btn exit__button" to="/" >退出钱包</router-link>
     </div>

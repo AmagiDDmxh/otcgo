@@ -1,4 +1,5 @@
 <template>
+<div style="margin: 100px 0;">
 	<div class="container container-padding">
 		<div class="panel panel-default panel-state">
 			<div class="panel-body">
@@ -144,6 +145,7 @@
 				</p>
 			</div>
 		</div>
+	</div>
 	</div>
 </template>
 <script>
