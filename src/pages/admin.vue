@@ -1,8 +1,5 @@
 <template>
 <div style="margin: 100px 0;">
-    <div class="exit">
-        <router-link class="btn exit__button" to="/" >退出钱包</router-link>
-    </div>
     <div class="container container-padding">
         <div class="row">
             <div class="col-xs-12">
@@ -67,6 +64,11 @@ export default {
     data() {
         return {
             sub_li: false
+        }
+    },
+    methods: {
+        goBack() {
+
         }
     }
 }

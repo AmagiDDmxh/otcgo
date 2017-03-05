@@ -56,7 +56,7 @@
                                 type="text" class="form-control"
                                 v-model="transfer_num" style="width:100%!important">
                     </div>
-                    <div class="col-xs-3">
+                    <div class="col-xs-3" style="padding-left: 0;">
                         <span
                                 v-if="transfer_num ==''" class="error-text"
                         > 请输入转账数量 </span>
@@ -76,7 +76,7 @@
                                 type="text" class="form-control"
                                 v-model="transfer_address_value" style="width:100%!important">
                     </div>
-                    <div class="col-xs-3">
+                    <div class="col-xs-3" style="padding-left: 0;">
                         <span
                                 v-if="transfer_address_value ==''"
                                 class="error-text"
