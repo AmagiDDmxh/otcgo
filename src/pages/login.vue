@@ -247,7 +247,7 @@ function doValidatePwd(prvkey, pubkey) {
 }
 
 .register a:hover {
-    color: #337ab7;
+    color: #2c9;
 }
 
 .h2 {

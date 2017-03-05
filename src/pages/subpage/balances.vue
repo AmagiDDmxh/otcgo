@@ -62,7 +62,7 @@
                         > 请输入转账数量 </span>
 
                         <span
-                                v-else-if="isNaN(parseInt(transfer_num)) || parseInt(transfer_num) > parseInt(transfer_valid)"
+                                v-else-if="isNaN(parseInt(transfer_num)) || Number(transfer_num) > Number(transfer_valid) || Number(transfer_num) % 1 !== 0"
                                 class="error-text"
                         > 数量错误 </span>
 
@@ -137,7 +137,7 @@ export default {
         methods: {
             getbalances: function() {
 
-                this.$http.get('balances/' + window.LJWallet.address + '/').then((response) => {
+                this.$http.get(`balances/${window.LJWallet.address}/`).then((response) => {
                     this.balances = response.data.balances;
                     this.valueassetid = response.data.balances[0].asset;
                 }, (response) => {
@@ -155,9 +155,10 @@ export default {
             },
             transfer: function() {
                 var address_value = this.transfer_address_value.trim();
-                if (this.transfer_num == "" || this.transfer_address_value == "" || (parseInt(this.transfer_num) > parseInt(this.transfer_valid))) {
+                if (this.transfer_num == "" || this.transfer_address_value == "" || (Number(this.transfer_num) > Number(this.transfer_valid) || Number(this.transfer_num) % 1 !== 0)) {
                     return;
                 }
+
                 // 转账地址校验
                 if ((/[a-zA-Z0-9]{34}/.test(address_value))){
                     var self = this;
@@ -244,12 +245,12 @@ export default {
 
 
         },
-        mounted() {
+        mounted: function() {
             this.getbalances();
             setInterval(this.getbalances, 1000 * 60 * 5)
         }
-
 };
+setInterval(vm.getbalances, 1000 * 60 * 5);
 </script>
 <style lang="css">
 .active a:hover {
