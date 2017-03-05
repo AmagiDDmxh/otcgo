@@ -438,7 +438,9 @@ export default {
                 this.$http.get('balances/' + window.LJWallet.address + '/').then((response) => {
                     this.balances = response.data.balances;
                     this.valueassetid = response.data.balances[0].asset;
+                    console.log("Gotcha");
                 }, (response) => {
+                    console.log('Gotcha');
                 });
             },
 
@@ -496,7 +498,7 @@ export default {
                             emulateHTTP: true,
                             emulateJSON: true
                         }).then((response) => {
-                            self.$message.success('转账成功！txid:' + response.body.txid);
+                            self.$message.success('已发起交易, 等待确认!');
                             self.dialogTransaction = false;
                         }, (response) => {
                             self.$message.error('交易失败！ :' + response.body.non_field_errors[0]);
@@ -609,7 +611,7 @@ export default {
                                 self.transfer_address_value = "";
                                 self.transfer_num = "";
                                 self.dialogTransfer = false;
-                                this.getbalances();
+                                self.getbalances();
 
                             }, (response) => {
                                 self.$message.error('转账失败,请重试! txid:' + response.body.txid);
@@ -737,7 +739,7 @@ export default {
 
 
         },
-        mounted: function() {
+        mounted() {
             this.getbalances();
             setInterval(this.getbalances, 1000 * 60 * 5)
         }
