@@ -153,89 +153,83 @@ export default {
                 this.dialogTransfer = true;
             },
             transfer: function() {
-                this.transfer_num = '';
-                this.transfer_address_value = '';
                 var address_value = $.trim(this.transfer_address_value);
                 if (this.transfer_num == ""
                     || this.transfer_address_value == ""
-                    || parseInt(this.transfer_num) > parseInt(this.transfer_valid)) {
+                    || (parseInt(this.transfer_num) > parseInt(this.transfer_valid)) {
 
                     return;
                 }
                 // 转账地址校验
-                if (/[a-zA-Z0-9]{34}/.test(address_value)){
-                    postAjax();
-                } else {
-                    return;
+                if (!(/[a-zA-Z0-9]{34}/.test(address_value))){
+                        return;
                 }
 
-                function postAjax() {
-                    if (this.divisible) {
+                if (this.divisible) {
                         this.transfer_num = Number(this.transfer_num).toFixed(8);
-                    } else {
+                } else {
                         this.transfer_num = Math.floor(this.transfer_num)
-                    }
+                }
 
-                    var postData = {
-                            dest: this.transfer_address_value,
-                            source: window.LJWallet.address,
-                            amount: this.transfer_num,
-                            compressed_pubkey: window.LJWallet.publicKeyCompressed,
-                            assetid: this.assetId,
-                            hex_pubkey: window.LJWallet.publicKey
-                        }
-                        /*转账步骤1*/
-                    this.$http.post('balances/transfer/', postData, {
-                        emulateHTTP: true,
-                        emulateJSON: true
-                    }).then((response) => {
-                        /*转账步骤2*/
-                        var postData = response.data;
-                        postData.signature = ljSign(window.LJWallet.privateKey, postData.transaction);
-                        delete postData.transaction;
+                var postData = {
+                        dest: this.transfer_address_value,
+                        source: window.LJWallet.address,
+                        amount: this.transfer_num,
+                        compressed_pubkey: window.LJWallet.publicKeyCompressed,
+                        assetid: this.assetId,
+                        hex_pubkey: window.LJWallet.publicKey
+                }
+                    /*转账步骤1*/
+                this.$http.post('balances/transfer/', postData, {
+                    emulateHTTP: true,
+                    emulateJSON: true
+                }).then((response) => {
+                    /*转账步骤2*/
+                    var postData = response.data;
+                    postData.signature = ljSign(window.LJWallet.privateKey, postData.transaction);
+                    delete postData.transaction;
 
-                        // console.log('*转账步骤2*', postData)
+                    // console.log('*转账步骤2*', postData)
 
-                        this.$http.get('nonce/').then((response) => {
-                            postData.nonce = response.data.nonce;
-                            // console.log('*转账步骤3*', postData)
+                    this.$http.get('nonce/').then((response) => {
+                        postData.nonce = response.data.nonce;
+                        // console.log('*转账步骤3*', postData)
 
-                            this.$http.post('sign/', postData, {
-                                emulateHTTP: true,
-                                emulateJSON: true
-                            }).then((response) => {
-                                this.disabled = false;
-                                this.$message.success('转账请求已发起，等待确认');
-                                this.transfer_address_value = "";
-                                this.transfer_num = "";
-                                this.dialogTransfer = false;
-                                this.getbalances();
-
-                            }, (response) => {
-                                this.$message.error('转账失败, 请稍后再试!');
-                                this.transfer_address_value = "";
-                                this.transfer_num = "";
-                                this.dialogTransfer = false;
-
-                            });
-
-                        }, (response) => {
-                            this.$message.error('转账失败, 请稍后再试！');
+                        this.$http.post('sign/', postData, {
+                            emulateHTTP: true,
+                            emulateJSON: true
+                        }).then((response) => {
+                            this.disabled = false;
+                            this.$message.success('转账请求已发起，等待确认');
                             this.transfer_address_value = "";
                             this.transfer_num = "";
                             this.dialogTransfer = false;
-                            throw response;
-                        })
+                            this.getbalances();
+
+                        }, (response) => {
+                            this.$message.error('转账失败, 请稍后再试!');
+                            this.transfer_address_value = "";
+                            this.transfer_num = "";
+                            this.dialogTransfer = false;
+
+                        });
 
                     }, (response) => {
                         this.$message.error('转账失败, 请稍后再试！');
                         this.transfer_address_value = "";
                         this.transfer_num = "";
                         this.dialogTransfer = false;
-                        this.getbalances();
                         throw response;
-                    });
-                }
+                    })
+
+                }, (response) => {
+                    this.$message.error('转账失败, 请稍后再试！');
+                    this.transfer_address_value = "";
+                    this.transfer_num = "";
+                    this.dialogTransfer = false;
+                    this.getbalances();
+                    throw response;
+                });
 
             },
 
