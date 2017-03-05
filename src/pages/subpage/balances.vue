@@ -160,7 +160,7 @@ export default {
                 }
 
                 // 转账地址校验
-                if ((/[a-zA-Z0-9]{34}/.test(address_value))){
+                if ((/[a-zA-Z0-9]{34}/.test(address_value)) && (address_value[0] === 'a' || address_value[0] === 'A')){
                     var self = this;
                     ajaxPost(self);
                     return;
