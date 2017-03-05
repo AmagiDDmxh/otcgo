@@ -151,6 +151,7 @@ export default {
                 this.transfer_valid = valid;
                 this.divisible = divisible;
                 this.dialogTransfer = true;
+                this.disabled = true;
             },
             transfer: function() {
                 var address_value = $.trim(this.transfer_address_value);
