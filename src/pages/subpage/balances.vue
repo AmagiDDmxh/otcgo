@@ -156,7 +156,10 @@ export default {
                 this.transfer_num = '';
                 this.transfer_address_value = '';
                 var address_value = $.trim(this.transfer_address_value);
-                if (this.transfer_num == "" || this.transfer_address_value == "" || this.transfer_num > this.transfer_valid) {
+                if (this.transfer_num == ""
+                    || this.transfer_address_value == ""
+                    || parseInt(this.transfer_num) > parseInt(this.transfer_valid)) {
+
                     return;
                 }
                 // 转账地址校验
