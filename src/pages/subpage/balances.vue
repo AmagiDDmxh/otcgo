@@ -58,9 +58,9 @@
                     </div>
                     <div class="col-xs-3">
                         <span
-                                v-if="transfer_num ==''"
-                                class="error-text"
+                                v-if="transfer_num ==''" class="error-text"
                         > 请输入转账数量 </span>
+
                         <span
                                 v-else-if="isNaN(parseInt(transfer_num)) || parseInt(transfer_num) > parseInt(transfer_valid)"
                                 class="error-text"
@@ -153,6 +153,8 @@ export default {
                 this.dialogTransfer = true;
             },
             transfer: function() {
+                this.transfer_num = '';
+                this.transfer_address_value = '';
                 var address_value = $.trim(this.transfer_address_value);
                 if (this.transfer_num == "" || this.transfer_address_value == "" || this.transfer_num > this.transfer_valid) {
                     return;
@@ -166,7 +168,7 @@ export default {
 
                 function postAjax() {
                     if (this.divisible) {
-                        this.transfer_num = Number(this.transfer_num).toFixed(4);
+                        this.transfer_num = Number(this.transfer_num).toFixed(8);
                     } else {
                         this.transfer_num = Math.floor(this.transfer_num)
                     }
