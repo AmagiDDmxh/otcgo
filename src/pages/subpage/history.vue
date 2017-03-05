@@ -14,7 +14,7 @@
                         <td>{{history['name']}}</td>
                         <td>{{history['amount']}}</td>
                         <td>{{history['time']}}</td>
-                        <td><span class="blue-link">转出</span></td>
+                        <td><span style="color: #2c9;">转出</span></td>
                     </tr>
                 </tbody>
             </table>
@@ -52,7 +52,7 @@ export default {
                 this.$http.get(`balances/transfer/history/${window.LJWallet.address}/`).then((response) => {
                     this.historys = response.data.data;
                 }, (response) => {
-                    this.$message.error("获取资产记录失败!");
+                    this.$message.error("获取转账记录失败, 请稍候再试!");
                 });
             }
     },

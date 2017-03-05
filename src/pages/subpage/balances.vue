@@ -62,7 +62,7 @@
                                 class="error-text"
                         > 请输入转账数量 </span>
                         <span
-                                v-else-if="isNaN(parseInt(transfer_num)) || transfer_num > transfer_valid"
+                                v-else-if="isNaN(parseInt(transfer_num)) || parseInt(transfer_num) > parseInt(transfer_valid)"
                                 class="error-text"
                         > 数量错误 </span>
 
@@ -141,7 +141,7 @@ export default {
                     this.balances = response.data.balances;
                     this.valueassetid = response.data.balances[0].asset;
                 }, (response) => {
-                    this.message.info('服务器有点过载, 请稍等一下!')
+                    this.message.error('服务器有点过载, 请稍等一下!')
                 });
             },
 
@@ -165,7 +165,6 @@ export default {
                 }
 
                 function postAjax() {
-                    this.transfer_address_err = false;
                     if (this.divisible) {
                         this.transfer_num = Number(this.transfer_num).toFixed(4);
                     } else {
