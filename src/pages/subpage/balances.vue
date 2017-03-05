@@ -154,21 +154,18 @@ export default {
             },
             transfer: function() {
                 var address_value = $.trim(this.transfer_address_value);
-                if (this.transfer_num == ""
-                    || this.transfer_address_value == ""
-                    || (parseInt(this.transfer_num) > parseInt(this.transfer_valid)) {
-
-                    return;
+                if (this.transfer_num == "" || this.transfer_address_value == "" || (parseInt(this.transfer_num) > parseInt(this.transfer_valid))) {
+                        return;
                 }
                 // 转账地址校验
                 if (!(/[a-zA-Z0-9]{34}/.test(address_value))){
-                        return;
+                    return;
                 }
 
                 if (this.divisible) {
-                        this.transfer_num = Number(this.transfer_num).toFixed(8);
+                    this.transfer_num = Number(this.transfer_num).toFixed(8);
                 } else {
-                        this.transfer_num = Math.floor(this.transfer_num)
+                    this.transfer_num = Math.floor(this.transfer_num)
                 }
 
                 var postData = {
