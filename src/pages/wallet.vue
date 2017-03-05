@@ -1,5 +1,5 @@
 <template>
-	<div class="container-padding">
+	<div class="container container-padding">
 		<div class="panel panel-default panel-state">
 			<div class="panel-body">
 				创建离线钱包
@@ -37,7 +37,7 @@
 							</p>
 							<p style="margin-bottom:15px;">
 								若钱包文件没有自动下载,请
-								<span class="link-span" @click="downloadfile">点此下载！</span>的注意事项！
+								<span class="link-span" @click="downloadfile">点此下载！</span>
 							</p>
 							<p style="margin-bottom:15px;">
 								请认真阅读关于 <span class="link-span">钱包文件,登录密码</span>的注意事项！

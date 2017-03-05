@@ -50,7 +50,7 @@ export default {
     methods: {
         getHistorys() {
                 this.$http.get(`balances/transfer/history/${window.LJWallet.address}/`).then((response) => {
-                    this.historys = response.data.historys;
+                    this.historys = response.data.data;
                 }, (response) => {
                     this.$message.error("获取资产记录失败!");
                 });

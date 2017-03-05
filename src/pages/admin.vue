@@ -128,6 +128,7 @@ export default {
 
 .left-menu .nav .title:hover {
     color: #fff;
+    background: #2c9;
 }
 
 .left-menu .nav li a {
