@@ -46,7 +46,7 @@
                         <b>资产类型:{{ transfer_name }}</b>
                     </div>
                     <div class="col-xs-4">
-                        <b>可用数量:{{ Math.floor(transfer_valid) }}</b>
+                        <b>可用数量:{{ transfer_valid }}</b>
                     </div>
                 </div>
                 <div class="row" style="margin-top:20px">
@@ -154,12 +154,12 @@ export default {
                 this.disabled = true;
             },
             transfer: function() {
-                var address_value = $.trim(this.transfer_address_value);
+                var address_value = this.transfer_address_value.trim();
                 if (this.transfer_num == "" || this.transfer_address_value == "" || (parseInt(this.transfer_num) > parseInt(this.transfer_valid))) {
-                        return;
+                    return;
                 }
                 // 转账地址校验
-                if (!(/[a-zA-Z0-9]{34}/.test(address_value))){
+                if ((/[a-zA-Z0-9]{34}/.test(address_value))){
                     var self = this;
                     ajaxPost(self);
                     return;

@@ -1,5 +1,5 @@
 <template>
-<div style="margin: 100px 0;">
+<div class="pageDiv" style="margin: 100px 0;">
 	<div class="container container-padding">
 		<div class="panel panel-default panel-state">
 			<div class="panel-body">
@@ -254,10 +254,10 @@
 	function download(text, name, type) {
 		var file = new Blob([text], {
 			type: type
-        });
+    });
 		var aLink = document.createElement('a');
     aLink.href = URL.createObjectURL(file);
-		aLink.download = name.replace(/[.]\.(.*)/, 'json');
+		aLink.download = name.replace(/[.].(.*)/, '.json');
     aLink.click();
 	}
 </script>
