@@ -14,7 +14,7 @@
                         <td>{{history['name']}}</td>
                         <td>{{history['amount']}}</td>
                         <td>{{history['time']}}</td>
-                        <td><span style="color: #2c9;">转出</span></td>
+                        <td>已转出</td>
                     </tr>
                 </tbody>
             </table>

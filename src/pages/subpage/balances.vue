@@ -83,7 +83,7 @@
                         > 请输入转账地址 </span>
 
                         <span
-                                v-else-if="transfer_address_value[0]!='a' && transfer_address_value[0]!='A' "
+                                v-else-if="transfer_address_value[0]!='a' && transfer_address_value[0]!='A' || !/[a-zA-Z0-9]{34}/.test(transfer_address_value)"
                                 class="error-text"
                         > 地址格式错误 </span>
 
@@ -155,12 +155,16 @@ export default {
             },
             transfer: function() {
                 var address_value = this.transfer_address_value.trim();
-                if (this.transfer_num == "" || this.transfer_address_value == "" || (Number(this.transfer_num) > Number(this.transfer_valid) || Number(this.transfer_num) % 1 !== 0)) {
+                if (this.transfer_num == "" || this.transfer_address_value == "" || (Number(this.transfer_num) > Number(this.transfer_valid))) {
+                    return;
+                }
+
+                if (!this.divisible && Number(this.transfer_num) % 1 !== 0) {
                     return;
                 }
 
                 // 转账地址校验
-                if ((/[a-zA-Z0-9]{34}/.test(address_value)) && (address_value[0] === 'a' || address_value[0] === 'A')){
+                if ((/[a-zA-Z0-9]{34}/.test(address_value))){
                     var self = this;
                     ajaxPost(self);
                     return;
@@ -247,7 +251,7 @@ export default {
         },
         mounted: function() {
             this.getbalances();
-            setInterval(this.getbalances, 1000 * 60 * 5)
+            setInterval(() => {this.getbalances();}, 1000 * 60 * 5)
         }
 };
 setInterval(vm.getbalances, 1000 * 60 * 5);
