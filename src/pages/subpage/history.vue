@@ -6,7 +6,7 @@
                     <th>资产类型</th>
                     <th>资产数量</th>
                     <th>转账时间</th>
-                    <th class="tb-btn"></th>
+                    <th style="width: 120px;"></th>
                 </thead>
                 <tbody>
                     <tr v-for="history in historys">

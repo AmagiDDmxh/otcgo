@@ -20,7 +20,7 @@
                     </td>
                     <td class="tb-btn">
                         <template>
-                            <span class="link-span" @click="balanceTransfer(balance['asset'], balance['divisible'],balance['name'],balancec['valid'])">转账</span>
+                            <span class="link-span" @click="balanceTransfer(balance['asset'], balance['divisible'],balance['name'],balance['valid'])">转账</span>
                         </template>
                     </td>
                 </tr>
@@ -62,7 +62,7 @@
                                 class="error-text"
                         > 请输入转账数量 </span>
                         <span
-                                v-if="isNaN(parseInt(transfer_num)) || transfer_num > transfer_valid"
+                                v-else-if="isNaN(parseInt(transfer_num)) || transfer_num > transfer_valid"
                                 class="error-text"
                         > 数量错误 </span>
 
@@ -200,12 +200,12 @@ export default {
                                 emulateHTTP: true,
                                 emulateJSON: true
                             }).then((response) => {
+                                this.disabled = false;
                                 this.$message.success('转账请求已发起，等待确认');
                                 this.transfer_address_value = "";
                                 this.transfer_num = "";
                                 this.dialogTransfer = false;
                                 this.getbalances();
-                                this.disabled = false;
 
                             }, (response) => {
                                 this.$message.error('转账失败, 请稍后再试!');
