@@ -49,9 +49,7 @@
 						<div class="col-xs-3 ">
 						</div>
 						<div class="col-xs-6">
-							<button type="button" class="btn  btn-lj form-control" style="border-radius: 6px;">
-								<router-link to="/login" style="color:#fff;text-decoration:none">登录个人钱包</router-link>
-							</button>
+							<router-link class="btn btn-lj form-control" to="/login" style="color:#fff;text-decoration:none; border-radius: 6px;">登录个人钱包</router-link>
 						</div>
 					</div>
 				</div>

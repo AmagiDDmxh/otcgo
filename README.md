@@ -1,18 +1,21 @@
-# vue-clinet
+# 蓝鲸淘 Otcgo/beta_wallet
+蓝鲸淘是一个基于智能合约的数字资产OTC平台。这个项目是蓝鲸淘的独立钱包分支。
 
-> A Vue.js project
+Otcogo is a Digital assets OTC platform based on intelligent contracts, This is a individual wallet project from **Otcgo**
 
-## Build Setup
-
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
+## 使用方法 Usage
+**install**
+```
+  git clone https://github.com/AmagiDDmxh/otcgo.git
+  cd otcgo && npm install
+```
+**use**
+```
+  npm run build
+  npm run dev
 ```
 
-For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
+### 更新记录与Todo
+2017-03-06
+
+1. 按钮失效

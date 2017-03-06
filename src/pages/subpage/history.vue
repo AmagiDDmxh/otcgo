@@ -14,7 +14,7 @@
                         <td>{{history['name']}}</td>
                         <td>{{history['amount']}}</td>
                         <td>{{history['time']}}</td>
-                        <td>查看<a class="link-span" :href="`https://testnet.antchain.xyz/tx/hash/${history['txid']}`" target="_blank">转出记录</a></td>
+                        <td><a class="link-interact" :href="`//testnet.antchain.xyz/tx/hash/${history['txid']}`" target="_blank">转出详情</a></td>
                     </tr>
                 </tbody>
             </table>
@@ -65,6 +65,10 @@ export default {
 </script>
 
 <style>
+.link-interact {
+    color: #fff;
+    background: #2c9;
+}
 .boot-select {
     float: left;
     margin: 20px 0;

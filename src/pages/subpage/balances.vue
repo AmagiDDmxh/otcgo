@@ -54,6 +54,7 @@
                     <div class="col-xs-6">
                         <input
                                 type="text" class="form-control"
+                                onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"
                                 v-model="transfer_num" style="width:100%!important">
                     </div>
                     <div class="col-xs-3" style="padding-left: 0;">

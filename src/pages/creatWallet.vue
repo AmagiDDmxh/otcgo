@@ -86,7 +86,6 @@
 									type="password"
 									class="form-control"
 									v-model="password1"
-									@keyup.enter="creatWallet"
 									name="password1"/>
 						</div>
 						<div class="col-xs-3" style="padding-left:0px;">
@@ -108,7 +107,8 @@
 						<div class="col-xs-4">
 							<input
 									type="password" class="form-control"
-									v-model="password2" name="password2"/>
+									v-model="password2" name="password2"
+									@keyup.enter="creatWallet"/>
 							<p v-show="passwordError" class="error-text">
 								{{ passwordError }}
 							</p>

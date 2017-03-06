@@ -25,7 +25,7 @@
                                 </router-link>
                             </li>
                             <li>
-                                <a class="text-center" href="http://testnet.antchain.xyz/" target="_blank">区块浏览</a>
+                                <a class="text-center" href="//testnet.antchain.xyz/" target="_blank">区块浏览</a>
                             </li>
                             <li>
                                 <router-link class="text-center" :to="{path: '/admin/history'}">转账记录</router-link>
