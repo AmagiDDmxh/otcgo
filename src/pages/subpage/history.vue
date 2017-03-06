@@ -14,7 +14,7 @@
                         <td>{{history['name']}}</td>
                         <td>{{history['amount']}}</td>
                         <td>{{history['time']}}</td>
-                        <td>已转出</td>
+                        <td>查看<a class="link-span" :href="`https://testnet.antchain.xyz/tx/hash/${history['txid']}`" target="_blank">转出记录</a></td>
                     </tr>
                 </tbody>
             </table>

@@ -254,7 +254,6 @@ export default {
             setInterval(() => {this.getbalances();}, 1000 * 60 * 5)
         }
 };
-setInterval(vm.getbalances, 1000 * 60 * 5);
 </script>
 <style lang="css">
 .active a:hover {

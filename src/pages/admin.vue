@@ -17,7 +17,7 @@
                     <div class="left-menu">
                         <ul class="nav nav-pills nav-stacked">
                             <li><a class="text-center title">菜&nbsp;&nbsp;&nbsp;单</a></li>
-                            <li>
+                            <li :class="{'active': isActive}">
                                 <router-link
                                         class="text-center"
                                         :to="{ path: '/admin/balances'}"
@@ -25,7 +25,7 @@
                                 </router-link>
                             </li>
                             <li>
-                                <a class="text-center" href="https://antchain.xyz/" target="_blank">区块浏览</a>
+                                <a class="text-center" href="http://testnet.antchain.xyz/" target="_blank">区块浏览</a>
                             </li>
                             <li>
                                 <router-link class="text-center" :to="{path: '/admin/history'}">转账记录</router-link>
@@ -63,18 +63,16 @@
 export default {
     data() {
         return {
-            sub_li: false
-        }
-    },
-    methods: {
-        goBack() {
-
+            sub_li: false,
+            isActive: false
         }
     }
 }
 </script>
 
 <style lang="css">
+.active > a
+
 .exit {
     position: absolute;
     right: 0;
