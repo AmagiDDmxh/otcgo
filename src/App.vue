@@ -1,21 +1,12 @@
 <template>
     <router-view></router-view>
-    <!--<div class="pageDiv container" style="background-color:#fff;">
-        <h>
-        </h>
-        <router-view></router-view>
-        &lt;!&ndash;<foot></foot>&ndash;&gt;
-        <div class="footer-link">
-        </div>
-    </div>-->
 </template>
 <script>
 export default {
     data() {
         return {
         }
-    },
-    mounted: {}
+    }
 }
 </script>
 <style>
@@ -148,24 +139,6 @@ ul>li>.menu {
     background-position: center;
     background-repeat: no-repeat;
 }
-
-.bg-blue1 {
-    background-image: url(assets/foot-1.png);
-}
-
-.bg-blue2 {
-    background-image: url(assets/foot-2.png);
-}
-
-.bg-blue3 {
-    background-image: url(assets/foot-3.png);
-}
-
-.bg-blue4 {
-    background-image: url(assets/foot-4.png);
-}
-
-
 
 .foot-li {
     display: inline-block;

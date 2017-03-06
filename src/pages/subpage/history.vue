@@ -69,6 +69,11 @@ export default {
     color: #fff;
     background: #2c9;
 }
+
+.link-interact:hover {
+    text-decoration: underline;
+}
+
 .boot-select {
     float: left;
     margin: 20px 0;
