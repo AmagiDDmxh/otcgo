@@ -14,8 +14,3 @@ Otcogo is a Digital assets OTC platform based on intelligent contracts, This is 
   npm run build
   npm run dev
 ```
-
-### 更新记录与Todo
-2017-03-06
-
-1. 按钮失效

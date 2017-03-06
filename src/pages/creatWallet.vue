@@ -43,8 +43,8 @@
 							<span
 									class="error-text"
 									style="display:inline-block;margin-top:5px;"
-									v-if="username.length >=20"
-							> 用户名不能超过20位 </span>
+									v-if="username[0] === '_'"
+							> 用户名不能以下划线_开头 </span>
 
 							<span
 									v-else-if="username==''"
@@ -167,7 +167,7 @@
 				if (this.password1 == '' || this.password2 == '') {
 					return;
 				}
-				if (this.password1.length < 8 || this.password2.length < 8) {
+				if (this.password1.length < 8 || this.password2.length < 8 || this.username[0] === '_') {
 					return;
 				}
 
@@ -177,7 +177,7 @@
 						var publicKey = ljWifkeyToPubkey(this.wif);
 						var privateKey = ljWifkeyToHexkey(this.wif);
 					} else {
-                        this.falseWIFMessage = !this.falseWIFMessage;
+            	this.falseWIFMessage = !this.falseWIFMessage;
 						return;
 					}
 				} else {
@@ -217,6 +217,9 @@
 						this.$message.error('创建钱包失败，请重试');
 				});
 			}
+		},
+		mounted() {
+			window.LJWallet = false;
 		}
 	}
 
@@ -261,6 +264,7 @@
 		aLink.download = name.replace(/[.].(.*)/, '.json');
     aLink.click();
 	}
+
 </script>
 <style lang="css">
 	.btn-lj {

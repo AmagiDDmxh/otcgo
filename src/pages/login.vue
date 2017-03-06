@@ -33,11 +33,10 @@
                         <div class="input-group">
                             <input type="password" class="form-control pwd" @keyup.enter="login" v-model="password" placeholder="输入钱包密码">
                             <span v-if="password==''" style="display:inline-block;padding-left:10px;margin-top:5px;" class="error-text">
-
-                              密码不能为空
+                                密码不能为空
                             </span>
                             <span v-else-if="password.length< 8" style="display:inline-block;padding-left:10px;margin-top:5px;" class="error-text">
-                                 密码不能小于8位
+                                密码不能小于8位
                              </span>
                             <span v-else style="display:inline-block;padding-left:10px;"> <img src="/src/assets/yes.png"/> </span>
                         </div>
@@ -140,7 +139,8 @@ export default {
                         var LJWallet = JSON.parse(fileString);
                         // console.log(LJWallet);
                         // 缺少 address、publicKeyCompressed、publicKey、privateKeyEncrypted任一项
-                        if (LJWallet.address == undefined || LJWallet.publicKeyCompressed == undefined || LJWallet.publicKey == undefined || LJWallet.privateKeyEncrypted == undefined) {
+                        if (LJWallet.address == undefined || LJWallet.publicKeyCompressed == undefined
+                            || LJWallet.publicKey == undefined || LJWallet.privateKeyEncrypted == undefined) {
                             this.filenameError = "钱包文件格式有误,请重新选择";
                             this.filename = "";
                             this.filevalue = "";

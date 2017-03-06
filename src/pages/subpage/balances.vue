@@ -64,7 +64,9 @@
                         > 请输入转账数量 </span>
 
                         <span
-                                v-else-if="isNaN(parseInt(transfer_num)) || Number(transfer_num) > Number(transfer_valid) || Number(transfer_num) % 1 !== 0"
+                                v-else-if="isNaN(parseInt(transfer_num))
+                                || Number(transfer_num) > Number(transfer_valid)
+                                || divisible ? !Number(transfer_num) : Number(transfer_num) % 1 !== 0"
                                 class="error-text"
                         > 数量错误 </span>
 
