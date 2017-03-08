@@ -21,38 +21,38 @@
                 <div>
                     <form class="from-group login">
                         <div class="input-group">
-                            <input type="text" class="form-control" id="select-file" style="background-color: #fff;" readonly :value="filename" placeholder="导入钱包文件">
+                            <input type="text" class="form-control" id="select-file" style="background-color: #fff;"
+                                   readonly :value="filename" placeholder="导入钱包文件">
                             <label class="btn-bs-file btn  btn-select-file btn-primary btn-lj">
-                                浏览
-                                <input type="file" id="file" :value="filevalue" />
+                                浏览<input type="file" id="file" :value="filevalue" />
                             </label>
                             <span v-show="filenameError"  style="display:inline-block;padding-left:10px;" class="error-text">
                                 {{filenameError}}
                             </span>
                         </div>
                         <div class="input-group">
-                            <input type="password" class="form-control pwd" @keyup.enter="login" v-model="password" placeholder="输入钱包密码">
-                            <span v-if="password==''" style="display:inline-block;padding-left:10px;margin-top:5px;" class="error-text">
-                                密码不能为空
-                            </span>
-                            <span v-else-if="password.length< 8" style="display:inline-block;padding-left:10px;margin-top:5px;" class="error-text">
-                                密码不能小于8位
-                             </span>
+                            <input type="password" class="form-control pwd" @keyup.enter="login"
+                                   v-model="password" placeholder="输入钱包密码">
+
+                            <span v-if="password==''" style="display:inline-block;padding-left:10px;margin-top:5px;"
+                                  class="error-text">密码不能为空</span>
+
+                            <span v-else-if="password.length< 8" style="display:inline-block;padding-left:10px;margin-top:5px;"
+                                  class="error-text">密码不能小于8位</span>
                             <span v-else style="display:inline-block;padding-left:10px;"> <img src="/src/assets/yes.png"/> </span>
                         </div>
                         <div class="input-group">
-                            <button type="button" style="border-radius:6px;" @click="login" class="form-control text-center select-file btn-lj">
-                                登 &nbsp; &nbsp; 录
-                            </button>
+                            <button type="button" style="border-radius:6px;" @click="login"
+                                    class="form-control text-center select-file btn-lj">登 &nbsp; &nbsp; 录</button>
                         </div>
                         <div class="register text-center">
                             <router-link to="/creatWallet">没有钱包?立即创建!</router-link>
                         </div>
                     </form>
                 </div>
-                <p class="tips">
-                    离线钱包由小蚁区块链提供技术支持
-                </p>
+
+                <p class="tips">离线钱包由小蚁区块链提供技术支持</p>
+
             </div>
         </div>
     </div>
@@ -78,6 +78,7 @@ export default {
                     return;
                 }
                 if (this.password.length < 8) {
+                    this.$message.error("密码不能小于8位");
                     return;
                 };
 
@@ -87,11 +88,6 @@ export default {
                 var result = doValidatePwd(privateKey, window.LJWallet['publicKey']);
                 if (result) {
                     window.LJWallet['privateKey'] = privateKey;
-                    //登录时效
-                    setTimeout(function() {
-                        window.LJWallet = null;
-                    }, 1000 * 60 * 60);
-
                     // console.log("验证成功!")
                     this.$message({
                         message: '验证成功!',

@@ -3,8 +3,8 @@ import App from './App.vue'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
 import Vuex from 'vuex'
-import 'bootstrap/dist/css/bootstrap.css';
-import 'element-ui/lib/theme-default/index.css';
+import 'bootstrap/dist/css/bootstrap.css'
+import '../theme/index.css'
 
 
 import ElementUI from 'element-ui'

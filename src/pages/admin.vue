@@ -1,57 +1,59 @@
 <template>
 <div style="margin: 100px 0;">
-    <div class="container container-padding">
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="panel panel-default panel-state">
-                    <div class="panel-body">
-                        你已登录离线钱包
+    <div class="container">
+        <div class="container container-padding">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="panel panel-default panel-state">
+                        <div class="panel-body">
+                            你已登录离线钱包
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <!-- left menu -->
-            <div class="col-xs-3">
-                <div class="ad-tips admin-tips">
-                    <div class="left-menu">
-                        <ul class="nav nav-pills nav-stacked">
-                            <li><a class="text-center title">菜&nbsp;&nbsp;&nbsp;单</a></li>
-                            <li :class="{'active': isActive}">
-                                <router-link
-                                        class="text-center"
-                                        :to="{ path: '/admin/balances'}"
-                                > 资产列表
-                                </router-link>
-                            </li>
-                            <li>
-                                <a class="text-center" href="//testnet.antchain.xyz/" target="_blank">区块浏览</a>
-                            </li>
-                            <li>
-                                <router-link class="text-center" :to="{path: '/admin/history'}">转账记录</router-link>
-                            </li>
-                            <li>
-                                <router-link class="text-center" :to="{ path: '/admin/uid'}"> 个人中心</router-link>
-                            </li>
-                        </ul>
+            <div class="row">
+                <!-- left menu -->
+                <div class="col-xs-3">
+                    <div class="ad-tips admin-tips">
+                        <div class="left-menu">
+                            <ul class="nav nav-pills nav-stacked">
+                                <li><a class="text-center title">菜&nbsp;&nbsp;&nbsp;单</a></li>
+                                <li :class="{'active': isActive}">
+                                    <router-link
+                                            class="text-center"
+                                            :to="{ path: '/admin/balances'}"
+                                    > 资产列表
+                                    </router-link>
+                                </li>
+                                <li>
+                                    <a class="text-center" href="//testnet.antchain.xyz/" target="_blank">区块浏览</a>
+                                </li>
+                                <li>
+                                    <router-link class="text-center" :to="{path: '/admin/history'}">转账记录</router-link>
+                                </li>
+                                <li>
+                                    <router-link class="text-center" :to="{ path: '/admin/uid'}"> 个人中心</router-link>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-9">
+                    <!-- data-table -->
+                    <div class="admin-content">
+                        <router-view>
+                        </router-view>
                     </div>
                 </div>
             </div>
-            <div class="col-xs-9">
-                <!-- data-table -->
-                <div class="admin-content">
-                    <router-view>
-                    </router-view>
-                </div>
-            </div>
-        </div>
 
-        <div class="row">
-            <div class="col-xs-3">
-            </div>
-            <div class="col-xs-9">
-                <div class="admin-footer-line">
-                     离线钱包由小蚁区块链提供技术支持
+            <div class="row">
+                <div class="col-xs-3">
+                </div>
+                <div class="col-xs-9">
+                    <div class="admin-footer-line">
+                        离线钱包由小蚁区块链提供技术支持
+                    </div>
                 </div>
             </div>
         </div>
@@ -71,8 +73,6 @@ export default {
 </script>
 
 <style lang="css">
-.active > a
-
 .exit {
     position: absolute;
     right: 0;

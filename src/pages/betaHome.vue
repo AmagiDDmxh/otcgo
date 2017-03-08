@@ -4,15 +4,13 @@
             <img class="background__img" src="../assets/background.png" alt="background!!">
         </div>
         <div class="sign">
+            <h2 style="color: hsl(0, 75%, 60%); margin-left: 120px;">测试网</h2>
             <div class="betalogo">
                 <img class="betalogo__img" src="../assets/logo.png" alt="logo">
             </div>
-            <router-link class="sign__link" to="/creatWallet">
-                创建钱包
-            </router-link>
-            <router-link class="sign__link" to="/login">
-                登录钱包
-            </router-link>
+
+            <router-link class="sign__link" to="/creatWallet"> 创建钱包 </router-link>
+            <router-link class="sign__link" to="/login"> 登录钱包 </router-link>
         </div>
     </div>
 </template>
