@@ -71,6 +71,7 @@ export default {
 }
 
 .link-interact:hover {
+    color: #fff;
     text-decoration: underline;
 }
 
