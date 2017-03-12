@@ -126,7 +126,8 @@ export default {
                 transfer_err: false,
 
                 // 按钮 Button
-                loading: false
+                loading: false,
+                errNum: 1
             }
     },
 
@@ -144,7 +145,10 @@ export default {
                 this.balances = response.data.balances;
                 this.valueassetid = response.data.balances[0].asset;
             }, (response) => {
-                this.message.error('服务器有点过载, 请稍等一下!')
+            	if (this.errNum < 2) {
+		            this.$message.error('服务器有点过载, 请稍等一下!');
+		            this.errNum++;
+	            }
             });
         },
 
@@ -250,7 +254,7 @@ export default {
 
     mounted: function() {
         this.getbalances();
-        setInterval(() => {this.getbalances();}, 1000 * 5);
+        setInterval(() => {this.getbalances; return;}, 1000 * 5);
     }
 };
 </script>

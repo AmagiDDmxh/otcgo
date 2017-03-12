@@ -8,68 +8,59 @@ import uid from '../pages/subpage/uid.vue';
 import history from '../pages/subpage/history.vue';
 
 
-const routes = [{
-    path: '/betaHome',
-    component: betaHome
-}, {
-    path: '/login',
-    component: login
-}, {
-    path: '/',
-    component: betaHome
-}, {
-    path: '/admin',
-    component: admin,
-    children: [{
-        path: "history",
-        component: history,
-        beforeEnter: (to, from, next) => {
-            if (!window.LJWallet) {
-                next({path: '/betaHome'});
-                return;
-            };
-            next();
-        }
-    },{
-        path: "uid",
-        component: uid,
-        beforeEnter: (to, from, next) => {
-            if (!window.LJWallet) {
-                next({path: '/betaHome'});
-                return;
-            };
-            next();
-        }
-    }, {
-        path: "balances",
-        component: balances,
-        beforeEnter: (to, from, next) => {
-            if (!window.LJWallet) {
-                next({path: '/betaHome'});
-                return;
-            }
-            ;
-            next();
-        }
+const routes = [
+    { path: '/betaHome', component: betaHome },
 
-    }, {
-        path: "",
-        component: balances,
-        beforeEnter: (to, from, next) => {
-            if (!window.LJWallet) {
-                next({path: '/login'})
-                return;
-            };
-            next();
-        }
-    }]
-}, {
-    path: '/creatWallet',
-    component: creatWallet
-}, {
-    path: '/wallet',
-    component: wallet
-}]
+    { path: '/login', component: login },
+
+    { path: '/', component: betaHome },
+
+    { path: '/admin', component: admin,
+      children: [
+          { path: "history", component: history,
+            beforeEnter: (to, from, next) => {
+              if (!window.LJWallet) {
+                  next({path: '/betaHome'});
+                  return;
+              };
+              next();
+          }
+    },
+
+    { path: "uid", component: uid,
+      beforeEnter: (to, from, next) => {
+          if (!window.LJWallet) {
+              next({path: '/betaHome'});
+              return;
+          };
+          next();
+      }
+    },
+
+    { path: "balances", component: balances,
+      beforeEnter: (to, from, next) => {
+          if (!window.LJWallet) {
+              next({path: '/betaHome'});
+              return;
+          }
+          next();
+      }
+    },
+
+    { path: "", component: balances,
+      beforeEnter: (to, from, next) => {
+          if (!window.LJWallet) {
+              next({path: '/login'})
+              return;
+          }
+          next();
+      }
+    }
+    ]},
+
+    { path: '/creatWallet', component: creatWallet },
+    { path: '/wallet', component: wallet }
+];
 
 
 

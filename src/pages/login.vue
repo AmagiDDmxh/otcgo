@@ -39,11 +39,13 @@
 
                             <span v-else-if="password.length< 8" style="display:inline-block;padding-left:10px;margin-top:5px;"
                                   class="error-text">密码不能小于8位</span>
+
                             <span v-else style="display:inline-block;padding-left:10px;"> <img src="/src/assets/yes.png"/> </span>
                         </div>
                         <div class="input-group">
-                            <button type="button" style="border-radius:6px;" @click="login"
-                                    class="form-control text-center select-file btn-lj">登 &nbsp; &nbsp; 录</button>
+                            <button class="form-control text-center select-file btn-lj"
+                                    type="button" style="border-radius:6px;"
+                                    @click="login">登 &nbsp; &nbsp; 录</button>
                         </div>
                         <div class="register text-center">
                             <router-link to="/creatWallet">没有钱包?立即创建!</router-link>
@@ -135,14 +137,16 @@ export default {
                         var LJWallet = JSON.parse(fileString);
                         // console.log(LJWallet);
                         // 缺少 address、publicKeyCompressed、publicKey、privateKeyEncrypted任一项
-                        if (LJWallet.address == undefined || LJWallet.publicKeyCompressed == undefined
-                            || LJWallet.publicKey == undefined || LJWallet.privateKeyEncrypted == undefined) {
+                        if (LJWallet.address == undefined ||
+                            LJWallet.publicKeyCompressed == undefined ||
+                            LJWallet.publicKey == undefined ||
+                            LJWallet.privateKeyEncrypted == undefined)
+                        {
                             this.filenameError = "钱包文件格式有误,请重新选择";
                             this.filename = "";
                             this.filevalue = "";
                             return;
-
-                        };
+                        }
 
                         // 验证成功
                          window.LJWallet = LJWallet;
@@ -153,7 +157,6 @@ export default {
                         self.filenameError = "钱包文件格式有误,请重新选择";
                         self.filename = "";
                         self.filevalue = "";
-                        return;
                     }
 
                 }

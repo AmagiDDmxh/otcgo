@@ -2,8 +2,9 @@ import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
-import Vuex from 'vuex'
 import 'bootstrap/dist/css/bootstrap.css'
+import Vuex from 'vuex'
+
 import '../theme/index.css'
 
 
