@@ -50,8 +50,6 @@
                     <div class="col-xs-6">
                         <input
                                 type="text" class="form-control"
-                                :onkeyup="divisibleLimit"
-                                :onafterpaste="divisibleLimit"
                                 v-model="transfer_num" style="width:100%!important">
                     </div>
                     <div class="col-xs-3" style="padding-left: 0;">
@@ -60,7 +58,8 @@
                             class="error-text"> 请输入转账数量 </span>
 
                         <span
-                            v-else-if="isNaN(parseInt(transfer_num)) || Number(transfer_num) > Number(transfer_valid)"
+                            v-else-if="checkNumber || divisible ? isNaN(parseFloat(transfer_num
+                            )) : parseInt(transfer_num) !== parseFloat(transfer_num)"
                             class="error-text"> 数量错误 </span>
 
                         <span v-else> <img src="/src/assets/yes.png"/> </span>
@@ -80,12 +79,12 @@
                         > 请输入转账地址 </span>
 
                         <span
-                                v-else-if="transfer_address_value[0]!='a' && transfer_address_value[0]!='A' || !/[a-zA-Z0-9]{34}/.test(transfer_address_value)"
+                                v-else-if="transfer_address_value.trim()[0]!='a' && transfer_address_value.trim()[0]!='A' || !/[a-zA-Z0-9]{34}/.test(transfer_address_value)"
                                 class="error-text"
                         > 地址格式错误 </span>
 
                         <span
-                                v-else-if="transfer_address_value.length!=34"
+                                v-else-if="transfer_address_value.trim().length!=34"
                                 class="error-text"
                         > 地址必须是34位 </span>
                         <span v-else> <img src="/src/assets/yes.png"/> </span>
@@ -132,10 +131,8 @@ export default {
     },
 
     computed: {
-        divisibleLimit() {
-            return this.divisible ?
-                'this.value=this.value.replace(/[^\\d{1,}\\.\\d{1,}|\\d{1,}]/g, "")' :
-                'this.value=this.value.replace(/\\D/g, "")';
+        checkNumber() {
+            return isNaN(parseInt(this.transfer_num)) || Number(this.transfer_num) > Number(this.transfer_valid);
         }
     },
 

@@ -85,26 +85,28 @@ export default {
                 };
 
                 // 解密钱包和密码
-
-                var privateKey = decrypt(window.LJWallet['privateKeyEncrypted'], this.password);
-                var result = doValidatePwd(privateKey, window.LJWallet['publicKey']);
-                if (result) {
-                    window.LJWallet['privateKey'] = privateKey;
-                    // console.log("验证成功!")
-                    this.$message({
-                        message: '验证成功!',
-                        type: 'success'
-                    });
-
-                      $("#header-a").text("我的钱包");
-                    setTimeout(function() {
-                        self.$router.push({
-                            path: '/admin'
+                try {
+                    var privateKey = decrypt(window.LJWallet['privateKeyEncrypted'], this.password);
+                    var result = doValidatePwd(privateKey, window.LJWallet['publicKey']);
+                    if (result) {
+                        window.LJWallet['privateKey'] = privateKey;
+                        this.$message({
+                            message: '验证成功!',
+                            type: 'success'
                         });
-                    }, 1000);
 
-                } else {
-                    this.$message.error('验证失败,请重试!');
+                        $("#header-a").text("我的钱包");
+                        setTimeout(function() {
+                            self.$router.push({
+                                path: '/admin'
+                            });
+                        }, 1000);
+                    } else {
+                        this.$message.error('验证失败,请重试!');
+                        this.password = "";
+                    }
+                } catch (err) {
+                    this.$message.error('验证失败,请重新尝试!');
                     this.password = "";
                 }
             }
@@ -112,7 +114,9 @@ export default {
 
         mounted: function() {
             var self = this;
-            if (window.LJWallet) {
+            if (this.password = '') {
+                return;
+            } else if (window.LJWallet) {
                 self.$router.push({
                     path: '/admin'
                 });
