@@ -102,11 +102,11 @@ export default {
                             });
                         }, 1000);
                     } else {
-                        this.$message.error('验证失败,请重试!');
+                        this.$message.error('密码验证失败,请重新尝试!');
                         this.password = "";
                     }
                 } catch (err) {
-                    this.$message.error('验证失败,请重新尝试!');
+                    this.$message.error('密码验证失败,请重新尝试!');
                     this.password = "";
                 }
             }
@@ -220,6 +220,7 @@ function doValidatePwd(prvkey, pubkey) {
     return result;
 }
 </script>
+
 <style lang="css">
 .fileDiv {
     position: absolute;

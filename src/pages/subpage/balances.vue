@@ -251,7 +251,7 @@ export default {
 
     mounted: function() {
         this.getbalances();
-        setInterval(() => {this.getbalances; return;}, 1000 * 5);
+        setInterval(() => {this.getbalances(); return;}, 1000 * 5);
     }
 };
 </script>
