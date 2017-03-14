@@ -1,18 +1,19 @@
 <template>
-    <div>
-        <div class="background">
-            <img class="background__img" src="../assets/background.png" alt="background!!">
-        </div>
+<div>
+    <div class="background">
         <div class="sign">
-            <h2 style="color: hsl(0, 75%, 60%); margin-left: 120px;">测试网</h2>
-            <div class="betalogo">
-                <img class="betalogo__img" src="../assets/logo.png" alt="logo">
-            </div>
+            <div class="group">
+                <h2 style="color: hsl(0, 75%, 60%); margin: auto;">测试网</h2>
+                <div class="betalogo"> 
+                    <img class="betalogo__img" src="../assets/logo.png" alt="logo">
+                </div>
 
-            <router-link class="sign__link" to="/creatWallet"> 创建钱包 </router-link>
-            <router-link class="sign__link" to="/login"> 登录钱包 </router-link>
+                <router-link class="sign__link" to="/creatWallet"> 创建钱包 </router-link>
+                <router-link class="sign__link" to="/login"> 登录钱包 </router-link>
+            </div>
         </div>
     </div>
+</div>
 </template>
 
 <script>
@@ -28,18 +29,33 @@
 
 </script>
 
-<style>
+<style scoped>
+    .group {
+        display: -webkit-flex;
+        display: -moz-flex;
+        display: -ms-flex;
+        display: -o-flex;
+        display: flex;
+        
+        -webkit-flex-direction: column;
+        -moz-flex-direction: column;
+        -ms-flex-direction: column;
+        -o-flex-direction: column;
+        flex-direction: column;
+    }
+
     .betalogo {
         background: #fff;
         margin: 20px 0;
-        width: 60%;
         height: 80px;
-        display: block;
+        display: flex;
         border-radius: 5px;
+        align-items: center;
+        justify-content: center;
     }
-
+    
     .betalogo__img {
-        margin: 17px 97px;
+        margin: 0 auto;
     }
 
     .tips--cover {
@@ -52,16 +68,11 @@
     }
 
     .sign {
-        position: absolute;
-        left: 42%;
-        top: 31%;
-        width: 540px;
+        min-width: 320px;
     }
-
+    
     .sign__link {
         display: block;
-        width: 60%;
-        height: 40px;
         text-align: center;
         line-height: 38px;
         font-size: 16px;
@@ -72,7 +83,7 @@
         margin-bottom: 20px;
         font-weight: 400;
     }
-
+    
     .sign__link:hover {
         color: #22cc99;
         background: #fff;
@@ -80,13 +91,26 @@
     }
 
     .background {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        z-index: -1;
+        background: url('../assets/background.png');
+        height: 100vh;
+        -webkit-background-size: cover;
+        background-size: cover;
+        display: -webkit-flex;
+        display: -moz-flex;
+        display: -ms-flex;
+        display: -o-flex;
+        display: flex;
+        -webkit-flex-direction: column;
+        -moz-flex-direction: column;
+        -ms-flex-direction: column;
+        -o-flex-direction: column;
+        flex-direction: column;
+        justify-content: center;
+        -ms-align-items: center;
+        align-items: center;
     }
 
-    .background__img {
-        position: fixed;
-    }
+   /*  .background__img {
+       position: fixed;
+   } */
 </style>

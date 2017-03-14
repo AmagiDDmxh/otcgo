@@ -1,12 +1,12 @@
 <template>
-<div style="margin: 100px 0;">
+<div class="login-group">
     <div class="container container-padding">
         <div class="panel panel-default panel-state">
             <div class="panel-body">
                 登录离线钱包
             </div>
         </div>
-        <div class="login-bopy row">
+        <div class="login-body row">
             <div class="col-xs-3 col-lg-3">
                 <div class="ad-tips">
                     <ol>
@@ -71,10 +71,7 @@ export default {
             }
         },
         methods: {
-
             login: function() {
-
-                var self = this;
                 if (this.filename == "") {
                     this.filenameError = "文件不能为空";
                     return;
@@ -96,17 +93,17 @@ export default {
                         });
 
                         $("#header-a").text("我的钱包");
-                        setTimeout(function() {
-                            self.$router.push({
+                        setTimeout(() => {
+                            this.$router.push({
                                 path: '/admin'
                             });
                         }, 1000);
                     } else {
-                        this.$message.error('密码验证失败,请重新尝试!');
+                        this.$message.error('密码错误！请重新尝试');
                         this.password = "";
                     }
                 } catch (err) {
-                    this.$message.error('密码验证失败,请重新尝试!');
+                    this.$message.error('密码验证失败,请重新尝试');
                     this.password = "";
                 }
             }
@@ -221,7 +218,19 @@ function doValidatePwd(prvkey, pubkey) {
 }
 </script>
 
-<style lang="css">
+<style lang="css" >
+@media screen and (min-width: 480px) {
+
+}
+
+.login-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
 .fileDiv {
     position: absolute;
     top: 0;
@@ -243,7 +252,7 @@ function doValidatePwd(prvkey, pubkey) {
 }
 
 .login-body {
-    height: 500px!important;
+    margin-top: 93px;
 }
 
 .register a {
@@ -255,6 +264,7 @@ function doValidatePwd(prvkey, pubkey) {
 }
 
 .h2 {
+    margin-top: -43px;
     border-bottom: 1px solid #000;
     padding-bottom: 10px;
 }
@@ -321,10 +331,6 @@ function doValidatePwd(prvkey, pubkey) {
     border-radius: 0px;
 }
 
-.login-body {
-    height: 500px !important;
-}
-
 .login-body #select-file {
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
@@ -366,10 +372,6 @@ function doValidatePwd(prvkey, pubkey) {
 
 .link-span:hover {
     cursor: pointer;
-}
-
-.ad-tips {
-    margin-top: 64px;
 }
 
 .ad-tips ol {

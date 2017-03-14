@@ -40,10 +40,8 @@
                 </div>
                 <div class="col-xs-9">
                     <!-- data-table -->
-                    <div class="admin-content">
-                        <router-view>
-                        </router-view>
-                    </div>
+                    <router-view>
+                    </router-view>
                 </div>
             </div>
 
@@ -105,14 +103,6 @@ export default {
     background-color: #f2f2f2;
     color: #2c9;
 }
-
-
-/*admin-content*/
-
-.admin-content {
-    margin-top: 64px;
-}
-
 
 /*left-menu*/
 

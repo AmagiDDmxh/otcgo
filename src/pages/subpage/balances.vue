@@ -58,8 +58,7 @@
                             class="error-text"> 请输入转账数量 </span>
 
                         <span
-                            v-else-if="checkNumber || divisible ? isNaN(parseFloat(transfer_num
-                            )) : parseInt(transfer_num) !== parseFloat(transfer_num)"
+                            v-else-if="isNaN(parseInt(transfer_num)) || Number(transfer_num) > Number(transfer_valid) || (divisible ? isNaN(parseFloat(transfer_num)) : parseInt(transfer_num) !== parseFloat(transfer_num))"
                             class="error-text"> 数量错误 </span>
 
                         <span v-else> <img src="/src/assets/yes.png"/> </span>
@@ -130,13 +129,8 @@ export default {
             }
     },
 
-    computed: {
-        checkNumber() {
-            return isNaN(parseInt(this.transfer_num)) || Number(this.transfer_num) > Number(this.transfer_valid);
-        }
-    },
-
     methods: {
+        
         getbalances: function() {
             this.$http.get(`balances/${window.LJWallet.address}/`).then((response) => {
                 this.balances = response.data.balances;
@@ -178,9 +172,9 @@ export default {
             }
 
             if (this.divisible) {
-                this.transfer_num = Number(this.transfer_num).toFixed(8);
+                this.transfer_num = Number(this.transfer_num.replace(/\.|[ ]/g, '')).toFixed(8);
             } else {
-                this.transfer_num = Math.floor(this.transfer_num)
+                this.transfer_num = Math.floor(this.transfer_num.replace(/\.|[ ]/g, ''));
             }
 
             var postData = {
@@ -249,11 +243,18 @@ export default {
         }
     },
 
-    mounted: function() {
+    mounted() {
         this.getbalances();
-        setInterval(() => {this.getbalances(); return;}, 1000 * 5);
+        refreshBalance = setInterval(() => {this.getbalances()}, 1000 * 2);
+    },
+
+    destroyed() {
+        clearInterval(refreshBalance);
     }
 };
+
+let refreshBalance;
+
 </script>
 <style lang="css">
 .active a:hover {
