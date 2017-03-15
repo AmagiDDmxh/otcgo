@@ -170,10 +170,12 @@ export default {
                 this.balances = response.data.balances;
                 this.valueassetid = response.data.balances[0].asset;
             }, (response) => {
-            	if (this.errNum < 2) {
+            	if (this.errNum <= 2) {
 		            this.$message.error('服务器有点过载, 请稍等一下!');
 		            this.errNum++;
-	            }
+	            } else {
+                    this.errNum = 1;
+                }
             });
         },
 
@@ -273,7 +275,7 @@ export default {
 
     mounted() {
         this.getbalances();
-        refreshBalance = setInterval(() => {this.getbalances()}, 1000 * 2);
+        refreshBalance = setInterval(() => {this.getbalances()}, 1000 * 5);
     },
 
     destroyed() {
@@ -282,8 +284,9 @@ export default {
 };
 
 let refreshBalance;
-
 </script>
+
+
 <style lang="css">
 .active a:hover {
     cursor: pointer;
