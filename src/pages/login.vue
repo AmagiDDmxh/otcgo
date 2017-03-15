@@ -12,7 +12,7 @@
                     <ol>
                         <li>点击"浏览"按钮，找到钱包备份文件所在的硬盘位置，并导入。</li>
                         <li>输入您在创建钱包时,设置的钱包密码。</li>
-                        <li>当前钱包页面为WED离线钱包页面，请放心导入钱包备份文件。</li>
+                        <li>当前钱包页面为WEB离线钱包页面，请放心导入钱包备份文件。</li>
                     </ol>
                 </div>
             </div>
@@ -111,9 +111,7 @@ export default {
 
         mounted: function() {
             var self = this;
-            if (this.password = '') {
-                return;
-            } else if (window.LJWallet) {
+            if (window.LJWallet) {
                 self.$router.push({
                     path: '/admin'
                 });
