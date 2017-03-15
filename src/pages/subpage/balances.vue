@@ -36,6 +36,17 @@
 
         <!-- Dialog: transfer,转账 -->
         <el-dialog v-model="dialogTransfer" class="tiny-dialog">
+            <!-- 
+            **** 转账数量 
+            *   @v-model: transfer_num
+            *   检测:
+            *       1. 转账数量是否为空 -> 请输入转账数量
+            *       2. 转账类型是否可分割, 不可超过可用值
+            *          如果可分割, 小数点后不能超过8位.
+            *          不可分割, 不能出现小数
+            **** 
+            -->
+
             <div style="padding-left:10px;padding-right:20px">
                 <div class="row">
                     <div class="col-xs-4">
@@ -49,8 +60,8 @@
                     <span class="col-xs-3" style="margin-top:8px">转账数量:</span>
                     <div class="col-xs-6">
                         <input
-                                type="text" class="form-control"
-                                v-model="transfer_num" style="width:100%!important">
+                            type="text" class="form-control"
+                            v-model="transfer_num" style="width:100%!important">
                     </div>
                     <div class="col-xs-3" style="padding-left: 0;">
                         <span
@@ -58,12 +69,23 @@
                             class="error-text"> 请输入转账数量 </span>
 
                         <span
-                            v-else-if="isNaN(parseInt(transfer_num)) || Number(transfer_num) > Number(transfer_valid) || (divisible ? isNaN(parseFloat(transfer_num)) : parseInt(transfer_num) !== parseFloat(transfer_num))"
+                            v-else-if="checkOutKeyValue"
                             class="error-text"> 数量错误 </span>
 
-                        <span v-else> <img src="/src/assets/yes.png"/> </span>
+                    <span v-else> <img src="/src/assets/yes.png"/> </span>
                     </div>
                 </div>
+
+                <!-- 
+                **** 地址
+                *   @v-model: transfer_address_value
+                *   检测: 
+                *       1. 地址是否为空  -> 请输入转账地址.
+                *       2. 地址是否为`'a' or 'A'`开头 || 是否为`34位 alphanumeric` -> 地址格式错误.
+                *       3. 地址.trim()是否为34位.
+                ****       
+                -->
+                
                 <div class="row" style="margin-top:20px">
                     <span class="col-xs-3" style="margin-top:8px">转账地址:</span>
                     <div class="col-xs-6">
@@ -89,6 +111,8 @@
                         <span v-else> <img src="/src/assets/yes.png"/> </span>
                     </div>
                 </div>
+
+                <!-- 确认转账按钮 -->
                 <div class="row" style="margin-top:20px;">
                     <div class="col-xs-3"></div>
                     <div class="col-xs-6">
@@ -129,6 +153,16 @@ export default {
             }
     },
 
+    computed: {
+        checkOutKeyValue() {
+            return Number(this.transfer_num) > Number(this.transfer_valid) ||
+            (this.divisible ?
+                !/^\d+(\.\d{1,8})?$/.test(this.transfer_num) :
+                !/^\d+$/.test(this.transfer_num)
+            )
+        }
+    },
+
     methods: {
         
         getbalances: function() {
@@ -156,8 +190,9 @@ export default {
 
         transfer: function() {
             var address_value = this.transfer_address_value.trim();
-            if (this.transfer_num == "" || this.transfer_address_value == "" ||
-                (Number(this.transfer_num) > Number(this.transfer_valid))) {
+            if (this.transfer_num == "" ||
+                this.transfer_address_value == "" ||
+                !this.checkOutKeyValue) {
                 return;
             }
 
@@ -172,52 +207,57 @@ export default {
             }
 
             if (this.divisible) {
-                this.transfer_num = Number(this.transfer_num.replace(/\.|[ ]/g, '')).toFixed(8);
+                this.transfer_num = Number(this.transfer_num).toFixed(8);
             } else {
-                this.transfer_num = Math.floor(this.transfer_num.replace(/\.|[ ]/g, ''));
+                this.transfer_num = Math.floor(this.transfer_num);
             }
 
-            var postData = {
+            this.loading = true;
+            /*转账步骤1*/
+            this.$http.post('balances/transfer/', {
                 dest: this.transfer_address_value,
                 source: window.LJWallet.address,
                 amount: this.transfer_num,
                 compressed_pubkey: window.LJWallet.publicKeyCompressed,
                 assetid: this.assetId,
                 hex_pubkey: window.LJWallet.publicKey
-            }
-            this.loading = true;
-            /*转账步骤1*/
-            this.$http.post('balances/transfer/', postData, {
-                emulateHTTP: true,
-                emulateJSON: true
-            }).then((response) => {
-                /*转账步骤2*/
-                var postData = response.data;
-                postData.signature = ljSign(window.LJWallet.privateKey, postData.transaction);
-                delete postData.transaction;
+            }, { emulateHTTP: true, emulateJSON: true})
+                .then((response) => {
+                    /*转账步骤2*/
+                    var postData = response.data;
+                    postData.signature = ljSign(window.LJWallet.privateKey, postData.transaction);
+                    delete postData.transaction;
 
-                // console.log('*转账步骤2*', postData)
+                    // console.log('*转账步骤2*', postData)
 
-                this.$http.get('nonce/').then((response) => {
-                    postData.nonce = response.data.nonce;
-                    // console.log('*转账步骤3*', postData)
+                    this.$http.get('nonce/').then((response) => {
+                        postData.nonce = response.data.nonce;
+                        // console.log('*转账步骤3*', postData)
 
-                    this.$http.post('sign/', postData, {
-                        emulateHTTP: true,
-                        emulateJSON: true
-                    }).then((response) => {
-                        this.loading = false;
-                        this.$message.success('转账请求已发起，等待确认');
-                        this.transfer_address_value = "";
-                        this.transfer_num = "";
-                        this.dialogTransfer = false;
-                        this.getbalances();
+                        this.$http.post('sign/', postData, {
+                            emulateHTTP: true,
+                            emulateJSON: true
+                        }).then((response) => {
+                            this.loading = false;
+                            this.$message.success('转账请求已发起，等待确认');
+                            this.transfer_address_value = "";
+                            this.transfer_num = "";
+                            this.dialogTransfer = false;
+                            this.getbalances();
+
+                        }, (response) => {
+                            this.$message.error('转账失败, 请稍后再试!');
+                            this.transfer_address_value = "";
+                            this.transfer_num = "";
+                            this.dialogTransfer = false;
+                        })
 
                     }, (response) => {
-                        this.$message.error('转账失败, 请稍后再试!');
+                        this.$message.error('转账失败, 请稍后再试！');
                         this.transfer_address_value = "";
                         this.transfer_num = "";
                         this.dialogTransfer = false;
+                        throw response;
                     })
 
                 }, (response) => {
@@ -225,21 +265,9 @@ export default {
                     this.transfer_address_value = "";
                     this.transfer_num = "";
                     this.dialogTransfer = false;
+                    this.getbalances();
                     throw response;
-                })
-
-            }, (response) => {
-                this.$message.error('转账失败, 请稍后再试！');
-                this.transfer_address_value = "";
-                this.transfer_num = "";
-                this.dialogTransfer = false;
-                this.getbalances();
-                throw response;
-            });
-        },
-        // Check out the transfer value when keyup
-        checkOutKeyValue: function(transfer_num) {
-            return isNaN(parseInt(transfer_num))
+                });
         }
     },
 

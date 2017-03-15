@@ -24,7 +24,7 @@
                             <input type="text" class="form-control" id="select-file" style="background-color: #fff;"
                                    readonly :value="filename" placeholder="导入钱包文件">
                             <label class="btn-bs-file btn  btn-select-file btn-primary btn-lj">
-                                浏览<input type="file" id="file" :value="filevalue" />
+                                浏览<input type="file" id="file" :value="filevalue" accept=".json" />
                             </label>
                             <span v-show="filenameError"  style="display:inline-block;padding-left:10px;" class="error-text">
                                 {{filenameError}}
