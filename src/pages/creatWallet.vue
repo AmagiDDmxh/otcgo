@@ -1,5 +1,5 @@
 <template>
-    <div class="pageDiv" style="margin: 100px 0;">
+    <div class="admin-group">
         <div class="container container-padding">
             <div class="panel panel-default panel-state">
                 <div class="panel-body"> 创建离线钱包</div>
@@ -122,13 +122,14 @@
                                         class="error-text"
                                         style="display:inline-block;margin-top:5px;"> 两次密码输入不一致 </span>
 
-                                <spanmei
+                                <span
                                         v-else-if="password==''"
                                         class="error-text"
-                                        style="display:inline-block;margin-top:5px;"> 密码确认不能为空 </spanmei>
+                                        style="display:inline-block;margin-top:5px;"> 密码确认不能为空 </span>
 
                                 <span
-                                        v-else-if="password.length > 16" class="error-text"
+                                        v-else-if="password.length > 16" 
+                                        class="error-text"
                                         style="display:inline-block; margin-top: 5px;"> 密码不能超过16位</span>
 
                                 <span v-else> <img src="/src/assets/yes.png"/> </span>

@@ -1,5 +1,5 @@
 <template>
-<div style="margin: 100px 0;">
+<div class="admin-group">
     <div class="container">
         <div class="container container-padding">
             <div class="row">
@@ -71,6 +71,13 @@ export default {
 </script>
 
 <style lang="css">
+.admin {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
 .exit {
     position: absolute;
     right: 0;

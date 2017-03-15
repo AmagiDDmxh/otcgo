@@ -1,5 +1,5 @@
 <template>
-<div class="login-group">
+<div class="admin-group">
     <div class="container container-padding">
         <div class="panel panel-default panel-state">
             <div class="panel-body">
@@ -24,7 +24,7 @@
                             <input type="text" class="form-control" id="select-file" style="background-color: #fff;"
                                    readonly :value="filename" placeholder="导入钱包文件">
                             <label class="btn-bs-file btn  btn-select-file btn-primary btn-lj">
-                                浏览<input type="file" id="file" :value="filevalue" accept=".json" />
+                                浏览<input type="file" id="file" :value="filevalue" accept=".json,application/json" />
                             </label>
                             <span v-show="filenameError"  style="display:inline-block;padding-left:10px;" class="error-text">
                                 {{filenameError}}
@@ -219,14 +219,14 @@ function doValidatePwd(prvkey, pubkey) {
 </script>
 
 <style lang="css" >
-@media screen and (min-width: 480px) {
-
-}
-
-.login-group {
+.admin-group {
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
     display: flex;
-    flex-direction: column;
     justify-content: center;
+    -ms-align-items: center;
     align-items: center;
     height: 100vh;
 }

@@ -192,7 +192,7 @@ export default {
             var address_value = this.transfer_address_value.trim();
             if (this.transfer_num == "" ||
                 this.transfer_address_value == "" ||
-                !this.checkOutKeyValue) {
+                this.checkOutKeyValue) {
                 return;
             }
 
