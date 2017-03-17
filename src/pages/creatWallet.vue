@@ -1,6 +1,6 @@
 <template>
     <div class="admin-group">
-        <div class="container container-padding">
+        <div class="container-fluid">
             <div class="panel panel-default panel-state">
                 <div class="panel-body"> 创建离线钱包</div>
             </div>

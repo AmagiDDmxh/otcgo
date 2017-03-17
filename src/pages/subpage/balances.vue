@@ -3,7 +3,7 @@
         <!-- UI: table -->
         <table class="table data-table table-bordred table-striped">
             <thead>
-                <th>资产类型</th> <th>总量</th> <th>冻结量</th> <th>可用量</th> <th class="tb-btn"></th>
+                <th>资产类型</th> <th>总量</th> <th>冻结量</th> <th>可用量</th> <th></th>
             </thead>
             <tbody>
                 <tr v-for="balance in balances">
@@ -310,10 +310,6 @@ let refreshBalance;
     border-bottom: #ccc 1px solid;
 }
 
-.tb-btn {
-    width: 240px;
-}
-
 .data-table th,
 .data-table td {
     text-align: center;
@@ -321,7 +317,7 @@ let refreshBalance;
 
 .data-table td {
     height: 60px;
-    line-height: 60px !important;
+    vertical-align: middle !important;
     color: #8c8c8c;
 }
 

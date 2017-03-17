@@ -75,10 +75,6 @@ a:hover {
     border: none !important;
 }
 
-.container {
-    background: #ffffff;
-}
-
 .container-fluid {
     width: 1200px;
     margin: 0 auto;
