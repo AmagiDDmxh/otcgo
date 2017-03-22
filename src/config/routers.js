@@ -1,11 +1,11 @@
 import login from '../pages/login.vue'
 import betaHome from '../pages/betaHome.vue'
-import creatWallet from '../pages/creatWallet.vue'
+import createWallet from '../pages/createWallet.vue'
 import wallet from '../pages/wallet.vue'
 import admin from '../pages/admin.vue'
-import balances from '../pages/subpage/balances.vue';
-import uid from '../pages/subpage/uid.vue';
-import history from '../pages/subpage/history.vue';
+import balances from '../pages/admin/balances.vue';
+import uid from '../pages/admin/uid.vue';
+import history from '../pages/admin/history.vue';
 
 
 const routes = [
@@ -22,7 +22,7 @@ const routes = [
               if (!window.LJWallet) {
                   next({path: '/betaHome'});
                   return;
-              };
+              }
               next();
           }
     },
@@ -32,8 +32,8 @@ const routes = [
           if (!window.LJWallet) {
               next({path: '/betaHome'});
               return;
-          };
-          next();
+          }
+	      next();
       }
     },
 
@@ -58,7 +58,7 @@ const routes = [
     }
     ]},
 
-    { path: '/creatWallet', component: creatWallet },
+    { path: '/createWallet', component: createWallet },
     { path: '/wallet', component: wallet }
 ];
 

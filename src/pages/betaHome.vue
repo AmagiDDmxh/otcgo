@@ -58,15 +58,6 @@
         margin: 0 auto;
     }
 
-    .tips--cover {
-        border-top: 1px solid #22cc99;
-        padding-top: 10px;
-        color: #fff;
-        position: absolute;
-        left: 20%;
-        width: 80%;
-    }
-
     .sign {
         min-width: 320px;
     }
@@ -110,7 +101,4 @@
         align-items: center;
     }
 
-   /*  .background__img {
-       position: fixed;
-   } */
 </style>

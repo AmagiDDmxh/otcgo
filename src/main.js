@@ -5,6 +5,12 @@ import VueResource from 'vue-resource'
 import 'bootstrap/dist/css/bootstrap.css'
 import Vuex from 'vuex'
 
+import './assets/js/lj-js/aes'
+import './assets/js/lj-js/jsrsasign-latest-all-min'
+import './assets/js/lj-js/sha256'
+import './assets/js/lj-js/Base58'
+import './assets/js/lj-js/LJSign'
+
 import '../theme/index.css'
 
 

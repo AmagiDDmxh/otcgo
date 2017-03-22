@@ -21,39 +21,36 @@
 			}
 		},
 
+        watch: {
+            blockchainHeight(newHeight) {
+            	this.time = 0;
+            }
+        },
+
 		methods: {
 			run() {
-				refreshCount = setInterval(() => {
-					this.time++;
-					console.log(this.blockchainHeight);
-
-					let temp = this.blockchainHeight;
-					console.log(temp);
-
-					this.blockchainHeight = this.getHigh();
-					console.log(this.blockchainHeight);
-
-					if (temp !== this.blockchainHeight) {
-						this.time = 0;
-					}
-				}, 1000);
+				counter = setInterval(() => this.time++, 1000);
+				gethigh = setInterval(() => this.getHigh(), 2000);
 			},
 			getHigh() {
-				this.$http.get('block/count/').then(res => res.data.height);
+				this.$http.get('block/count/')
+                    .then(res => this.blockchainHeight = res.data.height);
 			}
 		},
 
 		mounted() {
+			this.getHigh();
 			this.run();
 		},
 
 		destroyed() {
-			clearInterval(refreshCount);
-			console.log('Destroyed the count')
+			clearInterval(counter);
+			clearInterval(gethigh);
 		}
 	};
 
-	let refreshCount;
+	let counter;
+	let gethigh;
 
 </script>
 

@@ -33,6 +33,6 @@ export default {
 }
 
 .user-info {
-    margin-top: 66px;
+    margin-top: 30px;
 }
 </style>
