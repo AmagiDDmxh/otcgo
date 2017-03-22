@@ -80,7 +80,7 @@
                 </div>
                 <div class="row register">
                   <div class="col-xs-12 col-sm-5 col-sm-offset-4 col-md-5 col-md-offset-3 text-center">
-                    <a href="#/creatWallet">没有钱包?立即创建!</a>
+                    <a href="#/createWallet">没有钱包?立即创建!</a>
                   </div>
                 </div>
               </div>
@@ -159,7 +159,6 @@
 
         let file = e.target.files;
 
-        console.log(file);
 
         if (file[0]) {
           self.filename = file[0].name;

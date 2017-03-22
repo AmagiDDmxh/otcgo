@@ -8,7 +8,7 @@
                     <img class="betalogo__img" src="../assets/logo.png" alt="logo">
                 </div>
 
-                <router-link class="sign__link" to="/creatWallet"> 创建钱包 </router-link>
+                <router-link class="sign__link" to="/createWallet"> 创建钱包 </router-link>
                 <router-link class="sign__link" to="/login"> 登录钱包 </router-link>
             </div>
         </div>
