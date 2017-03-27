@@ -19,12 +19,17 @@
 - [x] 移动端布局
 - [x] 区块高度响应
 
-
 ### Mar 17, 18, 19,2017 Sunday
 - [X] 退出钱包按钮 - (Exit Button)
+
+### Mar 27,2017 Monday
+- [X] 使用Vux
+- [ ] 清晰架构
+- [ ] 加强交互
+- [ ] API文件加强
+- [ ] 加强会话框与admin页面组件 - 参考[]
+- [ ] 加强创建钱包密码强度输入
+- [ ] 加强转账输入框 - 参考[currency parser](https://jsfiddle.net/chrisvfritz/1oqjojjx/?utm_source=website&utm_medium=embed&utm_campaign=1oqjojjx)
 - [ ] 分页脚本
 - [ ] 后台管理
-- [ ] 加强转账输入框 - 参考[currency parser](https://jsfiddle.net/chrisvfritz/1oqjojjx/?utm_source=website&utm_medium=embed&utm_campaign=1oqjojjx)
-- [ ] 加强会话框与admin页面组件 - 参考[]
-- [ ] 加强创建钱包密码强度输入u
 - [ ] 尝试使用laravel重构架构

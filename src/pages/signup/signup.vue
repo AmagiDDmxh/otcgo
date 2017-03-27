@@ -25,24 +25,19 @@
           return;
         }
         // 生成公私钥对
-        if (this.wif) {
-          if (/^[a-z0-9A-Z]{52}$/.test(this.wif)) {
-            var publicKey = ljWifkeyToPubkey(this.wif);
-            var privateKey = ljWifkeyToHexkey(this.wif);
-          } else {
-            this.falseWIFMessage = !this.falseWIFMessage;
-            this.$message.error('请仔细检查私钥！')
-            return;
-          }
+        if (!/^[a-z0-9A-Z]{52}$/.test(this.wif)) {
+          this.falseWIFMessage = !this.falseWIFMessage
+          this.$message.error('请仔细检查私钥！')
+          return
         } else {
-          let keyp = genKeyPairHex();
-          var publicKey = keyp['pubhex'];
-          var privateKey = keyp['prvhex'];
+          let keyp = genKeyPairHex()
         }
+        let publicKey = this.wif ? ljWifkeyToPubkey(this.wif) : keyp['pubhex']
+        let privateKey = this.wif ? ljWifkeyToHexkey(this.wif) : keyp['prvhex']
         let privateKeyEncrypted = encryptPrivateKey(privateKey, this.password_confirmation);
         let publicKeyCompressed = getCompressedPubHex(publicKey);
 
-        this.$http.get('conversion/' + publicKeyCompressed).then((response) => {
+        this.$http.get(`conversion/${publicKeyCompressed}`).then((response) => {
           // 生成钱包文件
           let json = {
             address: response.data.address,
@@ -55,7 +50,7 @@
           window.file = json;
           download(JSON.stringify(json), filename, 'text/plain');
           this.$router.push({
-            path: 'wa',
+            path: '/wa',
             query: {
               filename: filename
             }
