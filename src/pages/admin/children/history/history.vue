@@ -11,7 +11,8 @@
             </thead>
             <tbody>
             <tr v-for="history in histories">
-                <td class="col-md-6" style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;vertical-align: middle;text-align: center;">
+                <td class="col-md-6"
+                    style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;vertical-align: middle;text-align: center;">
                     <a class="link-interact"
                        :href="`//testnet.antchain.xyz/tx/hash/${history['txid']}`"
                        target="_blank">{{history['dest']}}</a>
@@ -40,35 +41,26 @@
             </div>
         </div> -->
     </div>
-
-
-
 </template>
 
 <script>
+  export default {
+    data() {
+      return {
+        histories: []
+      }
+    },
 
-	export default {
-		data() {
-			return {
-				histories: []
-			}
-		},
+    methods: {
+      getHistorys() {
+        this.$store.dispatch('getHistory').then(({ data }) => this.histories = data.data, ({ err }) => this.$message.error('服务器正忙，请稍等片刻！'))
+      }
+    },
 
-		methods: {
-			getHistorys() {
-				this.$http.get(`balances/transfer/history/${window.LJWallet.address}/`)
-                    .then(res => {
-                        this.histories = res.data.data;
-                    }, errorRes => {
-                        this.$message.error("获取转账记录失败, 请稍候再试!");
-                    });
-            }
-		},
-
-		mounted() {
-			this.getHistorys()
-		}
-	}
+    mounted() {
+      this.getHistorys()
+    }
+  }
 
 </script>
 

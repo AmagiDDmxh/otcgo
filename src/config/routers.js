@@ -1,67 +1,46 @@
-import login from '../pages/login.vue'
-import betaHome from '../pages/betaHome.vue'
-import createWallet from '../pages/createWallet.vue'
-import wallet from '../pages/wallet.vue'
-import admin from '../pages/admin.vue'
-import balances from '../pages/admin/balances.vue';
-import uid from '../pages/admin/uid.vue';
-import history from '../pages/admin/history.vue';
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+import store from '../store'
 
+Vue.use(VueRouter)
 
 const routes = [
-    { path: '/betaHome', component: betaHome },
+  { path: '/home', component: require('../pages/home.vue'), name: 'home' },
+  { path: '/login', component: require('../pages/login/login.vue') },
+  {
+    path: '/admin', component: require('../pages/admin/admin.vue'),
+    children: [
+      { path: 'balances',
+        component: require('../pages/admin/children/balances/balances.vue'),
+        beforeEach: (to, form, next) => {
+          store.getters.HAS ? next({ path: '/home' }) : next()
+        }
+      },
+      { path: 'history',
+        component: require('../pages/admin/children/history/history.vue'),
+        beforeEach: (to, form, next) => {
+          store.getters.HAS ? next({ path: '/home' }) : next()
+        }
+      },
+      { path: 'uid',
+        component: require('../pages/admin/children/uid.vue'),
+        beforeEach: (to, form, next) => {
+          store.getters.HAS ? next({ path: '/home' }) : next()
+        }
+      },
+      { path: '',
+        component: require('../pages/admin/children/balances/balances.vue'),
+        beforeEach: (to, form, next) => {
+          store.getters.HAS ? next({ path: '/home' }) : next()
+        }
+      },
+    ],
+  },
+  { path: '/createWallet', component: require('../pages/signup/signup.vue') },
+  { path: '/wa', component: require('../pages/signup/signup_two.vue') },
+  { path: '*', component: require('../pages/home.vue'), name: 'home' },
+]
 
-    { path: '/login', component: login },
-
-    { path: '/', component: betaHome },
-
-    { path: '/admin', component: admin,
-      children: [
-          { path: "history", component: history,
-            beforeEnter: (to, from, next) => {
-              if (!window.LJWallet) {
-                  next({path: '/betaHome'});
-                  return;
-              }
-              next();
-          }
-    },
-
-    { path: "uid", component: uid,
-      beforeEnter: (to, from, next) => {
-          if (!window.LJWallet) {
-              next({path: '/betaHome'});
-              return;
-          }
-	      next();
-      }
-    },
-
-    { path: "balances", component: balances,
-      beforeEnter: (to, from, next) => {
-          if (!window.LJWallet) {
-              next({path: '/betaHome'});
-              return;
-          }
-          next();
-      }
-    },
-
-    { path: "", component: balances,
-      beforeEnter: (to, from, next) => {
-          if (!window.LJWallet) {
-              next({path: '/login'})
-              return;
-          }
-          next();
-      }
-    }
-    ]},
-
-    { path: '/createWallet', component: createWallet },
-    { path: '/wallet', component: wallet }
-];
-
-
-
-export { routes };
+export default new VueRouter({
+  routes
+})

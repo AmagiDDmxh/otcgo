@@ -33,7 +33,11 @@ module.exports = {
 		}, {
 			test: /\.js$/,
 			loader: 'babel-loader',
-			exclude: /node_modules/
+			exclude: /node_modules/,
+		},{
+			test: /\.styl$/,
+			loader: 'stylus-loader',
+			exclude: /node_modules/,
 		}]
 	},
 	resolve: {
@@ -46,20 +50,22 @@ module.exports = {
 		noInfo: true,
 		proxy: {
 			'/api/*': {
-				target: 'https://otcgo.cn/',
+				target: 'http://testnet.otcgo.cn/',
 				secure: false,
 				changeOrigin: true
 			}
-		}
+		},
+		host: 'localhost',
+		port: 3000
 	},
 	performance: {
 		hints: false
 	},
-	devtool: '#eval-source-map'
+	devtool: '#source-map'
 };
 
 if (process.env.NODE_ENV === 'production') {
-	module.exports.devtool = '#source-map';
+	module.exports.devtool = '#cheap-source-map';
 	// http://vue-loader.vuejs.org/en/workflow/production.html
 	module.exports.plugins = (module.exports.plugins || []).concat([
 		new webpack.DefinePlugin({

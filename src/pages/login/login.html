@@ -1,0 +1,103 @@
+<div class="admin-group">
+    <div class="container-fluid">
+
+        <div class="container" style="background: #fff;">
+            <div class="panel panel-default panel-state">
+                <div class="panel-body"> 登录离线钱包</div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-9 col-sm-offset-3">
+                    <h3 class="title-tip"> 登录离线钱包 </h3>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Hit -->
+                <div class="col-xs-12 col-md-3 col-lg-3">
+                    <div class="ad-tips">
+                        <ol>
+                            <li>点击"浏览"按钮，找到钱包备份文件所在的硬盘位置，并导入。</li>
+                            <li>输入您在创建钱包时,设置的钱包密码。</li>
+                            <li>当前钱包页面为WEB离线钱包页面，请放心导入钱包备份文件。</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- Login -->
+                <div style="padding: 0 15px;">
+                    <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+
+                        <div class="creatWallet-body" style="width: 100%;">
+                            <div class="row" style="margin-top: 35px;">
+                                <div class="col-sm-3 col-md-3"><p class="text-right" style="line-height: 30px;"></p>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-6 col-md-5 input-group"
+                                     style="padding: 0; float: left;">
+
+                                    <input type="text" class="form-control" readonly style="background: #fff;"
+                                           :value="filename" placeholder="导入钱包文件">
+                                    <label class="input-group-addon btn-bs-file btn btn-select-file btn-lj">浏览
+                                        <input type="file"
+                                               @change="fileChangeFunc"
+                                               accept=".json,application/json"
+                                               :dissbled="disabled"/>
+                                    </label>
+                                </div>
+                                <div class="col-xs-12 col-sm-3" style="padding-left: 0px;">
+                                        <span v-show="filenameError" style="display:inline-block;" class="error-text">
+                                            {{filenameError}} </span>
+                                </div>
+                            </div>
+
+                            <div class="row" style="margin-top: 10px;">
+                                <div class="col-sm-3 col-md-3"><p class="text-right" style="line-height: 30px;"></p>
+                                </div>
+                                <div class="col-xs-12 col-sm-6 col-md-5" style="padding: 0;">
+                                    <input type="password" @keyup.enter="login" @keyup="disabled=''"
+                                           placeholder="请输入密码" class="form-control" v-model="password">
+                                </div>
+                                <div class="col-xs-12 col-sm-3" style="padding-left: 0px;">
+
+                                        <span v-if="password==''" style="display:inline-block; margin-top:5px;"
+                                              class="error-text">密码不能为空</span>
+
+                                    <span v-else-if="password.length< 8"
+                                          style="display:inline-block; margin-top:5px;"
+                                          class="error-text">密码不能小于8位</span>
+
+                                    <span v-else style="display:inline-block;margin-top:5px;"> <img
+                                            src="../../assets/yes.png"/> </span>
+                                </div>
+                            </div>
+
+                            <div class="row" style="margin-top: 10px;">
+                                <div class="col-sm-3 col-md-3"></div>
+                                <div class="col-xs-12 col-sm-6 col-md-5 input-group">
+                                    <button type="submit" class="btn btn-lj select-file btn-block"
+                                            @click.prevent="login">登 录
+
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="row register">
+                                <div class="col-xs-12 col-sm-5 col-sm-offset-4 col-md-5 col-md-offset-3 text-center">
+                                    <a href="#/createWallet">没有钱包?立即创建!</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-9"></div>
+                <p class="tips col-xs-12 col-sm-9 col-sm-offset-3">离线钱包由小蚁区块链提供技术支持</p>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -15,16 +15,16 @@
 - [x] 钱包与登陆界面布局完善
 
 ### Mar 14,2017 Tuesday ||| Mar 15,2017 Wednesday
-- [ ] Web端布局居中 - 所参考资料于前端开发手册[link](https://li-xinyang.gitbooks.io/frontend-notebook/chapter4/02_layout.html)
-- [ ] 移动端布局 - 解决参考(起草)[./移动端布局起草.md]
-- [ ] 分页脚本
-- [ ] 后台管理
-- [ ] 加强转账输入框 - 参考[currency parser](https://jsfiddle.net/chrisvfritz/1oqjojjx/?utm_source=website&utm_medium=embed&utm_campaign=1oqjojjx)
-- [ ] 加强会话框与admin页面组件 - 参考[]
-- [ ] 尝试使用laravel重构架构
+- [x] Web端布局居中
+- [x] 移动端布局
 - [x] 区块高度响应
 
 
 ### Mar 17, 18, 19,2017 Sunday
 - [X] 退出钱包按钮 - (Exit Button)
-- [ ] 
+- [ ] 分页脚本
+- [ ] 后台管理
+- [ ] 加强转账输入框 - 参考[currency parser](https://jsfiddle.net/chrisvfritz/1oqjojjx/?utm_source=website&utm_medium=embed&utm_campaign=1oqjojjx)
+- [ ] 加强会话框与admin页面组件 - 参考[]
+- [ ] 加强创建钱包密码强度输入u
+- [ ] 尝试使用laravel重构架构
