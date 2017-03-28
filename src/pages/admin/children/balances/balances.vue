@@ -1,8 +1,10 @@
 <template src="./balances.html"></template>
 <style src="./balances.css" lang="css"></style>
+
 <script>
   import mapGetters from 'vuex';
 
+  let refreshBalance;
   export default {
     data() {
       return {
@@ -42,12 +44,12 @@
     },
 
     methods: {
-      getBalances: function() {
+      getBalances: function () {
         this.$store.dispatch('getBalances').then(({ data }) => {
-          [ this.balances = [], this.valueasstid = NaN ] = [ data.balances, data.balances[0].asset];
+          [this.balances = [], this.valueasstid = NaN] = [data.balances, data.balances[0].asset];
         }, res => {
           if (this.errNum <= 2) {
-            this.$message.error('服务器有点过载, 请稍等一下!');
+            this.$message.error('服务器有点过载, 请稍等片刻！');
             this.errNum++;
           } else {
             this.errNum = 1;
@@ -95,14 +97,12 @@
         this.$store.dispatch('transfer', {
           assetId: this.assetId,
           transfer_num: this.transfer_num,
-          transfer_address_value: this.transfer_address_value
+          transfer_address_value: address_value
         }).then(r => {
-          this.$message.success('转账成功！')
+          this.$message.success('转账请求已发起，请等待确认！')
           this.dialogTransfer = !this.dialogTransfer
           this.loading = !this.loading
         }, e => {
-          alert("[ERROR]")
-          console.log("[ERROR] [-] ", e)
           this.$message.error('转账失败，请重新尝试！')
           this.dialogTransfer = false
         })
@@ -120,5 +120,4 @@
       clearInterval(refreshBalance);
     }
   }
-  let refreshBalance;
 </script>

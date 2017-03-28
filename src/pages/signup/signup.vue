@@ -25,12 +25,14 @@
           return;
         }
         // 生成公私钥对
-        if (!/^[a-z0-9A-Z]{52}$/.test(this.wif)) {
-          this.falseWIFMessage = !this.falseWIFMessage
-          this.$message.error('请仔细检查私钥！')
-          return
+        if (this.wif) {
+          if (!/^[a-z0-9A-Z]{52}$/.test(this.wif)) {
+            this.falseWIFMessage = !this.falseWIFMessage
+            this.$message.error('请仔细检查私钥！')
+            return
+          }
         } else {
-          let keyp = genKeyPairHex()
+          var keyp = genKeyPairHex()
         }
         let publicKey = this.wif ? ljWifkeyToPubkey(this.wif) : keyp['pubhex']
         let privateKey = this.wif ? ljWifkeyToHexkey(this.wif) : keyp['prvhex']

@@ -1,7 +1,10 @@
 import Vue from 'vue'
+
 import { decrypt, doValidatePwd } from '../utils/ljsign'
 
 const Add = 'add r'
+
+
 
 export const getBalances = ({ [Add]: va }) => Vue.http.get(`balances/${va}`)
 export const getUid = ({ [Add]: va }) => Vue.http.get(`uid/${va}`).then(({ data }) => data.uid)
