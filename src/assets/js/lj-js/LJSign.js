@@ -359,7 +359,17 @@
 			throw('invalid private key for SECP256r1');
 		}
 		var pubkey_point = generator_secp256r1.mul(secexp);
-		return ("04" + pubkey_point.x().toString(16) + pubkey_point.y().toString(16)).toLowerCase();
+		var s_x = pubkey_point.x().toString(16);
+		var s_y = pubkey_point.y().toString(16);
+		var s_x_length = s_x.length;
+		var s_y_length = s_y.length;
+		for(var i=0;i<64-s_x_length;i++){
+			s_x = '0'+s_x;
+		}
+		for(var i=0;i<64-s_y_length;i++){
+			s_y = '0'+s_y;
+		}
+		return ("04"+s_x+s_y).toLowerCase();
 	};
 	ljWifkeyToPubkey = function (wif) {
 		var prvhex = ljWifkeyToHexkey(wif);
