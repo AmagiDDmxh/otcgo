@@ -121,9 +121,4 @@
       clearInterval(refreshBalance);
     }
   }
-<<<<<<< HEAD
 </script>
-=======
-  let refreshBalance;
-</script>
->>>>>>> 34bc89460014f5ca705d2630cff72947463cf344
