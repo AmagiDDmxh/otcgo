@@ -97,13 +97,13 @@
           transfer_num: this.transfer_num,
           transfer_address_value: this.transfer_address_value
         }).then(r => {
-          this.$message.success('转账成功！')
+          this.$message.success('转账已发起，请等待确认！')
           this.dialogTransfer = !this.dialogTransfer
           this.loading = !this.loading
         }, e => {
           alert("[ERROR]")
           console.log("[ERROR] [-] ", e)
-          this.$message.error('转账失败，请重新尝试！')
+          this.$message.error('转账失败，请稍候片刻再试！')
           this.dialogTransfer = false
         })
       }
