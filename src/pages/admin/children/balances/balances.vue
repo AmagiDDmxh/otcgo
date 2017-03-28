@@ -103,8 +103,9 @@
           this.dialogTransfer = !this.dialogTransfer
           this.loading = !this.loading
         }, e => {
-          this.$message.error('转账失败，请重新尝试！')
-          this.dialogTransfer = false
+          this.$message.success('转账已发起，请等待确认！')
+          this.dialogTransfer = !this.dialogTransfer
+          this.loading = !this.loading
         })
       }
     },
@@ -120,4 +121,9 @@
       clearInterval(refreshBalance);
     }
   }
+<<<<<<< HEAD
 </script>
+=======
+  let refreshBalance;
+</script>
+>>>>>>> 34bc89460014f5ca705d2630cff72947463cf344

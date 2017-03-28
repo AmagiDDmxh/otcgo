@@ -297,6 +297,7 @@ curve_secp256r1 = new LJCurveFp(_p, _a, _b);
 generator_secp256r1 = new LJPoint(curve_secp256r1, _Gx, _Gy, _r);
 SECP256r1 = new LJCurve("SECP256r1",curve_secp256r1,generator_secp256r1,[1,3,132,0,10],"SECP256r1");
 
+<<<<<<< HEAD
 ljSign = function(prvhex, msghex){
     var ljs = new LJSigningKey(prvhex);
     sighex = ljs.sign(msghex);
