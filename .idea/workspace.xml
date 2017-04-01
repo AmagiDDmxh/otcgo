@@ -2,140 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7ca12b76-a40a-4b92-9607-d367c1620b36" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/head.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/head.styl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/pages/admin/balances/balances.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/pages/admin/balances/balances.styl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/pages/admin/balances/balances.vue" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/pages/markets/markets.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/pages/markets/markets.styl" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/pages/subpage/balances.vue" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/config/routers.js" afterPath="$PROJECT_DIR$/src/routers.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/pages/admin.vue" afterPath="$PROJECT_DIR$/src/pages/admin/admin.vue" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/pages/creatWallet.vue" afterPath="$PROJECT_DIR$/src/pages/creatWallet/creatWallet.vue" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/pages/login.vue" afterPath="$PROJECT_DIR$/src/pages/login/login.vue" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/pages/markets.vue" afterPath="$PROJECT_DIR$/src/pages/markets/markets.vue" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/pages/subpage/obligation.vue" afterPath="$PROJECT_DIR$/src/pages/admin/obligation/obligation.vue" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/pages/subpage/order.vue" afterPath="$PROJECT_DIR$/src/pages/admin/order/order.vue" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/pages/subpage/redeem.vue" afterPath="$PROJECT_DIR$/src/pages/admin/redeem/redeem.vue" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/pages/subpage/uid.vue" afterPath="$PROJECT_DIR$/src/pages/admin/uid/uid.vue" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/pages/wallet.vue" afterPath="$PROJECT_DIR$/src/pages/creatWallet/wallet.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.babelrc" afterPath="$PROJECT_DIR$/.babelrc" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" afterPath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/markdown-navigator.xml" afterPath="$PROJECT_DIR$/.idea/markdown-navigator.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/markdown-navigator/profiles_settings.xml" afterPath="$PROJECT_DIR$/.idea/markdown-navigator/profiles_settings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vue-client-master.iml" afterPath="$PROJECT_DIR$/.idea/vue-client-master.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/App.vue" afterPath="$PROJECT_DIR$/src/App.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/aes-min.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/aes-min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/aes.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/aes.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/cipher-core-min.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/cipher-core-min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/cipher-core.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/cipher-core.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/core-min.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/core-min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/core.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/core.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/enc-base64-min.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/enc-base64-min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/enc-base64.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/enc-base64.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/enc-utf16-min.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/enc-utf16-min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/enc-utf16.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/enc-utf16.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/evpkdf-min.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/evpkdf-min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/evpkdf.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/evpkdf.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/format-hex-min.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/format-hex-min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/format-hex.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/format-hex.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/hmac-min.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/hmac-min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/hmac.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/hmac.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/lib-typedarrays-min.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/lib-typedarrays-min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/lib-typedarrays.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/lib-typedarrays.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/md5-min.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/md5-min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/md5.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/md5.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/mode-cfb-min.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/mode-cfb-min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/mode-cfb.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/mode-cfb.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/mode-ctr-gladman-min.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/mode-ctr-gladman-min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/mode-ctr-gladman.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/mode-ctr-gladman.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/mode-ctr-min.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/mode-ctr-min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/mode-ctr.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/mode-ctr.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/mode-ecb-min.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/mode-ecb-min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/mode-ecb.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/mode-ecb.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/mode-ofb-min.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/mode-ofb-min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/mode-ofb.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/mode-ofb.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/pad-ansix923-min.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/pad-ansix923-min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/pad-ansix923.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/pad-ansix923.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/pad-iso10126-min.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/pad-iso10126-min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/pad-iso10126.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/pad-iso10126.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/pad-iso97971-min.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/pad-iso97971-min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/pad-iso97971.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/pad-iso97971.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/pad-nopadding-min.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/pad-nopadding-min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/pad-nopadding.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/pad-nopadding.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/pad-zeropadding-min.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/pad-zeropadding-min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/pad-zeropadding.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/pad-zeropadding.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/pbkdf2-min.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/pbkdf2-min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/pbkdf2.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/pbkdf2.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/rabbit-legacy-min.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/rabbit-legacy-min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/rabbit-legacy.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/rabbit-legacy.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/rabbit-min.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/rabbit-min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/rabbit.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/rabbit.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/rc4-min.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/rc4-min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/rc4.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/rc4.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/ripemd160-min.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/ripemd160-min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/ripemd160.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/ripemd160.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/sha1-min.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/sha1-min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/sha1.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/sha1.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/sha224-min.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/sha224-min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/sha224.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/sha224.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/sha256-min.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/sha256-min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/sha256.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/sha256.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/sha3-min.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/sha3-min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/sha3.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/sha3.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/sha384-min.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/sha384-min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/sha384.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/sha384.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/sha512-min.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/sha512-min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/sha512.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/sha512.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/tripledes-min.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/tripledes-min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/tripledes.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/tripledes.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/x64-core-min.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/x64-core-min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/x64-core.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/components/x64-core.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/rollups/aes.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/rollups/aes.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/rollups/hmac-md5.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/rollups/hmac-md5.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/rollups/hmac-ripemd160.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/rollups/hmac-ripemd160.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/rollups/hmac-sha1.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/rollups/hmac-sha1.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/rollups/hmac-sha224.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/rollups/hmac-sha224.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/rollups/hmac-sha256.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/rollups/hmac-sha256.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/rollups/hmac-sha3.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/rollups/hmac-sha3.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/rollups/hmac-sha384.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/rollups/hmac-sha384.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/rollups/hmac-sha512.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/rollups/hmac-sha512.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/rollups/md5.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/rollups/md5.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/rollups/pbkdf2.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/rollups/pbkdf2.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/rollups/rabbit-legacy.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/rollups/rabbit-legacy.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/rollups/rabbit.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/rollups/rabbit.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/rollups/rc4.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/rollups/rc4.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/rollups/ripemd160.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/rollups/ripemd160.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/rollups/sha1.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/rollups/sha1.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/rollups/sha224.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/rollups/sha224.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/rollups/sha256.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/rollups/sha256.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/rollups/sha3.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/rollups/sha3.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/rollups/sha384.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/rollups/sha384.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/rollups/sha512.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/rollups/sha512.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/rollups/tripledes.js" afterPath="$PROJECT_DIR$/src/assets/js/CryptoJS v3.1.2/rollups/tripledes.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/lj-js/Base58.js" afterPath="$PROJECT_DIR$/src/assets/js/lj-js/Base58.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/lj-js/LJSign.js" afterPath="$PROJECT_DIR$/src/assets/js/lj-js/LJSign.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/lj-js/aes.js" afterPath="$PROJECT_DIR$/src/assets/js/lj-js/aes.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/lj-js/biginteger.js" afterPath="$PROJECT_DIR$/src/assets/js/lj-js/biginteger.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/lj-js/jsrsasign-latest-all-min.js" afterPath="$PROJECT_DIR$/src/assets/js/lj-js/jsrsasign-latest-all-min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/js/lj-js/sha256.js" afterPath="$PROJECT_DIR$/src/assets/js/lj-js/sha256.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/footer.vue" afterPath="$PROJECT_DIR$/src/components/footer.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/head.vue" afterPath="$PROJECT_DIR$/src/components/head.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main.js" afterPath="$PROJECT_DIR$/src/main.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/home.vue" afterPath="$PROJECT_DIR$/src/pages/home.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/utils/ljsign.js" afterPath="$PROJECT_DIR$/src/utils/ljsign.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webpack.config.js" afterPath="$PROJECT_DIR$/webpack.config.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/admin/balances/balances.vue" afterPath="$PROJECT_DIR$/src/pages/admin/balances/balances.vue" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -160,7 +27,7 @@
         <entry file="file://$PROJECT_DIR$/src/components/head.vue">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="435">
-              <caret line="13" column="6" lean-forward="true" selection-start-line="13" selection-start-column="6" selection-end-line="13" selection-end-column="6" />
+              <caret line="13" column="6" lean-forward="false" selection-start-line="13" selection-start-column="6" selection-end-line="13" selection-end-column="6" />
               <folding>
                 <marker date="1491034590184" expanded="true" signature="96:620" ph="..." />
               </folding>
@@ -171,8 +38,18 @@
       <file leaf-file-name="balances.vue" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pages/admin/balances/balances.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="278">
-              <caret line="189" column="0" lean-forward="false" selection-start-line="189" selection-start-column="0" selection-end-line="189" selection-end-column="0" />
+            <state relative-caret-position="0">
+              <caret line="0" column="43" lean-forward="true" selection-start-line="0" selection-start-column="43" selection-end-line="0" selection-end-column="43" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="balances.styl" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/pages/admin/balances/balances.styl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -192,7 +69,7 @@
         <entry file="file://$PROJECT_DIR$/src/pages/markets/markets.vue">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="350">
-              <caret line="71" column="10" lean-forward="true" selection-start-line="71" selection-start-column="10" selection-end-line="71" selection-end-column="10" />
+              <caret line="71" column="10" lean-forward="false" selection-start-line="71" selection-start-column="10" selection-end-line="71" selection-end-column="10" />
               <folding />
             </state>
           </provider>
@@ -203,7 +80,13 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="622">
               <caret line="82" column="8" lean-forward="false" selection-start-line="82" selection-start-column="8" selection-end-line="82" selection-end-column="8" />
-              <folding />
+              <folding>
+                <marker date="1491034429329" expanded="true" signature="9:739" ph="..." />
+                <marker date="1491034429329" expanded="true" signature="36:727" ph="..." />
+                <marker date="1491034429329" expanded="true" signature="144:163" ph="..." />
+                <marker date="1491034429329" expanded="true" signature="749:2189" ph="..." />
+                <marker date="1491034429329" expanded="true" signature="2198:2251" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -211,7 +94,7 @@
       <file leaf-file-name="markets.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pages/markets/markets.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="101">
+            <state relative-caret-position="65">
               <caret line="36" column="87" lean-forward="false" selection-start-line="36" selection-start-column="87" selection-end-line="36" selection-end-column="87" />
               <folding>
                 <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
@@ -555,6 +438,32 @@
               <option name="myItemType" value="" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="otcgo_backup">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="src">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="pages">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="admin">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="balances">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scratches" />
@@ -674,12 +583,12 @@
       <workItem from="1487835996881" duration="732000" />
       <workItem from="1487838762418" duration="9058000" />
       <workItem from="1487849872614" duration="10658000" />
-      <workItem from="1491021525349" duration="10819000" />
+      <workItem from="1491021525349" duration="10965000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="32592000" />
+    <option name="totallyTimeSpent" value="32738000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1042,14 +951,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/admin/balances/balances.styl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="803">
-          <caret line="82" column="1" lean-forward="false" selection-start-line="82" selection-start-column="1" selection-end-line="82" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/admin/balances/balances.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="553">
@@ -1075,7 +976,7 @@
         <state relative-caret-position="663">
           <caret line="90" column="19" lean-forward="false" selection-start-line="90" selection-start-column="19" selection-end-line="90" selection-end-column="19" />
           <folding>
-            <element signature="e#0#21#0" expanded="true" />
+            <element signature="e#0#21#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1090,7 +991,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/markets/markets.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="101">
+        <state relative-caret-position="65">
           <caret line="36" column="87" lean-forward="false" selection-start-line="36" selection-start-column="87" selection-end-line="36" selection-end-column="87" />
           <folding>
             <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
@@ -1109,14 +1010,20 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="622">
           <caret line="82" column="8" lean-forward="false" selection-start-line="82" selection-start-column="8" selection-end-line="82" selection-end-column="8" />
-          <folding />
+          <folding>
+            <marker date="1491034429329" expanded="true" signature="9:739" ph="..." />
+            <marker date="1491034429329" expanded="true" signature="36:727" ph="..." />
+            <marker date="1491034429329" expanded="true" signature="144:163" ph="..." />
+            <marker date="1491034429329" expanded="true" signature="749:2189" ph="..." />
+            <marker date="1491034429329" expanded="true" signature="2198:2251" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/markets/markets.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="350">
-          <caret line="71" column="10" lean-forward="true" selection-start-line="71" selection-start-column="10" selection-end-line="71" selection-end-column="10" />
+          <caret line="71" column="10" lean-forward="false" selection-start-line="71" selection-start-column="10" selection-end-line="71" selection-end-column="10" />
           <folding />
         </state>
       </provider>
@@ -1132,17 +1039,25 @@
     <entry file="file://$PROJECT_DIR$/src/components/head.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="435">
-          <caret line="13" column="6" lean-forward="true" selection-start-line="13" selection-start-column="6" selection-end-line="13" selection-end-column="6" />
+          <caret line="13" column="6" lean-forward="false" selection-start-line="13" selection-start-column="6" selection-end-line="13" selection-end-column="6" />
           <folding>
             <marker date="1491034590184" expanded="true" signature="96:620" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/admin/balances/balances.styl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/admin/balances/balances.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="278">
-          <caret line="189" column="0" lean-forward="false" selection-start-line="189" selection-start-column="0" selection-end-line="189" selection-end-column="0" />
+        <state relative-caret-position="0">
+          <caret line="0" column="43" lean-forward="true" selection-start-line="0" selection-start-column="43" selection-end-line="0" selection-end-column="43" />
           <folding />
         </state>
       </provider>
