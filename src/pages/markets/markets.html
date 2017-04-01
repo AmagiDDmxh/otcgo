@@ -1,0 +1,62 @@
+<div class="container-padding">
+  <div class="panel panel-default panel-state">
+    <div class="panel-body">
+      <span class="link-span">{{name}} 交易区</span>
+    </div>
+  </div>
+  <div class=" row">
+    <div class="col-xs-3 col-lg-3">
+      <div class="ad-tips">
+        <div class="tips-title">交易指南</div>
+        <div style="background-color:#f2f2f2; color:#928f8c; padding:20px 15px">
+          <p style="margin-bottom:20px">请 <router-link to="/login" target="_blank"> 登录个人钱包</router-link> 创建交易订单。 </p>
+          <p> 登录个人钱包后，点击“资产列表” </p>
+          <p> 中该类资产的“交易”功能，</p>
+          <p> 完成订 单的创建。</p>
+        </div>
+      </div>
+    </div>
+    <div class="content col-xs-9 col-lg-9" style="height:auto">
+      <!-- table-list -->
+      <table class="table table-js  table-striped" style="margin-top:64px">
+        <thead>
+        <th>{{name}} </th>
+        <th>数量</th>
+        <th>单价 CNY</th>
+        <th>总价</th>
+        <th class="th-bar">
+        </th>
+        </thead>
+        <tbody>
+        <tr v-for="item in sellList">
+          <td class="sell-name" v-text="item.name"></td>
+          <td v-text="item.amount"></td>
+          <td v-text="item.price || ''"></td>
+          <td v-text="(item.amount * item.price).toFixed(4) || ''"></td>
+          <td class="amount-tb-bar" style="width:200px;">
+            <div class=" amount-bar amount-bar-sell" v-bind:style="{width: (item.amount/ amountMax)*100+ '%'}"></div>
+          </td>
+        </tr>
+        <!-- tr -->
+        <tr>
+          <td>&nbsp;</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="tb-bar"></td>
+        </tr>
+        <tr v-for="item in buyList">
+          <td class="buy-name" v-text="item.name"></td>
+          <td v-text="item.amount"></td>
+          <td v-text="item.price"></td>
+          <td v-text="(item.amount * item.price).toFixed(4) || ''"></td>
+          <td class="amount-tb-bar" style="width:200px;">
+            <div class=" amount-bar amount-bar-buy" v-bind:style="{width: (item.amount/ amountMax)*100+ '%'}"></div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <p class="tips"> 离线钱包由小蚁区块链提供技术支持 </p>
+    </div>
+  </div>
+</div>
