@@ -49,7 +49,7 @@
           <td class="buy-name" v-text="item.name"></td>
           <td v-text="item.amount"></td>
           <td v-text="item.price"></td>
-          <td v-text="(item.amount * item.price).toFixed(4) || ''"></td>
+          <td>{{ (item.amount * item.price).toFixed(4) || '' }}</td>
           <td class="amount-tb-bar" style="width:200px;">
             <div class=" amount-bar amount-bar-buy" v-bind:style="{width: (item.amount/ amountMax)*100+ '%'}"></div>
           </td>

@@ -1,21 +1,21 @@
 <div id="head">
   <div class="logo">
     <div class="logo-left">
-      <router-link to="/index"><img src="../assets/logo.png" alt=""/></router-link>
-      <span id="des">{{ msg }}</span>
+      <router-link to="/index"><img src="../../assets/logo.png" alt=""/></router-link>
+      <span id="des">基于智能合约的数字资产OTC平台</span>
     </div>
     <div class="logo-right">
       <ul>
         <li class="border">
-          <router-link v-if="!creationText" to="/login" id="header-a" class="header-a">{{ loginText }}</router-link>
-          <router-link v-else-if="creationText" to="/login" id="header-a" class="header-a">{{ loginText }}</router-link>
+          <transition name="fade" mode="out-in">
+            <router-link to="/login" id="header-a"
+                         class="header-a">{{ loginText }}</router-link>
+          </transition>
         </li>
         <li>
-          <router-link v-if="!creationText" to="/creatWallet" target="_blank" class="header-a">创建钱包
-
-          </router-link>
-          <a v-else to="/creatWallet" class="header-a" style="text-decoration: none; color: #7c7c7c">{{
-                                                                                                     creationText }}</a>
+          <router-link v-if="!hasLogin" to="/creatWallet"
+                       target="_blank" class="header-a">创建钱包</router-link>
+          <a v-else class="header-a" style="text-decoration: none; color: #7c7c7c">{{ creationText }}</a>
         </li>
       </ul>
     </div>

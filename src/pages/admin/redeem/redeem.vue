@@ -10,8 +10,6 @@
       <th>成交价/CNY</th>
       <th>成交时间</th>
       <th>资产状态</th>
-      <th class="tb-btn">
-      </th>
       </thead>
       <tbody>
       <tr :class="{'redeem-text': !item.redeem}" v-for="item in listData">

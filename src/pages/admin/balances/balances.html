@@ -22,6 +22,8 @@
         <template v-if="balance['name']=='人民币'">
           <button class="btn ljbutton" @click="openPay">充值</button>
           <button class="btn ljbutton" @click="openFetch">提现</button>
+          <button class="btn ljbutton"
+                @click="balanceTransfer(balance['asset'],balance['divisible'],balance['name'],balance['valid'])"> 转账</button>
         </template>
         <template v-else>
             <span class="link-span"
@@ -262,18 +264,12 @@
                  v-model="transfer_address_value" style="width:100%!important">
         </div>
         <div class="col-xs-3">
-                        <span
-                            v-if="transfer_address_value[0]!='a' && transfer_address_value[0]!='A' "
-                            class="error-text"
-                        > 地址格式错误 </span>
-          <span
-              v-else-if="transfer_address_value ==''"
-              class="error-text"
-          > 地址不能为空 </span>
-          <span
-              v-else-if="transfer_address_value.length!=34"
-              class="error-text"
-          > 地址必须是34位 </span>
+          <span v-if="transfer_address_value[0]!='a' && transfer_address_value[0]!='A' "
+                class="error-text"> 地址格式错误 </span>
+          <span v-else-if="transfer_address_value ==''"
+                class="error-text"> 地址不能为空 </span>
+          <span v-else-if="transfer_address_value.length!=34"
+                class="error-text"> 地址必须是34位 </span>
           <span v-else> <img src="/src/assets/yes.png"/> </span>
         </div>
       </div>
@@ -304,31 +300,25 @@
         <div class="row">
           <div class="col-xs-3" style="line-height: 30px;">买入量：</div>
           <div class="col-xs-6">
-            <input
-                type="text" class="form-control" placeholder="输入数量"
-                v-model.number="buyNumValue" style="width:100%!important"/>
+            <input type="text" class="form-control" placeholder="输入数量"
+                   v-model.number="buyNumValue" style="width:100%!important"/>
           </div>
           <div class="col-xs-3" style="line-height: 30px;">
-                            <span
-                                class="error-text"
-                                v-if=" buyNumValue =='' || isNaN(parseInt(buyNumValue))  "
-                            >数量错误</span>
-            <span v-else> <img src="src/assets/yes.png"/> </span>
+            <span v-if=" buyNumValue =='' || isNaN(parseInt(buyNumValue))"
+                  class="error-text">数量错误</span>
+            <span v-else> <img src="../../../assets/yes.png"/> </span>
           </div>
         </div>
         <div class="row" style="margin-top:10px">
           <div class="col-xs-3" style="line-height: 30px;">买入价：</div>
           <div class="col-xs-6">
-            <input
-                type="text" class="form-control" placeholder="输入价格"
-                v-model="buyPriceValue" style="width:100%!important"/>
+            <input type="text" class="form-control" placeholder="输入价格"
+                   v-model="buyPriceValue" style="width:100%!important"/>
           </div>
           <div class="col-xs-3" style="line-height: 30px;">
-                            <span
-                                class="error-text"
-                                v-if=" buyPriceValue =='' || isNaN(parseInt(buyPriceValue))  "
-                            >数量错误</span>
-            <span v-else> <img src="src/assets/yes.png"/> </span>
+            <span v-if=" buyPriceValue =='' || isNaN(parseInt(buyPriceValue))  "
+                  class="error-text">数量错误</span>
+            <span v-else> <img src="../../../assets/yes.png"/> </span>
           </div>
         </div>
         <div class="row" style="margin-top:10px">
@@ -347,19 +337,16 @@
                 v-model="sellNumValue" style="width:100%!important"/>
           </div>
           <div class="col-xs-3" style="line-height:30px;">
-                            <span
-                                class="error-text"
-                                v-if=" sellNumValue =='' || isNaN(parseInt(sellNumValue))  "
-                            >数量错误</span>
+            <span v-if=" sellNumValue =='' || isNaN(parseInt(sellNumValue))  "
+                  class="error-text">数量错误</span>
             <span v-else> <img src="src/assets/yes.png"/> </span>
           </div>
         </div>
         <div class="row" style="margin-top:10px">
           <div class="col-xs-3" style="line-height: 30px;">卖出价：</div>
           <div class="col-xs-6">
-            <input
-                type="text" class="form-control"
-                v-model="sellPriceValue" style="width:100%!important" placeholder="输入价格"/>
+            <input type="text" class="form-control"
+                   v-model="sellPriceValue" style="width:100%!important" placeholder="输入价格"/>
           </div>
           <div class="col-xs-3" style="line-height: 30px;">
             <span v-if=" sellPriceValue =='' || isNaN(parseInt(sellPriceValue))"

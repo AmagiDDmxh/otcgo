@@ -2,6 +2,8 @@
 <style lang="stylus" src="./markets.styl"></style>
 
 <script>
+  let timer;
+
   export default {
     data() {
       return {
@@ -18,16 +20,16 @@
           { name: '买十' }
         ],  // 买单列表
         sellList: [
-          { name: '卖一' },
-          { name: '卖二' },
-          { name: '卖三' },
-          { name: '卖四' },
-          { name: '卖五' },
-          { name: '卖六' },
-          { name: '卖七' },
-          { name: '卖八' },
+          { name: '卖十' },
           { name: '卖九' },
-          { name: '卖十' }
+          { name: '卖八' },
+          { name: '卖七' },
+          { name: '卖六' },
+          { name: '卖五' },
+          { name: '卖四' },
+          { name: '卖三' },
+          { name: '卖二' },
+          { name: '卖一' }
         ],  // 卖单列表
         amountMax: 0,
         name: ""
@@ -45,19 +47,17 @@
           return Math.max.apply({}, this)
         };
         this.$http.get(`order_book/${ type }/`).then(({ data }) => {
-          const softBids = data['bids'].sort((c, p) => c.price - p.price)
-          const softAsks = data['asks'].sort((c, p) => p.price - c.price)
-
-          this.sellList = this.sellList.reverse().map(({ name }, index) => ({
-            name,
-            price: typeof softAsks[index] === 'undefined' ? NaN : softAsks[index].price,
-            amount: typeof softAsks[index] === 'undefined' ? NaN : softAsks[index].amount
-          }))
+          let asksData = data['asks']
+          for (let i = this.sellList.length - 1; i >= 0; i--) {
+            this.sellList[i] = {
+              name: this.sellList[i].name,
+              ...asksData.shift()
+            }
+          }
 
           this.buyList = this.buyList.map(({ name }, index) => ({
-            name,
-            price: typeof softBids[index] === 'undefined' ? NaN : softBids[index].price,
-            amount: typeof softBids[index] === 'undefined' ? NaN : softBids[index].amount
+              name,
+              ...data.bids[index]
           }))
 
           let amountArray = [];
@@ -75,9 +75,13 @@
       }
     },
 
-    mounted: function () {
-      this.name = this.$route.query['class'] === 'anscny' ?  '小蚁股' : '小蚁币'
+    mounted() {
+      this.name = this.$route.query['class'] === 'anscny' ? '小蚁股' : '小蚁币'
       this.get_rder_book(this.$route.query['class'])
+      timer = window.setInterval(() => this.get_rder_book(this.$route.query['class']), 1000 * 2)
+    },
+    destroyed() {
+      window.clearInterval(timer)
     }
   }
 </script>
