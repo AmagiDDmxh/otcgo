@@ -1,8 +1,6 @@
 <template>
   <div class="obligation">
-    <button class="btn ljbutton" style="float: right; margin: -60px 30px;" @click="get_redeem_operation()">一键取回
-
-    </button>
+    <button class="btn ljbutton" style="float: right; margin: -60px 30px;" @click="get_redeem_operation()">一键取回</button>
     <table class="table data-table table-bordred table-striped">
       <thead>
       <th>资产类型</th>

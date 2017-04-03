@@ -13,9 +13,8 @@
           </transition>
         </li>
         <li>
-          <router-link v-if="!creationText" to="/creatWallet"
+          <router-link to="/creatWallet"
                        target="_blank" class="header-a">创建钱包</router-link>
-          <a v-else class="header-a" style="text-decoration: none; color: #7c7c7c">{{ creationText }}</a>
         </li>
       </ul>
     </div>
@@ -66,9 +65,9 @@
     </ul>
     <form class="navbar-form navbar-left" role="search">
       <div class="form-group">
-        <input type="text" class="form-control" placeholder="搜索功能暂未开放" disabled>
+        <input type="text" class="form-control" placeholder="资产关键词">
       </div>
-      <button type="submit" class="btn btn-default" disabled>
+      <button type="submit" class="btn btn-default">
         <span style="color:#000;text-decoration:none">搜索</span>
       </button>
     </form>

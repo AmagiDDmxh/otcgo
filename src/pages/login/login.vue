@@ -355,10 +355,6 @@
     cursor: pointer;
   }
 
-  .ad-tips {
-    margin-top: 64px;
-  }
-
   .ad-tips ol {
     background-color: #ccc;
     padding-top: 30px;
