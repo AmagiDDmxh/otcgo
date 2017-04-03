@@ -1,11 +1,28 @@
 <template src="./balances.html"></template>
 <style lang="stylus" src="./balances.styl"></style>
 
-
 <script>
   export default {
     data() {
       return {
+        balancesColumns: [
+          {
+            title: '资产类型',
+            key: 'type'
+          },
+          {
+            title: '总量',
+            key: 'amount'
+          },
+          {
+            title: '冻结量',
+            key: 'frozen'
+          },
+          {
+            title: '可用量',
+            key: 'valid'
+          }
+        ],
         // dialog
         dialogPay: false,
         dialogDisPay: false,

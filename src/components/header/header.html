@@ -13,7 +13,7 @@
           </transition>
         </li>
         <li>
-          <router-link v-if="!hasLogin" to="/creatWallet"
+          <router-link v-if="!creationText" to="/creatWallet"
                        target="_blank" class="header-a">创建钱包</router-link>
           <a v-else class="header-a" style="text-decoration: none; color: #7c7c7c">{{ creationText }}</a>
         </li>
@@ -44,7 +44,7 @@
                   :to="{
                            path: '/markets',
                            query: { 'class': 'anccny' }
-                         }"> 小蚁币
+                        }"> 小蚁币
 
               </router-link>
             </li>

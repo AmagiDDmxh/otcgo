@@ -101,8 +101,6 @@
             message: '验证成功!',
             type: 'success'
           });
-
-          $("#header-a").text("我的钱包");
           setTimeout(function () {
             self.$router.push({
               path: '/admin'
@@ -136,6 +134,7 @@
           var reader = new FileReader();
           reader.readAsText(file[0]);
           reader.onload = loaded;
+          self.filenameError = false;
         }
 
         function loaded (e) {
@@ -151,14 +150,9 @@
               this.filename = "";
               this.filevalue = "";
               return;
-
             }
-            ;
-
             // 验证成功
             window.LJWallet = LJWallet;
-            self.filenameError = false;
-
           } catch (e) {
             // json 文件解析错误
             self.filenameError = "钱包文件格式有误,请重新选择";

@@ -8,11 +8,6 @@
 
   export default {
     name: 'h',
-    data() {
-      return {
-        hasLogin: false
-      }
-    },
     computed: {
       loginText() {
         if (window.LJWallet) {
@@ -22,15 +17,7 @@
         }
       },
       creationText() {
-        if (window.LJWallet) {
-          this.$http.get(`uid/${window.LJWallet.address}/`).then(({ data }) => {
-            this.hasLogin = true
-            return justReturn(`我的UID：${data['uid']}`)
-          })
-        } else {
-          this.hasLogin = false
-          return ''
-        }
+        return '创建钱包';
       }
     }
   }
