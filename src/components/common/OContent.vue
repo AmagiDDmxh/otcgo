@@ -52,7 +52,7 @@
 
 <style lang="stylus" scoped>
   .oContent
-    margin-top 30px
+    margin-top 50px
     margin-bottom 80px
 
   .oContent__tab
@@ -60,20 +60,11 @@
     -moz-border-radius 0
     border-radius 0
     background #b2b2b2
-    margin 10px 0
+    margin 0 0 8px 0
     color #fff
     border 0
     &:active
-      -webkit-border-radius 0
-      -moz-border-radius 0
-      border-radius 0
       background rgb(0, 156, 225)
-      margin 10px 0
-      color #fff
-      border 0
-      outline-color #b2b2b2
-
-
   .oContent__tab--active
     background rgb(0, 156, 225)
 </style>

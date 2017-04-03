@@ -77,8 +77,8 @@
 
       login: function () {
 
-        var self = this;
-        if (this.filename == "") {
+        let self = this;
+        if (this.filename === "") {
           this.filenameError = "文件不能为空";
           return;
         }
@@ -152,6 +152,7 @@
               return;
             }
             // 验证成功
+            $('#header-a').text('我的钱包')
             window.LJWallet = LJWallet;
           } catch (e) {
             // json 文件解析错误
