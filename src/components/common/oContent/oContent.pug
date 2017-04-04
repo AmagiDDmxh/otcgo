@@ -1,18 +1,14 @@
 div.oContent
   .row
     .col-xs-12.col-lg-12
-      span(:class="firstButton", @click="switchOne") CNY交易区
-      span(:class="secondButton", @click="switchTwo") ANS交易区
-      // nav.left
-        a.selected CNY交易区
-        a ANS交易区
-
+      span(:class="firstButton", @mouseover="switchOne") CNY交易区
+      span(:class="secondButton", @mouseover="switchTwo") ANS交易区
   .row
     .col-xs-12.col-lg-12
       table.table.table-bordred.table-striped.text-center
         thead
           tr.active
-            th 资产名称
+            th(style={width: '33%'}) 资产名称
             th 资产类型
             th 发行方
             th 最新价格CNY
@@ -29,12 +25,12 @@ div.oContent
             td 123
         tbody(v-else-if='contentTwo')
           tr
-            td(style="weight: 338px;") <img src="../../../assets/ANS.png" /> 小蚁股ANS - 2号内容n
+            td <img src="../../../assets/ANS.png" /> XXXXXXX
             td 股权
             td 小蚁开发团队
             td 123
           tr
-            td <img src="../../../assets/ANC.png" /> 小蚁币ANC - 2号内容
+            td <img src="../../../assets/ANC.png" /> XXXXXXX
             td 消费权
             td 小蚁开发团队
             td 123
