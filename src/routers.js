@@ -2,8 +2,6 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
-// This page is been canceled;
-import obligation from './pages/admin/obligation/obligation.vue'
 
 const routes = [
   {
@@ -52,7 +50,6 @@ const routes = [
           }
           next()
         },
-
       }, {
         path: 'order',
         component: r => require(['./pages/admin/order/order.vue'], r),
@@ -63,17 +60,38 @@ const routes = [
           }
           next()
         },
-      }, /*{
-       path: "obligation",
-       component: obligation,
-       beforeEnter: (to, from, next) => {
-       if (!window.LJWallet) {
-       next({ path: '/login' })
-       return;
-       };
-       next();
-       }
-       }, */{
+      }, {
+        path: 'obligation',
+        component: r => require(['./pages/admin/obligation/obligation.vue'], r),
+        beforeEnter: (to, from, next) => {
+          if (!window.LJWallet) {
+            next({path: '/login'})
+            return
+          }
+          next()
+        },
+      }, {
+        path: 'history/transfer',
+        component: r => require(['./pages/admin/history/transfer.vue'], r),
+        beforeEnter: (to, from, next) => {
+          if (!window.LJWallet) {
+            next({path: '/login'})
+            return
+          }
+          next()
+        }
+      }, {
+        path: 'history/transaction',
+        component: r => require(['./pages/admin/history/transaction.vue'], r),
+        beforeEnter: (to, from, next) => {
+          if (!window.LJWallet) {
+            next({path: '/login'})
+            return
+          }
+          next()
+        }
+      }
+      , {
         path: '',
         component: r => require(['./pages/admin/balances/balances.vue'], r),
         beforeEnter: (to, from, next) => {

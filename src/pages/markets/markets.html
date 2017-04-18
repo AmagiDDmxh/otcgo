@@ -1,18 +1,17 @@
 <div class="container-padding">
   <div class="panel panel-default panel-state">
     <div class="panel-body">
-      <span class="link-span">{{name}} 交易区</span>
+      <span class="link-span">{{name}} 场外交易</span>
     </div>
   </div>
   <div class=" row">
     <div class="col-xs-3 col-lg-3">
       <div class="ad-tips">
         <div class="tips-title">交易指南</div>
-        <div style="background-color:#f2f2f2; color:#928f8c; padding:20px 15px">
-          <p style="margin-bottom:20px">请 <router-link to="/login" target="_blank"> 登录个人钱包</router-link> 创建交易订单。 </p>
-          <p> 登录个人钱包后，点击“资产列表” </p>
-          <p> 中该类资产的“交易”功能，</p>
-          <p> 完成订 单的创建。</p>
+        <div class="ad-tips__body">
+          <p> 点击“购买”后，登陆个人钱包。 </p>
+          <p> 在“待付款”一栏完成订单， </p>
+          <p> 请尽快结算，以防止抢单。 </p>
         </div>
       </div>
     </div>
@@ -20,12 +19,11 @@
       <!-- table-list -->
       <table class="table table-js  table-striped">
         <thead>
-        <th>{{name}} </th>
+        <th style="color: #009cff;">{{name}}</th>
         <th>数量</th>
         <th>单价 CNY</th>
         <th>总价</th>
-        <th class="th-bar">
-        </th>
+        <th class="th-bar"></th>
         </thead>
         <tbody>
         <tr v-for="item in sellList">
@@ -33,8 +31,8 @@
           <td v-text="item.amount"></td>
           <td v-text="item.price || ''"></td>
           <td v-text="(item.amount * item.price).toFixed(4) || ''"></td>
-          <td class="amount-tb-bar" style="width:200px;">
-            <div class=" amount-bar amount-bar-sell" v-bind:style="{width: (item.amount/ amountMax)*100+ '%'}"></div>
+          <td class="amount-tb-bar" @click="purchase">
+            <button class="btn btn--purchase">购买</button>
           </td>
         </tr>
         <!-- tr -->
@@ -50,8 +48,8 @@
           <td v-text="item.amount"></td>
           <td v-text="item.price"></td>
           <td>{{ (item.amount * item.price).toFixed(4) || '' }}</td>
-          <td class="amount-tb-bar" style="width:200px;">
-            <div class=" amount-bar amount-bar-buy" v-bind:style="{width: (item.amount/ amountMax)*100+ '%'}"></div>
+          <td class="amount-tb-bar">
+            <button class="btn btn--purchase" @click="purchase">购买</button>
           </td>
         </tr>
         </tbody>

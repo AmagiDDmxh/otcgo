@@ -42,11 +42,18 @@ module.exports = {
         loader: 'babel-loader',
         exclude: /node_modules/
       },
+      {
+        test: /\.styl$/,
+        use: ['style-loader', 'css-loader', 'stylus-loader']
+      }
     ],
   },
   resolve: {
     alias: {
-      'vue$': 'vue/dist/vue.common.js'
+      'vue$': 'vue/dist/vue.common.js',
+      '~assets': path.resolve(__dirname, 'src/assets'),
+      '~utils': path.resolve(__dirname, 'src/utils'),
+      '~components': path.resolve(__dirname, 'src/components')
     },
   },
   devServer: {

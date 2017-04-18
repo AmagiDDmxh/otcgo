@@ -16,14 +16,14 @@
       <td>{{balance['valid']}}</td>
       <td class="tb-btn">
         <template v-if="balance['name']=='人民币'">
-          <button class="btn ljbutton" @click="openPay">充值</button>
-          <button class="btn ljbutton" @click="openFetch">提现</button>
-          <button class="btn ljbutton"
-                @click="balanceTransfer(balance['asset'],balance['divisible'],balance['name'],balance['valid'])"> 转账</button>
+          <span class="link-span" @click="openPay">充值</span>
+          <span class="link-span" @click="openFetch">提现</span>
+          <span class="link-span"
+                @click="balanceTransfer(balance['asset'],balance['divisible'],balance['name'],balance['valid'])"> 转账</span>
         </template>
         <template v-else>
             <span class="link-span"
-                  @click="balanceTransaction(balance['asset'],balance['divisible'],balance['current_price'])"> 交易</span>
+                  @click="balanceTransaction(balance['asset'],balance['divisible'],balance['current_price'],balance['frozen'],balance['valid'])"> 交易</span>
           <span class="link-span"
                 @click="balanceTransfer(balance['asset'],balance['divisible'],balance['name'],balance['valid'])"> 转账</span>
         </template>
@@ -34,7 +34,7 @@
   <div class="row">
     <div class="col-xs-12">
       <ul class="pagination pagePath  pull-right">
-        <li class="active"><a href="">1</a></li>
+        <li class="active"><a>1</a></li>
         <!-- TODO: 每页展示7行信息（7行资产品类、7行挂单、7行成交记录等）。当用户的某菜单栏信息超过7行时，才出现这样的页面按钮。没有超过7行的，不用展示按钮（或只展示第一页）。 -->
         <!-- <li><a href="#">2</a></li>
         <li><a href="#">3</a></li> -->
@@ -281,14 +281,14 @@
   <el-dialog v-model="dialogTransaction" id="dialogTransaction">
     <div class="row">
       <div class="col-xs-2">小蚁币：</div>
-      <div class="col-xs-3">可用: <span class="blue-span">2386.00</span></div>
-      <div class="col-xs-3">冻结: <span class="blue-span">2386.00</span></div>
+      <div class="col-xs-3">可用: <span class="blue-span">{{valid}}</span></div>
+      <div class="col-xs-3">冻结: <span class="blue-span">{{frozen}}</span></div>
       <div class="col-xs-3">最新成交价: <span class="blue-span">{{current_price}}</span></div>
     </div>
     <div class="row" style="margin-top:15px">
       <div class="col-xs-2">人民币：</div>
-      <div class="col-xs-3">可用: <span class="blue-span">2386.00</span></div>
-      <div class="col-xs-3">冻结: <span class="blue-span">2386.00</span></div>
+      <div class="col-xs-3">可用: <span class="blue-span">{{rmb.valid}}</span></div>
+      <div class="col-xs-3">冻结: <span class="blue-span">{{rmb.frozen}}</span></div>
     </div>
     <hr/>
     <div class="row" style="margin-top:30px">

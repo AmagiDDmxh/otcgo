@@ -2,8 +2,8 @@
     <div>
         <hr class="user-line" />
         <div class="user-info">
-            <p><b>你的钱包地址是：</b>{{ address }}</p>
-            <p><b>你的UID地址:</b>{{ UID }}</p>
+            <p><b>你的钱包地址是: </b>{{ address }}</p>
+            <p><b>你的UID地址: </b>{{ UID }}</p>
         </div>
     </div>
 </template>

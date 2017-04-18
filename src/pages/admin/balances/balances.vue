@@ -33,6 +33,9 @@
         valueassetid: "",
         assetId: "",
         divisible: false,
+        valid: Number,
+        frozen: Number,
+        rmb: Number,
         // 列表
         current_price: "",
         transfer_name: "",
@@ -61,7 +64,7 @@
     },
     methods: {
       getbalances: function () {
-        this.$http.get('balances/' + window.LJWallet.address + '/').then((response) => {
+        return this.$http.get('balances/' + window.LJWallet.address + '/').then((response) => {
           this.balances = response.data.balances;
           this.valueassetid = response.data.balances[0].asset;
         }, (response) => {
@@ -73,7 +76,6 @@
         this.dialogPay = true;
         this.rechangeState = 0;
         this.rechangeValue = "";
-
       },
       openFetch: function () {
         this.dialogDisPay = true;
@@ -83,15 +85,23 @@
         alipay_account = "";
 
       },
-      balanceTransaction: function (asset, divisible, current_price) {
+      balanceTransaction: function (asset, divisible, current_price, frozen, valid) {
         this.dialogTransaction = true;
         this.assetId = asset;
         this.divisible = divisible;
-        this.current_price = current_price
+        this.current_price = current_price;
+        this.frozen = frozen;
+        this.valid = valid;
       },
 
+      /**
+       * num:数量,price:价格,type:操作类型(false:买,true:卖)
+       *
+       * @param {number} num
+       * @param {number} price
+       * @param {boolean} type
+       */
       transactionAJAX: function (num, price, type) {
-        /*num:数量,price:价格,type:操作类型(false:买,true:卖)*/
         var self = this;
 
         var postData = {
@@ -120,7 +130,9 @@
               emulateJSON: true
             }).then((response) => {
               console.log('交易步骤3->debug:', response);
-              self.$message.success('转账成功！txid:' + response.body.txid);
+              self.$message.success('[点击F12查看console拥有txid的保存数据] \r' +
+                '转账成功！txid:' + response.body.txid);
+              console.log(response.body.txid);
               self.dialogTransaction = false;
             }, (response) => {
               console.log('交易步骤3->debug:', response);
@@ -129,6 +141,7 @@
             })
           }, (response) => {
             self.$message.error('交易失败！');
+            console.log('交易步骤2->debug:', response);
             self.dialogTransaction = false;
             throw response;
           });
@@ -136,6 +149,7 @@
         }, (response) => {
           self.$message.error('交易失败！');
           self.dialogTransaction = false;
+          console.log('交易步骤1->debug:', response);
           throw response;
         });
 
@@ -152,7 +166,6 @@
           this.buyNumValue = Math.floor(this.buyNumValue)
           this.buyPriceValue = Math.floor(this.buyPriceValue)
         }
-        ;
         this.transactionAJAX(this.buyNumValue, this.buyPriceValue, false);
 
       },
@@ -169,7 +182,6 @@
           this.sellNumValue = Math.floor(this.sellNumValue)
           this.sellPriceValue = Math.floor(this.sellPriceValue)
         }
-        ;
         this.transactionAJAX(this.sellNumValue, this.sellPriceValue, true);
 
       },
@@ -190,7 +202,7 @@
         if ((address_value[0] == 'a' || address_value[0] == 'A') && address_value.length == 34) {
           postAjax(self);
         } else {
-          return;
+
         }
 
         function postAjax(self) {
@@ -361,9 +373,11 @@
 
     },
     mounted: function () {
-      this.getbalances();
-      setInterval(this.getbalances, 1000 * 60 * 20)
+      this.getbalances().then(_ => this.rmb = this.balances.find(i => i.name === '人民币'))
+      window.s = setInterval(() => this.getbalances, 1000 * 60 * 20)
+    },
+    destroyed() {
+      clearInterval(window.s)
     }
-
   };
 </script>

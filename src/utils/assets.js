@@ -1,3 +1,5 @@
-/**
- * Created by Administrator on 4/17/2017.
- */
+export default {
+  img: {
+    yes: require('~assets/yes.png')
+  }
+}

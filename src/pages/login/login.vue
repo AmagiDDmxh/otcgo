@@ -1,9 +1,13 @@
 <template>
   <div class="container container-padding">
     <div class="panel panel-default panel-state">
-      <div class="panel-body">
-        登录离线钱包
 
+      <div class="panel-body"> 登录离线钱包 </div>
+
+    </div>
+    <div class="row">
+      <div class="col-xs-9 col-xs-offset-3">
+        <h3 class="h2">登录离线钱包</h3>
       </div>
     </div>
     <div class="login-body row">
@@ -17,7 +21,6 @@
         </div>
       </div>
       <div class="content col-xs-9 col-lg-9">
-        <h3 class="h2">登录离线钱包</h3>
         <div>
           <form class="from-group login">
             <div class="input-group">
@@ -56,9 +59,8 @@
             </div>
           </form>
         </div>
-        <p class="tips">
-          离线钱包由小蚁区块链提供技术支持
-      </p>
+
+        <p class="tips">离线钱包由小蚁区块链提供技术支持</p>
       </div>
     </div>
   </div>
@@ -159,7 +161,7 @@
             self.filenameError = "钱包文件格式有误,请重新选择";
             self.filename = "";
             self.filevalue = "";
-            return;
+
           }
 
         }
@@ -306,16 +308,12 @@
 
   .crow .msg {
     width: 100%;
-    border-radius: 0px;
-  }
-
-  .login-body {
-    height: 500px !important;
+    border-radius: 0;
   }
 
   .login-body #select-file {
-    border-top-right-radius: 0px;
-    border-bottom-right-radius: 0px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
   }
 
   /*btn-file*/

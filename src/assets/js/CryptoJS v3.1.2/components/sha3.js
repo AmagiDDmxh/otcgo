@@ -211,7 +211,7 @@ code.google.com/p/crypto-js/wiki/License
                 var lane = state[0];
                 var roundConstant = ROUND_CONSTANTS[round];
                 lane.high ^= roundConstant.high;
-                lane.low  ^= roundConstant.low;;
+              lane.low ^= roundConstant.low
             }
         },
 

@@ -8,6 +8,9 @@
 
   export default {
     name: 'h',
+    data: ()=>({
+      subActive: false
+    }),
     computed: {
       loginText() {
         if (window.LJWallet) {

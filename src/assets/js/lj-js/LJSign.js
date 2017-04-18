@@ -245,7 +245,7 @@ number_to_hex = function(num_str){
     }
 };
 number_to_string = function(n){
-    var hex_array = new Array();
+    var hex_array = [];
     do{
         result = n.divRem(16);
         div = result[0];

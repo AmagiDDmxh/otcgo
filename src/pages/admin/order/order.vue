@@ -47,7 +47,7 @@ export default {
         methods: {
             getorders: function() {
                 this.$http.get(`order/${window.LJWallet.address}/`).then((response) => {
-                    this.listData = this.type == 'buy' ? response.data.bids : response.data.asks;
+                    this.listData = this.type === 'buy' ? response.data.bids : response.data.asks;
                 }, (response) => {
                     console.log(response);
                 })

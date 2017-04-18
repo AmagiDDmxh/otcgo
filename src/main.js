@@ -1,8 +1,10 @@
+import 'bootstrap/dist/css/bootstrap.css'
+import 'element-ui/lib/theme-default/index.css'
+import '~assets/styles/common.styl'
+
 import Vue from 'vue'
 import App from './App.vue'
 import VueResource from 'vue-resource'
-import 'bootstrap/dist/css/bootstrap.css'
-import 'element-ui/lib/theme-default/index.css'
 import router from './routers'
 
 import ElementUI from 'element-ui'
