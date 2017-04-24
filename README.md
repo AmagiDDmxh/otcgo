@@ -29,9 +29,15 @@
 ## About
 源代码地址：👉 [GitHub](https://github.com/AmagiDDmxh/otcgo)
 
+白皮书： [中文]() -**等待更新**
+
 GitHub：👉 [AmagiDDmxh](https://github.com/AmagiDDmxh)
 
-## Contributing
+qq群：529334803
+
+## Contribution
+非常欢迎贡献者。
+最简单的贡献方式，就是参与讨论，并向我们提出产品的改进意见。此外，我们也非常欢迎测试和提交BUG。
 
 ``` bash
 # clone the project
