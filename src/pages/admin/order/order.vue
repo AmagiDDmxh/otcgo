@@ -41,11 +41,11 @@ export default {
         watch: {
             '$route' (to, from) {
                 this.type = this.$route.query.type;
-                this.getorders();
+                this.getOrders();
             }
         },
         methods: {
-            getorders: function() {
+            getOrders: function() {
                 this.$http.get(`order/${window.LJWallet.address}/`).then((response) => {
                     this.listData = this.type === 'buy' ? response.data.bids : response.data.asks;
                 }, (response) => {
@@ -53,43 +53,42 @@ export default {
                 })
             },
             cancel: function(id) {
-                var self = this;
-                var loading = self.$loading({
+                let loading = this.$loading({
                     fullscreen: true
                 });
-                self.$http.get('nonce/').then((response) => {
-                    var posdata1 = {};
+                this.$http.get('nonce/').then((response) => {
+                    let posdata1 = {};
                     posdata1.id = id;
                     posdata1.nonce = response.data.nonce;
-                    var signature0 = ljSign(window.LJWallet.privateKey, response.data.nonce);
+                    let signature0 = ljSign(window.LJWallet.privateKey, response.data.nonce);
                     posdata1.signature = signature0;
 
-                    self.$http.post('cancel/', posdata1, {
+                    this.$http.post('cancel/', posdata1, {
                         emulateHTTP: true,
                         emulateJSON: true
                     }).then((response) => {
                         // cancel succuss!
                         console.log('cancel succuss!')
-                        var posdata2 = posdata1;
-                        var signatrue1 = ljSign(window.LJWallet.privateKey, response.data.transaction);
+                        let posdata2 = posdata1;
+                        let signatrue1 = ljSign(window.LJWallet.privateKey, response.data.transaction);
                         posdata2.signature = signatrue1;
-                        self.$http.post('sign/', posdata2, {
+                        this.$http.post('sign/', posdata2, {
                             emulateHTTP: true,
                             emulateJSON: true
                         }).then((response) => {
                             console.log(response) /*撤单。。。。。。*/
-                            self.$message.success('撤单成功');
+                            this.$message.success('撤单成功');
                             loading.close();
                         }, (response) => {
                             console.log("sign", response);
                             loading.close();
-                            self.$message.error('撤单失败,请重试');
+                            this.$message.error('撤单失败,请重试');
                         });
 
                     }, (error) => {
                         console.log('cancel', error)
                         loading.close();
-                        self.$message.error('撤单失败,请重试 : ' + error);
+                        this.$message.error('撤单失败,请重试 : ' + error);
                     })
 
                 }); //nonce
@@ -97,7 +96,7 @@ export default {
             }
         },
         mounted: function() {
-            this.getorders();
+            this.getOrders();
         }
 }
 </script>

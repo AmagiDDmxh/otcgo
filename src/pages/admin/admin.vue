@@ -21,37 +21,19 @@
                     class="text-center"
                     :to="{ path: '/admin/balances'}"
                 > 资产列表
-
-
                 </router-link>
               </li>
               <li>
-                <a class=" sub-li-title text-center" v-on:click="order_sub_li=!order_sub_li"> 我的挂单 </a>
+                <router-link :to="{ path: '/admin/order', query: { type: 'sell'}}" class=" sub-li-title text-center" v-on:click="order_sub_li=!order_sub_li"> 我的挂单 </router-link>
               </li>
-              <template v-if="order_sub_li">
-                <li class="sub-li">
-                  <router-link class="text-center"
-                               :to="{ path: '/admin/order', query: { type: 'buy' }}">我的买单
-                  </router-link>
-                </li>
 
-                <li class="sub-li">
-                  <router-link class="text-center"
-                               :to="{ path: '/admin/order', query: { type: 'sell' } }">我的卖单
-                  </router-link>
-                </li>
-              </template>
-              <li>
-                <router-link class="text-center" :to="{ path: '/admin/obligation'}">代付款</router-link>
-              </li>
               <li>
                 <a class="sub-li-title text-center" @click="history_sub_li = !history_sub_li">历史交易记录</a>
               </li>
               <template v-if="history_sub_li">
                 <li class="sub-li">
                   <router-link class="text-center"
-                               :to="{ path: '/admin/history/transfer' }">转账记录
-                  </router-link>
+                               :to="{ path: '/admin/history/transfer' }">转账记录</router-link>
                 </li>
 
                 <li class="sub-li">
@@ -141,10 +123,6 @@
     background: #f2f2f2;
   }
 
-  .left-menu .nav li a:hover {
-    background: #e3e3e3;
-  }
-
   .admin-footer-line {
     margin-top: 20px;
     border-top: 1px solid #ccc;
@@ -166,7 +144,7 @@
   }
 
   .admin-tips li {
-    margin-bottom: 0px;
+    margin-bottom: 0;
   }
 
   .nav-stacked > li {

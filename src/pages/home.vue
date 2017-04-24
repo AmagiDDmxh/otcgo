@@ -1,31 +1,40 @@
 <template>
   <div class="page-index">
     <div class="index">
-      <div class="row">
-        <div class="col-xs-12 col-lg-12">
-          <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="5000">
-            <!-- 轮播（Carousel）指标 -->
-            <ol class="carousel-indicators">
-              <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-              <li data-target="#myCarousel" data-slide-to="1"></li>
-              <li data-target="#myCarousel" data-slide-to="2"></li>
-            </ol>
-            <!-- 轮播（Carousel）项目 -->
-            <div class="carousel-inner">
-              <img class="item active" src="../assets/banner_1.png" alt="蓝鲸淘">
-              <img class="item " src="../assets/slide2.png" alt="蓝鲸淘">
-              <img class="item " src="../assets/slide3.png" alt="蓝鲸淘">
-            </div>
-            <!-- 轮播（Carousel）导航 -->
-            <!--<a class="carousel-control left" href="#myCarousel" data-slide="prev">
-              <img style="margin-top:-10px;width:52px;" src="../assets/banner-left.png" alt=""/>
-            </a>
-            <a class="carousel-control right" href="#myCarousel" data-slide="next">
-              <img style="margin-top:-10px;width:52px;" src="../assets/banner-right.png" alt=""/>
-            </a>-->
-          </div>
-        </div>
-      </div>
+      <el-carousel :interval="5000" arrow="always" height="400px">
+        <el-carousel-item v-for="item in imgs">
+          <img :src="item" alt="">
+        </el-carousel-item>
+      </el-carousel>
+
+      <!-- TODO: improve the nav-bar section -->
+      <!--<el-tabs v-model="activeName" @tab-click="handleClick">
+        <el-tab-pane label="用户管理" name="first">
+
+          <el-table :data="cnyData">
+            <el-table-column prop="equityCode" label="权益代码"></el-table-column>
+            <el-table-column prop="name" label="资产名称"></el-table-column>
+            <el-table-column prop="type" label="资产类型"></el-table-column>
+            <el-table-column prop="publisher" label="发行方"></el-table-column>
+            <el-table-column prop="price" label="最新价格CNY"></el-table-column>
+          </el-table>
+
+        </el-tab-pane>
+
+        <el-tab-pane label="配置管理" name="second">
+          <el-table :data="ansData">
+            <el-table-column prop="equityCode" label="权益代码"></el-table-column>
+            <el-table-column prop="name" label="资产名称"></el-table-column>
+            <el-table-column prop="type" label="资产类型"></el-table-column>
+            <el-table-column prop="publisher" label="发行方"></el-table-column>
+            <el-table-column prop="price" label="最新价格CNY"></el-table-column>
+
+          </el-table>
+        </el-tab-pane>
+      </el-tabs>
+
+      <span v-text="activeName"></span>-->
+
       <o-content></o-content>
     </div>
   </div>
@@ -34,12 +43,58 @@
 <script>
   import oContent from '../components/common/oContent/index.vue'
   export default {
-    components: { oContent }
+    components: { oContent },
+    data: () => ({
+      imgs: [require('../assets/banner_1.png'), require('../assets/slide2.png'), require('../assets/slide3.png')],
+      activeName: 'first',
+      cnyData: [{
+        equityCode: '00001',
+        name: '小蚁股ANS',
+        type: '股权',
+        publisher: '小蚁开发团队',
+        price: '0.02'
+      }, {
+        equityCode: '00002',
+        name: '小蚁币ANC',
+        type: '消费权',
+        publisher: '小蚁开发团队',
+        price: '0.02'
+      }],
+      ansData: [{
+        equityCode: '00003',
+        name: '开拍币',
+        type: '股权\\消费权',
+        publisher: '小蚁开发团队',
+        price: '0.02'
+      }]
+    }),
+    methods: {
+      handleClick(tab, event) {
+        console.log(tab, event);
+      },
+      active(e) {
+        console.log(e.target)
+        // this.activeName = e.target.innerText
+      }
+    }
   }
 </script>
 
 <style lang="stylus">
-  .carousel-control
+  .el-table__body
+    text-align: center
+
+  .el-table__header .is-leaf
+    text-align: center
+
+  .el-carousel__item img
+    width: 100%
+    height: 400px
+
+  .el-carousel__container > button
+    display: none
+
+/*  .carousel-control
     background: #8e8e8e;
     height: 100px;
     line-height: 100px;
@@ -49,8 +104,7 @@
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0);
     background-image: none;
 
-
   .carousel-inner img
     width: 100%;
-    height: 400px;
+    height: 400px;*/
 </style>

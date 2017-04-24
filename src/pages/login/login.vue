@@ -28,17 +28,16 @@
                      :value="filename" placeholder="导入钱包文件">
               <label class="btn-bs-file btn  btn-select-file btn-primary btn-lj">
                 浏览
-                <input type="file" id="file" :value="filevalue"/>
+                <input type="file" id="file" :value="filevalue" accept="application/json, .json"/>
               </label>
               <span v-show="filenameError" style="display:inline-block;padding-left:10px;" class="error-text">
                                 {{filenameError}}
                             </span>
             </div>
             <div class="input-group">
-              <input type="password" class="form-control pwd" v-model="password" placeholder="输入钱包密码">
+              <input type="password" class="form-control pwd" v-model="password" placeholder="输入钱包密码" @keyup.enter="login">
               <span v-if="password==''" style="display:inline-block;padding-left:10px;margin-top:5px;"
                     class="error-text">
-
                               密码不能为空
                             </span>
               <span v-else-if="password.length< 8" style="display:inline-block;padding-left:10px;margin-top:5px;"
@@ -91,14 +90,10 @@
 
         var privateKey = decrypt(window.LJWallet['privateKeyEncrypted'], this.password);
         var result = doValidatePwd(privateKey, window.LJWallet['publicKey']);
+
         if (result) {
           window.LJWallet['privateKey'] = privateKey;
-          //登录时效
-          setTimeout(function () {
-            window.LJWallet = null;
-          }, 1000 * 60 * 60);
 
-          // console.log("验证成功!")
           this.$message({
             message: '验证成功!',
             type: 'success'
@@ -153,7 +148,6 @@
               this.filevalue = "";
               return;
             }
-            // 验证成功
             $('#header-a').text('我的钱包')
             window.LJWallet = LJWallet;
           } catch (e) {
@@ -161,11 +155,8 @@
             self.filenameError = "钱包文件格式有误,请重新选择";
             self.filename = "";
             self.filevalue = "";
-
           }
-
         }
-
       })
     }
   }
@@ -219,6 +210,7 @@
     return result;
   }
 </script>
+
 <style lang="css">
   .fileDiv {
     position: absolute;
@@ -341,30 +333,14 @@
   }
 
   .btn-select-file {
-    border-top-left-radius: 0px;
-    border-bottom-left-radius: 0px;
-  }
-
-  .link-span {
-    color: #009cff;
-  }
-
-  .link-span:hover {
-    cursor: pointer;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
   }
 
   .ad-tips ol {
     background-color: #ccc;
-    padding-top: 30px;
-    padding-bottom: 30px;
-    padding-left: 32px;
-    padding-right: 20px;
+    padding: 30px 20px 30px 32px;
     color: #aeaeae;
-    background: #f2f2f2;
     /*  margin-top: 64px;*/
-  }
-
-  .ad-tips li {
-    margin-bottom: 12px;
   }
 </style>

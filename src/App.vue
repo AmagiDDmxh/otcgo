@@ -1,27 +1,27 @@
 <template>
   <div class="pageDiv container" style="background-color:#fff;">
-    <h>
-    </h>
+    <h></h>
+
     <transition name="fade" mode="out-in">
       <router-view></router-view>
     </transition>
-    <foot></foot>
-    <div class="footer-link">
-    </div>
 
-  </div>
+    <foot></foot>
+    <div class="footer-link"></div>
   </div>
 </template>
 <script>
   import h from './components/header/header.vue'
   import foot from './components/footer/footer.vue'
+
   export default {
-    components: {
-      h,
-      foot
+    components: { h,foot },
+    mounted() {
+      this.$notify({title: '提示', type: 'warning', message: '您正在访问的是测试网！'})
     }
   }
 </script>
+
 <style>
   /*common css*/
   .error-text {
@@ -114,14 +114,6 @@
 
   .search {
     display: inline-block;
-  }
-
-  #des {
-    display: inline-block;
-    height: 100%;
-    line-height: 100%;
-    font-weight: 500;
-    font-size: 1.2
   }
 
   .container > div {

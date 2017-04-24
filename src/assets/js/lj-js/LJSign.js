@@ -20,7 +20,7 @@ and = function(a,b){
 			and_result[i]= '1';
 		}else{
 			and_result[i]='0';
-		}		
+		}
 	}
 	return LJBigInteger.parse(and_result.join(''),2);
 };
@@ -34,7 +34,7 @@ inverse_mod = function(a,m){
     var c = a;
     var d = m;
     var uc = LJBigInteger.ONE;
-    var vc = LJBigInteger.ZERO; 
+    var vc = LJBigInteger.ZERO;
     var ud = LJBigInteger.ZERO;
     var vd = LJBigInteger.ONE;
     while(!c.isZero()){
@@ -134,7 +134,7 @@ LJPoint.prototype.add = function(other){
 }
 LJPoint.prototype.mul = function(other){
     leftmost_bit = function(x){
-        var result = LJBigInteger.ONE; 
+        var result = LJBigInteger.ONE;
         while(result.compare(x)<=0){
             result = result.multiply(2);
         }
@@ -295,7 +295,7 @@ LJSigningKey.prototype.sign = function(msghex){
 
 curve_secp256r1 = new LJCurveFp(_p, _a, _b);
 generator_secp256r1 = new LJPoint(curve_secp256r1, _Gx, _Gy, _r);
-SECP256r1 = new LJCurve("SECP256r1",curve_secp256r1,generator_secp256r1,[1,3,132,0,10],"SECP256r1");
+var SECP256r1 = new LJCurve("SECP256r1",curve_secp256r1,generator_secp256r1,[1,3,132,0,10],"SECP256r1");
 
 ljSign = function(prvhex, msghex){
     var ljs = new LJSigningKey(prvhex);
@@ -308,7 +308,7 @@ ljWifkeyToBinkey = function(wif){
 ljWifkeyToHexkey = function(wif){
 	var s = '';
 	var x = ljWifkeyToBinkey(wif);
-	for(var i=0;i<x.length;i++){
+	for(let i=0;i<x.length;i++){
 		s = s + ('00'+(x[i]&0xFF).toString(16)).slice(-2);
 	}
 	return s;
@@ -316,11 +316,21 @@ ljWifkeyToHexkey = function(wif){
 ljPrikeyToPubkey = function(prvhex){
 	var secexp = LJBigInteger.parse(prvhex, 16);
 	var n =  LJBigInteger('0xFFFFFFFF00000000FFFFFFFFFFFFFFFFBCE6FAADA7179E84F3B9CAC2FC632551');
-	if(-1==secexp.compare(1) || 0<=secexp.compare(n)){
+	if(-1 === secexp.compare(1) || 0<=secexp.compare(n)){
 		throw('invalid private key for SECP256r1');
 	}
 	var pubkey_point = generator_secp256r1.mul(secexp);
-	return ("04"+pubkey_point.x().toString(16)+pubkey_point.y().toString(16)).toLowerCase();
+  var s_x = pubkey_point.x().toString(16);
+  var s_y = pubkey_point.y().toString(16);
+  var s_x_length = s_x.length;
+  var s_y_length = s_y.length;
+  for(let i=0;i<64-s_x_length;i++){
+    s_x = '0'+s_x;
+  }
+  for(let i=0;i<64-s_y_length;i++){
+    s_y = '0'+s_y;
+  }
+  return ("04"+s_x+s_y).toLowerCase();
 };
 ljWifkeyToPubkey = function(wif){
 	var prvhex = ljWifkeyToHexkey(wif);

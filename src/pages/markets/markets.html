@@ -15,6 +15,7 @@
         </div>
       </div>
     </div>
+
     <div class="content col-xs-9 col-lg-9" style="height:auto">
       <!-- table-list -->
       <table class="table table-js  table-striped">
@@ -26,30 +27,13 @@
         <th class="th-bar"></th>
         </thead>
         <tbody>
-        <tr v-for="item in sellList">
+        <tr v-for="item in orders">
           <td class="sell-name" v-text="item.name"></td>
           <td v-text="item.amount"></td>
-          <td v-text="item.price || ''"></td>
-          <td v-text="(item.amount * item.price).toFixed(4) || ''"></td>
-          <td class="amount-tb-bar" @click="purchase">
-            <button class="btn btn--purchase">购买</button>
-          </td>
-        </tr>
-        <!-- tr -->
-        <tr>
-          <td>&nbsp;</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td class="tb-bar"></td>
-        </tr>
-        <tr v-for="item in buyList">
-          <td class="buy-name" v-text="item.name"></td>
-          <td v-text="item.amount"></td>
           <td v-text="item.price"></td>
-          <td>{{ (item.amount * item.price).toFixed(4) || '' }}</td>
+          <td v-text="item.total.toFixed(4)"></td>
           <td class="amount-tb-bar">
-            <button class="btn btn--purchase" @click="purchase">购买</button>
+            <button class="btn btn--purchase" @click="purchase(item)">购买</button>
           </td>
         </tr>
         </tbody>

@@ -2,6 +2,9 @@
 <style lang="stylus" src="./balances.styl"></style>
 
 <script>
+  import { getB } from '../../../api'
+  import config from '../../../utils/config'
+
   export default {
     data() {
       return {
@@ -46,6 +49,7 @@
         buyPriceValue: "",
         sellNumValue: "",
         sellPriceValue: "",
+        transactionType: String,
         // 转账
         transfer_num: "",
         transfer_address_value: "",
@@ -63,15 +67,6 @@
       }
     },
     methods: {
-      getbalances: function () {
-        return this.$http.get('balances/' + window.LJWallet.address + '/').then((response) => {
-          this.balances = response.data.balances;
-          this.valueassetid = response.data.balances[0].asset;
-        }, (response) => {
-          this.$message('服务器繁忙，请稍等片刻！')
-        });
-      },
-
       openPay: function () {
         this.dialogPay = true;
         this.rechangeState = 0;
@@ -82,45 +77,36 @@
         this.fetchState = 0;
         this.fetchValue = "";
         this.alipay_account_name = "";
-        alipay_account = "";
-
+        this.alipay_account = "";
       },
-      balanceTransaction: function (asset, divisible, current_price, frozen, valid) {
-        this.dialogTransaction = true;
+      balanceTransaction: function (asset, divisible, current_price, frozen, valid, name) {
+        this.dialogTransaction = true
         this.assetId = asset;
         this.divisible = divisible;
         this.current_price = current_price;
         this.frozen = frozen;
         this.valid = valid;
+        this.transactionType = name;
       },
-
-      /**
-       * num:数量,price:价格,type:操作类型(false:买,true:卖)
-       *
-       * @param {number} num
-       * @param {number} price
-       * @param {boolean} type
-       */
-      transactionAJAX: function (num, price, type) {
+      ask: function (num, price) {
         var self = this;
 
         var postData = {
           assetid: self.assetId,
           price: price,
           amount: num,
-          client: window.LJWallet.publicKeyCompressed,
-          way: type,
           valueassetid: self.valueassetid,
           hex_pubkey: window.LJWallet.publicKey
         }
         // 交易步骤1:
-        this.$http.post('order/', postData, {
+        this.$http.post('ask/', postData, {
           emulateHTTP: true,
           emulateJSON: true
         }).then((response) => {
           var postData2 = {};
           postData2.signature = ljSign(window.LJWallet['privateKey'], response.data.transaction);
           postData2.id = response.data.order.id;
+
           // 交易步骤2：
           self.$http.get('nonce/').then((response) => {
             postData2.nonce = response.data.nonce;
@@ -129,19 +115,27 @@
               emulateHTTP: true,
               emulateJSON: true
             }).then((response) => {
-              console.log('交易步骤3->debug:', response);
-              self.$message.success('[点击F12查看console拥有txid的保存数据] \r' +
-                '转账成功！txid:' + response.body.txid);
-              console.log(response.body.txid);
+
+              if (config.debug) {
+                console.log('交易步骤3->debug:', response);
+
+                self.$message.success('[点击F12查看console拥有txid的保存数据] \r' +
+                 '转账成功！txid:' + response.body.txid);
+                console.log(response.body.txid);
+              }
+              self.$message.success('转账成功！');
               self.dialogTransaction = false;
             }, (response) => {
-              console.log('交易步骤3->debug:', response);
-              self.$message.error('交易失败！ :' + response.body.non_field_errors[0]);
+              if (config.debug) {
+                console.log('交易步骤3->debug:', response);
+                self.$message.error('交易失败！ :' + response.body.non_field_errors[0]);
+              }
+              self.$message.error('交易失败！');
               self.dialogTransaction = false;
             })
           }, (response) => {
             self.$message.error('交易失败！');
-            console.log('交易步骤2->debug:', response);
+            // console.log('交易步骤2->debug:', response);
             self.dialogTransaction = false;
             throw response;
           });
@@ -149,29 +143,12 @@
         }, (response) => {
           self.$message.error('交易失败！');
           self.dialogTransaction = false;
-          console.log('交易步骤1->debug:', response);
-          throw response;
+          if (config.debug) console.log('交易步骤1->debug:', response);
         });
 
       },
-      buy: function () {
-        if (this.buyNumValue == '' || this.buyPriceValue == '') {
-          return;
-        }
-        /*资产是否可分割*/
-        if (this.divisible) {
-          this.buyNumValue = Number(this.buyNumValue).toFixed(4);
-          this.buyPriceValue = Number(this.buyPriceValue).toFixed(4);
-        } else {
-          this.buyNumValue = Math.floor(this.buyNumValue)
-          this.buyPriceValue = Math.floor(this.buyPriceValue)
-        }
-        this.transactionAJAX(this.buyNumValue, this.buyPriceValue, false);
-
-      },
       sell: function () {
-
-        if (this.sellNumValue == '' || this.sellPriceValue == '') {
+        if (!this.sellNumValue || !this.sellPriceValue) {
           return;
         }
         /*资产是否可分割*/
@@ -182,8 +159,7 @@
           this.sellNumValue = Math.floor(this.sellNumValue)
           this.sellPriceValue = Math.floor(this.sellPriceValue)
         }
-        this.transactionAJAX(this.sellNumValue, this.sellPriceValue, true);
-
+        this.ask(this.sellNumValue, this.sellPriceValue);
       },
       balanceTransfer: function (asset, divisible, name, valid) {
         this.assetId = asset;
@@ -234,31 +210,26 @@
             postData.signature = ljSign(window.LJWallet.privateKey, postData.transaction);
             delete postData.transaction;
 
-            // console.log('*转账步骤2*', postData)
-
             self.$http.get('nonce/').then((response) => {
               postData.nonce = response.data.nonce;
-              // console.log('*转账步骤3*', postData)
 
               self.$http.post('sign/', postData, {
                 emulateHTTP: true,
                 emulateJSON: true
               }).then((response) => {
-                self.$message.success('转账成功！txid:' + response.body.txid);
+                config.debug ? self.$message.success('转账成功！txid:' + response.body.txid) : self.$message.success('转账成功！');
                 self.transfer_address_value = "";
                 self.transfer_num = "";
                 loading.close();
                 self.dialogTransfer = false;
 
               }, (response) => {
-                self.$message.error('转账失败,请重试! txid:' + response.body.txid);
+                self.$message.error('转账失败,请重试!');
                 self.transfer_address_value = "";
                 self.transfer_num = "";
                 loading.close();
                 self.dialogTransfer = false;
-
               });
-
             }, (response) => {
               self.$message.error('转账失败,请重试！');
               self.transfer_address_value = "";
@@ -267,7 +238,6 @@
               self.dialogTransfer = false;
               throw response;
             })
-
           }, (response) => {
             self.$message.error('转账失败,请重试！');
             self.transfer_address_value = "";
@@ -277,9 +247,7 @@
             throw response;
           });
         }
-
       },
-
       rechange: function () {
 
         // 充值
@@ -348,7 +316,6 @@
         })
 
       },
-
       confirmfn: function () {
         var self = this;
         var signature1 = ljSign(window.LJWallet.privateKey, this.confirmInfo.transaction);
@@ -365,15 +332,20 @@
           self.$message.error('提现失败,请重试！' + response.data.non_field_errors);
         });
       },
-
       // Check out the transfer value when keyup
       checkOutKeyValue: function (transfer_num) {
         return isNaN(parseInt(transfer_num))
+      },
+      getBalances() {
+        return getB(window.LJWallet['address']).then(({ data: { balances }}) => this.balances = balances)
       }
-
     },
     mounted: function () {
-      this.getbalances().then(_ => this.rmb = this.balances.find(i => i.name === '人民币'))
+      this.getBalances().then(() => {
+        this.rmb = this.balances.find(i => i.name === '人民币');
+        this.valueassetid = this.rmb['asset'];
+        this.$store.dispatch('SET_ASSET')
+      })
       window.s = setInterval(() => this.getbalances, 1000 * 60 * 20)
     },
     destroyed() {

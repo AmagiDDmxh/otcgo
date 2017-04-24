@@ -2,33 +2,33 @@
   <!-- UI: table -->
   <table class="table data-table table-bordred table-striped">
     <thead>
-    <th>资产类型</th>
-    <th>总量</th>
-    <th>冻结量</th>
-    <th>可用量</th>
-    <th class="tb-btn"></th>
+      <th>资产类型</th>
+      <th>总量</th>
+      <th>冻结量</th>
+      <th>可用量</th>
+      <th class="tb-btn"></th>
     </thead>
     <tbody>
-    <tr v-for="balance in balances">
-      <td>{{balance['name']}}</td>
-      <td>{{balance['total']}}</td>
-      <td>{{balance['frozen']}}</td>
-      <td>{{balance['valid']}}</td>
-      <td class="tb-btn">
-        <template v-if="balance['name']=='人民币'">
-          <span class="link-span" @click="openPay">充值</span>
-          <span class="link-span" @click="openFetch">提现</span>
-          <span class="link-span"
-                @click="balanceTransfer(balance['asset'],balance['divisible'],balance['name'],balance['valid'])"> 转账</span>
-        </template>
-        <template v-else>
+      <tr v-for="balance in balances">
+        <td>{{balance['name']}}</td>
+        <td>{{balance['total']}}</td>
+        <td>{{balance['frozen']}}</td>
+        <td>{{balance['valid']}}</td>
+        <td class="tb-btn">
+          <template v-if="balance['name']=='人民币'">
+            <span class="link-span" @click="openPay">充值</span>
+            <span class="link-span" @click="openFetch">提现</span>
             <span class="link-span"
-                  @click="balanceTransaction(balance['asset'],balance['divisible'],balance['current_price'],balance['frozen'],balance['valid'])"> 交易</span>
-          <span class="link-span"
-                @click="balanceTransfer(balance['asset'],balance['divisible'],balance['name'],balance['valid'])"> 转账</span>
-        </template>
-      </td>
-    </tr>
+                  @click="balanceTransfer(balance['asset'],balance['divisible'],balance['name'],balance['valid'])"> 转账</span>
+          </template>
+          <template v-else>
+            <span class="link-span"
+                  @click="balanceTransaction(balance['asset'],balance['divisible'],balance['current_price'],balance['frozen'],balance['valid'],balance['name'])"> 交易</span>
+            <span class="link-span"
+                  @click="balanceTransfer(balance['asset'],balance['divisible'],balance['name'],balance['valid'])"> 转账</span>
+          </template>
+        </td>
+      </tr>
     </tbody>
   </table>
   <div class="row">
@@ -280,51 +280,20 @@
   <!-- 交易 -->
   <el-dialog v-model="dialogTransaction" id="dialogTransaction">
     <div class="row">
-      <div class="col-xs-2">小蚁币：</div>
+      <div class="col-xs-3"><b>{{transactionType}}:</b></div>
       <div class="col-xs-3">可用: <span class="blue-span">{{valid}}</span></div>
       <div class="col-xs-3">冻结: <span class="blue-span">{{frozen}}</span></div>
       <div class="col-xs-3">最新成交价: <span class="blue-span">{{current_price}}</span></div>
     </div>
     <div class="row" style="margin-top:15px">
-      <div class="col-xs-2">人民币：</div>
+      <div class="col-xs-3"><b>人民币:</b></div>
       <div class="col-xs-3">可用: <span class="blue-span">{{rmb.valid}}</span></div>
       <div class="col-xs-3">冻结: <span class="blue-span">{{rmb.frozen}}</span></div>
     </div>
     <hr/>
+    <!-- 卖出量row -->
     <div class="row" style="margin-top:30px">
-      <div class="col-xs-6">
-        <div class="row">
-          <div class="col-xs-3" style="line-height: 30px;">买入量：</div>
-          <div class="col-xs-6">
-            <input type="text" class="form-control" placeholder="输入数量"
-                   v-model.number="buyNumValue" style="width:100%!important"/>
-          </div>
-          <div class="col-xs-3" style="line-height: 30px;">
-            <span v-if=" buyNumValue =='' || isNaN(parseInt(buyNumValue))"
-                  class="error-text">数量错误</span>
-            <span v-else> <img src="../../../assets/yes.png"/> </span>
-          </div>
-        </div>
-        <div class="row" style="margin-top:10px">
-          <div class="col-xs-3" style="line-height: 30px;">买入价：</div>
-          <div class="col-xs-6">
-            <input type="text" class="form-control" placeholder="输入价格"
-                   v-model="buyPriceValue" style="width:100%!important"/>
-          </div>
-          <div class="col-xs-3" style="line-height: 30px;">
-            <span v-if=" buyPriceValue =='' || isNaN(parseInt(buyPriceValue))  "
-                  class="error-text">数量错误</span>
-            <span v-else> <img src="../../../assets/yes.png"/> </span>
-          </div>
-        </div>
-        <div class="row" style="margin-top:10px">
-          <div class="col-xs-3" style="line-height: 30px;"></div>
-          <div class="col-xs-6">
-            <button class="btn btn-lj-red btn-block" @click="buy">买入</button>
-          </div>
-        </div>
-      </div>
-      <div class="col-xs-6" style="padding-left:40px;border-left:solid 1px #ccc;">
+      <div class="col-xs-12">
         <div class="row">
           <div class="col-xs-3" style="line-height: 30px;">卖出量：</div>
           <div class="col-xs-6">
@@ -333,9 +302,11 @@
                 v-model="sellNumValue" style="width:100%!important"/>
           </div>
           <div class="col-xs-3" style="line-height:30px;">
-            <span v-if=" sellNumValue =='' || isNaN(parseInt(sellNumValue))  "
+            <span v-if="sellNumValue === ''"
+                  class="error-text"></span>
+            <span v-else-if="isNaN(sellNumValue)  "
                   class="error-text">数量错误</span>
-            <span v-else> <img src="src/assets/yes.png"/> </span>
+            <span v-else> <img src="../../../../src/assets/yes.png"/> </span>
           </div>
         </div>
         <div class="row" style="margin-top:10px">
@@ -345,7 +316,9 @@
                    v-model="sellPriceValue" style="width:100%!important" placeholder="输入价格"/>
           </div>
           <div class="col-xs-3" style="line-height: 30px;">
-            <span v-if=" sellPriceValue =='' || isNaN(parseInt(sellPriceValue))"
+            <span v-if="sellPriceValue === ''"
+                  class="error-text"></span>
+            <span v-else-if="isNaN(sellPriceValue)"
                   class="error-text">数量错误</span>
             <span v-else> <img src="../../../assets/yes.png"/> </span>
           </div>

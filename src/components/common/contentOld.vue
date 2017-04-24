@@ -3,7 +3,7 @@
     <div class="row content-1">
       <p></p>
       <div class="col-xs-6 col-lg-6">
-        <a href="###">
+        <a href="#">
           <span></span>
           <img src="../../assets/images/content_03.png" alt="">
         </a>
@@ -23,9 +23,10 @@
           <img src="../../assets/images/content_09.png" alt=""></router-link>
       </div>
       <div class="col-xs-6 col-lg-6">
-        <a href="###">
+        <a href="#">
           <span></span>
-          <img src="../../assets/images/content_11.png" alt=""></a>
+          <img src="../../assets/images/content_11.png" alt="">
+        </a>
       </div>
     </div>
   </div>

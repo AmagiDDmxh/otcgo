@@ -8,31 +8,32 @@ div.oContent
       table.table.table-bordred.table-striped.text-center
         thead
           tr.active
-            th(style={width: '33%'}) 资产名称
+            th 权益代码
+            th 资产名称
             th 资产类型
             th 发行方
             th 最新价格CNY
         tbody(v-if='contentOne')
           tr
-            td <img src="../../../assets/ANS.png" /> 小蚁股ANS
+            td 00001
+            td 小蚁股ANS
             td 股权
             td 小蚁开发团队
-            td 123
+            td 0.00
           tr
-            td <img src="../../../assets/ANC.png" /> 小蚁币ANC
+            td 00002
+            td 小蚁币ANC
             td 消费权
             td 小蚁开发团队
-            td 123
+            td 0.00
         tbody(v-else-if='contentTwo')
           tr
-            td <img src="../../../assets/ANS.png" /> XXXXXXX
-            td 股权
-            td 小蚁开发团队
-            td 123
-          tr
-            td <img src="../../../assets/ANC.png" /> XXXXXXX
-            td 消费权
-            td 小蚁开发团队
-            td 123
+            td 00003
+            td 开拍币
+            td 股权\消费权
+            td 开拍学园
+            td 0.00
+
+
 // Created by Administrator on 4/3/2017.
 

@@ -2,27 +2,15 @@
 <style lang="stylus" src="./header.styl"></style>
 
 <script>
-  function justReturn(value) {
-    return value
-  }
+  import { mapGetters } from 'vuex'
 
   export default {
     name: 'h',
+    props: ['uid'],
     data: ()=>({
       subActive: false
     }),
-    computed: {
-      loginText() {
-        if (window.LJWallet) {
-          return '我的钱包'
-        } else {
-          return '登陆钱包'
-        }
-      },
-      creationText() {
-        return '创建钱包';
-      }
-    }
+    computed: mapGetters(['uid', 'loggedIn'])
   }
 
 </script>
