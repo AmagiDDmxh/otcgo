@@ -6,11 +6,12 @@
 
   export default {
     name: 'h',
-    props: ['uid'],
-    data: ()=>({
-      subActive: false
-    }),
-    computed: mapGetters(['uid', 'loggedIn'])
+    computed: {
+      ...mapGetters(['loggedIn']),
+      uid() {
+        return this.$store.getters.field('uid')
+      }
+    }
   }
 
 </script>

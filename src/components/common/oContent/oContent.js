@@ -4,7 +4,20 @@ export default {
       firstButton: ['oContent__tab', 'btn', {'oContent__tab--active': true}],
       secondButton: ['oContent__on-tab', 'btn', {'oContent__on-tab--active': false}],
       contentOne: true,
-      contentTwo: false
+      contentTwo: false,
+      cnyData: [{
+        equityCode: '00001',
+        name: '小蚁股ANS',
+        type: '股权',
+        publisher: '小蚁开发团队',
+        price: '0.02'
+      }, {
+        equityCode: '00002',
+        name: '小蚁币ANC',
+        type: '消费权',
+        publisher: '小蚁开发团队',
+        price: '0.02'
+      }]
     }
   },
   methods: {

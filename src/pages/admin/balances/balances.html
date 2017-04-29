@@ -16,16 +16,19 @@
         <td>{{balance['valid']}}</td>
         <td class="tb-btn">
           <template v-if="balance['name']=='人民币'">
-            <span class="link-span" @click="openPay">充值</span>
-            <span class="link-span" @click="openFetch">提现</span>
-            <span class="link-span"
-                  @click="balanceTransfer(balance['asset'],balance['divisible'],balance['name'],balance['valid'])"> 转账</span>
+            <span class="link-span-seal">充值</span> <!--@click="openPay"-->
+            <span class="link-span-seal">提现</span> <!--@click="openFetch"-->
+            <span class="link-span-seal">转账</span> <!--@click="balanceTransfer(balance['asset'],balance['divisible'],balance['name'],balance['valid'])"-->
           </template>
           <template v-else>
+            <span v-if="balance['category'] === 96" class="link-span"
+                  @click="balanceTransaction(balance['asset'],balance['divisible'],balance['current_price'],balance['frozen'],balance['valid'],balance['name'])">交易</span>
+
+            <span v-else class="link-span-seal">交易</span>
+
             <span class="link-span"
-                  @click="balanceTransaction(balance['asset'],balance['divisible'],balance['current_price'],balance['frozen'],balance['valid'],balance['name'])"> 交易</span>
-            <span class="link-span"
-                  @click="balanceTransfer(balance['asset'],balance['divisible'],balance['name'],balance['valid'])"> 转账</span>
+                  @click="balanceTransfer(balance['asset'],balance['divisible'],balance['name'],balance['valid'])"
+                  v-show="balance['category'] != 144">转账</span>
           </template>
         </td>
       </tr>
@@ -136,9 +139,9 @@
                  style="width:100%!important">
         </div>
         <div class="col-xs-3">
-                        <span v-if="fetchValue==''" class="error-text">
-                        提现金额
-                    </span>
+          <span v-if="fetchValue==''" class="error-text">
+            提现金额
+          </span>
           <span
               v-else-if="isNaN(parseInt(fetchValue)) || parseInt(fetchValue) < 5 "
               class="error-text"
@@ -286,7 +289,7 @@
       <div class="col-xs-3">最新成交价: <span class="blue-span">{{current_price}}</span></div>
     </div>
     <div class="row" style="margin-top:15px">
-      <div class="col-xs-3"><b>人民币:</b></div>
+      <div class="col-xs-3"><b>{{}}:</b></div>
       <div class="col-xs-3">可用: <span class="blue-span">{{rmb.valid}}</span></div>
       <div class="col-xs-3">冻结: <span class="blue-span">{{rmb.frozen}}</span></div>
     </div>

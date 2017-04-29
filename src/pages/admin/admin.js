@@ -1,3 +1,13 @@
-/**
- * Created by Amagi on 4/29/2017.
- */
+export default {
+  data() {
+    return {
+      order_sub_li: false,
+      history_sub_li: false
+    }
+  },
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      vm.$store.getters['loggedIn'] ? next() : next({ path: '/login' })
+    })
+  }
+}

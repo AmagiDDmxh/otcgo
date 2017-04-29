@@ -21,7 +21,7 @@
               <router-link to="/login" class="header-a">登陆钱包</router-link>
           </li>
           <li>
-            <a href="/creatWallet" target="_blank" class="header-a">创建钱包</a>
+            <a href="#/creatWallet" target="_blank" class="header-a">创建钱包</a>
           </li>
         </ul>
       </div>
@@ -31,17 +31,16 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <ul class="nav navbar-nav">
       <li class="frist ">
-        <a :class="['menu', {active: subActive}]">
+        <a class="menu">
           分类资产
           <ul class="menulist">
-            <li>
+            <!--<li>
               <router-link
                   class="text-center"
                   :to="{
                            path: '/markets',
                            query: { 'class': 'anscny' }
-                         }"
-                  @click="subActive = true">小蚁股
+                         }">小蚁股
               </router-link>
             </li>
             <li>
@@ -50,22 +49,31 @@
                   :to="{
                            path: '/markets',
                            query: { 'class': 'anccny' }
-                        }"
-                  @click="subActive = true">小蚁币
+                        }">小蚁币
+              </router-link>
+            </li>-->
+            <li>
+              <router-link
+                  class="text-center"
+                  :to="{
+                           path: '/markets',
+                           query: { 'class': 'kacans' }
+                        }">开拍币-小蚁股
               </router-link>
             </li>
+
             <!-- <li><router-link>开拍币</router-link></li> -->
           </ul>
         </a>
       </li>
       <li>
-        <router-link :class="['menu', {active: !subActive}]" to="/" @click="subActive = false">首 &nbsp; 页</router-link>
+        <router-link class="menu" to="/" exact>首 &nbsp; 页</router-link>
       </li>
       <li>
-        <a class="menu" href="#" target="_blank">投资学院</a>
+        <a class="menu" href="#">投资学院</a>
       </li>
       <li>
-        <a class="menu" href="#" target="_blank">代币举报</a>
+        <a class="menu" href="#">代币举报</a>
       </li>
       <li>
         <a class="menu"

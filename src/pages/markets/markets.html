@@ -1,7 +1,7 @@
 <div class="container-padding">
   <div class="panel panel-default panel-state">
     <div class="panel-body">
-      <span class="link-span">{{name}} 场外交易</span>
+      <span class="blue-span">{{name}} 场外交易</span>
     </div>
   </div>
   <div class=" row">
@@ -22,7 +22,7 @@
         <thead>
         <th style="color: #009cff;">{{name}}</th>
         <th>数量</th>
-        <th>单价 CNY</th>
+        <th>单价 {{ currency }}</th>
         <th>总价</th>
         <th class="th-bar"></th>
         </thead>
@@ -33,7 +33,7 @@
           <td v-text="item.price"></td>
           <td v-text="item.total.toFixed(4)"></td>
           <td class="amount-tb-bar">
-            <button class="btn btn--purchase" @click="purchase(item)">购买</button>
+            <button class="btn btn--purchase" @click="purchase(item, name)">购买</button>
           </td>
         </tr>
         </tbody>

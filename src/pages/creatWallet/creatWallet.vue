@@ -8,7 +8,7 @@
 		<div class="login-body row">
 			<!-- Left side Warning: -->
 			<div class="col-xs-3 col-lg-3">
-				<div class="ad-tips">
+				<div class="ad-tips" style="margin-top: 60px;">
 					<ol>
 						<li>
 							请输入不超过20个字符的账户名。（可包含中文、英文、下划线，但不能以下划线开头）

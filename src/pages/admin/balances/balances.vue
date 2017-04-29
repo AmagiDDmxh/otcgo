@@ -66,6 +66,11 @@
         confirmInfo: {}
       }
     },
+    computed: {
+      assets() {
+        return this.$store.getters['assets']
+      }
+    },
     methods: {
       openPay: function () {
         this.dialogPay = true;
@@ -87,6 +92,9 @@
         this.frozen = frozen;
         this.valid = valid;
         this.transactionType = name;
+        if (name === '开拍学园币（KAC）') {
+          this.valueassetid = this.assets.ansAsset['asset']
+        }
       },
       ask: function (num, price) {
         var self = this;
@@ -337,19 +345,8 @@
         return isNaN(parseInt(transfer_num))
       },
       getBalances() {
-        return getB(window.LJWallet['address']).then(({ data: { balances }}) => this.balances = balances)
+        return this.$store.dispatch('GET_ASSET')
       }
-    },
-    mounted: function () {
-      this.getBalances().then(() => {
-        this.rmb = this.balances.find(i => i.name === '人民币');
-        this.valueassetid = this.rmb['asset'];
-        this.$store.dispatch('SET_ASSET')
-      })
-      window.s = setInterval(() => this.getbalances, 1000 * 60 * 20)
-    },
-    destroyed() {
-      clearInterval(window.s)
     }
   };
 </script>
