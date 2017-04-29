@@ -45,6 +45,3 @@ export default {
     }
   }
 }
-/**
- * Created by Administrator on 4/3/2017.
- */

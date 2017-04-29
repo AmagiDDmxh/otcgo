@@ -6,12 +6,19 @@
 
   export default {
     name: 'h',
+<<<<<<< Updated upstream
     computed: {
       ...mapGetters(['loggedIn']),
       uid() {
         return this.$store.getters.field('uid')
       }
     }
+=======
+    data: ()=>({
+      subActive: false
+    }),
+    computed: mapGetters(['uid', 'loggedIn'])
+>>>>>>> Stashed changes
   }
 
 </script>

@@ -7,5 +7,6 @@ export default {
   setUID: 'SET_UID',
   redeem: 'REDEEM',
   login: 'LOGIN',
-  setWallet: 'SET_WALLET'
+  setWallet: 'SET_WALLET',
+  getAsset: 'GET_ASSET'
 }
