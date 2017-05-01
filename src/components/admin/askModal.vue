@@ -91,7 +91,6 @@
     methods: {
       transfer() {
         if (!this.check()) {
-          console.log("Error")
           return
         }
         this.loading = true

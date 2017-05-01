@@ -70,7 +70,6 @@ export const ask = async (asks, pr) => {
 }
 
 export const redeem = async (id, pr, address) => {
-  console.log(id)
   const nonce = await getNonce()
 
   const redeem = await Vue.http.post('redeem/', {
