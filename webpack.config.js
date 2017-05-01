@@ -6,7 +6,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
-    filename: 'build.js',
+    filename: 'build.js'
   },
   module: {
     rules: [
@@ -15,14 +15,11 @@ module.exports = {
         loader: 'vue-loader',
         options: {
           loaders: {
-            // Since sass-loader (weirdly) has SCSS as its default parse mode, we map
-            // the "scss" and "sass" values for the lang attribute to the right configs here.
-            // other preprocessors should work out of the box, no loader config like this nessessary.
             'scss': 'vue-style-loader!css-loader!sass-loader',
-            'sass': 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
-          },
-          // other vue-loader options go here
-        },
+            'sass': 'vue-style-loader!css-loader!sass-loader?indentedSyntax',
+            'stylus': 'vue-style-loader!css-loader!stylus-loader'
+          }
+        }
       }, {
         test: /\.css$/,
         use: ['style-loader', 'css-loader'],
@@ -33,28 +30,30 @@ module.exports = {
           {
             loader: 'url-loader',
             options: {
-              limit: 10000,
-            },
-          },
-        ],
+              limit: 10000
+            }
+          }
+        ]
       }, {
         test: /\.js$/,
         loader: 'babel-loader',
+        include: path.resolve('./'),
         exclude: /node_modules/
       },
       {
         test: /\.styl$/,
         use: ['style-loader', 'css-loader', 'stylus-loader']
       }
-    ],
+    ]
   },
   resolve: {
+    extensions: ['.js', '.vue', '.less', '.css', '.scss'],
     alias: {
       'vue$': 'vue/dist/vue.common.js',
       '~assets': path.resolve(__dirname, 'src/assets'),
       '~utils': path.resolve(__dirname, 'src/utils'),
       '~components': path.resolve(__dirname, 'src/components')
-    },
+    }
   },
   devServer: {
     historyApiFallback: true,
@@ -63,14 +62,14 @@ module.exports = {
       '/api/*': {
         target: 'http://testnet.otcgo.cn/',
         secure: false,
-        changeOrigin: true,
-      },
-    },
+        changeOrigin: true
+      }
+    }
   },
   performance: {
-    hints: false,
+    hints: false
   },
-  devtool: '#cheap-module-eval-source-map',
+  devtool: '#cheap-module-eval-source-map'
 }
 
 if (process.env.NODE_ENV === 'production') {
@@ -79,17 +78,17 @@ if (process.env.NODE_ENV === 'production') {
   module.exports.plugins = (module.exports.plugins || []).concat([
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: '"production"',
-      },
+        NODE_ENV: '"production"'
+      }
     }),
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: true,
       compress: {
-        warnings: false,
-      },
+        warnings: false
+      }
     }),
     new webpack.LoaderOptionsPlugin({
-      minimize: true,
-    }),
+      minimize: true
+    })
   ])
 }

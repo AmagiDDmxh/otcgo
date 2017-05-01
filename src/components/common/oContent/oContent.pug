@@ -1,39 +1,35 @@
 div.oContent
-  .row
-    .col-xs-12.col-lg-12
-      span(:class="firstButton", @mouseover="switchOne") CNY交易区
-      span(:class="secondButton", @mouseover="switchTwo") ANS交易区
-  .row
-    .col-xs-12.col-lg-12
-      table.table.table-bordred.table-striped.text-center
-        thead
-          tr.active
-            th 权益代码
-            th 资产名称
-            th 资产类型
-            th 发行方
-            th 最新价格CNY
-        tbody(v-if='contentOne')
-          tr
-            td 00001
-            td 小蚁股ANS
-            td 股权
-            td 小蚁开发团队
-            td 0.00
-          tr
-            td 00002
-            td 小蚁币ANC
-            td 消费权
-            td 小蚁开发团队
-            td 0.00
-        tbody(v-else-if='contentTwo')
-          tr
-            td 00003
-            td 开拍币
-            td 股权\消费权
-            td 开拍学园
-            td 0.00
-
-
-// Created by Administrator on 4/3/2017.
-
+   .row
+      .col-xs-12.col-lg-12
+         span(:class="firstButton", @mouseover="switchOne") ANS交易区
+         span(:class="secondButton", @mouseover="switchTwo") CNY交易区
+   .row
+      .col-xs-12.col-lg-12
+         table.table.table-bordred.table-striped.text-center.table-hover
+            thead
+               tr.active
+                  th 权益代码
+                  th 资产名称
+                  th 资产类型
+                  th 发行方
+                  th 最新价格ANS
+            tbody(v-if='contentOne')
+               tr.pointer(@click="toMarkets")
+                  td 00003
+                  td 开拍币
+                  td 股权\消费权
+                  td 开拍学园
+                  td {{ kacans.price }}
+            tbody(v-else-if='contentTwo')
+               tr
+                  td 00001
+                  td 小蚁股ANS
+                  td 股权
+                  td 小蚁开发团队
+                  td {{ anscny.price }}
+               tr
+                  td 00002
+                  td 小蚁币ANC
+                  td 消费权
+                  td 小蚁开发团队
+                  td {{ anccny.price }}

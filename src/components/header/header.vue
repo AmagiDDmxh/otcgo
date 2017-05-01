@@ -6,11 +6,22 @@
 
   export default {
     name: 'h',
-    props: ['uid'],
-    data: ()=>({
-      subActive: false
+    data: () => ({
+      activeMarkets: false
     }),
-    computed: mapGetters(['uid', 'loggedIn'])
+
+    methods: {
+      active() {
+        this.activeMarkets = true
+      }
+    },
+
+    computed: {
+      ...mapGetters(['loggedIn', 'wa']),
+      uid() {
+        return this.$store.getters['uid']
+      }
+    }
   }
 
 </script>

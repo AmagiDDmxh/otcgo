@@ -1,8 +1,8 @@
 <template src="./markets.html"></template>
-<style lang="stylus" src="./markets.styl"></style>
+<style lang="stylus" src="./markets.styl" scoped></style>
 
 <script>
-  import { mapMutations } from 'vuex'
+  import { mapGetters } from 'vuex'
 
   export default {
     data() {
@@ -10,82 +10,80 @@
         bills: [],  // 买单列表
         orders: [],  // 卖单列表
         amountMax: 0,
-        name: "",
-        asset: this.$store.state.asset
+        name: '',
+        currency: '',
+        type: this.$route.query.class
       }
     },
     watch: {
       '$route' (to, from) {
-        this.name = this.$route.query.class === 'anscny' ? '小蚁股' : '小蚁币'
-        this.get_rder_book(to.query.class);
+        this.name = this.$route.query.class === 'anscny' ? '小蚁股' : this.$route.query.class === 'anccny' ? '小蚁币' : '开拍币'
+        this.type = to.query.class
+        this.getOrderBook(this.type)
       }
     },
     computed: {
-      isLoggedIn() {
-        return this.$store.getters['isLoggedIn']
-      }
+      ...mapGetters(['assets', 'loggedIn', 'deliver'])
     },
     methods: {
-      get_rder_book(type) {
-        this.$http.get(`order_book/${ type }/`).then(({ data }) => {
-          this.orders = data['asks'].reduce(
-            (acc, item) => acc.concat({
-              id: item.id,
-              price: item.price,
-              amount: item.amount,
-              total: item.price * item.amount
-            }),
-            []
-          );
-        }, (response) => {
-          this.$message.error('获取集市买(卖)单错误');
-          throw response;
-        });
+      getOrderBook(name) {
+        this.$store.dispatch('GET_MARKETS', name).then(d => { this.orders = d }).catch(r => this.$message.error('获取集市买(卖)单错误'))
       },
-      purchase({total, id}) {
+      purchase({ total, id }) {
+        if (!this.loggedIn) {
+          this.$message.error('购买前请先确认登陆！')
+          return
+        }
+        this.$store.commit('SET_DELIVER', '小蚁股')
+        const deliver = this.deliver
+
         this.$msgbox({
           title: '提示',
-          message: `您将要购买${total}元的${this.name}?是否确认下单!`,
+          message: `您将要购买总价${total}元的${this.name}，当前可用余额为${deliver.valid}是否确认下单？`,
           showCancelButton: true,
-          confirmButtonText: '确认',
-          cancelButtonText: '取消',
           beforeClose: (action, instance, done) => {
             if (action === 'confirm') {
-              if (this.isLoggedIn) {
-                instance.confirmButtonLoading = true;
-                instance.confirmButtonText = '执行中...';
-                this.$store.dispatch('CHECKOUT', {id, hex_pubkey: window.LJWallet['publicKey']}).then((r) => {
-                  if (r.data.result) {
-                    this.$message.success('交易发起成功，请等待验收！')
-                  } else {
-                    this.$message('此次交易失败，可能已被抢单！')
-                  }
-                  done();
-                  setTimeout(() => {
-                    instance.confirmButtonLoading = false;
-                  }, 300);
-                });
-              } else {
+              instance.confirmButtonLoading = false
+
+              if (deliver.valid < total) {
+                this.$message.warning(`${deliver.name}余额不足，请进行充值！`)
                 done()
-                this.$message.error('购买前请先确认登陆！')
+                return
               }
+              instance.confirmButtonLoading = true
+              instance.confirmButtonText = '执行中...'
+              this.$store.dispatch('BID', { id, name: this.$route.query.class }).then(r => {
+                if (r.data.result) {
+                  this.$message.success('交易发起成功，请等待验收！')
+                } else {
+                  this.$message('此次交易失败，可能已被抢单！')
+                }
+                this.getOrderBook(this.type)
+                done()
+                setTimeout(() => {
+                  instance.confirmButtonLoading = false
+                }, 300)
+              }).catch(() => {
+                this.$message('交易失败，可能已被抢单！')
+                setTimeout(() => {
+                  instance.confirmButtonLoading = false
+                }, 300)
+              })
             } else {
-              done();
+              done()
             }
           }
         })
-        // this.$store.dispatch('CHECKOUT', {id, hex_pubkey: window.LJWallet['publicKey']})
       }
     },
     mounted() {
-      this.name = this.$route.query['class'] === 'anscny' ? '小蚁股' : '小蚁币'
-      this.get_rder_book(this.$route.query['class'])
-      window.timer = window.setInterval(() => this.get_rder_book(this.$route.query['class']), 1000 * 2)
+      this.name = this.$route.query.class === 'anscny' ? '小蚁股' : this.$route.query.class === 'anccny' ? '小蚁币' : '开拍币'
+      this.currency = this.$route.query.class === 'kacans' ? 'ANS' : 'CNY'
+      this.getOrderBook(this.type)
+      window.marketsTimer = window.setInterval(() => this.getOrderBook(this.type), 1000 * 2)
     },
     destroyed() {
-      window.clearInterval(window.timer)
+      window.clearInterval(window.marketsTimer)
     }
   }
 </script>
-
-
