@@ -1,6 +1,8 @@
+export const img = {
+  yes: require('~assets/yes.png')
+}
+
 export default {
-  img: {
-    yes: require('~assets/yes.png')
-  },
+  img,
   debug: process.env.NODE_ENV !== 'production'
 }

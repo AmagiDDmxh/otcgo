@@ -22,32 +22,22 @@
           </template>
           <template v-else>
             <span v-if="balance['category'] === 96" class="link-span"
-                  @click="balanceTransaction(balance['asset'],balance['divisible'],balance['current_price'],balance['frozen'],balance['valid'],balance['name'])">交易</span>
+                  @click="ask(balance)">交易</span>
 
             <span v-else class="link-span-seal">交易</span>
 
             <span class="link-span"
-                  @click="balanceTransfer(balance['asset'],balance['divisible'],balance['name'],balance['valid'])"
+                  @click="transfer(balance)"
                   v-show="balance['category'] != 144">转账</span>
           </template>
         </td>
       </tr>
     </tbody>
   </table>
-  <div class="row">
-    <div class="col-xs-12">
-      <ul class="pagination pagePath  pull-right">
-        <li class="active"><a>1</a></li>
-        <!-- TODO: 每页展示7行信息（7行资产品类、7行挂单、7行成交记录等）。当用户的某菜单栏信息超过7行时，才出现这样的页面按钮。没有超过7行的，不用展示按钮（或只展示第一页）。 -->
-        <!-- <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li> -->
-      </ul>
-    </div>
-  </div>
   <!-- UI: components -->
   <!-- dialog -->
   <!-- 充值 -->
-  <el-dialog v-model="dialogPay" class="tiny-dialog">
+  <!--<el-dialog v-model="dialogPay" class="tiny-dialog">
     <div v-if="rechangeState==0">
       <div class="row ">
         <span class="col-xs-3" style="margin-top:8px">人民币充值:</span>
@@ -128,9 +118,9 @@
         </div>
       </div>
     </div>
-  </el-dialog>
+  </el-dialog>-->
   <!-- 提现 -->
-  <el-dialog v-model="dialogDisPay" class="tiny-dialog">
+  <!--<el-dialog v-model="dialogDisPay" class="tiny-dialog">
     <div v-if="fetchState == 0 ">
       <div class="row ">
         <span class="col-xs-3" style="margin-top:8px">人民币提现:</span>
@@ -229,110 +219,13 @@
         </div>
       </div>
     </div>
-  </el-dialog>
+  </el-dialog>-->
   <!-- 转账 -->
-  <el-dialog v-model="dialogTransfer" class="tiny-dialog">
-    <div style="padding-left:10px;padding-right:20px">
-      <div class="row">
-        <div class="col-xs-6">
-          <b>资产类型:{{ transfer_name }}</b>
-        </div>
-        <div class="col-xs-6 text-right">
-          <b>可用数量:{{ transfer_valid }}</b>
-        </div>
-      </div>
-      <div class="row" style="margin-top:20px">
-        <span class="col-xs-3" style="margin-top:8px">转账数量:</span>
-        <div class="col-xs-6">
-          <input
-              type="text" class="form-control"
-              v-model="transfer_num" style="width:100%!important">
-        </div>
-        <div class="col-xs-3">
-          <span v-if="isNaN(parseInt(transfer_num))"
-                class="error-text"> 数量错误 </span>
-          <span v-else-if="transfer_num ==''"
-                class="error-text"> 数量不能为空 </span>
-          <span v-else> <img src="/src/assets/yes.png"/> </span>
-        </div>
-      </div>
-      <div class="row" style="margin-top:20px">
-        <span class="col-xs-3" style="margin-top:8px">转账地址:</span>
-        <div class="col-xs-6">
-          <input type="text" class="form-control"
-                 v-model="transfer_address_value" style="width:100%!important">
-        </div>
-        <div class="col-xs-3">
-          <span v-if="transfer_address_value[0]!='a' && transfer_address_value[0]!='A' "
-                class="error-text"> 地址格式错误 </span>
-          <span v-else-if="transfer_address_value ==''"
-                class="error-text"> 地址不能为空 </span>
-          <span v-else-if="transfer_address_value.length!=34"
-                class="error-text"> 地址必须是34位 </span>
-          <span v-else> <img src="/src/assets/yes.png"/> </span>
-        </div>
-      </div>
-      <div class="row" style="margin-top:20px;">
-        <div class="col-xs-3"></div>
-        <div class="col-xs-6">
-          <button class="btn btn-block ljbutton" @click="transfer">确认转账</button>
-        </div>
-      </div>
-    </div>
+  <el-dialog v-model="transferModal" class="tiny-dialog">
+    <transfer-modal @success="transferSuccess"></transfer-modal>
   </el-dialog>
   <!-- 交易 -->
-  <el-dialog v-model="dialogTransaction" id="dialogTransaction">
-    <div class="row">
-      <div class="col-xs-3"><b>{{transactionType}}:</b></div>
-      <div class="col-xs-3">可用: <span class="blue-span">{{valid}}</span></div>
-      <div class="col-xs-3">冻结: <span class="blue-span">{{frozen}}</span></div>
-      <div class="col-xs-3">最新成交价: <span class="blue-span">{{current_price}}</span></div>
-    </div>
-    <div class="row" style="margin-top:15px">
-      <div class="col-xs-3"><b>{{}}:</b></div>
-      <div class="col-xs-3">可用: <span class="blue-span">{{rmb.valid}}</span></div>
-      <div class="col-xs-3">冻结: <span class="blue-span">{{rmb.frozen}}</span></div>
-    </div>
-    <hr/>
-    <!-- 卖出量row -->
-    <div class="row" style="margin-top:30px">
-      <div class="col-xs-12">
-        <div class="row">
-          <div class="col-xs-3" style="line-height: 30px;">卖出量：</div>
-          <div class="col-xs-6">
-            <input
-                type="text" class="form-control" placeholder="输入数量"
-                v-model="sellNumValue" style="width:100%!important"/>
-          </div>
-          <div class="col-xs-3" style="line-height:30px;">
-            <span v-if="sellNumValue === ''"
-                  class="error-text"></span>
-            <span v-else-if="isNaN(sellNumValue)  "
-                  class="error-text">数量错误</span>
-            <span v-else> <img src="../../../../src/assets/yes.png"/> </span>
-          </div>
-        </div>
-        <div class="row" style="margin-top:10px">
-          <div class="col-xs-3" style="line-height: 30px;">卖出价：</div>
-          <div class="col-xs-6">
-            <input type="text" class="form-control"
-                   v-model="sellPriceValue" style="width:100%!important" placeholder="输入价格"/>
-          </div>
-          <div class="col-xs-3" style="line-height: 30px;">
-            <span v-if="sellPriceValue === ''"
-                  class="error-text"></span>
-            <span v-else-if="isNaN(sellPriceValue)"
-                  class="error-text">数量错误</span>
-            <span v-else> <img src="../../../assets/yes.png"/> </span>
-          </div>
-        </div>
-        <div class="row" style="margin-top:10px">
-          <div class="col-xs-3" style="line-height: 30px;"></div>
-          <div class="col-xs-6">
-            <button class="btn btn-lj-gree btn-block" @click="sell">卖出</button>
-          </div>
-        </div>
-      </div>
-    </div>
+  <el-dialog v-model="askModal" id="dialogTransaction">
+    <ask-modal @success="askSuccess"></ask-modal>
   </el-dialog>
 </div>

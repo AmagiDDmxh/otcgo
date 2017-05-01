@@ -1,12 +1,13 @@
-
-
 /**
  * Created by Administrator on 4/24/2017.
  */
 
-
 export default {
-  asset: state => state['asset'],
-  loggedIn: state => state['loggedIn'],
-  field: state => field => state.wa[field]
+  assets: state => state.assets,
+  loggedIn: state => state.loggedIn,
+  wa: state => field => state.wa[field],
+  uid: state => state.wa['uid'],
+  balances: state => state.balances,
+  deliver: state => state.deliver,
+  receive: state => state.receive
 }

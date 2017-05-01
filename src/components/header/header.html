@@ -6,22 +6,18 @@
     </div>
     <transition name="fade" mode="out-in">
       <div class="logo-right">
-        <ul>
-          <li v-show="uid">
-            <transition name="fade" mode="out-in">
-              <a class="uid">我的UID：{{ uid }}</a>
-            </transition>
-          </li>
-          <li class="border" v-if="loggedIn">
-            <transition name="fade" mode="out-in">
-              <router-link to="/login" class="header-a">我的钱包</router-link>
-            </transition>
-          </li>
-          <li class="border" v-else>
-              <router-link to="/login" class="header-a">登陆钱包</router-link>
+        <ul v-if="loggedIn">
+          <li> <a class="uid">我的UID：{{ uid }}</a> </li>
+          <li class="border"> <router-link to="/login" class="header-a">我的钱包</router-link> </li>
+          <li> <a href="#/signUp" target="_blank" class="header-a">创建钱包</a> </li>
+        </ul>
+
+        <ul v-else>
+          <li class="border">
+            <router-link to="/login" class="header-a">登陆钱包</router-link>
           </li>
           <li>
-            <a href="#/creatWallet" target="_blank" class="header-a">创建钱包</a>
+            <a href="#/signUp" target="_blank" class="header-a">创建钱包</a>
           </li>
         </ul>
       </div>
@@ -31,43 +27,22 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <ul class="nav navbar-nav">
       <li class="frist ">
-        <a class="menu">
+        <a :class="['menu', {'active': activeMarkets}]">
           分类资产
           <ul class="menulist">
-            <!--<li>
-              <router-link
-                  class="text-center"
-                  :to="{
-                           path: '/markets',
-                           query: { 'class': 'anscny' }
-                         }">小蚁股
-              </router-link>
-            </li>
             <li>
               <router-link
                   class="text-center"
-                  :to="{
-                           path: '/markets',
-                           query: { 'class': 'anccny' }
-                        }">小蚁币
-              </router-link>
-            </li>-->
-            <li>
-              <router-link
-                  class="text-center"
-                  :to="{
-                           path: '/markets',
-                           query: { 'class': 'kacans' }
-                        }">开拍币-小蚁股
+                  :to="{path: '/markets',
+                        query: { 'class': 'kacans' }}"
+                  @click.native="activeMarkets = true">开拍币-小蚁股
               </router-link>
             </li>
-
-            <!-- <li><router-link>开拍币</router-link></li> -->
           </ul>
         </a>
       </li>
       <li>
-        <router-link class="menu" to="/" exact>首 &nbsp; 页</router-link>
+        <router-link :class="['menu', {'active': !activeMarkets}]" to="/index" @click.native="activeMarkets = false">首 &nbsp; 页</router-link>
       </li>
       <li>
         <a class="menu" href="#">投资学院</a>

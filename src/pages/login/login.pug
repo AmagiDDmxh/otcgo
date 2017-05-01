@@ -14,6 +14,7 @@
 		.content.col-xs-9.col-lg-9
 			div
 				form.from-group.login
+					// File input
 					.input-group
 						input#select-file.form-control(type="text", style="background-color: #fff;", readonly, :value="filename", placeholder="导入钱包文件")
 						label.btn-bs-file.btn.btn-select-file.btn-primary.btn-lj
@@ -21,12 +22,15 @@
 							input(type="file", accept="application/json, .json", @change="readFile($event.target.files[0])")
 						span.error-text(v-show="filenameError", style="display:inline-block;padding-left:10px;")
 							| {{filenameError}}
+
+					// The primary passwd input
 					.input-group(:class="[errors.pwd ? 'has-error':'']")
-						// The primary passwd input
-						input.form-control.pwd(type="password", v-model="password", placeholder="输入钱包密码", @keyup="checkPassword", @keyup.enter="login", @blur="checkPassword")
+						input.form-control.pwd(type="password", v-model="password", placeholder="输入钱包密码", @keyup="checkPassword", @keyup.enter="login", @blur="checkPassword", @focus="selectAll")
 						span.error-text(v-if="errors.pwd") {{errors.pwd}}
 						span.error-text(v-if="success")
 							img(src="/src/assets/yes.png")
+
+					// Login button
 					.input-group
 						button.form-control.text-center.select-file.btn-lj(type="button", style="border-radius:6px;", @click="login")
 							| 登 &nbsp &nbsp 录

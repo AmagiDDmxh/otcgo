@@ -9,7 +9,6 @@
 
 <script>
   import oContent from '../components/common/oContent/index.vue'
-  import {required, minLength, between} from 'vuelidate/lib/validators'
 
   export default {
     components: {

@@ -1,37 +1,33 @@
 <template>
-    <div>
-        <hr class="user-line" />
-        <div class="user-info">
-            <p><b>你的钱包地址是: </b>{{ address }}</p>
-            <p><b>你的UID地址: </b>{{ UID }}</p>
-        </div>
+  <div>
+    <hr class="user-line"/>
+    <div class="user-info">
+      <p><b>你的钱包地址是: </b>{{ address }}</p>
+      <p><b>你的UID地址: </b>{{ uid }}</p>
     </div>
+  </div>
 </template>
 <script>
-export default {
+  import { mapGetters } from 'vuex'
 
-    data() {
-            return {
-                address: window.LJWallet.address,
-                UID: window.LJWallet.UID
-            }
-        },
-
-    mounted: function () {
-        this.$http.get('uid/' + window.LJWallet.address + '/').then((response) => {
-            window.LJWallet.UID = response.data.uid;
-            this.UID = response.data.uid;
-        })
+  export default {
+    computed: {
+      ...mapGetters(['wa']),
+      uid() {
+        return this.wa('uid')
+      },
+      address() {
+        return this.wa('address')
+      }
     }
-
-}
+  }
 </script>
 <style lang="css">
-.user-line {
+  .user-line {
     margin: 0px;
-}
+  }
 
-.user-info {
+  .user-info {
     margin-top: 66px;
-}
+  }
 </style>

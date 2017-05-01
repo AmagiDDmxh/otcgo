@@ -1,30 +1,20 @@
 export default {
   data() {
     return {
-      firstButton: ['oContent__tab', 'btn', {'oContent__tab--active': true}],
-      secondButton: ['oContent__on-tab', 'btn', {'oContent__on-tab--active': false}],
+      firstButton: ['oContent__tab', 'btn', { 'oContent__tab--active': true }],
+      secondButton: ['oContent__on-tab', 'btn', { 'oContent__on-tab--active': false }],
       contentOne: true,
       contentTwo: false,
-      cnyData: [{
-        equityCode: '00001',
-        name: '小蚁股ANS',
-        type: '股权',
-        publisher: '小蚁开发团队',
-        price: '0.02'
-      }, {
-        equityCode: '00002',
-        name: '小蚁币ANC',
-        type: '消费权',
-        publisher: '小蚁开发团队',
-        price: '0.02'
-      }]
+      anccny: 0,
+      anscny: 0,
+      kacans: 0
     }
   },
   methods: {
     switchOne(e) {
       e.target.classList.add('oContent__tab--active')
       if (e.target.previousSibling) {
-        e.target.previousSibling.classList.remove('oContent__tab--active');
+        e.target.previousSibling.classList.remove('oContent__tab--active')
       }
       if (e.target.nextSibling) {
         e.target.nextSibling.classList.remove('oContent__on-tab--active')
@@ -35,13 +25,25 @@ export default {
     switchTwo(e) {
       e.target.classList.add('oContent__on-tab--active')
       if (e.target.previousSibling) {
-        e.target.previousSibling.classList.remove('oContent__tab--active');
+        e.target.previousSibling.classList.remove('oContent__tab--active')
       }
       if (e.target.nextSibling) {
         e.target.nextSibling.classList.remove('oContent__on-tab--active')
       }
       this.contentOne = false
       this.contentTwo = true
+    },
+    async getPrice() {
+      const kacansData = await this.$http.get(`price/kacans`)
+      this.kacans = kacansData.data || 0
+      this.anccny = (await this.$http.get(`price/anccny`)) || 0
+      this.anscny = (await this.$http.get(`price/anscny`)) || 0
+    },
+    toMarkets() {
+      this.$router.push({ path: '/markets', query: { class: 'kacans' }})
     }
+  },
+  mounted() {
+    this.getPrice()
   }
 }

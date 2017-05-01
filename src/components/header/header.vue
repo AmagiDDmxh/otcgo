@@ -6,19 +6,22 @@
 
   export default {
     name: 'h',
-<<<<<<< Updated upstream
+    data: () => ({
+      activeMarkets: false
+    }),
+
+    methods: {
+      active() {
+        this.activeMarkets = true
+      }
+    },
+
     computed: {
-      ...mapGetters(['loggedIn']),
+      ...mapGetters(['loggedIn', 'wa']),
       uid() {
-        return this.$store.getters.field('uid')
+        return this.$store.getters['uid']
       }
     }
-=======
-    data: ()=>({
-      subActive: false
-    }),
-    computed: mapGetters(['uid', 'loggedIn'])
->>>>>>> Stashed changes
   }
 
 </script>

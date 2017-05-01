@@ -22,10 +22,20 @@ Vue.use(Vuex)
     // The header check out the logged, then show up the uid
     // The markets need to checkout the wallet valid value
 
+// const debug = process.env.NODE_ENV !== 'production'
+const debug = false
+
 const state = {
-  assets: {},
-  loggedIn: !!this.wa,
-  wa: {}
+  balances: [],
+  wa: debug ? {address:"ANXwnGms3HsCasDRVJkHTSkDodKVkHZ1bx",
+    privateKey:"cc44863ec983780912d7f7b94b1a67b604c6e621bfae678720954537736755b0",
+    privateKeyEncrypted:"U2FsdGVkX19ZyvUWsssHu+97kFtiuqjP0uyWqFYfk+PHthSllrGSHBfZfubclMgRSPaHZs0P036+lvUZPT8TG5vVrN6SHUdLRjRcboduCu1HR8oF/Btfq2eheAF6k9ou",
+    publicKey:"04f5330ebf04f3865ee29d03659afef296c74312f4208d4459f7ecb3d8111b69b0755cdb216dad78d3472e8ee7c49e147301acc66e036508b5210668d62625719b",
+    publicKeyCompressed:"03f5330ebf04f3865ee29d03659afef296c74312f4208d4459f7ecb3d8111b69b0"} : {},
+  loggedIn: debug,
+  receive: {},
+  deliver: {},
+  fileName: ''
 }
 
 
