@@ -73,7 +73,7 @@
           this.histories = r['data']
           this.total = r['item_num']
         }).catch(e => {
-          console.log(e)
+          this.$message.error('获取转账记录失败！')
         })
       }
     },

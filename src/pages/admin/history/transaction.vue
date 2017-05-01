@@ -95,7 +95,7 @@
               this.$message.success('取回成功!')
             })
             .catch(e => {
-              console.log('[ERROR]: ', e.data)
+              this.$message.error('取回失败！', e.non_field_error)
             })
       }
     },
