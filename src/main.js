@@ -4,16 +4,20 @@ import '~assets/styles/common.styl'
 
 import Vue from 'vue'
 import _ from 'lodash'
+import VueResource from 'vue-resource'
+import Vuelidate from 'vuelidate'
+
 import App from './App.vue'
 import router from './routers'
 import store from './store'
-import VueResource from 'vue-resource'
 
 import ElementUI from 'element-ui'
 
 Vue.use(VueResource)
 Vue.use(ElementUI)
+Vue.use(Vuelidate)
 
+// Define lodash, make it use as this.$_ instead of globally
 Object.defineProperty(Vue.prototype, '$_', { value: _ })
 
 Vue.config.devtools = process.env.NODE_ENV !== 'production'

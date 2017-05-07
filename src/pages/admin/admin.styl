@@ -1,66 +1,79 @@
-.container-padding {
-  margin-top: 15px;
-  padding: 0 32px;
-  color: #747474;
-}
+.container-padding
+  margin-top 15px
+  padding 0 32px
+  color #747474
 
-.panel-state {
-  height: 35px !important;
-  border: none;
-  background-color: #f2f2f2;
-}
+.panel-state
+  height 35px !important
+  border none
+  background-color #f2f2f2
 
-.panel-state .panel-body {
-  height: 100%;
-  padding-top: 6px;
-  padding-bottom: 5px;
-  padding-left: 27px;
-  padding-right: 27px;
-  background-color: #f2f2f2;
-  color: #009cfd;
-}
+.panel-state .panel-body
+  height 100%
+  padding-top 6px
+  padding-bottom 5px
+  padding-left 27px
+  padding-right 27px
+  background-color #f2f2f2
+  color #009cfd
+
 
 /*left-menu*/
 
-.left-menu .nav {
-  font-size: 16px;
-  width: 100%;
-}
+.left-menu .nav
+  font-size 16px
+  width 100%
+  .title
+    background #009cff
+    color #fff
+  & > li
+    background #f2f2f2
+  & > li > a
+    border-radius 0
+    color #626262
+    font-weight normal
 
-.left-menu .nav .title {
-  background: #009cff;
-  color: #fff;
-}
+  & > li > a.active
+    background: hsla(0, 0%, 90%, 1)
 
-.left-menu .nav li a {
-  border-radius: 0;
-  background: #f2f2f2;
-}
+.admin-tips li
+  margin-bottom 0
 
-.admin-footer-line {
-  margin-top: 20px;
-  border-top: 1px solid #ccc;
-  color: #b1b1b1;
-}
+.nav-stacked > li
+  float none
 
-.left-menu .nav li a {
-  color: #626262;
-  font-weight: normal;
-}
+// Footer
+.admin-footer-line
+  margin-top 20px
+  border-top 1px solid #ccc
+  color #b1b1b1
 
-.sub-li-title {
-  cursor: pointer;
-}
+ul.drop-menu
+  padding: 0
+  position: absolute
+  z-index: 99
+  li
+    background: #eeeeee !important
+    position: relative
+    text-transform: uppercase
+    font-size: 14px
+    border: #fff
+    a
+      color: black !important
+      &:hover
+        background: #e0e0e0
 
-.sub-li a {
-  background-color: #fff !important;
-  color: #939393 !important;
-}
+    &:hover
+      background: #303030 !important
 
-.admin-tips li {
-  margin-bottom: 0;
-}
+    &:last-child
+      -webkit-border-radius: 0 0 5px 5px
+      -moz-border-radius: 0 0 5px 5px
+      border-radius: 0 0 5px 5px
 
-.nav-stacked > li {
-  float: none;
-}
+ul.drop-menu li
+  display: none
+
+li.drop-trigger:hover > ul.drop-menu li
+  display: block
+

@@ -7,7 +7,11 @@ import service from '../api'
 
 export default {
   [type.login]({ commit, dispatch }, wa) {
-    dispatch(type.getUID, wa['address']).then(() => commit(type.setWallet, wa))
+    return dispatch(type.getUID, wa['address']).then(() => commit(type.setWallet, wa))
+  },
+
+  [type.logout]({ commit }) {
+    commit(type.logout)
   },
 
   async [type.signUp]({ commit }, { publicKeyCompressed, publicKey, privateKeyEncrypted, privateKey }) {
@@ -17,11 +21,11 @@ export default {
   },
 
   async [type.getAsset] ({ commit, state }) {
-    commit(type.setAsset, await service.getB(state.wa['address']))
+    commit(type.setAsset, (await service.getB(state.wa['address'])).balances)
   },
 
   async [type.getUID] ({ commit }, add) {
-    commit(type.setUID, await service.getU(add))
+    commit(type.setUID, (await service.getU(add)).uid)
   },
 
   [type.getMarkets]({}, name) {

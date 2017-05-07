@@ -43,7 +43,11 @@
     },
     created() {
       this.getAsset()
+      window.balancesTimer = window.setInterval(() => this.getAsset(), 1000 * 2)
       this.getUID(this.wa('address'))
+    },
+    destroyed() {
+      window.clearInterval(window.balancesTimer)
     }
   }
 </script>

@@ -1,188 +1,164 @@
-.btn-default a {
-  text-decoration: none;
-}
+.btn-default a
+  text-decoration none
+  &:hover
+    text-decoration underline
+    cursor pointer
 
-.carousel-control.right img {
-  margin-left: -1px;
-}
+.carousel-control.right img
+  margin-left -1px
 
-.header-a:hover {
-  text-decoration: underline;
-}
+.first:hover .menulist
+  display: block
 
-.logo {
-  height: 148px;
-  padding: 50px;
-}
+.logo
+  height 148px
+  padding 50px
+  img
+    margin 0 10px 0 10px
 
-.logo img {
-  margin: 0 10px 0 10px;
-}
 
-.logo-left {
-  float: left;
-  margin-top: 20px;
-}
+.logo-left
+  float left
+  margin-top 20px
 
-.logo-right {
-  float: right;
-  padding: 50px 20px 0 0;
-}
 
-.logo-right li {
-  list-style: none;
-  float: left;
-  border-right: 1px solid #dadada;
-}
+.logo-right
+  float right
+  padding 50px 20px 0 0
+  li
+    list-style none
+    float left
+    border-right 1px solid #dadada
+    .header-a
+      color #7c7c7c
+      margin 0 13px
+      &:hover
+        color #009cfd
+        cursor: pointer
+  .border
+    border-left 1px solid #dadada
+    a
+      color #009cfd
 
-.logo-right .border {
-  border-left: 1px solid #dadada;
-}
+.logout
+  margin-right: 0
 
-.logo-right .border a {
-  color: #009cfd;
-}
+.navbar
+  background-color #000 !important
+  border none !important
+  border-radius 0 !important
+  font-family "微软雅黑"
+  .active
+    background #009cff
 
-.logo-right li a {
-  color: #7c7c7c;
-  margin: 0 13px;
-}
 
-.logo-right li a:hover {
-  color: #009cfd;
-}
+#head nav
+  margin 0px !important
 
-.navbar {
-  background-color: #000 !important;
-  border: none !important;
-  border-radius: 0 !important;
-  font-family: "微软雅黑";
-
-}
-
-#head nav {
-  margin: 0px !important;
-}
-
-.navbar-nav .active {
-  background: #009cff;
-}
 
 .form-control,
-.form-group {
-  width: 255px !important;
-}
+.form-group
+  width 255px !important
 
-.container-fluid {
-  width: 1200px;
-  margin: 0 auto;
-}
+.container-fluid
+  width 1200px
+  margin 0 auto
 
-.nav {
-  width: 65%;
-}
 
-.nav li {
-  float: left;
-}
+.nav
+  width 65%
+  li
+    float left
 
-/*@media (min-width: 480px) {
-  .navbar-form {
-    display: none;
-  }
-}*/
+ul > .frist
+  background none
 
-ul > .frist {
-  background: none;
-}
 
-ul > li > .menu {
-  color: #fff !important;
-  font-size: 1.2em;
-  background: none;
-  padding-left: 30px !important;
-  padding-right: 30px !important;
-}
+ul > li > .menu
+  color #fff !important
+  font-size 1.2em
+  background none
+  padding-left 30px !important
+  padding-right 30px !important
 
-ul > li > .menu:link {
-  color: #fff !important;
-}
 
-ul > li > .menu:visited {
-  color: #fff !important;
-}
+ul > li > .menulink
+  color #fff !important
 
-ul > li > .menu:hover {
-  color: #fff !important;
-}
 
-ul > li > .menu:active {
-  color: #fff !important;
-}
+ul > li > .menuvisited
+  color #fff !important
 
-.navbar-nav li:hover {
-  background: #009cff;
-}
 
-.navbar-nav li:hover a {
-  color: #fff;
-  text-decoration: none;
-}
+ul > li > .menuhover
+  color #fff !important
 
-.menu:hover ul {
-  display: block;
-}
 
-.menulist > li {
-  list-style: none;
-  background: #555;
-  width: 160px;
-  height: 38px;
-  line-height: 38px;
-  text-align: center;
-  font-size: 15px;
-  border-top: 1px solid #666;
-}
+ul > li > .menuactive
+  color #fff !important
 
-.menulist > li:hover {
-  background: #333
-}
 
-.menulist > li:hover a {
-  color: #337ab7
-}
+.navbar-nav lihover
+  background #009cff
 
-.menulist > li > a {
-  color: #fff !important;
-}
 
-.menulist {
-  position: absolute;
-  top: 50px;
-  left: 0;
-  z-index: 100;
-  padding: 0;
-  display: none;
-}
+.navbar-nav lihover a
+  color #fff
+  text-decoration none
 
-.search {
-  display: inline-block;
-}
 
-#des {
-  display: inline-block;
-  vertical-align: bottom;
-  margin-left: 20px;
-}
+.menuhover ul
+  display block
 
-.navbar-default {
-  margin: 15px !important;
-}
 
-.navbar-collapse {
-  padding: 0;
-}
+.menulist > li
+  list-style none
+  background #555
+  width 160px
+  height 38px
+  line-height 38px
+  text-align center
+  font-size 15px
+  border-top 1px solid #666
 
-.uid {
-  color: #009cfd !important;
-}
+
+.menulist > lihover
+  background #333
+
+
+.menulist > lihover a
+  color #337ab7
+
+
+.menulist > li > a
+  color #fff !important
+
+
+.menulist
+  position absolute
+  top 50px
+  left 0
+  z-index 100
+  padding 0
+  display none
+
+
+.search
+  display inline-block
+
+
+#des
+  display inline-block
+  vertical-align bottom
+  margin-left 20px
+
+.navbar-default
+  margin 15px !important
+
+
+.navbar-collapse
+  padding 0
+
+.uid
+  color #009cfd !important
+  margin-right 13px

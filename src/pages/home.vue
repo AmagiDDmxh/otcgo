@@ -9,11 +9,11 @@
 
 <script>
   import oContent from '../components/common/oContent/index.vue'
+  import { required, minLength, between } from 'vuelidate/lib/validators'
 
   export default {
-    components: {
-      oContent
-    },
+    components: { oContent },
+
     data: () => ({
       banners: [require('../assets/banner_1.png'), require('../assets/slide2.png'), require('../assets/slide3.png')]
     })

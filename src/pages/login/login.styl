@@ -62,7 +62,7 @@
   width: 100%;
   color: #b1b1b1;
   bottom: 40px;
-  margin-top: 140px;
+  margin-top: 60px;
 }
 
 .content {
@@ -130,7 +130,12 @@
 }
 
 .error-text {
-  display:inline-block;
+  display: none;
   padding-left:10px;
   margin-top:5px;
 }
+
+.has-error + .error-text {
+  display: inline-block;
+}
+

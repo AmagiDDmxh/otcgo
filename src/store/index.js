@@ -13,15 +13,6 @@ Vue.use(Vuex)
  */
 
 
-// TODO: 1. When the user login, we wanna check the wallet.json file
-//     1. if not json file, throw error
-//     2. else check take the value from the file
-//         1. then waiting for the passwd input
-//         2. translate to wallet['privateKey']
-//  2. Wallet COMPLETED, and try to get the uid by using wallet['address']
-    // The header check out the logged, then show up the uid
-    // The markets need to checkout the wallet valid value
-
 const state = {
   balances: [],
   wa: {},

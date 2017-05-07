@@ -12,22 +12,22 @@
                   li
                      a.text-center.title 菜   单
                   li
-                     router-link.text-center(:to="{ path: '/admin/balances'}")
+                     router-link.text-center(to="/admin/balances")
                         | 资产列表
                   li
-                     router-link.sub-li-title.text-center(:to="{ path: '/admin/order', query: { type: 'sell'}}", v-on:click='order_sub_li=!order_sub_li')  我的挂单
-                  li
-                     a.sub-li-title.text-center(@click='history_sub_li = !history_sub_li') 历史交易记录
-                  template(v-if='history_sub_li')
-                     li.sub-li
-                        router-link.text-center(:to="{ path: '/admin/history/transfer' }") 转账记录
-                     li.sub-li
-                        router-link.text-center(:to="{ path: '/admin/history/transaction' }")
-                           | 交易记录
+                     router-link.sub-li-title.text-center(:to="{ path: '/admin/order', query: { type: 'sell'}}")  我的挂单
+                  li.drop-trigger
+                     a.text-center 历史交易记录
+                     transition(name='fade', mode='out-in')
+                        ul.nav.nav-stacked.nav-pills.drop-menu
+                           li
+                              router-link.text-center(:to="{ path: '/admin/history/transfer' }") 转账记录
+                           li
+                              router-link.text-center(:to="{ path: '/admin/history/transaction' }") 交易记录
                   li
                      a.text-center(href='//antchain.xyz', target='_blank') 区块浏览
                   li
-                     router-link.text-center(:to="{ path: '/admin/uid'}") 个人中心
+                     router-link.text-center(to="/admin/uid") 个人中心
       .col-xs-9
          // data-table
          .admin-content

@@ -19,6 +19,8 @@
       <div class="col-xs-3">
         <span v-if="errors.amountWrong"
               class="error-text"> 数量错误 </span>
+        <span v-else-if="errors.amountInvalid"
+              class="error-text"> 可用数量不足 </span>
         <span v-else-if="errors.amountEmpty"
               class="error-text"> 数量不能为空 </span>
         <span v-else-if="success"> <img src="/src/assets/yes.png"/> </span>
@@ -47,7 +49,8 @@
     <div class="row" style="margin-top:20px;">
       <div class="col-xs-3"></div>
       <div class="col-xs-6">
-        <el-button type="primary" class="btn btn-block ljbutton" @click="transfer" :loading="loading">确认转账</el-button>
+        <el-button v-if="loading" type="primary" class="btn btn-block ljbutton" @click="transfer" :loading="loading">执行中</el-button>
+        <el-button v-else type="primary" class="btn btn-block ljbutton" @click="transfer" :loading="loading">确认转账</el-button>
       </div>
     </div>
   </div>
@@ -65,6 +68,7 @@
       errors: {
         amountWrong: false,
         amountEmpty: false,
+        amountInvalid: false,
         addWrong: false,
         addLenErr: false,
         addEmpty: false
@@ -89,9 +93,19 @@
           this.address = ''
           this.loading = false
           this.$emit('success')
+
+          for (let i in this.errors) {
+            if (this.errors.hasOwnProperty(i)) this.errors[i] = false
+            this.success = false
+          }
         }).catch(e => {
           this.$message.error('转账失败，请重新尝试！')
           this.loading = false
+
+          for (let i in this.errors) {
+            if (this.errors.hasOwnProperty(i)) this.errors[i] = false
+            this.success = false
+          }
         })
       },
 
@@ -100,8 +114,10 @@
           if (this.errors.hasOwnProperty(i)) this.errors[i] = false
           this.success = false
         }
+
         if (!this.address) this.errors.addEmpty = true
         if (!this.amount) this.errors.amountEmpty = true
+        if (Number(this.deliver.valid) < this.amount) this.errors.amountInvalid = true
         if (!/^[a|A]/.test(this.address)) this.errors.addWrong = true
         if (this.address.length !== 34) this.errors.addLenErr = true
         if (!this.$_.isNumber(this.amount)) this.errors.amountWrong = true

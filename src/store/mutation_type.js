@@ -4,6 +4,7 @@
 export default {
   login: 'LOGIN',
   signUp: 'SIGN_UP',
+  logout: 'LOGOUT',
   downloadWallet: 'DOWNLOAD_WALLET',
   bid: 'BID',
   ask: 'ASK',

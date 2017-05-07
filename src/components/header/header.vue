@@ -2,7 +2,7 @@
 <style lang="stylus" src="./header.styl"></style>
 
 <script>
-  import { mapGetters } from 'vuex'
+  import { mapGetters, mapActions } from 'vuex'
 
   export default {
     name: 'h',
@@ -11,16 +11,18 @@
     }),
 
     methods: {
+      ...mapActions(['LOGOUT']),
       active() {
         this.activeMarkets = true
+      },
+      logout() {
+        this.LOGOUT()
+        this.$router.push('/login')
       }
     },
 
     computed: {
-      ...mapGetters(['loggedIn', 'wa']),
-      uid() {
-        return this.$store.getters['uid']
-      }
+      ...mapGetters(['loggedIn', 'wa', 'uid'])
     }
   }
 

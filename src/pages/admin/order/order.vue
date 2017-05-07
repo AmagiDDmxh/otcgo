@@ -4,9 +4,9 @@
       <thead>
         <th>资产类型 </th>
         <th>购买数量</th>
-        <th>购买单价/CNY</th>
-        <th>总计/CNY</th>
-        <th></th>
+        <th>购买单价</th>
+        <th>总计</th>
+        <th style="width: 260px;"></th>
       </thead>
       <tbody>
         <tr v-for="item in orders">
@@ -35,32 +35,37 @@
     data: () => ({
       orders: []
     }),
+
     methods: {
       getOrders() {
-        this.$store.dispatch('GET_ORDER').then(r => {
-          this.orders = r['asks'].map(i => {
-            i.loading = false
-            return i
-          })
-        })
+        return this.$store.dispatch('GET_ORDER')
+          .then(orders => this.orders = orders['asks'].map(i => { i.loading = false; return i }))
+          .catch(e => this.$message.error('获取挂单失败！请稍后再试！'))
       },
-      cancel(item) {
+      async cancel(item) {
+        const id = item.id
+
         this.$_.set(item, 'loading', true)
-        this.$store.dispatch('CANCEL', { id: item.id })
-            .then(() => {
-              this.getOrders()
-              this.$message.success('撤单成功！')
-              item.loading = false
-            })
-            .catch(() => {
-              this.$message.success('撤单失败！请重新尝试！')
-              this.getOrders()
-              item.loading = false
-            })
+        try {
+          const res = await this.$store.dispatch('CANCEL', {id})
+          if (res) {
+            this.getOrders()
+            this.$message.success('撤单成功！')
+          }
+        } catch(e) {
+          this.getOrders()
+          this.$message.success('撤单失败！请重新尝试！')
+        }
       }
     },
+
     mounted() {
       this.getOrders()
+      window.orderTimer = window.setInterval(() => this.getOrders(), 1000 * 2)
+    },
+
+    destroyed() {
+      window.clearInterval(window.orderTimer)
     }
   }
 </script>
@@ -68,5 +73,8 @@
 <style lang="css" scoped>
   .td-btn {
     width: 260px;
+  }
+  .el-button:focus, .el-button:hover {
+    color: #fff;
   }
 </style>

@@ -62,22 +62,21 @@
     methods: {
       handleSizeChange(val) {
         this.pageLength = val
-        this.getHistory({
-          active: this.currentPage,
-          length: this.pageLength
-        })
+        this.getHistory()
       },
+
       handleCurrentChange(val) {
         this.currentPage = val
-        this.getHistory({
-          active: this.currentPage,
-          length: this.pageLength
-        })
+        this.getHistory()
       },
+
       getHistory(params) {
         this.$store.dispatch('GET_HISTORY', {
           name: 'redeem',
-          params
+          params: {
+            active: this.currentPage,
+            length: this.pageLength
+          }
         }).then(r => {
           this.histories = r['data'].map(i => {
             i.loading = false
@@ -86,6 +85,7 @@
           this.total = r['item_num']
         })
       },
+
       redeem(history) {
         history.loading = true
         this.$store.dispatch('REDEEM', history)

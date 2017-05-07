@@ -1,13 +1,19 @@
+import { mapGetters } from 'vuex'
+
 export default {
-  data() {
-    return {
-      order_sub_li: false,
-      history_sub_li: false
-    }
-  },
   beforeRouteEnter(to, from, next) {
     next(vm => {
-      vm.$store.getters['loggedIn'] ? next() : next({ path: '/login' })
+      vm.loggedIn ? next() : next({ path: '/login' })
     })
+  },
+
+  computed: {
+    ...mapGetters(['loggedIn'])
+  },
+
+  updated() {
+    if (!this.loggedIn) {
+      this.$router.push('/login')
+    }
   }
 }
