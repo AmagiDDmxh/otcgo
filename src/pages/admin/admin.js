@@ -2,9 +2,7 @@ import { mapGetters } from 'vuex'
 
 export default {
   beforeRouteEnter(to, from, next) {
-    next(vm => {
-      vm.loggedIn ? next() : next({ path: '/login' })
-    })
+    next(vm => vm.loggedIn ? next() : next('/login'))
   },
 
   computed: {

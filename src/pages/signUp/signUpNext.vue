@@ -43,7 +43,11 @@
             <div class="col-xs-3 ">
             </div>
             <div class="col-xs-6">
-              <router-link to="/admin" class="btn btn-lj form-control" style="border-radius: 6px;">登录个人钱包</router-link>
+              <el-button class="btn btn-lj form-control" @click="login"
+                         style="border-radius: 6px; color: white;"
+                         :loading="loading">
+                  登录个人钱包
+              </el-button>
             </div>
           </div>
         </div>
@@ -55,16 +59,29 @@
   </div>
 </template>
 <script>
+  import { mapGetters } from 'vuex'
+
   export default {
-    computed: {
-      fileName() {
-        return this.$store.getters.fileName
-      }
-    },
+    data: () => ({
+      loading: false
+    }),
+
+    computed: mapGetters(['signUp', 'fileName'])
+    ,
     methods: {
+      login() {
+        this.$store.commit('LOGIN')
+        this.$store.commit('SIGN_UP')
+        this.$router.push('/admin')
+      },
+
       download() {
         this.$store.commit('DOWNLOAD_WALLET')
       }
+    },
+
+    beforeRouteEnter(to, from, next) {
+      next(vm => vm.signUp ? next() : next('/signUp'))
     }
   }
 </script>

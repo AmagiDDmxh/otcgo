@@ -8,6 +8,7 @@ import service from '../api'
 export default {
   [type.login]({ commit, dispatch }, wa) {
     commit(type.setWallet, wa)
+    commit(type.login)
     return dispatch(type.getUID, wa)
   },
 
@@ -18,6 +19,7 @@ export default {
   async [type.signUp]({ commit }, { publicKeyCompressed, publicKey, privateKeyEncrypted, privateKey }) {
     commit(type.setWallet, { publicKeyCompressed, publicKey, privateKeyEncrypted, privateKey, address: service.getC(publicKeyCompressed) })
     commit(type.downloadWallet)
+    commit(type.signUp)
     return Promise.resolve(true)
   },
 

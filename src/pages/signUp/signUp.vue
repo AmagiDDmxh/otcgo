@@ -19,15 +19,10 @@
   .username {
     line-height: 30px;
   }
-
-  .o-popover {
-    position: fixed !important;
-    overflow: auto !important;
-  }
 </style>
 
 <script>
-  import protocol from './protocol.vue'
+  import protocol from '../protocol/index.vue'
   import { required, maxLength, minLength, sameAs } from 'vuelidate/lib/validators'
   import { genKeyPairHex, encryptPrivateKey, getCompressedPubHex } from '~utils/ljsign'
 

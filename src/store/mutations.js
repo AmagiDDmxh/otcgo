@@ -6,14 +6,19 @@ import type from './mutation_type'
  */
 
 export default {
+  [type.login](state) {
+    state.loggedIn = true
+  },
   [type.logout](state) {
-    console.log('[LOGOUT] Call')
     state.balances = []
     state.wa = {}
     state.loggedIn = false
     state.receive = {}
     state.deliver = {}
     state.fileName = ''
+  },
+  [type.signUp](state) {
+    state.signUp = !state.signUp
   },
   [type.setAsset](state, balances) {
     state.balances = balances
@@ -23,7 +28,6 @@ export default {
   },
   [type.setWallet](state, wa) {
     state.wa = wa
-    state.loggedIn = true
   },
 
   // TODO: Might wanna change the func like a find field in a specific, not just by the name

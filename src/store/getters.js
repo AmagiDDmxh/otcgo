@@ -10,5 +10,6 @@ export default {
   balances: state => state.balances,
   deliver: state => state.deliver,
   receive: state => state.receive,
-  fileName: state => state.fileName
+  fileName: state => state.fileName,
+  signUp: state => state.signUp
 }

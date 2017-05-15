@@ -99,14 +99,10 @@
         <div class="row">
           <div class="col-xs-offset-3 col-xs-4">
             <input type="checkbox" v-model="agree" />
-            <span>我已经认真阅读以上风险提示，并已同意蓝鲸淘
-              <el-popover
-                  ref="popover" placement="top" title="服务条款"
-                  width="800" trigger="click" v-model="protocolModal" popperClass="o-popover">
-                <protocol></protocol>
-              </el-popover>
-              <span class="link-span" v-popover:popover>服务条款</span>
-              ，同意在自担风险，自担损失的情况下参与交易</span>
+            <span>
+              已阅读并
+              <a href="#/protocol" target="_blank" >同意用户协议与蓝鲸淘网络服务条款</a>
+            </span>
           </div>
         </div>
         <div class="row" style="margin-top:10px">
@@ -114,7 +110,7 @@
 
           <div class="col-xs-6">
             <el-button @click="createWallet" :disabled="disabled"
-                       type="button" :loading="loading" class="btn  btn-lj form-control" style="border-radius: 6px;">下一步
+                       type="button" class="btn btn-lj form-control" style="border-radius: 6px;">下一步
             </el-button>
           </div>
         </div>
