@@ -46,7 +46,20 @@ export default {
     aLink.download = state.fileName
     aLink.click()
   },
+  [type.exportWIF](state) {
+    const text = state.wa.wif
+
+    const file = new window.Blob([text], { type: 'text/plan' })
+
+    const aLink = document.createElement('a')
+    aLink.href = window.URL.createObjectURL(file)
+    aLink.download = state.fileName
+    aLink.click()
+  },
   [type.setFileName](state, fileName) {
     state.fileName = fileName
+  },
+  [type.setWif](state, wif) {
+    state.wa['wif'] = wif
   }
 }

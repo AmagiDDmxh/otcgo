@@ -32,7 +32,9 @@ const routes = [
   { path: '/signUpNext', component: r => require(['./pages/signUp/signUpNext.vue'], r) },
 
   // 集市
-  { path: '/markets',component: r => require(['./pages/markets/markets.vue'], r) },
+  { path: '/markets', component: r => require(['./pages/markets/markets.vue'], r) },
+
+  { path: '/status', component: r => require(['./pages/crowdFound/status.vue'], r) },
 
   // 如果不存在，重定向于Home
   { path: '*', redirect: { path: '/index' } }

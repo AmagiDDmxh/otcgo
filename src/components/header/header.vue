@@ -2,9 +2,11 @@
 <style lang="stylus" src="./header.styl"></style>
 
 <script>
+  import oNav from './oNav/oNav.vue'
   import { mapGetters, mapActions } from 'vuex'
 
   export default {
+    components: { oNav },
     name: 'h',
     data: () => ({
       activeMarkets: false

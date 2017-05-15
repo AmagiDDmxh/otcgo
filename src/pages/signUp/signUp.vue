@@ -20,9 +20,9 @@
     line-height: 30px;
   }
 
-  .el-popover {
-    overflow: auto;
-    height: 100vh;
+  .o-popover {
+    position: fixed !important;
+    overflow: auto !important;
   }
 </style>
 

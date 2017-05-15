@@ -14,7 +14,7 @@
       <!-- tiao -->
       <div class="col-xs-3 col-lg-3">
         <div class="ad-tips">
-          <div class="tips-title">注&nbsp;意&nbsp;事&nbsp;项</div>
+          <div class="ad-tips__title">注&nbsp;意&nbsp;事&nbsp;项</div>
           <div style="background-color:#f2f2f2;color:#aeaeae;padding:20px 15px">
             <h4 class="text-center" style="margin-bottom: 10px; color: #928f8c;">关于 钱包文件</h4>
             <p>钱包文件是您登录个人钱包的唯一凭证。损坏、遗失、被盗将会造成无法挽回的资产损失。请妥善保管</p>

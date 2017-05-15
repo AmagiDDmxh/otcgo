@@ -13,9 +13,7 @@
           <td>{{item.name}}</td>
           <td>{{item.amount}}</td>
           <td>{{item.price}}</td>
-          <td>
-            {{item.price * item.amount}}
-          </td>
+          <td>{{item.price * item.amount}}</td>
           <td class="td-btn">
             <el-button
                 :loading="item.loading"
@@ -42,12 +40,13 @@
           .then(orders => this.orders = orders['asks'].map(i => { i.loading = false; return i }))
           .catch(e => this.$message.error('获取挂单失败！请稍后再试！'))
       },
+
       async cancel(item) {
         const id = item.id
 
         this.$_.set(item, 'loading', true)
         try {
-          const res = await this.$store.dispatch('CANCEL', {id})
+          const res = await this.$store.dispatch('CANCEL', { id })
           if (res) {
             this.getOrders()
             this.$message.success('撤单成功！')

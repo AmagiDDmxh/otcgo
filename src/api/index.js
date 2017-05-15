@@ -32,7 +32,7 @@ const fetching = async (endPoint, data={}, method="get") => {
  *
  * @return RESPONSE.nonce :string
  */
-export const getN = async () => (await fetching('nonce/')).nonce
+export const getN = () => 'aaaaaaaa'
 
 const sign = data => fetching('sign/', data, 'post')
 const signatureRedeem = async data => fetching('signature/redeem/', data, 'post')
@@ -40,7 +40,23 @@ const signatureRedeem = async data => fetching('signature/redeem/', data, 'post'
 export const getB = async add => (await fetching(`balances/${add}/`))
 export const getU = async add => (await fetching(`uid/${add}`))
 
-export const getC = async publicKeyCompressed => (await fetching(`conversion/${publicKeyCompressed}`)).address
+export const getC = publicKeyCompressed => {
+  const redeem = '21' + publicKeyCompressed + 'ac'
+  const unhex = CryptoJS.enc.Hex.parse(redeem)
+  const scriptHash = CryptoJS.enc.Hex.parse('17' + CryptoJS.RIPEMD160(CryptoJS.SHA256(unhex)).toString())
+  const address = scriptHash + CryptoJS.SHA256(CryptoJS.SHA256(scriptHash)).toString().substring(0, 8)
+  const bytes = Buffer.from(address, 'hex')
+  return Base58.encode(bytes)
+}
+
+export const getW = pr => {
+  let wif = `80${pr}01`
+  const unhex = CryptoJS.enc.Hex.parse(wif)
+  wif = `${wif}${CryptoJS.SHA256(CryptoJS.SHA256(unhex)).toString().substring(0, 8)}`
+
+  const bytes = Buffer.from(wif, 'hex')
+  return Base58.encode(bytes)
+}
 
 export const getH = async (name, add, params) => {
   if (name === 'redeem') return await fetching(`redeem/${add}`, { params })
@@ -60,6 +76,7 @@ export const getM = async name => {
       []
   )
 }
+
 export const getO = async add => await fetching(`order/${add}`)
 
 // Checkout the cart by POST to the bids
@@ -69,21 +86,21 @@ export const bid = async (bids, pr) => {
   return sign({
     id: bidJson.order['id'],
     signature: ljSign(pr, bidJson['transaction']),
-    nonce: await getN()
+    nonce: getN()
   })
 }
 
 export const ask = async (asks, pr) => {
   const askJson = await fetching('ask/', asks, 'post')
   return sign({
-    nonce: await getN(),
+    nonce: getN(),
     id: askJson.order['id'],
     signature: ljSign(pr, askJson['transaction'])
   })
 }
 
 export const redeem = async (id, pr, address) => {
-  const nonce = await getN()
+  const nonce = getN()
 
   const redeemJson = await fetching('redeem/', {
     nonce, id, address,
@@ -98,7 +115,7 @@ export const redeem = async (id, pr, address) => {
 
 
 export const transfer = async (body, pr) => {
-  const nonce = await getN()
+  const nonce = getN()
   const transferJson = await fetching('balances/transfer/', body, 'post')
 
   const data = {
@@ -110,7 +127,7 @@ export const transfer = async (body, pr) => {
 }
 
 export const cancel = async (id, pr) => {
-  const nonce = await getN()
+  const nonce = getN()
   const data = {
     id,
     nonce,
@@ -123,7 +140,7 @@ export const cancel = async (id, pr) => {
 }
 
 export default {
-  getC, getO, getH, getB, getM, getU, redeem, transfer, cancel, ask, bid
+  getW, getC, getO, getH, getB, getM, getU, redeem, transfer, cancel, ask, bid,
 }
 
 /**

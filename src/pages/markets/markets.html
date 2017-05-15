@@ -4,14 +4,19 @@
       <span class="blue-span">{{name}} 大宗交易</span>
     </div>
   </div>
-  <div class=" row">
+  <div class="row">
     <div class="col-xs-3 col-lg-3">
-      <div class="ad-tips">
-        <div class="tips-title">交易指南</div>
-        <div class="ad-tips__body">
-          <p>请确认<router-link to="/login" class="link-span">登录钱包</router-link>后!
-          </p>
+      <div class="ad-tips" v-if="!loggedIn">
+        <div class="ad-tips__title">交易指南</div>
+        <div class="ad-tips__content">
+          <p>请确认<router-link to="/login" class="link-span">登录钱包</router-link>后!</p>
           <p>再进行订单的“购买”操作!</p>
+          <p>请尽快结算，以防止抢单。</p>
+        </div>
+      </div>
+      <div class="ad-tips" v-else>
+        <div class="ad-tips__title">交易指南</div>
+        <div class="ad-tips__content">
           <p>请尽快结算，以防止抢单。</p>
         </div>
       </div>

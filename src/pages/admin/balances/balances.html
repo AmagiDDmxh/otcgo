@@ -10,7 +10,8 @@
     </thead>
     <tbody>
       <tr v-for="balance in balances">
-        <td>{{balance['name']}}</td>
+        <td v-if="balance['category'] !== 96 && balance['category'] !== 144">{{balance['name']}}ANS</td>
+        <td v-else>{{balance['name']}}</td>
         <td>{{balance['total']}}</td>
         <td>{{balance['frozen']}}</td>
         <td>{{balance['valid']}}</td>
@@ -21,14 +22,14 @@
             <span class="link-span-seal">转账</span> <!--@click="balanceTransfer(balance['asset'],balance['divisible'],balance['name'],balance['valid'])"-->
           </template>
           <template v-else>
-            <span v-if="balance['category'] === 96" class="link-span"
+            <span v-if="balance['assetType'] === 'Share'" class="link-span"
                   @click="ask(balance)">交易</span>
 
             <span v-else class="link-span-seal">交易</span>
 
             <span class="link-span"
                   @click="transfer(balance)"
-                  v-show="balance['category'] != 144">转账</span>
+                  v-show="balance['assetType'] != 'Share'">转账</span>
           </template>
         </td>
       </tr>

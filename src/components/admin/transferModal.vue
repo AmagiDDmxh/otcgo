@@ -2,15 +2,15 @@
   <div class="transferModal">
     <div class="row">
       <div class="col-xs-6">
-        <b>资产类型:{{ deliver.name }}</b>
+        <b>资产类型：{{ deliver.name }}</b>
       </div>
       <div class="col-xs-6 text-right">
-        <b>可用数量:{{ deliver.valid }}</b>
+        <b>可用数量：{{ deliver.valid }}</b>
       </div>
     </div>
     <!-- 转账数量 -->
     <div class="row" style="margin-top:20px">
-      <span class="col-xs-3" style="margin-top:8px">转账数量:</span>
+      <span class="col-xs-3" style="margin-top:8px">转账数量：</span>
       <div class="col-xs-6">
         <input
             type="text" class="form-control" @keyup="check"
@@ -29,7 +29,7 @@
 
     <!-- 转账地址 -->
     <div class="row" style="margin-top:20px">
-      <span class="col-xs-3" style="margin-top:8px">转账地址:</span>
+      <span class="col-xs-3" style="margin-top:8px">转账地址：</span>
       <div class="col-xs-6">
         <input type="text" class="form-control" @keyup="check"
                v-model.trim="address" style="width:100%!important" @focus="selectAll" @blur="check">

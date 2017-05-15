@@ -8,18 +8,18 @@
 
   export default {
     components: { transferModal, askModal },
-    data() {
-      return {
-        // dialog
-        dialogPay: false,
-        dialogDisPay: false,
-        transferModal: false,
-        askModal: false
-      }
-    },
+    data: () => ({
+      // dialog
+      dialogPay: false,
+      dialogDisPay: false,
+      transferModal: false,
+      askModal: false
+    }),
+
     computed: {
-      ...mapGetters(['balances', 'wa'])
+      ...mapGetters(['balances'])
     },
+
     methods: {
       transfer({ name }) {
         this.$store.commit('SET_DELIVER', name)
@@ -41,11 +41,13 @@
         getUID: 'GET_UID'
       })
     },
+
     created() {
       this.getAsset()
       window.balancesTimer = window.setInterval(() => this.getAsset(), 1000 * 2)
-      this.getUID(this.wa('address'))
+      this.getUID()
     },
+
     destroyed() {
       window.clearInterval(window.balancesTimer)
     }

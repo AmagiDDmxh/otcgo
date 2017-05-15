@@ -21,5 +21,6 @@ export default {
   getMarkets: 'GET_MARKETS',
   getHistory: 'GET_HISTORY',
   getOrder: 'GET_ORDER',
+  setWif: 'GET_WIF',
   setFileName: 'SET_FILE_NAME'
 }

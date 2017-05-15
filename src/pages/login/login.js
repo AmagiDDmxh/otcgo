@@ -55,7 +55,7 @@ export default {
     },
     checkFile(file, filename) {
       if (!file.hasOwnProperty('publicKey') || !file.hasOwnProperty('publicKeyCompressed') ||
-          !file.hasOwnProperty('privateKeyEncrypted') || !file.hasOwnProperty('address') || !/json/.test(filename)) return !1
+          !file.hasOwnProperty('privateKeyEncrypted') || !file.hasOwnProperty('address') || !/json/.test(filename)) return false
       this.filename = filename
       this.filenameError = ''
       return true
@@ -73,7 +73,7 @@ export default {
 
   beforeRouteEnter(to, from, next) {
     next(vm => {
-      vm.loggedIn ? next() : next({ path: '/login' })
+      vm.loggedIn ? next('/admin') : next()
     })
   }
 }
