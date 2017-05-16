@@ -23,7 +23,7 @@
               class="error-text"> 可用数量不足 </span>
         <span v-else-if="errors.amountEmpty"
               class="error-text"> 数量不能为空 </span>
-        <span v-else-if="success"> <img src="/src/assets/yes.png"/> </span>
+        <span v-else-if="success"> <img src="/src/images/yes.png"/> </span>
       </div>
     </div>
 
@@ -41,7 +41,7 @@
               class="error-text"> 地址不能为空 </span>
         <span v-else-if="errors.addLenErr"
               class="error-text"> 地址必须是34位 </span>
-        <span v-else-if="success"> <img src="/src/assets/yes.png"/> </span>
+        <span v-else-if="success"> <img src="/src/images/yes.png"/> </span>
       </div>
     </div>
 

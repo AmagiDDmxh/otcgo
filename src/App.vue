@@ -97,13 +97,13 @@
   }
 
   ul > .frist {
-    background: url(assets/ver-line.png) no-repeat left center;
+    background: url(images/ver-line.png) no-repeat left center;
   }
 
   ul > li > .menu {
     color: #fff !important;
     font-size: 1.2em;
-    background: url(assets/ver-line.png) no-repeat right center;
+    background: url(images/ver-line.png) no-repeat right center;
     padding-left: 30px !important;
     padding-right: 30px !important;
   }
@@ -140,19 +140,19 @@
   }
 
   .bg-blue1 {
-    background-image: url(assets/foot-1.png);
+    background-image: url(images/foot-1.png);
   }
 
   .bg-blue2 {
-    background-image: url(assets/foot-2.png);
+    background-image: url(images/foot-2.png);
   }
 
   .bg-blue3 {
-    background-image: url(assets/foot-3.png);
+    background-image: url(images/foot-3.png);
   }
 
   .bg-blue4 {
-    background-image: url(assets/foot-4.png);
+    background-image: url(images/foot-4.png);
   }
 
   .foot-li {
@@ -164,7 +164,7 @@
   }
 
   .bg-li {
-    background: url(assets/ver-line2.png) right center no-repeat;
+    background: url(images/ver-line2.png) right center no-repeat;
   }
 
   .foot-type {

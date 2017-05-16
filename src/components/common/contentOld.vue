@@ -5,13 +5,13 @@
       <div class="col-xs-6 col-lg-6">
         <a href="#">
           <span></span>
-          <img src="../../assets/images/content_03.png" alt="">
+          <img src="../../images/content_03.png" alt="">
         </a>
       </div>
       <div class="col-xs-6 col-lg-6">
         <router-link class="text-center" :to="{ path: '/markets', query: { 'class': 'anscny' }}">
           <span></span>
-          <img src="../../assets/images/content_05.png" alt="">
+          <img src="../../images/content_05.png" alt="">
         </router-link>
       </div>
     </div>
@@ -20,12 +20,12 @@
       <div class="col-xs-6 col-lg-6">
         <router-link class="text-center" :to="{ path: '/markets', query: { 'class': 'anccny' }}">
           <span></span>
-          <img src="../../assets/images/content_09.png" alt=""></router-link>
+          <img src="../../images/content_09.png" alt=""></router-link>
       </div>
       <div class="col-xs-6 col-lg-6">
         <a href="#">
           <span></span>
-          <img src="../../assets/images/content_11.png" alt="">
+          <img src="../../images/content_11.png" alt="">
         </a>
       </div>
     </div>
@@ -41,7 +41,7 @@
     p {
       height: 45px;
       margin: 30px 15px 10px 15px;
-      background: url('../../assets/content-header-1.png') no-repeat;
+      background: url('../../images/content-header-1.png') no-repeat;
       border-bottom: 1px solid #666;
     }
 
@@ -68,7 +68,7 @@
     p {
       height: 45px;
       margin: 30px 15px 10px 15px;
-      background: url('../../assets/content-header-2.png') no-repeat;
+      background: url('../../images/content-header-2.png') no-repeat;
       border-bottom: 1px solid #666;
     }
     img {

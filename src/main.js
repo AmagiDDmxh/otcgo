@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.css'
 import '../theme/index.css'
-import '~assets/styles/common.styl'
+import '~styles/common.styl'
 
 import Vue from 'vue'
 import _ from 'lodash'

@@ -6,7 +6,7 @@
       <p><b>你的UID地址: </b>{{ uid }}</p>
       <p><b>你的私钥地址: </b>
         <span v-if="open">{{wif}}</span>
-        <span v-if="!open" @click="openText" class="btn ljbutton">打开</span>
+        <span @click="open = !open" class="btn ljbutton">{{open? '关闭':'打开'}}</span>
       </p>
     </div>
   </div>
@@ -26,12 +26,6 @@
       },
       wif() {
         return this.wa('wif')
-      }
-    },
-
-    methods: {
-      openText() {
-        this.open = !this.open
       }
     }
   }

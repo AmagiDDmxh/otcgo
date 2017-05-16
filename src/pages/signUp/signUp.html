@@ -43,7 +43,7 @@
             <span v-else-if="!$v.username.required && $v.username.$dirty"
                   class="error-text"> 用户名不能为空</span>
 
-            <span v-else-if="!$v.username.$invalid"><img src="/src/assets/yes.png"/></span>
+            <span v-else-if="!$v.username.$invalid"><img src="/src/images/yes.png"/></span>
           </div>
         </div>
 
@@ -77,7 +77,7 @@
             <span v-if="!$v.password.minLength && $v.password.$dirty" class="error-text"> 密码不能小于8位 </span>
             <span v-else-if="!$v.password.maxLength && $v.password.$dirty" class="error-text"> 密码不能超过20位 </span>
             <span v-else-if="!$v.password.required && $v.password.$dirty" class="error-text"> 密码不能为空 </span>
-            <span v-else-if="!$v.password.$invalid && $v.password.$dirty"> <img src="/src/assets/yes.png"/> </span>
+            <span v-else-if="!$v.password.$invalid && $v.password.$dirty"> <img src="/src/images/yes.png"/> </span>
           </div>
 
         </div>
@@ -93,7 +93,7 @@
             <span v-if="!$v.passwordConfirmed.sameAsPassword && $v.passwordConfirmed.$dirty" class="error-text"> 请您输入相同的登陆密码 </span>
             <span v-else-if="!$v.passwordConfirmed.required && $v.passwordConfirmed.$dirty" class="error-text"> 密码不能为空 </span>
             <span v-else-if="!$v.passwordConfirmed.$invalid && $v.passwordConfirmed.$dirty"> <img
-                src="/src/assets/yes.png"/> </span>
+                src="/src/images/yes.png"/> </span>
           </div>
         </div>
         <div class="row">

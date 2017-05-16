@@ -21,7 +21,7 @@
           </template>
           <div v-if="item.done">
             <span class="settled-icon">
-              <img src="../../../assets/yes.png"/>
+              <img src="../../../images/yes.png"/>
             </span>
             <span style="font-size:12px"> 结算成功！几秒后可在资产列表中查询。</span>
           </div>

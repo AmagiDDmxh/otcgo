@@ -50,7 +50,8 @@ module.exports = {
     extensions: ['.js', '.vue', '.less', '.css', '.scss'],
     alias: {
       'vue$': 'vue/dist/vue.common.js',
-      '~assets': path.resolve(__dirname, 'src/assets'),
+      '~images': path.resolve(__dirname, 'src/images'),
+      '~styles': path.resolve(__dirname, 'src/styles'),
       '~utils': path.resolve(__dirname, 'src/utils'),
       '~components': path.resolve(__dirname, 'src/components'),
       '~api': path.resolve(__dirname, 'src/api'),

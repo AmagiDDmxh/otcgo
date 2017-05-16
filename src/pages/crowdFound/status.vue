@@ -17,7 +17,7 @@
             p 通道关闭。
       el-col(:span="8")
         .thumbnail
-          img(src='../../assets/logo.png')
+          img(:src='img.logo')
           .caption
             .caption
               h3 Thumbnail label
@@ -39,9 +39,12 @@
 </template>
 
 <script>
+  import { img } from '~utils/config'
+
   export default {
     data: () => ({
-      p: 42
+      p: 42,
+      img
     }),
     methods: {
       click() {

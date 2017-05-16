@@ -12,9 +12,7 @@
             <li><a class="title">了解我们</a></li>
             <li><a>服务条款</a></li>
           </ul>
-
         </div>
-
       </el-col>
 
       <el-col :span="18">
@@ -180,8 +178,6 @@
         </div>
       </el-col>
     </el-row>
-
-
   </div>
 </template>
 

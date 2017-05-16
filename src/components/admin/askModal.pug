@@ -26,8 +26,6 @@
          span.error-text(v-else-if='!$v.amount.required') 余额不足
          span(v-else-if='success'): img(:src='img.yes')
 
-      pre $v.amount: {{ $v.amount }}
-
    .row(style='margin-top:10px')
       .col-xs-3(style="line-height: 30px;"): b 卖出单价ANS：
       .col-xs-6: input.form-control(placeholder='输入价格', style='width:100%!important', v-model.number='price', @focus='selectAll($event)')

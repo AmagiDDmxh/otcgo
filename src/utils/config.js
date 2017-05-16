@@ -1,5 +1,6 @@
 export const img = {
-  yes: require('~assets/yes.png')
+  yes: require('~images/yes.png'),
+  logo: require('~images/logo.png')
 }
 
 export default {

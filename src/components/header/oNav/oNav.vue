@@ -15,7 +15,7 @@
         </a>
       </li>
 
-      <li><router-link class="menu" to="/index">首 &nbsp; 页</router-link></li>
+      <li><router-link class="menu active" to="/index" activeClass="_">首 &nbsp; 页</router-link></li>
 
       <li><a class="menu" href="#">投资学院</a></li>
 
@@ -26,7 +26,7 @@
            target="_blank">加入社群</a>
       </li>
 
-      <li><router-link class="menu" to="/status">众筹状态</router-link></li>
+      <li><router-link class="menu" to="/status" activeClass="_">ICO专区</router-link></li>
     </ul>
     <form class="navbar-form navbar-left">
       <div class="form-group">
@@ -41,4 +41,9 @@
   export default {}
 </script>
 
-<style lang="css"></style>
+<style lang="css">
+  .active:hover,
+  .active:focus {
+    background: #009cff !important;
+  }
+</style>

@@ -15,7 +15,7 @@
     components: { oContent },
 
     data: () => ({
-      banners: [require('../assets/banner_1.png'), require('../assets/slide2.png'), require('../assets/slide3.png')]
+      banners: [require('../images/banner_1.png'), require('../images/slide2.png'), require('../images/slide3.png')]
     })
   }
 </script>
