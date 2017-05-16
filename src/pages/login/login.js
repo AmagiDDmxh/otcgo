@@ -28,11 +28,12 @@ export default {
 
         if (result) {
           this.wallet['privateKey'] = privateKey
-          this.$store.dispatch('LOGIN', this.wallet).then(() => {
-            delete this.wallet
-            this.$message.success('验证成功!')
-            this.$router.push('/admin')
-          })
+          this.$store.dispatch('LOGIN', this.wallet)
+              .then(() => {
+                delete this.wallet
+                this.$message.success('验证成功!')
+                this.$router.push('/admin')
+              })
         } else {
           this.$message.error('验证失败,请检查文件格式与密码重试!')
         }

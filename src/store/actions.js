@@ -59,8 +59,8 @@ export default {
     return service.ask({
       amount,
       price,
-      assetid: deliver.asset,
-      valueid: receive.asset,
+      assetId: deliver.asset,
+      valueId: receive.asset,
       hexPubkey: state.wa['publicKey']
     },
         state.wa['privateKey'])

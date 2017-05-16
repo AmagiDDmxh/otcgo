@@ -41,9 +41,9 @@
   export default {}
 </script>
 
-<style lang="css">
-  .active:hover,
-  .active:focus {
+<style lang="css" scoped>
+  .nav > li > a:hover,
+  .nav > li > a:focus {
     background: #009cff !important;
   }
 </style>
