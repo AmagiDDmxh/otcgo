@@ -74,6 +74,7 @@
         addEmpty: false
       }
     }),
+
     methods: {
       transfer() {
         if (!this.check()) return
@@ -86,7 +87,7 @@
         this.$store.dispatch('TRANSFER', {
           dest: this.address,
           amount: this.amount,
-          assetid: this.deliver.asset
+          assetId: this.deliver.assetId
         }).then(i => {
           this.$message.success('转账成功！')
           this.amount = ''
@@ -94,7 +95,7 @@
           this.loading = false
           this.$emit('success')
 
-          for (let i in this.errors) {
+          for (const i in this.errors) {
             if (this.errors.hasOwnProperty(i)) this.errors[i] = false
             this.success = false
           }
@@ -102,7 +103,7 @@
           this.$message.error('转账失败，请重新尝试！')
           this.loading = false
 
-          for (let i in this.errors) {
+          for (const i in this.errors) {
             if (this.errors.hasOwnProperty(i)) this.errors[i] = false
             this.success = false
           }
@@ -110,7 +111,7 @@
       },
 
       check() {
-        for (let i in this.errors) {
+        for (const i in this.errors) {
           if (this.errors.hasOwnProperty(i)) this.errors[i] = false
           this.success = false
         }
@@ -122,7 +123,7 @@
         if (this.address.length !== 34) this.errors.addLenErr = true
         if (!this.$_.isNumber(this.amount)) this.errors.amountWrong = true
 
-        for (let i in this.errors) {
+        for (const i in this.errors) {
           if (this.errors.hasOwnProperty(i)) if (this.errors[i] === true) return false
         }
         this.success = true
@@ -134,6 +135,7 @@
         }, 0)
       }
     },
+
     computed: {
       ...mapGetters(['deliver'])
     }

@@ -52,27 +52,35 @@ export default {
     return service.redeem(id, state.wa['privateKey'], state.wa['address'])
   },
 
-  [type.ask]({ state, dispatch }, { amount, price }) {
+  [type.ask]({ state }, { amount, price }) {
     const deliver = state['deliver']
     const receive = state['receive']
 
     return service.ask({
       amount,
       price,
-      assetId: deliver.asset,
-      valueId: receive.asset,
+      assetId: deliver.assetId,
+      valueId: receive.assetId,
       hexPubkey: state.wa['publicKey']
     },
         state.wa['privateKey'])
   },
 
-  async [type.transfer]({ dispatch, state }, { dest, amount, assetid }) {
+  async [type.transfer]({ state }, { dest, amount, assetId }) {
+    console.log({
+      dest,
+      source: state.wa['address'],
+      amount,
+      assetId,
+      hexPubkey: state.wa['publicKey']
+    })
+
     try {
       return await service.transfer({
         dest,
-        amount,
-        assetid,
         source: state.wa['address'],
+        amount,
+        assetId,
         hexPubkey: state.wa['publicKey']
       }, state.wa['privateKey']
     )} catch (e) {
