@@ -32,7 +32,8 @@
       amount: '',
       loading: false,
       success: false,
-      errorCleaner: false
+      errorCleaner: false,
+      errors: {}
     }),
     computed: {
       ...mapGetters(['deliver', 'receive'])

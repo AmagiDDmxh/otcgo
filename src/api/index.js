@@ -81,7 +81,7 @@ export const getO = async add => await fetching(`order/${add}`)
 
 // Checkout the cart by POST to the bids
 export const bid = async (bids, pr) => {
-  const bidJson = await fetching('bid/', bids, 'post')
+  const bidJson = await fetching('otc/bid/', bids, 'post')
 
   return sign({
     id: bidJson.order['id'],
@@ -91,7 +91,7 @@ export const bid = async (bids, pr) => {
 }
 
 export const ask = async (asks, pr) => {
-  const askJson = await fetching('ask/', asks, 'post')
+  const askJson = await fetching('otc/ask/', asks, 'post')
   return sign({
     nonce: getN(),
     id: askJson.order['id'],
