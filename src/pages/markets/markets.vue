@@ -29,26 +29,28 @@
 
     methods: {
       getOrderBook(name) {
-        this.$store.dispatch('GET_MARKETS', name).then(d => { this.orders = d }).catch(r => this.$message.error('获取集市买(卖)单错误'))
+        this.$store.dispatch('GET_MARKETS', name)
+            .then(d => { this.orders = d })
+            .catch(r => this.$message.error('获取集市买(卖)单错误'))
       },
       purchase({ total, id }) {
         if (!this.loggedIn) {
           this.$message.error('购买前请先确认登陆！')
           return
         }
-        this.$store.dispatch('GET_ASSET').then(() => this.$store.commit('SET_DELIVER', '小蚁股'))
-        const deliver = this.deliver
+        this.$store.dispatch('GET_ASSET')
+            .then(() => this.$store.commit('SET_DELIVER', '小蚁股'))
 
         this.$msgbox({
           title: '提示',
-          message: `您将要购买总价${total}元的${this.name}，当前ANS可用余额为${deliver.valid}是否确认下单？`,
+          message: `您将要购买总价${total}元的${this.name}，当前ANS可用余额为${this.deliver.valid}是否确认下单？`,
           showCancelButton: true,
           beforeClose: async (action, instance, done) => {
-            if (action === 'confirm') {
-              instance.confirmButtonLoading = false
+            instance.confirmButtonLoading = false
 
-              if (deliver.valid < total) {
-                this.$message.warning(`${deliver.name}余额不足，请进行充值！`)
+            if (action === 'confirm') {
+              if (this.deliver.valid < total) {
+                this.$message.warning(`${this.deliver.name}余额不足，请进行充值！`)
                 done()
                 return
               }
@@ -69,6 +71,7 @@
               } catch(e) {
                 this.$message('此次交易失败，可能已被抢单！')
                 this.getOrderBook(this.type)
+                instance.confirmButtonLoading = false
                 done()
               }
             } else {

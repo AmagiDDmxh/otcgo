@@ -35,7 +35,7 @@ const routes = [
   { path: '/markets', component: r => require(['~pages/markets/markets.vue'], r) },
 
   // 众筹状态
-  { path: '/status', component: r => require(['~pages/crowdFound/status.vue'], r) },
+  { path: '/status', component: r => require(['~pages/ico/status.vue'], r) },
 
   // 用户协议与服务条款
   { path: '/protocol', component: r => require(['~pages/protocol/index.vue'], r) },

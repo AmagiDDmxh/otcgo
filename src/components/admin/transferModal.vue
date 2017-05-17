@@ -32,7 +32,7 @@
       <span class="col-xs-3" style="margin-top:8px">转账地址：</span>
       <div class="col-xs-6">
         <input type="text" class="form-control" @keyup="check"
-               v-model.trim="address" style="width:100%!important" @focus="selectAll" @blur="check">
+               v-model.trim="address" style="width:100%;" @focus="selectAll" @blur="check">
       </div>
       <div class="col-xs-3">
         <span v-if="errors.addWrong"
@@ -49,8 +49,7 @@
     <div class="row" style="margin-top:20px;">
       <div class="col-xs-3"></div>
       <div class="col-xs-6">
-        <el-button v-if="loading" type="primary" class="btn btn-block ljbutton" @click="transfer" :loading="loading">执行中</el-button>
-        <el-button v-else type="primary" class="btn btn-block ljbutton" @click="transfer" :loading="loading">确认转账</el-button>
+        <el-button type="primary" class="btn btn-block ljbutton" @click="transfer" :loading="loading">{{loading ? '执行中': '确认'}}</el-button>
       </div>
     </div>
   </div>
