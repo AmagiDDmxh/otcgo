@@ -38,8 +38,8 @@
           this.$message.error('购买前请先确认登陆！')
           return
         }
+        this.$store.commit('SET_DELIVER', '小蚁股')
         this.$store.dispatch('GET_ASSET')
-            .then(() => this.$store.commit('SET_DELIVER', '小蚁股'))
 
         this.$msgbox({
           title: '提示',

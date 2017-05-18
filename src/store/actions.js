@@ -67,14 +67,6 @@ export default {
   },
 
   async [type.transfer]({ state }, { dest, amount, assetId }) {
-    console.log({
-      dest,
-      source: state.wa['address'],
-      amount,
-      assetId,
-      hexPubkey: state.wa['publicKey']
-    })
-
     try {
       return await service.transfer({
         dest,

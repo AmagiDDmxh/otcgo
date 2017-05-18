@@ -7,19 +7,17 @@
       .col-xs-3
          .nav-menu.nav-menu--dark
             ul.nav.nav-pills.nav-stacked
-               li: a.title 菜   单
-               li: router-link(to="/admin/balances") 资产列表
-               li: router-link.sub-li-title(:to="{ path: '/admin/order', query: { type: 'sell'}}") 我的挂单
-               li.drop-trigger
+               li(@click="on=false"): a.title 菜   单
+               li(@click="on=false"): router-link(to="/admin/balances") 资产列表
+               li(@click="on=false"): router-link.sub-li-title(:to="{ path: '/admin/order', query: { type: 'sell'}}") 我的挂单
+               li(:class="[{'on': on}, 'drop-trigger']")
                   a 历史交易记录
                   transition(name='fade', mode='out-in')
                      ul.nav.nav-stacked.nav-pills.drop-menu
-                        li
-                           router-link(:to="{ path: '/admin/history/transfer' }") 转账记录
-                        li
-                           router-link(:to="{ path: '/admin/history/transaction' }") 交易记录
-               li: a(href='//antchain.xyz', target='_blank') 区块浏览
-               li: router-link(to="/admin/uid") 个人中心
+                        li(@click="on=true"): router-link(:to="{ path: '/admin/history/transfer' }") 转账记录
+                        li(@click="on=true"): router-link(:to="{ path: '/admin/history/transaction' }") 交易记录
+               li(@click="on=false"): a(href='//antchain.xyz', target='_blank') 区块浏览
+               li(@click="on=false"): router-link(to="/admin/uid") 个人中心
       .col-xs-9
          .admin-content
             transition(name='fade', mode='out-in')

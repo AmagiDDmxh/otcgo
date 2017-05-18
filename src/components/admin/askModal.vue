@@ -15,50 +15,49 @@
 <script>
   import { mapGetters } from 'vuex'
   import { img } from '~utils/config'
+
   import { required } from 'vuelidate/lib/validators'
-
   import { withParams, req } from 'vuelidate/lib/validators/common'
-
-  const decimal = decimal => withParams({ type: 'decimal', decimal },
-      function() {
-
-      })
-
 
   export default {
     data: () => ({
       img,
-      price: '',
-      amount: '',
-      loading: false,
-      success: false,
-      errorCleaner: false,
-      errors: {}
+      price: {
+        value: '',
+        lenErr: false,
+        empty: false,
+        wrong: false,
+        success: false
+      },
+      amount: {
+        value: 0,
+        lenErr: false,
+        empty: false,
+        wrong: false,
+        invalid: false,
+        success: false,
+        totalWrong: false
+      },
+      loading: false
     }),
     computed: {
       ...mapGetters(['deliver', 'receive'])
     },
 
-    validations: {
-      amount: {
-        required,
-        decimal
-      }
-    },
-
     methods: {
       async transfer() {
-        if (!this.check()) return
+        if (!this.checkAmount() || !this.checkPrice()) return
         this.loading = true
         try {
-          const price = this.price
-          const amount = this.amount
+          const price = this.price.value
+          const amount = this.amount.value
           let res = await this.$store.dispatch('ASK', { price, amount })
           if (res) {
             this.$message.success('交易成功!')
             this.loading = false
             this.$store.dispatch('GET_ASSET')
-            this.amount = this.price = ''
+            this.$set(this.amount, 'value', '')
+            this.$set(this.price, 'value', '')
             this.$emit('success')
           }
         } catch(e) {
@@ -67,29 +66,63 @@
           this.$store.dispatch('GET_ASSET')
         }
       },
-      check() {
-        for (let i in this.errors) {
-          if (this.errors.hasOwnProperty(i)) this.errors[i] = false
+      checkAmount() {
+        for (const i in this.amount) {
+          if (this.amount.hasOwnProperty(i) && i !== 'value') this.amount[i] = false
+        }
+        const amountStr = String(this.amount.value)
+        const amountNum = Number(this.amount.value)
+        if (amountStr.indexOf('.') > -1) {
+          this.$set(this.amount, 'value', Number(
+              amountStr.trim().slice(0, amountStr.indexOf('.') + 9))
+          )
         }
 
-        const amountStr = String(this.amount)
-        const priceStr = String(this.price)
-        this.amount = Number(amountStr.trim().slice(0, amountStr.indexOf('.') + 9))
-        this.price = Number(priceStr.trim().slice(0, priceStr.indexOf('.') + 9))
+        if (!amountStr) this.amount.empty = true
+        if (amountNum > Number(this.deliver.valid)) this.amount.invalid = true
+        if (!this.$_.isNumber(amountNum) || amountNum === 0) this.amount.wrong = true
+        if (amountStr.slice(amountStr.indexOf('.')).length > 9) this.amount.lenErr = true
 
-        if (!this.price) this.errors.priceEmpty = true
-        if (!this.amount) this.errors.amountEmpty = true
-        if (this.amount > Number(this.deliver.valid)) this.errors.amountInvalid = true
-        if (!this.$_.isNumber(this.amount)) this.errors.amountWrong = true
-        if (!this.$_.isNumber(this.price)) this.errors.priceWrong = true
-        if (amountStr.slice(amountStr.indexOf('.')).length > 9) this.errors.amountLenErr = true
-        if (priceStr.slice(priceStr.indexOf('.')).length > 9) this.errors.priceLenErr = true
-        if (!this.receive['divisible']) if (!this.$_.isInteger(this.price * this.amount)) this.errors.totalWrong = true
-
-        for (let i in this.errors) {
-          if (this.errors[i] === true) return false
+        for (const i in this.amount) {
+          if (this.amount.hasOwnProperty(i) &&
+              this.amount[i] === true &&
+              i !== 'value') return false
         }
-        this.success = true
+
+        this.amount.success = true
+        return true
+      },
+
+      checkPrice() {
+        for (const i in this.price) {
+          if (this.price.hasOwnProperty(i) && i !== 'value') this.price[i] = false
+        }
+        const priceStr = String(this.price.value)
+        const priceNum = Number(this.price.value)
+        if (priceStr.indexOf('.') > -1) {
+          this.$set(this.price, 'value', Number(
+              priceStr.trim().slice(0, priceStr.indexOf('.') + 9))
+          )
+        }
+
+        if (!priceStr) this.price.empty = true
+        if (!this.$_.isNumber(priceNum) || priceNum === 0) this.price.wrong = true
+        if (priceStr.slice(priceStr.indexOf('.')).length > 9) this.price.lenErr = true
+        if (!this.receive['divisible']){
+          const total = this.price.value * this.amount.value
+          if (!this.$_.isInteger(total)) {
+            this.price.totalWrong = true
+            return false
+          }
+        }
+
+        for (const i in this.price) {
+          if (this.price.hasOwnProperty(i) &&
+              this.price[i] === true &&
+              i !== 'value') return false
+        }
+
+        this.price.success = true
         return true
       },
 

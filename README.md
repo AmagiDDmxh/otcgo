@@ -1,6 +1,6 @@
 # 为蓝鲸淘用Vue.js打造的一个开源的AntShare区块链平台
 
-蓝金淘是一个基于智能合约的数字资产OTC平台，拥有交易转账、充值提现、余额查询、历史交易查询等等功能。
+蓝鲸淘是一个基于智能合约的数字资产OTC平台，拥有交易转账、充值提现、余额查询、历史交易查询等等功能。
 ![Screenshot](https://raw.githubusercontent.com/AmagiDDmxh/otcgo/master/doc/Home.png)
 
 ## 源代码

@@ -8,22 +8,23 @@
         <b>可用数量：{{ deliver.valid }}</b>
       </div>
     </div>
+
     <!-- 转账数量 -->
     <div class="row" style="margin-top:20px">
       <span class="col-xs-3" style="margin-top:8px">转账数量：</span>
       <div class="col-xs-6">
         <input
-            type="text" class="form-control" @keyup="check"
+            type="number" class="form-control" @keyup="check"
             v-model.number="amount" style="width:100%!important" @focus="selectAll" @blur="check">
       </div>
       <div class="col-xs-3">
-        <span v-if="errors.amountWrong"
+        <span v-if="!amount && amount"
               class="error-text"> 数量错误 </span>
-        <span v-else-if="errors.amountInvalid"
+        <span v-else-if="deliver.valid < amount && amount"
               class="error-text"> 可用数量不足 </span>
-        <span v-else-if="errors.amountEmpty"
+        <span v-else-if="amount==='' && amount"
               class="error-text"> 数量不能为空 </span>
-        <span v-else-if="success"> <img src="/src/images/yes.png"/> </span>
+        <span v-else-if="success"> <img :src="yes"/> </span>
       </div>
     </div>
 
@@ -32,16 +33,16 @@
       <span class="col-xs-3" style="margin-top:8px">转账地址：</span>
       <div class="col-xs-6">
         <input type="text" class="form-control" @keyup="check"
-               v-model.trim="address" style="width:100%;" @focus="selectAll" @blur="check">
+               v-model.trim="address" style="width:100% !important;" @focus="selectAll" @blur="check">
       </div>
       <div class="col-xs-3">
-        <span v-if="errors.addWrong"
-              class="error-text"> 地址格式错误 </span>
-        <span v-else-if="errors.addEmpty"
+        <span v-if="address[0]!=='a' && address[0]!=='A' && address"
+               class="error-text"> 地址格式错误 </span>
+        <span v-else-if="address ==='' && address"
               class="error-text"> 地址不能为空 </span>
-        <span v-else-if="errors.addLenErr"
+        <span v-else-if="address.length!==34 && address"
               class="error-text"> 地址必须是34位 </span>
-        <span v-else-if="success"> <img src="/src/images/yes.png"/> </span>
+        <span v-else-if="success"> <img :src="yes"/> </span>
       </div>
     </div>
 
@@ -49,7 +50,8 @@
     <div class="row" style="margin-top:20px;">
       <div class="col-xs-3"></div>
       <div class="col-xs-6">
-        <el-button type="primary" class="btn btn-block ljbutton" @click="transfer" :loading="loading">{{loading ? '执行中': '确认'}}</el-button>
+        <el-button type="primary" class="btn btn-block ljbutton" @click="transfer"
+                   :loading="loading">{{loading ? '执行中': '确认'}}</el-button>
       </div>
     </div>
   </div>
@@ -57,6 +59,7 @@
 
 <script>
   import { mapGetters } from 'vuex'
+  import yes from '~images/yes.png'
 
   export default {
     data: () => ({
@@ -71,12 +74,16 @@
         addWrong: false,
         addLenErr: false,
         addEmpty: false
-      }
+      },
+      yes
     }),
 
     methods: {
       transfer() {
-        if (!this.check()) return
+        if (!this.check()) {
+          this.$message.error('请仔细检查输入数量与地址！')
+          return
+        }
         if (this.deliver.valid < this.amount) {
           this.$message('余额不足！')
           return
@@ -94,7 +101,7 @@
           this.loading = false
           this.$emit('success')
 
-          for (const i in this.errors) {
+          for (let i in this.errors) {
             if (this.errors.hasOwnProperty(i)) this.errors[i] = false
             this.success = false
           }
@@ -102,7 +109,7 @@
           this.$message.error('转账失败，请重新尝试！')
           this.loading = false
 
-          for (const i in this.errors) {
+          for (let i in this.errors) {
             if (this.errors.hasOwnProperty(i)) this.errors[i] = false
             this.success = false
           }
@@ -110,7 +117,7 @@
       },
 
       check() {
-        for (const i in this.errors) {
+        for (let i in this.errors) {
           if (this.errors.hasOwnProperty(i)) this.errors[i] = false
           this.success = false
         }
@@ -122,7 +129,7 @@
         if (this.address.length !== 34) this.errors.addLenErr = true
         if (!this.$_.isNumber(this.amount)) this.errors.amountWrong = true
 
-        for (const i in this.errors) {
+        for (let i in this.errors) {
           if (this.errors.hasOwnProperty(i)) if (this.errors[i] === true) return false
         }
         this.success = true
@@ -145,5 +152,8 @@
   .transferModal {
     padding-left: 10px;
     padding-right: 20px
+  }
+  .error-text {
+
   }
 </style>

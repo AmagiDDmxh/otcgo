@@ -26,7 +26,7 @@
   /*common css*/
   .error-text {
     color: red;
-    margin: 0px;
+    margin: 0;
     text-indent: 5px;
   }
 
