@@ -40,26 +40,7 @@
     color: #fff !important;
   }
 
-  .btn-lj-gree {
-    background-color: #669a00;
-    color: #fff;
-  }
-
-  .btn-lj-gree:hover {
-    background-color: #568102;
-    color: #fff !important;
-  }
-
   /*common css*/
-
-  #app {
-    font-family: 'Microsoft Yahei', 'Avenir', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-    margin-top: 60px;
-  }
 
   a {
     text-decoration: none;
@@ -130,13 +111,11 @@
   }
 
   .bg-blue {
-    background-color: #009cff;
     width: 50px;
     height: 50px;
     display: inline-block;
     border-radius: 6px;
-    background-position: center;
-    background-repeat: no-repeat;
+    background: #009cff no-repeat center;
   }
 
   .bg-blue1 {
@@ -195,7 +174,7 @@
   }
 
   .text-type2 {
-    font-family: "黑体"
+    font-family: "黑体", serif;
   }
 
   .footer-link {

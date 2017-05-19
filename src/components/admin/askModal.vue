@@ -6,7 +6,12 @@
   .error-text {
     text-indent: 0;
   }
-  .btn-lj-gree:hover {
+
+  .btn-lj-green {
+    background-color: #669a00;
+    color: #fff;
+  }
+  .btn-lj-green:hover {
     background-color: #669a00;
     color: #fff;
   }
@@ -53,11 +58,15 @@
           const amount = this.amount.value
           let res = await this.$store.dispatch('ASK', { price, amount })
           if (res) {
-            this.$message.success('交易成功!')
+            this.$message.success('挂单成功!')
             this.loading = false
             this.$store.dispatch('GET_ASSET')
+
             this.$set(this.amount, 'value', '')
+            this.$set(this.amount, 'success', false)
+
             this.$set(this.price, 'value', '')
+            this.$set(this.price, 'success', false)
             this.$emit('success')
           }
         } catch(e) {

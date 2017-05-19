@@ -219,32 +219,5 @@
   border-top 1px solid #ccc
   color #b1b1b1
 
-ul.drop-menu
-  padding: 0
-  z-index: 99
-  li
-    position: relative
-    text-transform: uppercase
-    font-size: 14px
-    background: #fff
-    border: #fff
-    a
-      color: #5b5b5b !important
-      background: #fff !important
-      &:hover
-        background: #e2e2e2 !important
-      &.active
-        color: #009cff !important
-    &:last-child
-      -webkit-border-radius: 0 0 5px 5px
-      -moz-border-radius: 0 0 5px 5px
-      border-radius: 0 0 5px 5px
-
-ul.drop-menu li
-  display: none
-
-li.drop-trigger:hover > ul.drop-menu li,
-li.drop-trigger.on > ul.drop-menu li
-  display: block
 
 @import "components.styl"

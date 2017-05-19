@@ -14,17 +14,20 @@
       <span class="col-xs-3" style="margin-top:8px">转账数量：</span>
       <div class="col-xs-6">
         <input
-            type="number" class="form-control" @keyup="check"
-            v-model.number="amount" style="width:100%!important" @focus="selectAll" @blur="check">
+            type="number" class="form-control" style="width:100%!important"
+            v-model.number="amount.value"
+            @keyup="checkAmount" @focus="selectAll" @blur="checkAmount">
       </div>
       <div class="col-xs-3">
-        <span v-if="!amount && amount"
+        <span v-if="amount.wrong"
               class="error-text"> 数量错误 </span>
-        <span v-else-if="deliver.valid < amount && amount"
+        <span v-else-if="amount.invalid"
               class="error-text"> 可用数量不足 </span>
-        <span v-else-if="amount==='' && amount"
+        <span v-else-if="amount.lenErr"
+              class="error-text"> 小数点后不能超过8位 </span>
+        <span v-else-if="amount.empty"
               class="error-text"> 数量不能为空 </span>
-        <span v-else-if="success"> <img :src="yes"/> </span>
+        <span v-else-if="amount.success"> <img :src="yes"/> </span>
       </div>
     </div>
 
@@ -32,17 +35,18 @@
     <div class="row" style="margin-top:20px">
       <span class="col-xs-3" style="margin-top:8px">转账地址：</span>
       <div class="col-xs-6">
-        <input type="text" class="form-control" @keyup="check"
-               v-model.trim="address" style="width:100% !important;" @focus="selectAll" @blur="check">
+        <input type="text" class="form-control" style="width:100% !important;"
+               v-model.trim="address.value"
+               @focus="selectAll" @blur="checkAddress" @keyup="checkAddress">
       </div>
       <div class="col-xs-3">
-        <span v-if="address[0]!=='a' && address[0]!=='A' && address"
+        <span v-if="address.wrong"
                class="error-text"> 地址格式错误 </span>
-        <span v-else-if="address ==='' && address"
+        <span v-else-if="address.empty"
               class="error-text"> 地址不能为空 </span>
-        <span v-else-if="address.length!==34 && address"
+        <span v-else-if="address.lenErr"
               class="error-text"> 地址必须是34位 </span>
-        <span v-else-if="success"> <img :src="yes"/> </span>
+        <span v-else-if="address.success"> <img :src="yes"/> </span>
       </div>
     </div>
 
@@ -63,8 +67,21 @@
 
   export default {
     data: () => ({
-      amount: '',
-      address: '',
+      amount: {
+        value: '',
+        empty: false,
+        lenErr: false,
+        wrong: false,
+        invalid: false,
+        success: false
+      },
+      address: {
+        value: '',
+        empty: false,
+        lenErr: false,
+        wrong: false,
+        success: false
+      },
       success: false,
       loading: false,
       errors: {
@@ -80,19 +97,19 @@
 
     methods: {
       transfer() {
-        if (!this.check()) {
+        if (!this.checkAddress() || !this.checkAmount) {
           this.$message.error('请仔细检查输入数量与地址！')
           return
         }
-        if (this.deliver.valid < this.amount) {
+        if (Number(this.deliver.valid) < this.amount) {
           this.$message('余额不足！')
           return
         }
 
         this.loading = true
         this.$store.dispatch('TRANSFER', {
-          dest: this.address,
-          amount: this.amount,
+          dest: this.address.value,
+          amount: this.amount.value,
           assetId: this.deliver.assetId
         }).then(i => {
           this.$message.success('转账成功！')
@@ -101,40 +118,75 @@
           this.loading = false
           this.$emit('success')
 
-          for (let i in this.errors) {
-            if (this.errors.hasOwnProperty(i)) this.errors[i] = false
-            this.success = false
+          for (const i in this.address) {
+            if (this.address.hasOwnProperty(i) && i !== 'value') this.address[i] = false
+            if (i === 'value') this.address[i] = ''
+            this.address.success = false
           }
+
+          for (const i in this.amount) {
+            if (this.amount.hasOwnProperty(i) && i !== 'value') this.amount[i] = false
+            if (i === 'value') this.amount[i] = ''
+            this.amount.success = false
+          }
+
         }).catch(e => {
           this.$message.error('转账失败，请重新尝试！')
           this.loading = false
 
-          for (let i in this.errors) {
-            if (this.errors.hasOwnProperty(i)) this.errors[i] = false
-            this.success = false
+          for (const i in this.amount) {
+            if (this.amount.hasOwnProperty(i)) this.amount[i] = false
+            this.amount.success = false
+          }
+
+          for (const i in this.address) {
+            if (this.address.hasOwnProperty(i)) this.address[i] = false
+            this.address.success = false
           }
         })
       },
 
-      check() {
-        for (let i in this.errors) {
-          if (this.errors.hasOwnProperty(i)) this.errors[i] = false
-          this.success = false
+      checkAddress() {
+        for (const i in this.address) {
+          if (this.address.hasOwnProperty(i) && i !== 'value') this.address[i] = false
+          this.address.success = false
         }
 
-        if (!this.address) this.errors.addEmpty = true
-        if (!this.amount) this.errors.amountEmpty = true
-        if (Number(this.deliver.valid) < this.amount) this.errors.amountInvalid = true
-        if (!/^[a|A]/.test(this.address)) this.errors.addWrong = true
-        if (this.address.length !== 34) this.errors.addLenErr = true
-        if (!this.$_.isNumber(this.amount)) this.errors.amountWrong = true
+        if (!this.address.value) this.address.empty = true
+        if (!/^[a|A]/.test(this.address.value)) this.address.wrong = true
+        if (this.address.value.length !== 34) this.address.lenErr = true
 
-        for (let i in this.errors) {
-          if (this.errors.hasOwnProperty(i)) if (this.errors[i] === true) return false
+        for (const i in this.address) {
+          if (this.address.hasOwnProperty(i) &&
+              this.address[i] === true &&
+              i !== 'value') return false
         }
-        this.success = true
+        this.address.success = true
         return true
       },
+
+      checkAmount() {
+        for (const i in this.amount) {
+          if (this.amount.hasOwnProperty(i) && i !== 'value') this.amount[i] = false
+          this.amount.success = false
+        }
+
+        const amountStr = String(this.amount.value)
+
+        if (Number(this.deliver.valid) < this.amount.value) this.amount.invalid = true
+        if (amountStr.slice(amountStr.indexOf('.')).length > 9) this.amount.lenErr = true
+        if (!this.amount) this.amount.empty = true
+        if (!this.$_.isNumber(this.amount.value)) this.amount.wrong = true
+
+        for (const i in this.amount) {
+          if (this.amount.hasOwnProperty(i) &&
+              this.amount[i] === true &&
+              i !== 'value') return false
+        }
+        this.amount.success = true
+        return true
+      },
+
       selectAll(e) {
         setTimeout(function() {
           e.target.select()

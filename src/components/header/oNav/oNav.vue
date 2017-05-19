@@ -26,7 +26,7 @@
            target="_blank">加入社群</a>
       </li>
 
-      <li><router-link class="menu" to="/status" activeClass="_">ICO专区</router-link></li>
+      <!--<li><router-link class="menu" to="/status" activeClass="_">ICO专区</router-link></li>-->
     </ul>
     <form class="navbar-form navbar-left">
       <div class="form-group">

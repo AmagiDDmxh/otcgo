@@ -3,7 +3,7 @@
     .index
       el-carousel(:interval="5000", height="400px")
         el-carousel-item
-          img(:src="banners[1]", alt="Banner, 海报")
+          img(:src="banners[0]", alt="Banner, 海报")
       o-content
 </template>
 
@@ -15,7 +15,7 @@
     components: { oContent },
 
     data: () => ({
-      banners: [require('../images/banner_1.png'), require('../images/slide2.png'), require('../images/slide3.png')]
+      banners: [require('../images/banner1.jpg'), require('../images/slide2.png'), require('../images/slide3.png')]
     })
   }
 </script>

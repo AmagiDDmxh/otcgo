@@ -2,10 +2,10 @@
   <div class="obligation">
     <table class="table data-table table-bordred table-striped">
       <thead>
-        <th>资产类型 </th>
-        <th>购买数量</th>
-        <th>购买单价</th>
-        <th>总计</th>
+        <th>资产名称</th>
+        <th>卖出数量</th>
+        <th>卖出单价ANS</th>
+        <th>总计ANS</th>
         <th style="width: 260px;"></th>
       </thead>
       <tbody>
