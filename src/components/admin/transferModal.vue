@@ -126,11 +126,12 @@
                   this.address[i] = false
                 }
               }
-              for (const i in this.address) {
-                if (this.address.hasOwnProperty(i) && i !== 'value'){
-                  this.address[i] = false
+              for (const i in this.amount) {
+                if (this.amount.hasOwnProperty(i) && i !== 'value'){
+                  this.amount[i] = false
                 }
               }
+              this.disabled = true
             })
             .catch(e => {
               this.$message.error('转账失败，请不要在同一个高度连续转账！')
@@ -167,7 +168,7 @@
 
         if (Number(this.deliver.valid) < this.amount.value) this.amount.invalid = true
         if (amountStr.slice(amountStr.indexOf('.')).length > 9) this.amount.lenErr = true
-        if (this.amount.value === '') this.amount.empty = true
+        if (amountStr === '' || this.amount.value === 0) this.amount.empty = true
         if (!this.$_.isNumber(this.amount.value)) this.amount.wrong = true
 
         for (const i in this.amount) {
