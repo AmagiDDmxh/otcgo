@@ -12,7 +12,10 @@
         amountMax: 0,
         name: '',
         currency: '',
-        type: this.$route.query.class
+        type: this.$route.query.class,
+        total: 0,
+        currentPage: 1,
+        pageLength: 7
       }
     },
     watch: {
@@ -28,10 +31,40 @@
     },
 
     methods: {
+      handleSizeChange(val) {
+        this.pageLength = val
+        this.getOrderBook(this.type)
+      },
+
+      handleCurrentChange(val) {
+        this.currentPage = val
+        this.getHistory(this.type)
+      },
+
       getOrderBook(name) {
-        this.$store.dispatch('GET_MARKETS', name)
-            .then(d => { this.orders = d })
-            .catch(r => this.$message.error('获取集市买(卖)单错误'))
+        const params = {
+          active: this.currentPage,
+          length: this.pageLength
+        }
+
+        this.$store.dispatch('GET_MARKETS', { name, params })
+            .then(d => {
+              this.total = d['item_num']
+
+              this.orders = d.data['asks'].reduce(
+                  (acc, item) => acc.concat({
+                    id: item.id,
+                    price: item.price,
+                    amount: item.amount,
+                    total: item.price * item.amount
+                  }),
+                  []
+              )
+            })
+            .catch(r => {
+              this.$message.error('获取集市买(卖)单错误')
+              console.log(r)
+            })
       },
       purchase({ total, id }) {
         if (!this.loggedIn) {
@@ -64,12 +97,12 @@
                   done()
                   instance.confirmButtonLoading = false
                 } else {
-                  this.$message('此次交易失败，可能已被抢单！')
+                  this.$message('交易失败，请稍候再试。')
                   done()
                   this.getOrderBook(this.type)
                 }
               } catch(e) {
-                this.$message('此次交易失败，可能已被抢单！')
+                this.$message('交易失败，请稍候再试。')
                 this.getOrderBook(this.type)
                 instance.confirmButtonLoading = false
                 done()

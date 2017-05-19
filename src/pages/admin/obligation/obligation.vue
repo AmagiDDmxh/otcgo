@@ -2,7 +2,7 @@
   <div class="obligation">
     <table class="table data-table table-bordred table-striped">
       <thead>
-        <th>资产类型 </th>
+        <th>资产名称</th>
         <th>购买数量</th>
         <th>购买单价/CNY</th>
         <th>总计/CNY</th>

@@ -3,10 +3,11 @@
 
 <script>
   import oNav from './oNav/oNav.vue'
+  import blockCounter from '~components/header/blockCounter/index.vue'
   import { mapGetters, mapActions } from 'vuex'
 
   export default {
-    components: { oNav },
+    components: { oNav, blockCounter },
     name: 'h',
     data: () => ({
       activeMarkets: false

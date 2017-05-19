@@ -22,5 +22,6 @@ export default {
   getHistory: 'GET_HISTORY',
   getOrder: 'GET_ORDER',
   setWif: 'GET_WIF',
-  setFileName: 'SET_FILE_NAME'
+  setFileName: 'SET_FILE_NAME',
+  getBlock: 'GET_BLOCK'
 }

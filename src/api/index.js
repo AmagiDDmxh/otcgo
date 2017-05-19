@@ -64,17 +64,10 @@ export const getH = async (name, add, params) => {
   throw new Error('No name accepted')
 }
 
-export const getM = async name => {
-  const markets = await fetching(`order_book/${name}`)
-  return markets['asks'].reduce(
-      (acc, item) => acc.concat({
-        id: item.id,
-        price: item.price,
-        amount: item.amount,
-        total: item.price * item.amount
-      }),
-      []
-  )
+export const getBh = async () => await fetching('block/count/')
+
+export const getM = async (name, params) => {
+  return await fetching(`order_book/${name}`, params)
 }
 
 export const getO = async add => await fetching(`order/${add}`)
@@ -140,7 +133,7 @@ export const cancel = async (id, pr) => {
 }
 
 export default {
-  getW, getC, getO, getH, getB, getM, getU, redeem, transfer, cancel, ask, bid,
+  getW, getC, getO, getH, getB, getM, getU, getBh, redeem, transfer, cancel, ask, bid,
 }
 
 /**

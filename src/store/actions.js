@@ -32,8 +32,8 @@ export default {
     commit(type.setWif, service.getW(state.wa['privateKey']))
   },
 
-  [type.getMarkets]({}, name) {
-    return service.getM(name)
+  [type.getMarkets]({}, { name, params}) {
+    return service.getM(name, params)
   },
 
   [type.getHistory]({ state }, { name, params }) {
@@ -82,5 +82,9 @@ export default {
 
   [type.cancel]({ state }, { id }) {
     return service.cancel(id, state.wa['privateKey'])
+  },
+
+  [type.getBlock]() {
+    return service.getBh()
   }
 }

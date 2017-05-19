@@ -4,7 +4,7 @@
       <thead>
         <tr style="background: #efefef;">
           <th style="width:40%;vertical-align: middle;text-align: center;">对方地址</th>
-          <th>资产类型</th>
+          <th>资产名称</th>
           <th>资产数量</th>
           <th>转账时间</th>
         </tr>
@@ -14,7 +14,7 @@
           <td class="col-md-6"
               style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;vertical-align: middle;text-align: center;">
             <a class="link-interact"
-               :href="`//testnet.antchain.xyz/tx/hash/${history['txid']}`"
+               :href="`//antchain.xyz/tx/hash/${history['txid']}`"
                target="_blank">{{history['dest']}}</a>
           </td>
           <td class="col-md-2" style="vertical-align: middle;">{{history['name']}}</td>
