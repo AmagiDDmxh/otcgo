@@ -52,6 +52,24 @@
           </tr>
         </tbody>
       </table>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="pull-right">
+            <div class="block">
+              <el-pagination
+                  @size-change="handleSizeChange"
+                  @current-change="handleCurrentChange"
+                  :current-page="currentPage"
+                  :page-sizes="[7, 15, 30, 50]"
+                  :page-size="pageLength"
+                  layout="total, sizes, prev, pager, next, jumper"
+                  :total="total">
+              </el-pagination>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
