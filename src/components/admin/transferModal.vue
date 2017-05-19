@@ -113,20 +113,18 @@
           assetId: this.deliver.assetId
         }).then(i => {
           this.$message.success('转账成功！')
-          this.amount = ''
-          this.address = ''
+          this.amount.value = ''
+          this.address.value = ''
           this.loading = false
           this.$emit('success')
 
           for (const i in this.address) {
             if (this.address.hasOwnProperty(i) && i !== 'value') this.address[i] = false
-            if (i === 'value') this.address[i] = ''
             this.address.success = false
           }
 
           for (const i in this.amount) {
             if (this.amount.hasOwnProperty(i) && i !== 'value') this.amount[i] = false
-            if (i === 'value') this.amount[i] = ''
             this.amount.success = false
           }
 
@@ -158,8 +156,7 @@
 
         for (const i in this.address) {
           if (this.address.hasOwnProperty(i) &&
-              this.address[i] === true &&
-              i !== 'value') return false
+              this.address[i] === true) return false
         }
         this.address.success = true
         return true
