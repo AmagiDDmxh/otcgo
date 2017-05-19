@@ -15,11 +15,15 @@
         </a>
       </li>
 
-      <li><router-link class="menu active" to="/index" activeClass="_">首 &nbsp; 页</router-link></li>
+      <li>
+        <router-link class="menu active" to="/index" activeClass="_">
+          首 &nbsp; 页
+        </router-link>
+      </li>
 
-      <li><a class="menu" href="#">投资学院</a></li>
+      <!--<li><a class="menu" href="#">投资学院</a></li>
 
-      <li><a class="menu" href="#">代币举报</a></li>
+      <li><a class="menu" href="#">代币举报</a></li>-->
       <li>
         <a class="menu"
            href="//shang.qq.com/wpa/qunwpa?idkey=24250f89f770858cb6e518fae271a588f847f8bfdc2e604a1ef40dea20b9beae"
@@ -30,9 +34,9 @@
     </ul>
     <form class="navbar-form navbar-left">
       <div class="form-group">
-        <input type="text" class="form-control" placeholder="资产关键词">
+        <input type="text" class="form-control" placeholder="资产关键词搜索暂未开放" disabled>
       </div>
-      <button type="submit" class="btn btn-default" @click.prevent="">搜索</button>
+      <button type="submit" class="btn btn-default" @click.prevent="" disabled>搜索</button>
     </form>
   </nav>
 </template>

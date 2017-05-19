@@ -3,7 +3,7 @@
     <button class="btn ljbutton" style="float: right; margin: -60px 30px;" @click="get_redeem_operation()">一键取回</button>
     <table class="table data-table table-bordred table-striped">
       <thead>
-      <th>资产类型</th>
+      <th>资产名称</th>
       <th>成交数量</th>
       <th>成交价/CNY</th>
       <th>成交时间</th>
