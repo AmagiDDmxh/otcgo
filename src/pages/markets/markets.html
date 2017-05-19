@@ -18,21 +18,29 @@
         <div class="ad-tips__title">交易指南</div>
         <div class="ad-tips__content">
           <p>你已登陆个人钱包，</p>
-          <p>请尽快结算，以防止抢单。</p>
+          <br>
+          <p>点击“购买”后，请尽快结算，</p>
+          <p>以防止抢单。</p>
+          <br>
+          <p>如果提示“交易失败”，可能</p>
+          <p>的原因是：</p>
+          <p>1.订单被别人抢先结算</p>
+          <p>2.确认时间内（大约15-20秒）</p>
+          <p>内，频繁发起交易请求</p>
         </div>
       </div>
     </div>
 
     <div class="content col-xs-9 col-lg-9" style="height:auto">
-      <table class="table table-js  table-striped">
+      <table class="table table-js table-striped">
         <thead>
           <th style="color: #009cff;">{{name}}</th>
-          <th>数量</th>
+          <th style="padding: 0 10px;">数量</th>
           <th>单价 {{ currency }}</th>
           <th>总价</th>
           <th class="th-bar"></th>
         </thead>
-        <tbody>
+        <tbody class="pl27">
           <tr v-for="item in orders">
             <td class="sell-name" v-text="item.name"></td>
             <td v-text="item.amount"></td>

@@ -6,17 +6,24 @@
     </div>
     <transition name="fade" mode="out-in">
       <div class="logo-right">
-        <ul v-if="loggedIn">
-          <li> <a class="uid">我的UID：{{ uid }}</a> </li>
-          <li class="border"> <router-link to="/admin" class="header-a">我的钱包</router-link> </li>
-          <li> <a href="#/signUp" target="_blank" class="header-a">创建钱包</a> </li>
-          <li> <span class="header-a logout" target="_self" @click="logout">退出钱包</span> </li>
-        </ul>
+        <block-counter></block-counter>
 
-        <ul v-else>
-          <li class="border"><router-link to="/login" class="header-a">登录钱包</router-link></li>
-          <li><a href="#/signUp" target="_blank" class="header-a">创建钱包</a></li>
-        </ul>
+        <!-- login session -->
+        <div style="margin-top: 20px;">
+          <ul v-if="loggedIn">
+            <li> <a class="uid">我的UID：{{ uid }}</a> </li>
+            <li class="border">
+              <router-link to="/admin" class="header-a">我的钱包</router-link>
+            </li>
+            <li> <a href="#/signUp" target="_blank" class="header-a">创建钱包</a> </li>
+            <li> <span class="header-a logout" target="_self" @click="logout">退出钱包</span> </li>
+          </ul>
+
+          <ul v-else>
+            <li class="border"><router-link to="/login" class="header-a">登录钱包</router-link></li>
+            <li><a href="#/signUp" target="_blank" class="header-a">创建钱包</a></li>
+          </ul>
+        </div>
       </div>
     </transition>
   </div>

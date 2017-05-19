@@ -64,6 +64,8 @@ export const getH = async (name, add, params) => {
   throw new Error('No name accepted')
 }
 
+export const getBh = async () => await fetching('block/count/')
+
 export const getM = async name => {
   const markets = await fetching(`order_book/${name}`)
   return markets['asks'].reduce(
@@ -140,7 +142,7 @@ export const cancel = async (id, pr) => {
 }
 
 export default {
-  getW, getC, getO, getH, getB, getM, getU, redeem, transfer, cancel, ask, bid,
+  getW, getC, getO, getH, getB, getM, getU, getBh, redeem, transfer, cancel, ask, bid,
 }
 
 /**

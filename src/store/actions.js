@@ -82,5 +82,9 @@ export default {
 
   [type.cancel]({ state }, { id }) {
     return service.cancel(id, state.wa['privateKey'])
+  },
+
+  [type.getBlock]() {
+    return service.getBh()
   }
 }

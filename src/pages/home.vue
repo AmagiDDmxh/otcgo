@@ -3,7 +3,8 @@
     .index
       el-carousel(:interval="5000", height="400px")
         el-carousel-item
-          img(:src="banners[0]", alt="Banner, 海报")
+          router-link(:to="{path: '/markets/', query: { class: 'kacans' }}")
+            img(:src="banners[0]", alt="Banner, 海报")
       o-content
 </template>
 

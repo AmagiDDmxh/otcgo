@@ -30,7 +30,8 @@
     methods: {
       getOrderBook(name) {
         this.$store.dispatch('GET_MARKETS', name)
-            .then(d => { this.orders = d })
+            .then(d => {
+              this.orders = d })
             .catch(r => this.$message.error('获取集市买(卖)单错误'))
       },
       purchase({ total, id }) {
@@ -64,12 +65,12 @@
                   done()
                   instance.confirmButtonLoading = false
                 } else {
-                  this.$message('此次交易失败，可能已被抢单！')
+                  this.$message('交易失败，请稍候再试。')
                   done()
                   this.getOrderBook(this.type)
                 }
               } catch(e) {
-                this.$message('此次交易失败，可能已被抢单！')
+                this.$message('交易失败，请稍候再试。')
                 this.getOrderBook(this.type)
                 instance.confirmButtonLoading = false
                 done()
