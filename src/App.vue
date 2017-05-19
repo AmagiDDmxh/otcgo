@@ -15,10 +15,7 @@
   import foot from './components/footer/footer.vue'
 
   export default {
-    components: { h,foot },
-    mounted() {
-      this.$notify({title: '提示', type: 'warning', message: '您正在访问的是测试网！'})
-    }
+    components: { h,foot }
   }
 </script>
 
