@@ -70,7 +70,7 @@
             this.$emit('success')
           }
         } catch(e) {
-          this.$message.error('服务器有点忙，请稍候重试！')
+          this.$message.error('操作繁忙，请稍候重试！')
           this.loading = false
           this.$store.dispatch('GET_ASSET')
         }

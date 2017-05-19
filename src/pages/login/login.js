@@ -1,9 +1,11 @@
+import { img } from '~utils/config'
 import { required, minLength, maxLength } from 'vuelidate/lib/validators'
 import { decrypt, doValidatePwd } from '~utils/ljsign'
 
 export default {
   data() {
     return {
+      img,
       filename: '',
       password: '',
       filenameError: '',

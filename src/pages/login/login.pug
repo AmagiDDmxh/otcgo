@@ -29,7 +29,7 @@
 					span.error-text(v-if="!$v.password.minLength && $v.password.$dirty") 密码不能小于4位
 					span.error-text(v-if="!$v.password.maxLength && $v.password.$dirty") 密码不能超过16位
 					span.error-text(v-if="!$v.password.$invalid && $v.password.$dirty")
-						img(src="/src/assets/yes.png")
+						img(:src="img.yes")
 
 				// Login button
 				.input-group
