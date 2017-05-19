@@ -7,7 +7,9 @@
     </transition>
 
     <foot></foot>
-    <div class="footer-link"></div>
+    <div class="footer-link">
+      Copyright &copy; 2017 &nbsp;<a href="www.otcgo.cn">otcgo.cn</a>&nbsp; 版权所有 湘ICP备16019051号-1
+    </div>
   </div>
 </template>
 <script>
@@ -180,6 +182,10 @@
     border-top: 5px solid #009cff;
     margin: 0 -15px;
     width: 1224px !important;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .fade-enter-active, .fade-leave-active {
