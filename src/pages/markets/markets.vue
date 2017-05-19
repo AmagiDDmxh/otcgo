@@ -97,12 +97,12 @@
                   done()
                   instance.confirmButtonLoading = false
                 } else {
-                  this.$message('交易失败，请稍候再试。')
+                  this.$message.error('交易失败，请稍候再试。')
                   done()
                   this.getOrderBook(this.type)
                 }
               } catch(e) {
-                this.$message('交易失败，请稍候再试。')
+                this.$message.error('交易失败，请稍候再试。')
                 this.getOrderBook(this.type)
                 instance.confirmButtonLoading = false
                 done()
