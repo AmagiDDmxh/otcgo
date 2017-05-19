@@ -2,25 +2,29 @@
 <style lang="stylus" src="./header.styl"></style>
 
 <script>
-  import { mapGetters } from 'vuex'
+  import oNav from './oNav/oNav.vue'
+  import { mapGetters, mapActions } from 'vuex'
 
   export default {
+    components: { oNav },
     name: 'h',
     data: () => ({
       activeMarkets: false
     }),
 
     methods: {
+      ...mapActions(['LOGOUT']),
       active() {
         this.activeMarkets = true
+      },
+      logout() {
+        this.LOGOUT()
+        this.$router.push('/login')
       }
     },
 
     computed: {
-      ...mapGetters(['loggedIn', 'wa']),
-      uid() {
-        return this.$store.getters['uid']
-      }
+      ...mapGetters(['loggedIn', 'wa', 'uid'])
     }
   }
 

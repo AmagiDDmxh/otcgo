@@ -3,19 +3,19 @@
     .index
       el-carousel(:interval="5000", height="400px")
         el-carousel-item
-          img(:src="banners[1]", alt="Banner, 海报")
+          img(:src="banners[0]", alt="Banner, 海报")
       o-content
 </template>
 
 <script>
   import oContent from '../components/common/oContent/index.vue'
+  import { required, minLength, between } from 'vuelidate/lib/validators'
 
   export default {
-    components: {
-      oContent
-    },
+    components: { oContent },
+
     data: () => ({
-      banners: [require('../assets/banner_1.png'), require('../assets/slide2.png'), require('../assets/slide3.png')]
+      banners: [require('../images/banner1.jpg'), require('../images/slide2.png'), require('../images/slide3.png')]
     })
   }
 </script>

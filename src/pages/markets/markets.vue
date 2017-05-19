@@ -22,12 +22,16 @@
         this.getOrderBook(this.type)
       }
     },
+
     computed: {
-      ...mapGetters(['assets', 'loggedIn', 'deliver'])
+      ...mapGetters(['loggedIn', 'deliver'])
     },
+
     methods: {
       getOrderBook(name) {
-        this.$store.dispatch('GET_MARKETS', name).then(d => { this.orders = d }).catch(r => this.$message.error('获取集市买(卖)单错误'))
+        this.$store.dispatch('GET_MARKETS', name)
+            .then(d => { this.orders = d })
+            .catch(r => this.$message.error('获取集市买(卖)单错误'))
       },
       purchase({ total, id }) {
         if (!this.loggedIn) {
@@ -35,40 +39,41 @@
           return
         }
         this.$store.commit('SET_DELIVER', '小蚁股')
-        const deliver = this.deliver
+        this.$store.dispatch('GET_ASSET')
 
         this.$msgbox({
           title: '提示',
-          message: `您将要购买总价${total}元的${this.name}，当前可用余额为${deliver.valid}是否确认下单？`,
+          message: `您将要购买总价${total}元的${this.name}，当前ANS可用余额为${this.deliver.valid}是否确认下单？`,
           showCancelButton: true,
-          beforeClose: (action, instance, done) => {
-            if (action === 'confirm') {
-              instance.confirmButtonLoading = false
+          beforeClose: async (action, instance, done) => {
+            instance.confirmButtonLoading = false
 
-              if (deliver.valid < total) {
-                this.$message.warning(`${deliver.name}余额不足，请进行充值！`)
+            if (action === 'confirm') {
+              if (this.deliver.valid < total) {
+                this.$message.warning(`${this.deliver.name}余额不足，请进行充值！`)
                 done()
                 return
               }
               instance.confirmButtonLoading = true
               instance.confirmButtonText = '执行中...'
-              this.$store.dispatch('BID', { id, name: this.$route.query.class }).then(r => {
-                if (r.data.result) {
+              try {
+                let res = await this.$store.dispatch('BID', {id, name: this.$route.query.class})
+                if (res.result) {
                   this.$message.success('交易发起成功，请等待验收！')
+                  this.getOrderBook(this.type)
+                  done()
+                  instance.confirmButtonLoading = false
                 } else {
                   this.$message('此次交易失败，可能已被抢单！')
+                  done()
+                  this.getOrderBook(this.type)
                 }
+              } catch(e) {
+                this.$message('此次交易失败，可能已被抢单！')
                 this.getOrderBook(this.type)
+                instance.confirmButtonLoading = false
                 done()
-                setTimeout(() => {
-                  instance.confirmButtonLoading = false
-                }, 300)
-              }).catch(() => {
-                this.$message('交易失败，可能已被抢单！')
-                setTimeout(() => {
-                  instance.confirmButtonLoading = false
-                }, 300)
-              })
+              }
             } else {
               done()
             }
@@ -76,12 +81,14 @@
         })
       }
     },
+
     mounted() {
       this.name = this.$route.query.class === 'anscny' ? '小蚁股' : this.$route.query.class === 'anccny' ? '小蚁币' : '开拍币'
       this.currency = this.$route.query.class === 'kacans' ? 'ANS' : 'CNY'
       this.getOrderBook(this.type)
       window.marketsTimer = window.setInterval(() => this.getOrderBook(this.type), 1000 * 2)
     },
+
     destroyed() {
       window.clearInterval(window.marketsTimer)
     }

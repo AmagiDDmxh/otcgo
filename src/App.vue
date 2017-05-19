@@ -26,7 +26,7 @@
   /*common css*/
   .error-text {
     color: red;
-    margin: 0px;
+    margin: 0;
     text-indent: 5px;
   }
 
@@ -40,26 +40,7 @@
     color: #fff !important;
   }
 
-  .btn-lj-gree {
-    background-color: #669a00;
-    color: #fff;
-  }
-
-  .btn-lj-gree:hover {
-    background-color: #568102;
-    color: #fff !important;
-  }
-
   /*common css*/
-
-  #app {
-    font-family: 'Microsoft Yahei', 'Avenir', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-    margin-top: 60px;
-  }
 
   a {
     text-decoration: none;
@@ -97,13 +78,13 @@
   }
 
   ul > .frist {
-    background: url(assets/ver-line.png) no-repeat left center;
+    background: url(images/ver-line.png) no-repeat left center;
   }
 
   ul > li > .menu {
     color: #fff !important;
     font-size: 1.2em;
-    background: url(assets/ver-line.png) no-repeat right center;
+    background: url(images/ver-line.png) no-repeat right center;
     padding-left: 30px !important;
     padding-right: 30px !important;
   }
@@ -130,29 +111,27 @@
   }
 
   .bg-blue {
-    background-color: #009cff;
     width: 50px;
     height: 50px;
     display: inline-block;
     border-radius: 6px;
-    background-position: center;
-    background-repeat: no-repeat;
+    background: #009cff no-repeat center;
   }
 
   .bg-blue1 {
-    background-image: url(assets/foot-1.png);
+    background-image: url(images/foot-1.png);
   }
 
   .bg-blue2 {
-    background-image: url(assets/foot-2.png);
+    background-image: url(images/foot-2.png);
   }
 
   .bg-blue3 {
-    background-image: url(assets/foot-3.png);
+    background-image: url(images/foot-3.png);
   }
 
   .bg-blue4 {
-    background-image: url(assets/foot-4.png);
+    background-image: url(images/foot-4.png);
   }
 
   .foot-li {
@@ -164,7 +143,7 @@
   }
 
   .bg-li {
-    background: url(assets/ver-line2.png) right center no-repeat;
+    background: url(images/ver-line2.png) right center no-repeat;
   }
 
   .foot-type {
@@ -195,7 +174,7 @@
   }
 
   .text-type2 {
-    font-family: "黑体"
+    font-family: "黑体", serif;
   }
 
   .footer-link {

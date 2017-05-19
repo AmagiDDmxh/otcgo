@@ -1,0 +1,58 @@
+.ask-modal
+   .row
+      .col-xs-3
+         b {{ deliver.name }}：
+      .col-xs-3
+         span.blue-span 可用：{{ deliver.valid }}
+      .col-xs-3
+         span.blue-span 冻结：{{ deliver.frozen }}
+      .col-xs-3
+         span.blue-span 最新成交价：{{ deliver.current_price }}
+   .row
+      .col-xs-3
+         b {{ receive.name }}：
+      .col-xs-3
+         span.blue-span 可用：{{ receive.valid }}
+      .col-xs-3
+         span.blue-span 冻结：{{ receive.frozen }}
+   hr
+   .row
+      .col-xs-3(style="line-height: 30px;"): b 卖出量：
+      .col-xs-6
+        input.form-control(
+          placeholder="输入数量", style="width:100%!important",
+          v-model.number="amount.value", type="number",
+          @focus="selectAll", @keyup="checkAmount", @blur="checkAmount"
+        )
+      .col-xs-3.error-area
+         span.error-text(v-if='amount.empty') 数量不能为空
+         span.error-text(v-else-if="amount.lenErr") 卖出量最多8位小数
+         span.error-text(v-else-if='amount.invalid') 余额不足
+         span.error-text(v-else-if='amount.wrong') 数量错误
+         span(v-else-if='amount.success'): img(:src='img.yes')
+
+   .row(style='margin-top:10px')
+      .col-xs-3(style="line-height: 30px;"): b 卖出单价ANS：
+      .col-xs-6
+         input.form-control(
+           placeholder='输入价格', style='width:100%!important',
+           v-model.number='price.value', type="number",
+           @focus='selectAll', @blur="checkPrice", @keyup="checkPrice"
+         )
+      .col-xs-3.error-area
+         span.error-text(v-if='price.empty') 价格不能为空
+         span.error-text(v-else-if='price.wrong') 价格错误
+         span.error-text(v-else-if='price.lenErr') 卖出价最多8位小数！
+         span.error-text(v-else-if='price.totalWrong') 请确保总价为整数值！
+         span(v-else-if='price.success'): img(:src='img.yes')
+      // Click button for sell
+   .row(style='margin-top:10px')
+      .col-xs-3(style='line-height: 30px;')
+      .col-xs-6
+         el-button.btn.btn-lj-green.btn-block(:loading="loading", @click='transfer').
+           {{ loading ? '执行中':'卖出' }}
+   .row(style='margin-top: 15px;')
+      .col-xs-offset-2
+         b 友情提示！由于小蚁股不可分割，请确保卖出总价（即卖出量*卖出单价）为整数！
+
+

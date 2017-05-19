@@ -7,21 +7,29 @@ import service from '../api'
 
 export default {
   [type.login]({ commit, dispatch }, wa) {
-    dispatch(type.getUID, wa['address']).then(() => commit(type.setWallet, wa))
+    commit(type.setWallet, wa)
+    commit(type.login)
+    return dispatch(type.getUID, wa)
+  },
+
+  [type.logout]({ commit }) {
+    commit(type.logout)
   },
 
   async [type.signUp]({ commit }, { publicKeyCompressed, publicKey, privateKeyEncrypted, privateKey }) {
-    commit(type.setWallet, { publicKeyCompressed, publicKey, privateKeyEncrypted, privateKey, address: await service.getC(publicKeyCompressed) })
+    commit(type.setWallet, { publicKeyCompressed, publicKey, privateKeyEncrypted, privateKey, address: service.getC(publicKeyCompressed) })
     commit(type.downloadWallet)
+    commit(type.signUp)
     return Promise.resolve(true)
   },
 
   async [type.getAsset] ({ commit, state }) {
-    commit(type.setAsset, await service.getB(state.wa['address']))
+    commit(type.setAsset, (await service.getB(state.wa['address'])).balances)
   },
 
-  async [type.getUID] ({ commit }, add) {
-    commit(type.setUID, await service.getU(add))
+  async [type.getUID] ({ commit, state }, _) {
+    commit(type.setUID, (await service.getU(state.wa['address'])).uid)
+    commit(type.setWif, service.getW(state.wa['privateKey']))
   },
 
   [type.getMarkets]({}, name) {
@@ -37,36 +45,37 @@ export default {
   },
 
   [type.bid]({ state }, { id }) {
-    return service.bid({ id, hex_pubkey: state.wa['publicKey'] }, state.wa['privateKey'])
+    return service.bid({ id, hexPubkey: state.wa['publicKey'] }, state.wa['privateKey'])
   },
 
   [type.redeem]({ state }, { id }) {
     return service.redeem(id, state.wa['privateKey'], state.wa['address'])
   },
 
-  [type.ask]({ state, dispatch }, { amount, price }) {
+  [type.ask]({ state }, { amount, price }) {
     const deliver = state['deliver']
     const receive = state['receive']
 
     return service.ask({
-      amount: amount,
-      price: price,
-      assetid: deliver.asset,
-      valueassetid: receive.asset,
-      hex_pubkey: state.wa['publicKey']
+      amount,
+      price,
+      assetId: deliver.assetId,
+      valueId: receive.assetId,
+      hexPubkey: state.wa['publicKey']
     },
         state.wa['privateKey'])
   },
 
-  async [type.transfer]({ dispatch, state }, { dest, amount, assetid }) {
+  async [type.transfer]({ state }, { dest, amount, assetId }) {
     try {
       return await service.transfer({
-        dest, amount, assetid,
+        dest,
         source: state.wa['address'],
-        compressed_pubkey: state.wa['publicKeyCompressed'],
-        hex_pubkey: state.wa['publicKey']
-      }, state.wa['privateKey'])
-    } catch (e) {
+        amount,
+        assetId,
+        hexPubkey: state.wa['publicKey']
+      }, state.wa['privateKey']
+    )} catch (e) {
       return Promise.reject(e)
     }
   },

@@ -4,6 +4,7 @@
 export default {
   login: 'LOGIN',
   signUp: 'SIGN_UP',
+  logout: 'LOGOUT',
   downloadWallet: 'DOWNLOAD_WALLET',
   bid: 'BID',
   ask: 'ASK',
@@ -20,5 +21,6 @@ export default {
   getMarkets: 'GET_MARKETS',
   getHistory: 'GET_HISTORY',
   getOrder: 'GET_ORDER',
+  setWif: 'GET_WIF',
   setFileName: 'SET_FILE_NAME'
 }

@@ -1,0 +1,124 @@
+<div class="container container-padding" xmlns:v-popover="http://www.w3.org/1999/xhtml">
+  <div class="panel panel-default panel-state">
+    <div class="panel-body">
+      创建离线钱包
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-offset-3">
+      <h3 class="h2">创建离线钱包</h3>
+    </div>
+  </div>
+  <div class="login-body row">
+    <!-- Left side Warning: -->
+    <div class="col-xs-3 col-lg-3">
+      <div class="ad-tips">
+        <ol>
+          <li>请输入不超过20个字符的账户名。（可包含中文、英文、下划线，但不能以下划线开头）</li>
+          <li>请输入8～16位便于牢记的登陆密码。（字母、数字、特殊字符的组合）</li>
+          <li>请重复输入登录密码。</li>
+        </ol>
+      </div>
+    </div>
+    <!-- Warning End -->
+
+    <!-- SignUp account Interface: -->
+    <div class="content col-xs-9 col-lg-9">
+      <div class="creatWallet-body" style="margin-top: 40px;">
+        <div class="row">
+          <!-- Account -->
+          <div class="col-xs-3 ">
+            <p class="text-right" style="line-height: 30px;"> 账户名: </p>
+          </div>
+
+          <div class="col-xs-4">
+            <input class="form-control" v-model.trim="username" @input="$v.username.$touch()"
+                   @blur="$v.username.$touch()"/>
+          </div>
+
+          <div class="col-xs-3" style="padding-left:0;">
+            <span v-if="!$v.username.maxLength && $v.username.$dirty"
+                  class="error-text"> 用户名不能超过20位 </span>
+
+            <span v-else-if="!$v.username.required && $v.username.$dirty"
+                  class="error-text"> 用户名不能为空</span>
+
+            <span v-else-if="!$v.username.$invalid"><img src="/src/images/yes.png"/></span>
+          </div>
+        </div>
+
+        <!-- WIF: Hex Key -->
+        <div class="row" style="margin-top:10px">
+          <div class="col-xs-3 ">
+            <p class="text-right" style="line-height: 30px;"> WIF私钥: </p>
+          </div>
+
+          <div class="col-xs-4">
+            <input v-model="wif" class="form-control" placeholder="若您没有WIF私钥，此栏不用填"/>
+          </div>
+
+          <div class="col-xs-3" style="padding-left:0;">
+							<span class="error-text"
+                    v-show="wifError"> 私钥验证错误请重试 </span>
+          </div>
+        </div>
+
+        <div class="row" style="margin-top:10px">
+          <div class="col-xs-3 ">
+            <p class="text-right" style="line-height: 30px;">登录密码: </p>
+          </div>
+
+          <div class="col-xs-4">
+            <input type="password" class="form-control" v-model="password" @input="$v.password.$touch()"
+                   @blur="$v.password.$touch()"/>
+          </div>
+
+          <div class="col-xs-3" style="padding-left:0;">
+            <span v-if="!$v.password.minLength && $v.password.$dirty" class="error-text"> 密码不能小于8位 </span>
+            <span v-else-if="!$v.password.maxLength && $v.password.$dirty" class="error-text"> 密码不能超过20位 </span>
+            <span v-else-if="!$v.password.required && $v.password.$dirty" class="error-text"> 密码不能为空 </span>
+            <span v-else-if="!$v.password.$invalid && $v.password.$dirty"> <img src="/src/images/yes.png"/> </span>
+          </div>
+
+        </div>
+        <div class="row" style="margin-top:10px">
+          <div class="col-xs-3">
+            <p class="text-right" style="line-height: 30px;"> 重复密码: </p>
+          </div>
+          <div class="col-xs-4">
+            <input type="password" class="form-control" v-model="passwordConfirmed"
+                   @input="$v.passwordConfirmed.$touch()"/>
+          </div>
+          <div class="col-xs-3" style="padding-left:0;">
+            <span v-if="!$v.passwordConfirmed.sameAsPassword && $v.passwordConfirmed.$dirty" class="error-text"> 请您输入相同的登陆密码 </span>
+            <span v-else-if="!$v.passwordConfirmed.required && $v.passwordConfirmed.$dirty" class="error-text"> 密码不能为空 </span>
+            <span v-else-if="!$v.passwordConfirmed.$invalid && $v.passwordConfirmed.$dirty"> <img
+                src="/src/images/yes.png"/> </span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-offset-3 col-xs-4">
+            <input type="checkbox" v-model="agree" />
+            <span>
+              已阅读并
+              <a href="#/protocol" target="_blank" >同意用户协议与蓝鲸淘网络服务条款</a>
+            </span>
+          </div>
+        </div>
+        <div class="row" style="margin-top:10px">
+          <div class="col-xs-3 "></div>
+
+          <div class="col-xs-6">
+            <el-button @click="createWallet" :disabled="disabled"
+                       type="button" class="btn btn-lj form-control" style="border-radius: 6px;">下一步
+            </el-button>
+          </div>
+        </div>
+      </div>
+
+      <p class="tips">
+        离线钱包由小蚁区块链提供技术支持
+      </p>
+    </div>
+  </div>
+</div>

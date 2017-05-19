@@ -9,5 +9,7 @@ export default {
   uid: state => state.wa['uid'],
   balances: state => state.balances,
   deliver: state => state.deliver,
-  receive: state => state.receive
+  receive: state => state.receive,
+  fileName: state => state.fileName,
+  signUp: state => state.signUp
 }

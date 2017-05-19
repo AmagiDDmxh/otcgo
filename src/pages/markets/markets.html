@@ -4,21 +4,25 @@
       <span class="blue-span">{{name}} 大宗交易</span>
     </div>
   </div>
-  <div class=" row">
+  <div class="row">
     <div class="col-xs-3 col-lg-3">
-      <div class="ad-tips">
-        <div class="tips-title">交易指南</div>
-        <div class="ad-tips__body">
-          <p>请确认<router-link to="/login" class="link-span">登录钱包</router-link>后!
-          </p>
+      <div class="ad-tips" v-if="!loggedIn">
+        <div class="ad-tips__title">交易指南</div>
+        <div class="ad-tips__content">
+          <p>请确认<router-link to="/login" class="link-span">登录钱包</router-link>后!</p>
           <p>再进行订单的“购买”操作!</p>
+          <p>请尽快结算，以防止抢单。</p>
+        </div>
+      </div>
+      <div class="ad-tips" v-else>
+        <div class="ad-tips__title">交易指南</div>
+        <div class="ad-tips__content">
           <p>请尽快结算，以防止抢单。</p>
         </div>
       </div>
     </div>
 
     <div class="content col-xs-9 col-lg-9" style="height:auto">
-      <!-- table-list -->
       <table class="table table-js  table-striped">
         <thead>
           <th style="color: #009cff;">{{name}}</th>
@@ -32,14 +36,13 @@
             <td class="sell-name" v-text="item.name"></td>
             <td v-text="item.amount"></td>
             <td v-text="item.price"></td>
-            <td v-text="item.total.toFixed(4)"></td>
+            <td v-text="item.total"></td>
             <td class="amount-tb-bar">
               <button class="btn btn--purchase" @click="purchase(item)">购买</button>
             </td>
           </tr>
         </tbody>
       </table>
-      <p class="tips"> 离线钱包由小蚁区块链提供技术支持 </p>
     </div>
   </div>
 </div>

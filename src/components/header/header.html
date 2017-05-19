@@ -1,66 +1,26 @@
 <div id="head">
   <div class="logo">
     <div class="logo-left">
-      <router-link to="/index"><img src="../../assets/logo.png" alt=""/></router-link>
+      <router-link to="/index"><img src="../../images/logo.png" alt=""/></router-link>
       <span>基于智能合约的数字资产转让平台</span>
     </div>
     <transition name="fade" mode="out-in">
       <div class="logo-right">
         <ul v-if="loggedIn">
           <li> <a class="uid">我的UID：{{ uid }}</a> </li>
-          <li class="border"> <router-link to="/login" class="header-a">我的钱包</router-link> </li>
+          <li class="border"> <router-link to="/admin" class="header-a">我的钱包</router-link> </li>
           <li> <a href="#/signUp" target="_blank" class="header-a">创建钱包</a> </li>
+          <li> <span class="header-a logout" target="_self" @click="logout">退出钱包</span> </li>
         </ul>
 
         <ul v-else>
-          <li class="border">
-            <router-link to="/login" class="header-a">登陆钱包</router-link>
-          </li>
-          <li>
-            <a href="#/signUp" target="_blank" class="header-a">创建钱包</a>
-          </li>
+          <li class="border"><router-link to="/login" class="header-a">登录钱包</router-link></li>
+          <li><a href="#/signUp" target="_blank" class="header-a">创建钱包</a></li>
         </ul>
       </div>
     </transition>
   </div>
-  <nav class="navbar navbar-default" role="navigation">
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <ul class="nav navbar-nav">
-      <li class="frist ">
-        <a :class="['menu', {'active': activeMarkets}]">
-          分类资产
-          <ul class="menulist">
-            <li>
-              <router-link
-                  class="text-center"
-                  :to="{path: '/markets',
-                        query: { 'class': 'kacans' }}"
-                  @click.native="activeMarkets = true">开拍币-小蚁股
-              </router-link>
-            </li>
-          </ul>
-        </a>
-      </li>
-      <li>
-        <router-link :class="['menu', {'active': !activeMarkets}]" to="/index" @click.native="activeMarkets = false">首 &nbsp; 页</router-link>
-      </li>
-      <li>
-        <a class="menu" href="#">投资学院</a>
-      </li>
-      <li>
-        <a class="menu" href="#">代币举报</a>
-      </li>
-      <li>
-        <a class="menu"
-           href="//shang.qq.com/wpa/qunwpa?idkey=24250f89f770858cb6e518fae271a588f847f8bfdc2e604a1ef40dea20b9beae"
-           target="_blank">加入社群</a>
-      </li>
-    </ul>
-    <form class="navbar-form navbar-left">
-      <div class="form-group">
-        <input type="text" class="form-control" placeholder="资产关键词">
-      </div>
-      <button type="submit" class="btn btn-default" @click.prevent="">搜索</button>
-    </form>
-  </nav>
+
+  <o-nav></o-nav>
+
 </div>

@@ -1,12 +1,12 @@
 
 // 登录钱包
-function decrypt(enckey, pwd) {
+export function decrypt(enckey, pwd) {
     //解密私钥
     var prvkey = CryptoJS.AES.decrypt(enckey, pwd).toString(CryptoJS.enc.Utf8);
     return prvkey;
 }
 
-function doSign(prvkey, msg) {
+export function doSign(prvkey, msg) {
     //签名
     var sig = new KJUR.crypto.Signature({
         'alg': 'SHA256withECDSA'
@@ -20,7 +20,7 @@ function doSign(prvkey, msg) {
     return sigval;
 }
 
-function doVerify(pubkey, msg, sigval) {
+export function doVerify(pubkey, msg, sigval) {
     //验证签名
     var sig = new KJUR.crypto.Signature({
         "alg": 'SHA256withECDSA',
@@ -35,7 +35,7 @@ function doVerify(pubkey, msg, sigval) {
     return result;
 }
 
-function doValidatePwd(prvkey, pubkey) {
+export function doValidatePwd(prvkey, pubkey) {
     //验证密码
     //返回true,说明用户输入的密码正确
     //返回false,说哦名密码有误
@@ -44,4 +44,29 @@ function doValidatePwd(prvkey, pubkey) {
     var sigval = doSign(prvkey, msg);
     var result = doVerify(pubkey, msg, sigval);
     return result;
+}
+
+export function genKeyPairHex() {
+  const keypair = new KJUR.crypto.ECDSA({
+    'curve': 'secp256r1'
+  }).generateKeyPairHex()
+  return {
+    'pubhex': keypair.ecpubhex,
+    'prvhex': keypair.ecprvhex
+  }
+}
+
+export function encryptPrivateKey(prvkey, pwd) {
+  return CryptoJS.AES.encrypt(prvkey, pwd).toString()
+}
+
+export function getCompressedPubHex(pubhex) {
+  const ec = new KJUR.crypto.ECDSA({
+    'curve': 'secp256r1',
+    'pub': pubhex
+  })
+  const result = ec.getPublicKeyXYHex()
+  const y = result['y']
+  const prefix = parseInt('0x' + y[y.length - 1]) % 2 ? '03' : '02'
+  return prefix + result['x']
 }

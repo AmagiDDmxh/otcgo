@@ -1,0 +1,58 @@
+.nav-menu .nav
+  width: 100%
+  & > li
+    float: none
+    text-align: center
+    margin: 0
+    & > a
+      color: #878787
+      border: 1px solid #f3f3f3
+      border-radius: 0
+      &:hover
+        background: #e2e2e2
+      &.active
+        background: #eee
+    & > .title
+      background: #009cff
+      color: white
+      font-size: 16px;
+      &:hover
+        background: #009cff
+
+.nav-menu--dark .nav
+  & > li > a
+    background: #eeeeee
+    border: 1px solid #fff
+    &.active
+      background: #dfdfdf
+
+ul.drop-menu
+  padding: 0
+  z-index: 99
+  li
+    position: relative
+    text-transform: uppercase
+    font-size: 14px
+    background: #fff
+    border: #fff
+    a
+      color: #5b5b5b
+      background: #fff !important
+      &.active
+        color: #009cff
+        background: #fff !important
+    &:last-child
+      -webkit-border-radius: 0 0 5px 5px
+      -moz-border-radius: 0 0 5px 5px
+      border-radius: 0 0 5px 5px
+
+ul.drop-menu li
+  display: none
+
+li.drop-trigger:hover,
+li.drop-trigger.on
+  & > a
+    background: #e2e2e2
+  & > ul.drop-menu li
+    display: block
+

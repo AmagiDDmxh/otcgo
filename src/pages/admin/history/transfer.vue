@@ -23,7 +23,7 @@
         </tr>
       </tbody>
     </table>
-    <!-- TODO: They is the paging -->
+
     <div class="row">
       <div class="col-xs-12">
         <div class="pull-right">
@@ -52,11 +52,13 @@
       pageLength: 7,
       total: 0
     }),
+
     methods: {
       handleSizeChange(val) {
         this.pageLength = val
         this.getHistory()
       },
+
       handleCurrentChange(val) {
         this.currentPage = val
         this.getHistory()
@@ -72,7 +74,8 @@
         }).then(r => {
           this.histories = r['data']
           this.total = r['item_num']
-        }).catch(e => {
+          this.$store.dispatch('GET_ASSET')
+        }).catch(() => {
           this.$message.error('获取转账记录失败！')
         })
       }
