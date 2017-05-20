@@ -58,7 +58,8 @@ export default {
     },
     checkFile(file, filename) {
       if (!file.hasOwnProperty('publicKey') || !file.hasOwnProperty('publicKeyCompressed') ||
-          !file.hasOwnProperty('privateKeyEncrypted') || !file.hasOwnProperty('address') || !/json/.test(filename)) return false
+          !file.hasOwnProperty('privateKeyEncrypted') || !file.hasOwnProperty('address') ||
+          !/json/.test(filename)) return false
       this.filename = filename
       this.filenameError = ''
       return true

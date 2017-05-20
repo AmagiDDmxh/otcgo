@@ -18,6 +18,7 @@
         pageLength: 7
       }
     },
+
     watch: {
       '$route' (to, from) {
         this.name = this.$route.query.class === 'anscny' ? '小蚁股' : this.$route.query.class === 'anccny' ? '小蚁币' : '开拍币'
@@ -27,7 +28,19 @@
     },
 
     computed: {
-      ...mapGetters(['loggedIn', 'deliver'])
+      ...mapGetters(['loggedIn', 'deliver', 'receive']),
+      deliverCurrency() {
+        if (this.deliver.marketSign) {
+          return ` ${this.deliver.marketSign.toUpperCase()}`
+        }
+        return ' KAC'
+      },
+      receiveCurrency() {
+        if (this.receive.marketSign) {
+          return ` ${this.receive.marketSign.toUpperCase()}`
+        }
+        return ' ANS'
+      }
     },
 
     methods: {
@@ -38,7 +51,7 @@
 
       handleCurrentChange(val) {
         this.currentPage = val
-        this.getHistory(this.type)
+        this.getOrderBook(this.type)
       },
 
       getOrderBook(name) {
@@ -47,7 +60,7 @@
           length: this.pageLength
         }
 
-        this.$store.dispatch('GET_MARKETS', { name, params })
+        return this.$store.dispatch('GET_MARKETS', { name, params })
             .then(d => {
               this.total = d['item_num']
 
@@ -60,10 +73,10 @@
                   }),
                   []
               )
+              return d
             })
             .catch(r => {
               this.$message.error('获取集市买(卖)单错误')
-              console.log(r)
             })
       },
       purchase({ total, id }) {
@@ -71,19 +84,22 @@
           this.$message.error('购买前请先确认登陆！')
           return
         }
-        this.$store.commit('SET_DELIVER', '小蚁股')
+
+        this.$store.commit('SET_DELIVER', '开拍学园币（KAC）')
+        this.$store.commit('SET_RECEIVE', '小蚁股')
+
         this.$store.dispatch('GET_ASSET')
 
         this.$msgbox({
           title: '提示',
-          message: `您将要购买总价${total}元的${this.name}，当前ANS可用余额为${this.deliver.valid}是否确认下单？`,
+          message: `您将要购买总价${total}${this.receive.marketSign.toUpperCase()}的${this.name}，当前${this.receiveCurrency}可用余额为${this.receive.valid}是否确认下单？`,
           showCancelButton: true,
           beforeClose: async (action, instance, done) => {
             instance.confirmButtonLoading = false
 
             if (action === 'confirm') {
-              if (this.deliver.valid < total) {
-                this.$message.warning(`${this.deliver.name}余额不足，请进行充值！`)
+              if (this.receive.valid < total) {
+                this.$message.warning(`${this.receive.name}余额不足，请进行充值！`)
                 done()
                 return
               }
@@ -123,7 +139,7 @@
     },
 
     destroyed() {
-      window.clearInterval(window.marketsTimer)
+      window.clearInterval(this.marketsTimer)
     }
   }
 </script>

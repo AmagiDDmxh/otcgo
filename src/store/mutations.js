@@ -9,23 +9,27 @@ export default {
   [type.login](state) {
     state.loggedIn = true
   },
+
   [type.logout](state) {
     state.balances = []
     state.wa = {}
-    state.loggedIn = false
     state.receive = {}
     state.deliver = {}
     state.fileName = ''
   },
+
   [type.signUp](state) {
     state.signUp = !state.signUp
   },
+
   [type.setAsset](state, balances) {
     state.balances = balances
   },
+
   [type.setUID](state, uid) {
     Vue.set(state.wa, 'uid', uid)
   },
+
   [type.setWallet](state, wa) {
     state.wa = wa
   },

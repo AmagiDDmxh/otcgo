@@ -6,7 +6,7 @@ export default {
   }),
 
   beforeRouteEnter(to, from, next) {
-    next(vm => vm.loggedIn ? next() : next('/login'))
+    next(vm => vm.$store.getters.loggedIn ? next() : next('/login'))
   },
 
   computed: {

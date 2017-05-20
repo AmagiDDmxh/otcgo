@@ -67,7 +67,7 @@ export const getH = async (name, add, params) => {
 export const getBh = async () => await fetching('block/count/')
 
 export const getM = async (name, params) => {
-  return await fetching(`order_book/${name}`, params)
+  return await fetching(`order_book/${name}`, { params })
 }
 
 export const getO = async add => await fetching(`order/${add}`)
