@@ -30,13 +30,13 @@
     computed: {
       ...mapGetters(['loggedIn', 'deliver', 'receive']),
       deliverCurrency() {
-        if (this.deliver.marketSign) {
+        if (this.deliver.marketId) {
           return ` ${this.deliver.marketSign.toUpperCase()}`
         }
         return ' KAC'
       },
       receiveCurrency() {
-        if (this.receive.marketSign) {
+        if (this.receive.marketId) {
           return ` ${this.receive.marketSign.toUpperCase()}`
         }
         return ' ANS'

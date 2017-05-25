@@ -34,18 +34,14 @@
           el-col
             el-progress(:stroke-width="18", :percentage="p")
         .detail-content
-          p 本次出让比例：
-            span 1500万申一股份（占比15%）
           p 本次目标金额：
-            span XXXXXXXANS
-          p 本次发售份数：
-            span 200份（每份5万申一股，定价XXXXANS)
-          p 每人最低申购份数：
-            span 1份
+            span XXXXXXX ANS
           p 剩余天数：
-            span XX天
+            span X 天
           p 当前支持人数：
-            span XX人
+            span X 人
+          p 每份发行价：
+            span XXXX ANS
         el-row
           el-input(placeholder="请输入申购份数")
           el-button.btn-block(type="primary", @click="click") 确认申购
@@ -120,8 +116,8 @@
     color: #929292
     margin: 45px 0
     font-size: 14.67px
-    span
-      color: #35d4e4
+    /*span
+      color: #35d4e4*/
 
   .el-row
     margin: 20px 0

@@ -17,7 +17,7 @@
   import foot from './components/footer/footer.vue'
 
   export default {
-    components: { h,foot }
+    components: { h, foot }
   }
 </script>
 

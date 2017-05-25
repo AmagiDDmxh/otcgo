@@ -49,7 +49,9 @@
                     </ul> -->
                         </div>
                         <div class="col-lg-3 col-md-3 text-center">
-                            <h4 class="text-color text-type2">了解我们</h4>
+                            <router-link to="/about">
+                              <h4 class="text-color text-type2">了解我们</h4>
+                            </router-link>
                             <!--  <ul class="list-unstyled">
                       <li><router-link class="text-color2" to="/time-entries">了解小蚁</router-link></li>
                     <li><router-link class="text-color2" to="/time-entries">什么是OTC</router-link></li>
