@@ -23,5 +23,8 @@ export default {
   getOrder: 'GET_ORDER',
   setWif: 'GET_WIF',
   setFileName: 'SET_FILE_NAME',
-  getBlock: 'GET_BLOCK'
+  getBlock: 'GET_BLOCK',
+  getICO: 'GET_ICO',
+  bidICO: 'BID_ICO',
+  askICO: 'ASK_ICO'
 }

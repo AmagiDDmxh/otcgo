@@ -1,0 +1,46 @@
+.status.container
+   .panel.panel-default.panel-state
+      .panel-body
+         span.blue-span 众筹专区
+   el-row.status__body(:gutter="30")
+      el-col(:span="6")
+         .ad-tips
+            .ad-tips__title 申购指南
+            .ad-tips__content
+               p
+                  router-link(to="/login") 登陆个人钱包
+                  | ，在对应的项目
+               p 专区创建“申购订单”并提交。
+               hr
+               p 众筹日期截止或满额，申购
+               p 通道关闭。
+      el-col(:span="8")
+         .thumbnail(style="padding: 0;")
+            .status__thumbnail__bg 申一科技
+            .caption
+               h4 基于小蚁区块链的应用平台服务商
+               p 目前旗下产品有：
+               p 蓝鲸淘————超导交易模式的智能资产转让平台
+               p 蓝鲸淘————超导交易模式的智能资产众筹平台
+               p 蓝鲸淘————小蚁生态首家承兑网关平台
+
+      el-col(:span="10")
+         el-row
+            el-col(:span="16")
+               h4 ANS {{ data.currentShares }}
+            el-col.text-right(:span="8")
+               h4 {{p}}%
+            el-col
+               el-progress(:stroke-width="18", :percentage="p")
+         .detail-content
+            p 本次目标金额：
+               span {{ data.amountToICO }} ANS
+            p 剩余天数：
+               span {{ ((new Date(data.endTime) - new Date().getTime()) /1000/60/60/24).toFixed(2) }} 天
+            p 当前支持人数：
+               span
+            p 每份发行价：
+               span {{ data.valuePerShare }} ANS
+         el-row
+            el-input(placeholder="请输入申购份数", v-model.trim="shares")
+            el-button.btn-block(type="primary", @click="bid", :disabled="disabled", :loading="loading") 确认申购

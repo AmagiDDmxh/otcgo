@@ -14,6 +14,8 @@ const sign = data => fetching('sign/', data, 'post')
 
 const signatureRedeem = async data => fetching('signature/redeem/', data, 'post')
 
+const getI = async id => (await fetching(`ico/${id}`))
+
 export const getB = async add => (await fetching(`balances/${add}/`))
 export const getU = async add => (await fetching(`uid/${add}`))
 
@@ -101,13 +103,41 @@ export const cancel = async (id, pr) => {
     signature: ljSign(pr, nonce)
   }
   const cancelJson = await fetching('cancel/', data, 'post')
-  data.signature = await ljSign(pr, cancelJson.transaction)
+  data.signature = ljSign(pr, cancelJson.transaction)
 
   return sign(await data)
 }
 
+const signICO = async data => await (fetching('ico/sign/', data, 'post'))
+
+export const bidICO = async ({ id, shares, hexPubkey }, pr) => {
+  const { transaction } = await (fetching('ico/bid/', { id, shares, hexPubkey }, 'post'))
+  return signICO({ id, signature: ljSign(pr, transaction) })
+}
+
+export const askICO = async ({ id, hexPubkey }, pr) => {
+  const { transaction } = await (fetching('ico/ask/', { id, hexPubkey }, 'post'))
+  return signICO({ id, signature: ljSign(pr, transaction) })
+}
+
+
 export default {
-  getW, getC, getO, getH, getB, getM, getU, getBh, redeem, transfer, cancel, ask, bid,
+  getI,
+  getW,
+  getC,
+  getO,
+  getH,
+  getB,
+  getM,
+  getU,
+  getBh,
+  redeem,
+  transfer,
+  cancel,
+  ask,
+  bid,
+  askICO,
+  bidICO
 }
 
 /**

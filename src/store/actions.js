@@ -62,8 +62,7 @@ export default {
       assetId: deliver.assetId,
       valueId: receive.assetId,
       hexPubkey: state.wa['publicKey']
-    },
-        state.wa['privateKey'])
+    }, state.wa['privateKey'])
   },
 
   async [type.transfer]({ state }, { dest, amount, assetId }) {
@@ -74,8 +73,8 @@ export default {
         amount,
         assetId,
         hexPubkey: state.wa['publicKey']
-      }, state.wa['privateKey']
-    )} catch (e) {
+      }, state.wa['privateKey'])
+    } catch (e) {
       return Promise.reject(e)
     }
   },
@@ -86,5 +85,17 @@ export default {
 
   [type.getBlock]() {
     return service.getBh()
+  },
+
+  [type.getICO](_, id) {
+    return service.getI(id)
+  },
+
+  [type.bidICO]({ state }, { id, shares }) {
+    return service.bidICO({ id, shares, hexPubkey: state.wa['publicKey'] }, state.wa['privateKey'])
+  },
+
+  [type.askICO]({ state }, id) {
+    return service.askICO({ id, hexPubkey: state.wa['publicKey'] }, state.wa['privateKey'])
   }
 }
