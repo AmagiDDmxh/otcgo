@@ -66,7 +66,7 @@
         try {
           this.loading = true
           setTimeout(() => this.loading = false, 2000)
-          const res = await this.$store.dispatch('BID_ICO', { id: 2, shares: this.shares })
+          const res = await this.$store.dispatch('BID_ICO', { id: 3, shares: this.shares })
           if (res.result) {
             this.$message.success('申购发起成功，请等待验收！')
             this.getICO(this.type)
@@ -85,7 +85,7 @@
       async ask() {
         if (this.adminAddress !== this.address) return this.$message.error('你不是承兑有效者！')
         this.loading = true
-        this.$store.dispatch('ASK_ICO', { id: 2, adminAdd: this.adminAddress})
+        this.$store.dispatch('ASK_ICO', { id: 3, adminAdd: this.adminAddress})
             .then(() => {
               this.$message.success('承兑发起，请等待验收！')
               setTimeout(() => this.loading = false, 2000)
@@ -97,12 +97,20 @@
       },
 
       async getICO() {
-        this.data = await this.$store.dispatch('GET_ICO', 2)
+        this.data = await this.$store.dispatch('GET_ICO', 3)
       }
     },
 
     mounted() {
-      this.getICO().then(() => [this.status = '', this.adminAddress = ''] = [this.data.status, this.data.adminAddress])
+      this.getICO().then(() =>
+          [
+            this.status = '',
+            this.adminAddress = ''
+          ] = [
+                this.data.status,
+                this.data.adminAddress
+              ]
+      )
       this.icoTimer = setInterval(() => this.getICO(), 2000)
     },
 

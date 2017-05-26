@@ -17,7 +17,7 @@
             .ad-tips__content(v-else)
                p
                  router-link(to="/login") 登陆个人钱包
-                   | ，在对应的项目
+                 | ，在对应的项目
                p 专区创建“申购订单”并提交。
                hr
                p 众筹日期截止或满额，申购
@@ -62,8 +62,7 @@
          el-row
             el-input(
                 v-if="p !== 100", placeholder="请输入申购份数",
-                v-model.trim="shares", :disabled="true"
-            )
+                v-model.trim="shares")
 
             a(v-else, :href="`${antchain}${data.txid}`", target="_blank")
               el-button.mb10.btn-block(type="primary") 查看详情
