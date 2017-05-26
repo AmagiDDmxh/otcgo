@@ -45,11 +45,9 @@
 
         this.$store.commit('SET_RECEIVE', '小蚁股')
 
-        if (this.receive.valid < Number(this.data.valuePerShare)) {
-          this.$message.warning(`${this.receive.name}余额不足，请进行充值！`)
-          done()
-          return
-        }
+        if (this.receive.valid
+            < Number(this.data.valuePerShare)) return this.$message.warning(`${this.receive.name}余额不足，请进行充值！`)
+
         this.loading = true
         try {
           this.loading = true
@@ -58,18 +56,15 @@
           if (res.result) {
             this.$message.success('申购发起成功，请等待验收！')
             this.getICO(this.type)
-            done()
             this.loading = false
           } else {
             this.$message.error('申购失败，请稍候再试。')
-            done()
             this.getICO(this.type)
           }
         } catch(e) {
           this.$message.error('申购失败，请稍候再试。')
           this.getICO(this.type)
           this.loading = false
-          done()
         }
       },
 
@@ -79,6 +74,7 @@
     },
 
     mounted() {
+      this.getICO()
       this.icoTimer = setInterval(() => this.getICO(), 2000)
       this.status = this.data.status
     },

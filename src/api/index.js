@@ -111,13 +111,19 @@ export const cancel = async (id, pr) => {
 const signICO = async data => await (fetching('ico/sign/', data, 'post'))
 
 export const bidICO = async ({ id, shares, hexPubkey }, pr) => {
-  const { transaction } = await (fetching('ico/bid/', { id, shares, hexPubkey }, 'post'))
-  return signICO({ id, signature: ljSign(pr, transaction) })
+  const { transaction, order } = await (fetching('ico/bid/', { id, shares, hexPubkey }, 'post'))
+  return signICO({
+    id: order.id,
+    signature: ljSign(pr, transaction)
+  })
 }
 
 export const askICO = async ({ id, hexPubkey }, pr) => {
-  const { transaction } = await (fetching('ico/ask/', { id, hexPubkey }, 'post'))
-  return signICO({ id, signature: ljSign(pr, transaction) })
+  const { transaction, order } = await (fetching('ico/ask/', { id, hexPubkey }, 'post'))
+  return signICO({
+    id: order.id,
+    signature: ljSign(pr, transaction)
+  })
 }
 
 
