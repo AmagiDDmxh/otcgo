@@ -23,8 +23,8 @@
 
       p() {
         const currentShares = Number(this.data.currentShares)
-        const totalShares = Number(this.data.totalSHares)
-        return currentShares / totalShares || 0
+        const totalShares = Number(this.data.totalShares)
+        return (currentShares / totalShares * 100).toFixed(2) || 0
       },
 
       ...mapGetters(['loggedIn', 'receive'])
@@ -74,9 +74,8 @@
     },
 
     mounted() {
-      this.getICO()
+      this.getICO().then(() => this.status = this.data.status)
       this.icoTimer = setInterval(() => this.getICO(), 2000)
-      this.status = this.data.status
     },
 
     destroyed() {
