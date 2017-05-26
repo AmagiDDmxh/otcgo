@@ -12,7 +12,8 @@
       shares: '',
       status: '',
       adminAddress: '',
-      loading: false
+      loading: false,
+      antchain: "https://antchain.xyz/tx/hash/"
     }),
 
     computed: {
@@ -27,7 +28,6 @@
             !this.shares ||
             this.status === 'success' ||
             this.status === 'failure'
-
       },
 
       p() {
@@ -36,12 +36,21 @@
         return Number((currentShares / totalShares * 100).toFixed(2)) || 0
       },
 
+      progressStatus() {
+        if (this.status === 'success') return 'success'
+        if (this.status === 'failure') return 'exception'
+        return ''
+      }
+
     },
 
-    watchers: {
+    watch: {
       status(val) {
         if (val === 'success' || val === 'failure' ||
-            val === 'waitingForPromise') window.clearInterval(this.icoTimer)
+            val === 'waitingForPromise') {
+          this.getICO()
+          window.clearInterval(this.icoTimer)
+        }
       }
     },
 

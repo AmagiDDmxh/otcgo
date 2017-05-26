@@ -92,7 +92,11 @@ export default {
   },
 
   [type.bidICO]({ state }, { id, shares }) {
-    return service.bidICO({ id, shares, hexPubkey: state.wa['address'] }, state.wa['privateKey'])
+    return service.bidICO({
+      id,
+      shares,
+      hexPubkey: state.wa['publicKey']
+    }, state.wa['privateKey'])
   },
 
   [type.askICO]({ state }, { id, adminAdd }) {

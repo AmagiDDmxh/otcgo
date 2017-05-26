@@ -4,19 +4,19 @@ import VueResource from 'vue-resource'
 Vue.use(VueResource)
 
 const fetching = async (endPoint, data={}, method="get") => {
-  const response = await Vue.http[method](endPoint, data)
+  const response = await Vue.http[method](`${endPoint}/`, data)
   return await response.json()
 }
 
 const getN = () => 'aaaaaaaa'
 
-const sign = data => fetching('sign/', data, 'post')
+const sign = data => fetching('sign', data, 'post')
 
-const signatureRedeem = async data => fetching('signature/redeem/', data, 'post')
+const signatureRedeem = async data => fetching('signature/redeem', data, 'post')
 
 const getI = async id => (await fetching(`ico/${id}`))
 
-export const getB = async add => (await fetching(`balances/${add}/`))
+export const getB = async add => (await fetching(`balances/${add}`))
 export const getU = async add => (await fetching(`uid/${add}`))
 
 export const getH = async (name, add, params) => {
@@ -25,7 +25,7 @@ export const getH = async (name, add, params) => {
   throw new Error('No name accepted')
 }
 
-export const getBh = async () => await fetching('block/count/')
+export const getBh = async () => await fetching('block/count')
 
 export const getM = async (name, params) => await fetching(`order_book/${name}`, { params })
 
@@ -50,7 +50,7 @@ export const getW = pr => {
 }
 
 export const bid = async (bids, pr) => {
-  const bidJson = await fetching('otc/bid/', bids, 'post')
+  const bidJson = await fetching('otc/bid', bids, 'post')
 
   return sign({
     id: bidJson.order['id'],
@@ -60,7 +60,7 @@ export const bid = async (bids, pr) => {
 }
 
 export const ask = async (asks, pr) => {
-  const askJson = await fetching('otc/ask/', asks, 'post')
+  const askJson = await fetching('otc/ask', asks, 'post')
   return sign({
     nonce: getN(),
     id: askJson.order['id'],
@@ -71,7 +71,7 @@ export const ask = async (asks, pr) => {
 export const redeem = async (id, pr, address) => {
   const nonce = getN()
 
-  const redeemJson = await fetching('redeem/', {
+  const redeemJson = await fetching('redeem', {
     nonce, id, address,
     signature: ljSign(pr, nonce)
   }, 'post')
@@ -85,7 +85,7 @@ export const redeem = async (id, pr, address) => {
 
 export const transfer = async (body, pr) => {
   const nonce = getN()
-  const transferJson = await fetching('balances/transfer/', body, 'post')
+  const transferJson = await fetching('balances/transfer', body, 'post')
 
   const data = {
     id: transferJson['id'],
@@ -102,16 +102,16 @@ export const cancel = async (id, pr) => {
     nonce,
     signature: ljSign(pr, nonce)
   }
-  const cancelJson = await fetching('cancel/', data, 'post')
+  const cancelJson = await fetching('cancel', data, 'post')
   data.signature = ljSign(pr, cancelJson.transaction)
 
   return sign(await data)
 }
 
-const signICO = async data => await (fetching('ico/sign/', data, 'post'))
+const signICO = async data => await (fetching('ico/sign', data, 'post'))
 
 export const bidICO = async ({ id, shares, hexPubkey }, pr) => {
-  const { transaction, order } = await (fetching('ico/bid/', { id, shares, hexPubkey }, 'post'))
+  const { transaction, order } = await (fetching('ico/bid', { id, shares, hexPubkey }, 'post'))
   return signICO({
     id: order.id,
     signature: ljSign(pr, transaction)
@@ -119,7 +119,7 @@ export const bidICO = async ({ id, shares, hexPubkey }, pr) => {
 }
 
 export const askICO = async ({ id, hexPubkey }, pr) => {
-  const { transaction, order } = await (fetching('ico/ask/', { id, hexPubkey }, 'post'))
+  const { transaction, order } = await (fetching('ico/ask', { id, hexPubkey }, 'post'))
   return signICO({
     id: order.id,
     signature: ljSign(pr, transaction)
