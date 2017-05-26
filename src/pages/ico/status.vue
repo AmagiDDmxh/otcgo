@@ -1,131 +1,104 @@
-<template lang="pug">
-  .status.container
-    .panel.panel-default.panel-state
-      .panel-body
-        span.blue-span 众筹专区
-    el-row.status__body(:gutter="30")
-      el-col(:span="6")
-        .ad-tips
-          .ad-tips__title 申购指南
-          .ad-tips__content
-            p
-              router-link(to="/login") 登陆个人钱包
-              | ，在对应的项目
-            p 专区创建“申购订单”并提交。
-            hr
-            p 众筹日期截止或满额，申购
-            p 通道关闭。
-      el-col(:span="8")
-        .thumbnail(style="padding: 0;")
-          .status__thumbnail__bg 申一科技
-          .caption
-            h4 基于小蚁区块链的应用平台服务商
-            p 目前旗下产品有：
-            p 蓝鲸淘————超导交易模式的智能资产转让平台
-            p 蓝鲸淘————超导交易模式的智能资产众筹平台
-            p 蓝鲸淘————小蚁生态首家承兑网关平台
-
-      el-col(:span="10")
-        el-row
-          el-col(:span="16")
-            h4 ANS      123321
-          el-col.text-right(:span="8")
-            h4 {{p}}%
-          el-col
-            el-progress(:stroke-width="18", :percentage="p")
-        .detail-content
-          p 本次出让比例：
-            span 1500万申一股份（占比15%）
-          p 本次目标金额：
-            span XXXXXXXANS
-          p 本次发售份数：
-            span 200份（每份5万申一股，定价XXXXANS)
-          p 每人最低申购份数：
-            span 1份
-          p 剩余天数：
-            span XX天
-          p 当前支持人数：
-            span XX人
-        el-row
-          el-input(placeholder="请输入申购份数")
-          el-button.btn-block(type="primary", @click="click") 确认申购
-</template>
+<template lang="pug" src="./status.pug"></template>
+<style lang="stylus" src="./status.styl"></style>
 
 <script>
   import { img } from '~utils/config'
+  import { mapGetters } from 'vuex'
 
   export default {
     data: () => ({
-      p: 42,
-      img
+      img,
+      data: {},
+      shares: '',
+      status: '',
+      adminAddress: '',
+      loading: false
     }),
-    methods: {
-      click() {
-        this.p++
+
+    computed: {
+      ...mapGetters(['loggedIn', 'receive', 'wa']),
+
+      address() { return this.wa('address') },
+
+      promiser() { return this.address === this.adminAddress },
+
+      disabled() {
+        return this.p === 100 ||
+            !this.shares ||
+            this.status === 'success' ||
+            this.status === 'failure'
+
+      },
+
+      p() {
+        const currentShares = Number(this.data.currentShares)
+        const totalShares = Number(this.data.totalShares)
+        return Number((currentShares / totalShares * 100).toFixed(2)) || 0
+      },
+
+    },
+
+    watchers: {
+      status(val) {
+        if (val === 'success' || val === 'failure' ||
+            val === 'waitingForPromise') window.clearInterval(this.icoTimer)
       }
+    },
+
+    methods: {
+      async bid() {
+        if (!this.loggedIn) return void this.$message.error('申购前请先确认登陆！')
+        if (this.p === 100) return void this.$message.error('申购已结束！')
+
+        this.$store.commit('SET_RECEIVE', '小蚁股')
+        if (this.receive.valid < Number(this.data.valuePerShare))
+          return this.$message.warning(`${this.receive.name}余额不足，请进行充值！`)
+
+        try {
+          this.loading = true
+          setTimeout(() => this.loading = false, 2000)
+          const res = await this.$store.dispatch('BID_ICO', { id: 2, shares: this.shares })
+          if (res.result) {
+            this.$message.success('申购发起成功，请等待验收！')
+            this.getICO(this.type)
+            this.loading = false
+          } else {
+            this.$message.error('申购失败，请稍候再试。')
+            this.getICO(this.type)
+          }
+        } catch(e) {
+          this.$message.error('申购失败，请稍候再试。')
+          this.getICO(this.type)
+          this.loading = false
+        }
+      },
+
+      async ask() {
+        if (this.adminAddress !== this.address) return this.$message.error('你不是承兑有效者！')
+        this.loading = true
+        this.$store.dispatch('ASK_ICO', { id: 2, adminAdd: this.adminAddress})
+            .then(() => {
+              this.$message.success('承兑发起，请等待验收！')
+              setTimeout(() => this.loading = false, 2000)
+            })
+            .catch(() => {
+              this.$message.error('承兑失败，请稍后再试。')
+              setTimeout(() => this.loading = false, 2000)
+            })
+      },
+
+      async getICO() {
+        this.data = await this.$store.dispatch('GET_ICO', 2)
+      }
+    },
+
+    mounted() {
+      this.getICO().then(() => [this.status = '', this.adminAddress = ''] = [this.data.status, this.data.adminAddress])
+      this.icoTimer = setInterval(() => this.getICO(), 2000)
+    },
+
+    destroyed() {
+      clearInterval(this.icoTimer)
     }
   }
 </script>
-
-<style lang="stylus">
-  placeholder()
-    &::-webkit-input-placeholder
-      {block}
-    &:-moz-placeholder
-      {block}
-    &::-moz-placeholder
-      {block}
-    &:-ms-input-placeholder
-      {block}
-
-  input.el-input__inner
-    margin-bottom: 10px
-    +placeholder()
-      text-align: center
-
-  .el-row
-    h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6
-      margin: 0 0 10px
-
-  .el-progress-bar
-    padding-right: 0
-    *
-      border-radius: 0
-    .el-progress__text
-      display: none
-      background: #000
-
-  .thumbnail
-    .status__thumbnail__bg
-      height: 200px !important;
-      width: 100%;
-      background: linear-gradient(45deg, #4666f3, #35d3e4);
-      color: #fff
-      font-size: 40px
-      text-align: center
-      padding: 70px
-    .caption
-      padding: 20px 20px
-      background: #f2f2f2
-      color: #ababab
-      line-height: 13px
-      h4
-        font-size: 21px
-        color: #000
-      p
-        font-size: 14px
-
-  .detail-content
-    line-height: 15px
-    color: #929292
-    margin: 45px 0
-    font-size: 14.67px
-    span
-      color: #35d4e4
-
-  .el-row
-    margin: 20px 0
-
-  .el-row:first-child
-    margin: 0 0 20px
-</style>

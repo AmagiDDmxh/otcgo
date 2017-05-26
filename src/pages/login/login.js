@@ -1,9 +1,11 @@
+import { img } from '~utils/config'
 import { required, minLength, maxLength } from 'vuelidate/lib/validators'
 import { decrypt, doValidatePwd } from '~utils/ljsign'
 
 export default {
   data() {
     return {
+      img,
       filename: '',
       password: '',
       filenameError: '',
@@ -56,7 +58,8 @@ export default {
     },
     checkFile(file, filename) {
       if (!file.hasOwnProperty('publicKey') || !file.hasOwnProperty('publicKeyCompressed') ||
-          !file.hasOwnProperty('privateKeyEncrypted') || !file.hasOwnProperty('address') || !/json/.test(filename)) return false
+          !file.hasOwnProperty('privateKeyEncrypted') || !file.hasOwnProperty('address') ||
+          !/json/.test(filename)) return false
       this.filename = filename
       this.filenameError = ''
       return true

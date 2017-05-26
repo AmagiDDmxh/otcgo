@@ -55,7 +55,8 @@ module.exports = {
       '~utils': path.resolve(__dirname, 'src/utils'),
       '~components': path.resolve(__dirname, 'src/components'),
       '~api': path.resolve(__dirname, 'src/api'),
-      '~pages': path.resolve(__dirname, 'src/pages')
+      '~pages': path.resolve(__dirname, 'src/pages'),
+      '~polyfill': path.resolve(__dirname, 'src/polyfill')
     }
   },
   devServer: {

@@ -3,42 +3,33 @@ import VueResource from 'vue-resource'
 
 Vue.use(VueResource)
 
-/**
- * A useful helper function, return the response.json() object
- *
- * @param [endPoint] Required:string
- * @param [data] :object declare like {
- *   [params] ?:object | for query
- *   [body] ?: object | for post
- *   ...
- * }
- * @param [method] :string
- * @RESPONSE { * :any } :object | Promise[pending]
- *
- * @example fetching(endPoint :string, data ?:object={}, method ?:string="get")
- * @return Promise[pending]
- *
- * @example await fetching(endPoint :string, data ?:object={}, method ?:string="get")
- * @return data: { * :any } :object
- */
 const fetching = async (endPoint, data={}, method="get") => {
   const response = await Vue.http[method](endPoint, data)
   return await response.json()
 }
 
-/**
- * @GET '/api/v1/nonce/'
- * @RESPONSE { nonce :string } :object
- *
- * @return RESPONSE.nonce :string
- */
-export const getN = () => 'aaaaaaaa'
+const getN = () => 'aaaaaaaa'
 
 const sign = data => fetching('sign/', data, 'post')
+
 const signatureRedeem = async data => fetching('signature/redeem/', data, 'post')
+
+const getI = async id => (await fetching(`ico/${id}`))
 
 export const getB = async add => (await fetching(`balances/${add}/`))
 export const getU = async add => (await fetching(`uid/${add}`))
+
+export const getH = async (name, add, params) => {
+  if (name === 'redeem') return await fetching(`redeem/${add}`, { params })
+  if (name === 'transfer') return await fetching(`balances/transfer/history/${add}`, { params })
+  throw new Error('No name accepted')
+}
+
+export const getBh = async () => await fetching('block/count/')
+
+export const getM = async (name, params) => await fetching(`order_book/${name}`, { params })
+
+export const getO = async add => await fetching(`order/${add}`)
 
 export const getC = publicKeyCompressed => {
   const redeem = '21' + publicKeyCompressed + 'ac'
@@ -58,21 +49,6 @@ export const getW = pr => {
   return Base58.encode(bytes)
 }
 
-export const getH = async (name, add, params) => {
-  if (name === 'redeem') return await fetching(`redeem/${add}`, { params })
-  if (name === 'transfer') return await fetching(`balances/transfer/history/${add}`, { params })
-  throw new Error('No name accepted')
-}
-
-export const getBh = async () => await fetching('block/count/')
-
-export const getM = async (name, params) => {
-  return await fetching(`order_book/${name}`, params)
-}
-
-export const getO = async add => await fetching(`order/${add}`)
-
-// Checkout the cart by POST to the bids
 export const bid = async (bids, pr) => {
   const bidJson = await fetching('otc/bid/', bids, 'post')
 
@@ -127,13 +103,47 @@ export const cancel = async (id, pr) => {
     signature: ljSign(pr, nonce)
   }
   const cancelJson = await fetching('cancel/', data, 'post')
-  data.signature = await ljSign(pr, cancelJson.transaction)
+  data.signature = ljSign(pr, cancelJson.transaction)
 
   return sign(await data)
 }
 
+const signICO = async data => await (fetching('ico/sign/', data, 'post'))
+
+export const bidICO = async ({ id, shares, hexPubkey }, pr) => {
+  const { transaction, order } = await (fetching('ico/bid/', { id, shares, hexPubkey }, 'post'))
+  return signICO({
+    id: order.id,
+    signature: ljSign(pr, transaction)
+  })
+}
+
+export const askICO = async ({ id, hexPubkey }, pr) => {
+  const { transaction, order } = await (fetching('ico/ask/', { id, hexPubkey }, 'post'))
+  return signICO({
+    id: order.id,
+    signature: ljSign(pr, transaction)
+  })
+}
+
+
 export default {
-  getW, getC, getO, getH, getB, getM, getU, getBh, redeem, transfer, cancel, ask, bid,
+  getI,
+  getW,
+  getC,
+  getO,
+  getH,
+  getB,
+  getM,
+  getU,
+  getBh,
+  redeem,
+  transfer,
+  cancel,
+  ask,
+  bid,
+  askICO,
+  bidICO
 }
 
 /**

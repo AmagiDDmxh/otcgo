@@ -31,21 +31,21 @@
       </div>
     </div>
 
-    <div class="content col-xs-9 col-lg-9" style="height:auto">
+    <div class="content col-xs-9 col-lg-9">
       <table class="table table-js table-striped">
         <thead>
           <th style="color: #009cff;">{{name}}</th>
-          <th style="padding: 0 10px;">数量</th>
-          <th>单价 {{ currency }}</th>
-          <th>总价</th>
+          <th>数量 {{ deliverCurrency }}</th>
+          <th>单价 {{ receiveCurrency }}</th>
+          <th>总价 {{ receiveCurrency }}</th>
           <th class="th-bar"></th>
         </thead>
         <tbody class="pl27">
           <tr v-for="item in orders">
             <td class="sell-name" v-text="item.name"></td>
-            <td v-text="item.amount"></td>
-            <td v-text="item.price"></td>
-            <td v-text="item.total"></td>
+            <td>{{ item.amount + deliverCurrency }}</td>
+            <td>{{ item.price + receiveCurrency }}</td>
+            <td>{{ item.total + receiveCurrency }}</td>
             <td class="amount-tb-bar">
               <button class="btn btn--purchase" @click="purchase(item)">购买</button>
             </td>

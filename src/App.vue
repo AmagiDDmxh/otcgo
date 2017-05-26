@@ -8,7 +8,7 @@
 
     <foot></foot>
     <div class="footer-link">
-      Copyright &copy; 2017 &nbsp;<a href="www.otcgo.cn">otcgo.cn</a>&nbsp; 版权所有 湘ICP备16019051号-1
+      Copyright &copy; 2017 &nbsp;<a href="https://otcgo.cn/">otcgo.cn</a>&nbsp; 版权所有 湘ICP备16019051号-1
     </div>
   </div>
 </template>
@@ -17,7 +17,7 @@
   import foot from './components/footer/footer.vue'
 
   export default {
-    components: { h,foot }
+    components: { h, foot }
   }
 </script>
 

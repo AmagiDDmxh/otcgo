@@ -1,0 +1,62 @@
+placeholder()
+  &::-webkit-input-placeholder
+    {block}
+  &:-moz-placeholder
+    {block}
+  &::-moz-placeholder
+    {block}
+  &:-ms-input-placeholder
+    {block}
+
+input.el-input__inner
+  margin-bottom: 10px
+  +placeholder()
+    text-align: center
+
+.el-row
+  h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6
+    margin: 0 0 10px
+
+.el-progress-bar
+  padding-right: 0
+  *
+    border-radius: 0
+.el-progress__text
+  display: none
+  background: #000
+
+.thumbnail
+  .status__thumbnail__bg
+    height: 200px !important;
+    width: 100%;
+    background: linear-gradient(45deg, #4666f3, #35d3e4);
+    color: #fff
+    font-size: 40px
+    text-align: center
+    padding: 70px
+    &-pre
+      background: #000
+  .caption
+    padding: 20px 20px
+    background: #f2f2f2
+    color: #ababab
+    line-height: 13px
+    h4
+      font-size: 21px
+      color: #000
+    p
+      font-size: 14px
+
+.detail-content
+  line-height: 30px
+  margin: 40px 0
+  font-size: 16px
+  font-weight: 700
+/*span
+  color: #35d4e4*/
+
+.el-row
+  margin: 20px 0
+
+.el-row:first-child
+  margin: 0 0 20px
