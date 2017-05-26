@@ -11,48 +11,53 @@
       data: {},
       shares: '',
       status: '',
+      adminAddress: '',
       loading: false
     }),
 
     computed: {
+      ...mapGetters(['loggedIn', 'receive', 'wa']),
+
+      address() { return this.wa('address') },
+
+      promiser() { return this.address === this.adminAddress },
+
       disabled() {
-        return !this.shares ||
+        return this.p === 100 ||
+            !this.shares ||
             this.status === 'success' ||
             this.status === 'failure'
+
       },
 
       p() {
         const currentShares = Number(this.data.currentShares)
         const totalShares = Number(this.data.totalShares)
-        return (currentShares / totalShares * 100).toFixed(2) || 0
+        return Number((currentShares / totalShares * 100).toFixed(2)) || 0
       },
 
-      ...mapGetters(['loggedIn', 'receive'])
     },
 
     watchers: {
       status(val) {
-
+        if (val === 'success' || val === 'failure' ||
+            val === 'waitingForPromise') window.clearInterval(this.icoTimer)
       }
     },
 
     methods: {
       async bid() {
-        if (!this.loggedIn) {
-          this.$message.error('申购前请先确认登陆！')
-          return
-        }
+        if (!this.loggedIn) return void this.$message.error('申购前请先确认登陆！')
+        if (this.p === 100) return void this.$message.error('申购已结束！')
 
         this.$store.commit('SET_RECEIVE', '小蚁股')
+        if (this.receive.valid < Number(this.data.valuePerShare))
+          return this.$message.warning(`${this.receive.name}余额不足，请进行充值！`)
 
-        if (this.receive.valid
-            < Number(this.data.valuePerShare)) return this.$message.warning(`${this.receive.name}余额不足，请进行充值！`)
-
-        this.loading = true
         try {
           this.loading = true
           setTimeout(() => this.loading = false, 2000)
-          const res = await this.$store.dispatch('BID_ICO', { id: 1, shares: this.shares })
+          const res = await this.$store.dispatch('BID_ICO', { id: 2, shares: this.shares })
           if (res.result) {
             this.$message.success('申购发起成功，请等待验收！')
             this.getICO(this.type)
@@ -68,13 +73,27 @@
         }
       },
 
+      async ask() {
+        if (this.adminAddress !== this.address) return this.$message.error('你不是承兑有效者！')
+        this.loading = true
+        this.$store.dispatch('ASK_ICO', { id: 2, adminAdd: this.adminAddress})
+            .then(() => {
+              this.$message.success('承兑发起，请等待验收！')
+              setTimeout(() => this.loading = false, 2000)
+            })
+            .catch(() => {
+              this.$message.error('承兑失败，请稍后再试。')
+              setTimeout(() => this.loading = false, 2000)
+            })
+      },
+
       async getICO() {
-        this.data = await this.$store.dispatch('GET_ICO', 1)
+        this.data = await this.$store.dispatch('GET_ICO', 2)
       }
     },
 
     mounted() {
-      this.getICO().then(() => this.status = this.data.status)
+      this.getICO().then(() => [this.status = '', this.adminAddress = ''] = [this.data.status, this.data.adminAddress])
       this.icoTimer = setInterval(() => this.getICO(), 2000)
     },
 

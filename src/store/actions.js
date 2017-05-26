@@ -92,10 +92,13 @@ export default {
   },
 
   [type.bidICO]({ state }, { id, shares }) {
-    return service.bidICO({ id, shares, hexPubkey: state.wa['publicKey'] }, state.wa['privateKey'])
+    return service.bidICO({ id, shares, hexPubkey: state.wa['address'] }, state.wa['privateKey'])
   },
 
-  [type.askICO]({ state }, id) {
+  [type.askICO]({ state }, { id, adminAdd }) {
+    const add = state.wa['address']
+    if (add !== adminAdd) return Promise.reject('The address is completely invalid!')
+
     return service.askICO({ id, hexPubkey: state.wa['publicKey'] }, state.wa['privateKey'])
   }
 }
