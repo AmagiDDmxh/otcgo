@@ -3,6 +3,7 @@
 
 <script>
   import { img } from '~utils/config'
+  import { mapGetters } from 'vuex'
 
   export default {
     data: () => ({
@@ -24,7 +25,9 @@
         const currentShares = Number(this.data.currentShares)
         const totalShares = Number(this.data.totalSHares)
         return currentShares / totalShares || 0
-      }
+      },
+
+      ...mapGetters(['loggedIn', 'receive'])
     },
 
     watchers: {
@@ -40,7 +43,7 @@
           return
         }
 
-        this.$store.commit('SET_RECEIVE')
+        this.$store.commit('SET_RECEIVE', '小蚁股')
 
         if (this.receive.valid < Number(this.data.valuePerShare)) {
           this.$message.warning(`${this.receive.name}余额不足，请进行充值！`)
@@ -76,8 +79,12 @@
     },
 
     mounted() {
-      this.getICO()
+      this.icoTimer = setInterval(() => this.getICO(), 2000)
       this.status = this.data.status
     },
+
+    destroyed() {
+      clearInterval(this.icoTimer)
+    }
   }
 </script>
