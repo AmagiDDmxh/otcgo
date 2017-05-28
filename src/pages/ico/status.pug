@@ -27,8 +27,9 @@
 			.thumbnail(style="padding: 0;")
 				.status__thumbnail__bg(:class="{ " +
 				"  'status__thumbnail__bg-pre': status === 'notStart'," +
-				"  'status__thumbnail__bg-success': status === 'success'" +
-				"}")
+				"  'status__thumbnail__bg-success': status === 'success', " +
+        "  'status__thumbnail__bg-failure': status === 'failure'" +
+        "}")
 					| {{ data.title }}
 					img(:src="require('~images/upcoming.png')", v-if="status === 'notStart'")
 				.caption
@@ -53,15 +54,9 @@
 					span(
 					v-if="status === 'success' ||" +
 					" status === 'failure' ||" +
-					" status === 'waitingForPromis'") {{ 0 }} 天
+					" status === 'waitingForPromis'") 0 天
 					template(v-else)
-						span {{ (new Date(data.endTime)).getDay() - new Date().getDay() }} 天
-						span &nbsp;
-						span.
-							{{ ((new Date(data.endTime)).getHours() - new Date().getHours()) || 0}} 小时
-						span &nbsp;
-						span.
-							{{ ((new Date(data.endTime)).getHours() - new Date().getHours()) || 0}} 小时
+						span {{ new Date(data.endTime) | moment("from", true) }}
 
 				p 当前支持人数：
 					span {{ data.backers }} 人
@@ -72,7 +67,7 @@
 				el-input(v-if="promiser && p !== 100", placeholder="承兑者不可发起申购", :disabled="true")
 
 				el-input(
-				v-else-if="p !== 100", placeholder="请输入申购份数",
+				v-else-if="p !== 100 && status === 'proceeding'", placeholder="请输入申购份数",
 				v-model.number="shares")
 
 				a(

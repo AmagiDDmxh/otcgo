@@ -7,7 +7,7 @@
             img(:src="banners[0]", alt="Banner, 海报")
       o-content
 
-      el-button(:loading="loading", @click="hand") adadad
+      // el-button(:loading="loading", @click="hand") adadad
       // el-menu(default-active="2", @open="handleOpen", @close="handleClose")
         el-submenu(index="1")
           template(slot="title") 导航一
