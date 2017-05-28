@@ -15,9 +15,11 @@ export default {
   },
 
   methods: {
-    handleNav() {
-      this.onHistory = false
-      this.onOrder = false
+    handleNav(str) {
+      this.onHistory = this.onOrder = false
+      const arrStr = str.split('')
+      const capitalizeStr = arrStr[0].toUpperCase() + str.substr(str.indexOf(arrStr[0]) + 1)
+      this['on' + capitalizeStr] = true
     }
   },
 

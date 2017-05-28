@@ -6,6 +6,8 @@
           router-link(:to="{path: '/markets/', query: { class: 'kacans' }}")
             img(:src="banners[0]", alt="Banner, 海报")
       o-content
+
+      el-button(:loading="loading", @click="hand") adadad
       // el-menu(default-active="2", @open="handleOpen", @close="handleClose")
         el-submenu(index="1")
           template(slot="title") 导航一
@@ -37,7 +39,8 @@
     components: { oContent },
 
     data: () => ({
-      banners: [require('../images/banner1.jpg'), require('../images/slide2.png'), require('../images/slide3.png')]
+      banners: [require('../images/banner1.jpg'), require('../images/slide2.png'), require('../images/slide3.png')],
+      loading: false
     }),
 
     methods: {
@@ -47,6 +50,12 @@
 
       handleClose(a, b) {
         console.log('[close]: ', a, b)
+      },
+
+      hand() {
+        this.loading = true
+        this.$store.dispatch('GET_ASSET')
+            .then(() => this.loading = false)
       }
     }
   }

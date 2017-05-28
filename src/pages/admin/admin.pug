@@ -11,13 +11,13 @@
                li(@click="handleNav"): router-link(to="/admin/balances") 资产列表
                // li(@click="handleNav"): router-link(:to="{ path: '/admin/order', query: { type: 'sell'}}") 我的挂单
                li(:class="[{'on': onOrder}, 'drop-trigger']")
-                  a(@click="handleNav('Order')") 我的挂单
+                  a(@click="handleNav('order')") 我的挂单
                   transition(name='fade', mode='out-in')
                      ul.nav.nav-stacked.nav-pills.drop-menu
                         li(@click="on=true"): router-link(:to="{ name: 'OTCAsk' }") OTC卖单
                         li(@click="on=true"): router-link(:to="{ name: 'ICOBid' }") ICO申购单
                li(:class="[{'on': onHistory}, 'drop-trigger']")
-                  a(@click="onHistory=!onHistory") 历史交易记录
+                  a(@click="handleNav('history')") 历史交易记录
                   transition(name='fade', mode='out-in')
                      ul.nav.nav-stacked.nav-pills.drop-menu
                         li(@click="on=true"): router-link(:to="{ name: 'transferH' }") 转账记录
