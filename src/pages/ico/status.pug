@@ -31,7 +31,7 @@
         "  'status__thumbnail__bg-failure': status === 'failure'" +
         "}")
 					| {{ data.title }}
-					img(:src="require('~images/upcoming.png')", v-if="status === 'notStart'")
+					img(:src="require('~images/upcoming.png')", v-show="status === 'notStart'")
 				.caption
 					h4 基于小蚁区块链的应用平台服务商
 					p 目前旗下产品有：
@@ -56,7 +56,7 @@
 					" status === 'failure' ||" +
 					" status === 'waitingForPromis'") 0 天
 					template(v-else)
-						span {{ new Date(data.endTime) | moment("from", true) }}
+						span {{ new Date(data.endTime) | moment("from") }}
 
 				p 当前支持人数：
 					span {{ data.backers }} 人
