@@ -117,18 +117,13 @@
 
       async getICO() {
         this.data = await this.$store.dispatch('GET_ICO', 5)
+        [ this.status = '', this.adminAddress = '' ] = [ this.data.status, this.data.adminAddress ]
       }
     },
 
-    mounted() {
+    created() {
       this.getICO().then(() =>
-          [
-            this.status = '',
-            this.adminAddress = ''
-          ] = [
-                this.data.status,
-                this.data.adminAddress
-              ]
+          [ this.status = '', this.adminAddress = '' ] = [ this.data.status, this.data.adminAddress ]
       )
       this.icoTimer = setInterval(() => this.getICO(), 2000)
     },
