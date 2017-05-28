@@ -57,6 +57,7 @@
       async bid() {
         if (!this.loggedIn) return void this.$message.error('申购前请先确认登陆！')
         if (this.p === 100) return void this.$message.error('申购已结束！')
+        if (!Number.isInteger(this.shares)) return void this.$message.error('请输入整数！')
 
         this.$store.commit('SET_RECEIVE', '小蚁股')
         if (this.receive.valid < Number(this.data.valuePerShare))
@@ -86,7 +87,7 @@
                 , 2000)
           }
         } catch(e) {
-          this.$message.error('申购失败，请稍候再试。')
+          this.$message.error(e.body.non_field_errors[0])
           setTimeout(
               () => {
                 this.getICO()
@@ -100,13 +101,17 @@
         if (this.adminAddress !== this.address) return this.$message.error('你不是承兑有效者！')
         this.loading = true
         this.$store.dispatch('ASK_ICO', { id: 5, adminAdd: this.adminAddress})
+            .then(r => r.json())
             .then(() => {
               this.$message.success('承兑发起，请等待验收！')
               setTimeout(() => this.loading = false, 2000)
-            })
-            .catch(() => {
-              this.$message.error('承兑失败，请稍后再试。')
+            }, e => {
+              console.log(e)
+              this.$message.error(e.non_field_errors[0])
               setTimeout(() => this.loading = false, 2000)
+            })
+            .catch(e => {
+              console.log(e)
             })
       },
 

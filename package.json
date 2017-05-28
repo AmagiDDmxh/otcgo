@@ -17,6 +17,8 @@
     "crypto-js": "^3.1.9-1",
     "element-ui": "^1.1.6",
     "jquery": "^2.2.0",
+    "js-data": "^3.0.0-rc.9",
+    "js-data-http": "^3.0.0-rc.2",
     "vee-validate": "^2.0.0-beta.22",
     "vue": "^2.1.0",
     "vue-axios": "^1.2.2",

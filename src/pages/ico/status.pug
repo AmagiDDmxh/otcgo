@@ -17,15 +17,20 @@
 				.ad-tips__content(v-else)
 					p
 						router-link(to="/login") 登陆个人钱包
-							| ，在对应的项目
+						| ，在对应的项目
 						p 专区创建“申购订单”并提交。
 						hr
 						p 众筹日期截止或满额，申购
 						p 通道关闭。
+
 		el-col(:span="8")
 			.thumbnail(style="padding: 0;")
-				.status__thumbnail__bg-pre(v-if="status === 'notStart'") {{ data.title }}
-				.status__thumbnail__bg(v-else) {{ data.title }}
+				.status__thumbnail__bg(:class="{ " +
+				"  'status__thumbnail__bg-pre': status === 'notStart'," +
+				"  'status__thumbnail__bg-success': status === 'success'" +
+				"}")
+					| {{ data.title }}
+					img(:src="require('~images/upcoming.png')", v-if="status === 'notStart'")
 				.caption
 					h4 基于小蚁区块链的应用平台服务商
 					p 目前旗下产品有：
@@ -64,10 +69,10 @@
 
 				el-input(
 				v-else-if="p !== 100", placeholder="请输入申购份数",
-				v-model.trim="shares")
+				v-model.number="shares")
 
 				a(
-				v-show="status === 'success'",
+				v-show="status === 'success' || data.txid",
 				:href="`${antchain}${data.txid}`", target="_blank"
 				): el-button.mb10.btn-block(type="primary") 查看详情
 

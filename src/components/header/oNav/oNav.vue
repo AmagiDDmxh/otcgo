@@ -16,7 +16,7 @@
       </li>
 
       <li>
-        <router-link class="menu active" to="/index" activeClass="_">
+        <router-link class="menu" to="/index" exact>
           首 &nbsp; 页
         </router-link>
       </li>
@@ -25,7 +25,7 @@
 
       <li><a class="menu" href="#">代币举报</a></li>-->
 
-      <li><router-link class="menu" to="/ico/status" activeClass="_">ICO专区</router-link></li>
+      <li><router-link class="menu" to="/ico/status">ICO专区</router-link></li>
       <li>
         <a class="menu"
            href="//shang.qq.com/wpa/qunwpa?idkey=24250f89f770858cb6e518fae271a588f847f8bfdc2e604a1ef40dea20b9beae"

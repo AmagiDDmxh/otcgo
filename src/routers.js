@@ -19,9 +19,10 @@ const routes = [
       { path: 'uid', component: r => require(['~pages/admin/uid/uid.vue'], r) },
       { path: 'redeem', component: r => require(['~pages/admin/redeem/redeem.vue'], r) },
       { path: 'balances', component: r => require(['~pages/admin/balances/balances.vue'], r) },
-      { path: 'order', component: r => require(['~pages/admin/order/order.vue'], r) },
-      { path: 'history/transfer', component: r => require(['~pages/admin/history/transfer.vue'], r) },
-      { path: 'history/transaction', component: r => require(['~pages/admin/history/transaction.vue'], r) },
+      { path: 'history/transfer', component: r => require(['~pages/admin/history/transfer.vue'], r), name: 'transferH' },
+      { path: 'history/transaction', component: r => require(['~pages/admin/history/transaction.vue'], r), name: 'transactionH' },
+      { path: 'order/OTCAsk', component: r => require(['~pages/admin/order/OTCAsk.vue'], r), name: 'OTCAsk' },
+      { path: 'order/ICOBid', component: r => require(['~pages/admin/order/ICOBid.vue'], r), name: 'ICOBid' },
       { path: '', component: r => require(['~pages/admin/balances/balances.vue'], r) }
     ]
   },
@@ -50,7 +51,7 @@ const routes = [
   { path: '/protocol', component: r => require(['~pages/protocol/index.vue'], r) },
 
   // 用于测试
-  // { path: '/test', component: r => require(['~pages/test/index.vue'], r) },
+  // { path: '/test', component: r => require(['~pages/test/index.vue') },
 
   // 如果不存在，重定向于Home
   { path: '*', redirect: { path: '/index' }}

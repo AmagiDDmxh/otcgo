@@ -96,6 +96,7 @@
               this.$message.success('取回成功!')
             })
             .catch(e => {
+              history.loading = false
               this.$message.error('取回失败！', e.non_field_error)
             })
       }

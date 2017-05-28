@@ -23,7 +23,6 @@ input.el-input__inner
     border-radius: 0
 .el-progress__text
   display: none
-  background: #000
 
 .thumbnail
   .status__thumbnail__bg
@@ -31,12 +30,20 @@ input.el-input__inner
     width: 100%;
     background: linear-gradient(45deg, #4666f3, #35d3e4);
     color: #fff
-    font-size: 40px
+    font-size: 28px
     text-align: center
     padding: 70px
-    &-pre
-      background: #000
-  .caption
+    position: relative
+    &-pre > img
+      background: url('../../images/upcoming.png') top no-repeat
+      position: absolute
+      top: 0
+      left: 0
+    &-success
+      background: linear-gradient(135deg, #00f300, #35d3e4);
+
+
+.caption
     padding: 20px 20px
     background: #f2f2f2
     color: #ababab

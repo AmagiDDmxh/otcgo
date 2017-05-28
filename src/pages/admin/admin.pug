@@ -7,17 +7,23 @@
       .col-xs-3
          .nav-menu.nav-menu--dark
             ul.nav.nav-pills.nav-stacked
-               li(@click="on=false"): a.title 菜   单
-               li(@click="on=false"): router-link(to="/admin/balances") 资产列表
-               li(@click="on=false"): router-link.sub-li-title(:to="{ path: '/admin/order', query: { type: 'sell'}}") 我的挂单
-               li(:class="[{'on': on}, 'drop-trigger']")
-                  a 历史交易记录
+               li(@click="handleNav"): a.title 菜   单
+               li(@click="handleNav"): router-link(to="/admin/balances") 资产列表
+               // li(@click="handleNav"): router-link(:to="{ path: '/admin/order', query: { type: 'sell'}}") 我的挂单
+               li(:class="[{'on': onOrder}, 'drop-trigger']")
+                  a(@click="handleNav('Order')") 我的挂单
                   transition(name='fade', mode='out-in')
                      ul.nav.nav-stacked.nav-pills.drop-menu
-                        li(@click="on=true"): router-link(:to="{ path: '/admin/history/transfer' }") 转账记录
-                        li(@click="on=true"): router-link(:to="{ path: '/admin/history/transaction' }") 交易记录
-               li(@click="on=false"): a(href='//antchain.xyz', target='_blank') 区块浏览
-               li(@click="on=false"): router-link(to="/admin/uid") 个人中心
+                        li(@click="on=true"): router-link(:to="{ name: 'OTCAsk' }") OTC卖单
+                        li(@click="on=true"): router-link(:to="{ name: 'ICOBid' }") ICO申购单
+               li(:class="[{'on': onHistory}, 'drop-trigger']")
+                  a(@click="onHistory=!onHistory") 历史交易记录
+                  transition(name='fade', mode='out-in')
+                     ul.nav.nav-stacked.nav-pills.drop-menu
+                        li(@click="on=true"): router-link(:to="{ name: 'transferH' }") 转账记录
+                        li(@click="on=true"): router-link(:to="{ name: 'transactionH' }") 交易记录
+               li(@click="handleNav"): a(href='//antchain.xyz', target='_blank') 区块浏览
+               li(@click="handleNav"): router-link(to="/admin/uid") 个人中心
       .col-xs-9
          .admin-content
             transition(name='fade', mode='out-in')
