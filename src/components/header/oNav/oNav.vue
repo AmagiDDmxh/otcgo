@@ -16,7 +16,7 @@
       </li>
 
       <li>
-        <router-link class="menu" to="/index" exact>
+        <router-link class="menu" to="/" exact>
           首 &nbsp; 页
         </router-link>
       </li>
