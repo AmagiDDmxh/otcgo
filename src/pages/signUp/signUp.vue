@@ -25,9 +25,12 @@
   import protocol from '../protocol/index.vue'
   import { required, maxLength, minLength, sameAs } from 'vuelidate/lib/validators'
   import { genKeyPairHex, encryptPrivateKey, getCompressedPubHex } from '~utils/ljsign'
+  import { ljWifkeyToPubkey, ljWifkeyToHexkey } from '~libs/LJSign'
 
   export default {
     components: { protocol },
+
+    name: 'signUp',
 
     data: () => ({
       agree: false,
