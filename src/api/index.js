@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import VueResource from 'vue-resource'
+import Base58 from 'bs58'
+import CryptoJS from 'crypto-js'
 
 Vue.use(VueResource)
 

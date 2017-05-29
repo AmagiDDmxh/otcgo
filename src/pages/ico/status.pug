@@ -57,13 +57,16 @@
 					" status === 'waitingForPromis'") 0 天
 					template(v-else)
 						span {{ new Date(data.endTime) | moment("from") }}
-
 				p 当前支持人数：
 					span {{ data.backers }} 人
 				p 每份发行价：
 					span {{ data.assetPerShare }} ANS
 
+
+
 			el-row
+				el-input(v-if="status === 'notStart'", :placeholder="countdown", readonly)
+
 				el-input(v-if="promiser && p !== 100", placeholder="承兑者不可发起申购", :disabled="true")
 
 				el-input(
@@ -73,7 +76,7 @@
 				a(
 				v-show="status === 'success' || data.txid",
 				:href="`${antchain}${data.txid}`", target="_blank"
-				): el-button.mb10.btn-block(type="primary") 查看详情
+				): el-button.mb10.btn-block(type="primary") 项目详情
 
 				a.btn.btn-block(
 				:class="{ 'ico__button--success': status === 'success'," +

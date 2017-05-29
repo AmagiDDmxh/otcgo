@@ -40,6 +40,10 @@
         if (this.status === 'success') return 'success'
         if (this.status === 'failure') return 'exception'
         return ''
+      },
+
+      countdown() {
+        return '申购倒计时：' + this.$moment(this.data.countDown).format("dddd, MMMM Do YYYY, h:mm:ss a")
       }
 
     },
@@ -117,7 +121,8 @@
 
       async getICO() {
         this.data = await this.$store.dispatch('GET_ICO', 5)
-        [ this.status = '', this.adminAddress = '' ] = [ this.data.status, this.data.adminAddress ]
+        this.status = this.data.status
+        this.address = this.data.adminAddress
       }
     },
 

@@ -42,6 +42,7 @@ export default {
           this.$message.error('验证失败,请检查文件格式与密码重试!')
         }
       } catch (e) {
+        console.log(e)
         this.$message.error('验证失败,请检查文件格式与密码重试!')
       }
     },
