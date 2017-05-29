@@ -27,7 +27,6 @@
   import { genKeyPairHex, encryptPrivateKey, getCompressedPubHex } from '~utils/ljsign'
   import { ljWifkeyToPubkey, ljWifkeyToHexkey } from '~libs/LJSign'
 
-
   export default {
     components: { protocol },
 

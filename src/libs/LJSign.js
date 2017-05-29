@@ -1,5 +1,6 @@
 const { LJBigInteger } = require('./biginteger')
 const Base58 = require('bs58')
+const jsSHA = require('jssha')
 
 /*
 * flow@蓝鲸淘
@@ -33,28 +34,29 @@ const inverseMod = function(a, m) {
       a = m.add(a)
     }
   }
-  var c = a
-  var d = m
-  var uc = LJBigInteger.ONE
-  var vc = LJBigInteger.ZERO
-  var ud = LJBigInteger.ZERO
-  var vd = LJBigInteger.ONE
+  let c = a
+  let d = m
+  let uc = LJBigInteger.ONE
+  let vc = LJBigInteger.ZERO
+  let ud = LJBigInteger.ZERO
+  let vd = LJBigInteger.ONE
+
   while (!c.isZero()) {
-    var result = d.divRem(c)
+    const result = d.divRem(c)
     d = c
-    var q = result[0]
+    const q = result[0]
     c = result[1]
-    var t_uc = uc
-    var t_vc = vc
+    const tUc = uc
+    const tVc = vc
     uc = ud.subtract(q.multiply(uc))
     vc = vd.subtract(q.multiply(vc))
-    ud = t_uc
-    vd = t_vc
+    ud = tUc
+    vd = tVc
   }
-  if (d.compare(1) != 0) {
+  if (d.compare(1) !== 0) {
     console.log('error d=' + d.toJSValue())
   }
-  if (ud.compare(0) == 1) {
+  if (ud.compare(0) === 1) {
     return ud
   } else {
     return ud.add(m)
@@ -80,7 +82,7 @@ class LJCurveFp {
     return this.__b
   }
 
-  contains_point(x, y) {
+  containsPoint(x, y) {
     return (y.multiply(y).subtract(x.multiply(x).multiply(x).add(this.__a.multiply(x)).add(this.__b))).remainder(this.__p).isZero()
   }
 }
@@ -93,17 +95,17 @@ class LJPoint {
     this.__order = order
 
     if (this.__curve) {
-      if (!this.__curve.contains_point(x, y)) throw new Error('point no in the curve')
+      if (!this.__curve.containsPoint(x, y)) throw new Error('point no in the curve')
     }
   }
 
-  get x() { return this.__x }
+  x() { return this.__x }
 
-  get y() { return this.__y }
+  y() { return this.__y }
 
-  get curve() { return this.__curve}
+  curve() { return this.__curve }
 
-  get order() { return this.__order}
+  order() { return this.__order }
 
   double() {
     if (this.x() === null && this.y() === null && this.curve() === null) { return INFINITY }
@@ -127,14 +129,11 @@ class LJPoint {
     var y3 = l
         .multiply(this.__x.subtract(x3))
         .subtract(this.__y).remainder(p)
-    if (y3.compare(0) === -1) {
-      y3 = p.add(y3)
-    }
+    if (y3.compare(0) === -1) { y3 = p.add(y3) }
     return new LJPoint(this.__curve, x3, y3)
   }
 
   add(other) {
-
     if (this.__x.compare(other.__x) === 0) {
       if (this.__y.add(other.__y).remainder(this.__curve.p()).isZero()) {
         return INFINITY
@@ -143,26 +142,24 @@ class LJPoint {
       }
     }
     const p = this.__curve.p()
-    const l = other.__y.subtract(this.__y).multiply(inverseMod(other.__x.subtract(this.__x), p)).remainder(p)
+    let l = other.__y.subtract(this.__y).multiply(inverseMod(other.__x.subtract(this.__x), p)).remainder(p)
     // console.log('origin l:'+l.toString());
     if (l.compare(0) === -1) {
       l = p.add(l)
     }
-    const x3 = l.multiply(l).subtract(this.__x).subtract(other.__x).remainder(p)
+    let x3 = l.multiply(l).subtract(this.__x).subtract(other.__x).remainder(p)
     if (x3.compare(0) === -1) {
       x3 = p.add(x3)
     }
-    const y3 = l.multiply(this.__x.subtract(x3)).subtract(this.__y).remainder(p)
+    let y3 = l.multiply(this.__x.subtract(x3)).subtract(this.__y).remainder(p)
     if (y3.compare(0) === -1) {
       y3 = p.add(y3)
     }
     return new LJPoint(this.__curve, x3, y3)
-
   }
 
   mul(other) {
-
-    const leftmost_bit = function(x) {
+    const leftmostBit = function(x) {
       var result = LJBigInteger.ONE
       while (result.compare(x) <= 0) {
         result = result.multiply(2)
@@ -178,8 +175,8 @@ class LJPoint {
     if (this.x() === null && this.y() === null && this.curve() === null) return INFINITY
     if (e.compare(0) <= 0) throw new Error('e must be a positive LJBigInteger')
     var e3 = e.multiply(3)
-    var negative_self = new LJPoint(this.__curve, this.__x, this.__y.multiply(-1), this.__order)
-    var i = leftmost_bit(e3).divide(2)
+    var negativeSelf = new LJPoint(this.__curve, this.__x, this.__y.multiply(-1), this.__order)
+    var i = leftmostBit(e3).divide(2)
     let result = this
     while (i.compare(1) === 1) {
       result = result.double()
@@ -188,7 +185,7 @@ class LJPoint {
         result = result.add(this)
       }
       if (and(e3.toString(2), i.toString(2)).isZero() && !and(e.toString(2), i.toString(2)).isZero()) {
-        result = result.add(negative_self)
+        result = result.add(negativeSelf)
       }
       i = i.divide(2)
     }
@@ -197,7 +194,6 @@ class LJPoint {
 
 }
 
-
 // es4
 /*const LJPoint = function(curve, x, y, order = null) {
   this.__curve = curve
@@ -205,7 +201,7 @@ class LJPoint {
   this.__y = y
   this.__order = order
   if (this.__curve) {
-    if (!this.__curve.contains_point(x, y)) throw new Error('point no in the curve')
+    if (!this.__curve.containsPoint(x, y)) throw new Error('point no in the curve')
   }
 }
 
@@ -330,18 +326,18 @@ class LJPublicKey {
 class LJPrivateKey {
   constructor(publicKey, secretMultiplier) {
     this.publicKey = publicKey
-    this.secretMutiplier = secretMultiplier
+    this.secretMultiplier = secretMultiplier
   }
 
-  sign(hash, random_k) {
-    const G = this.public_key.generator
+  sign(hash, randomK) {
+    const G = this.publicKey.generator
     const n = G.order()
-    const k = random_k.remainder(n)
+    const k = randomK.remainder(n)
     const p1 = G.mul(k)
     const r = p1.x()
-    if (r.isZero()) { alert('amazingly unlucky random number r') }
-    const s = inverseMod(k, n).multiply(hash.add(this.secret_multiplier.multiply(r).remainder(n))).remainder(n)
-    if (s.isZero()) { alert('amazingly unlucky random number s') }
+    if (r.isZero()) { throw new Error('amazingly unlucky random number r') }
+    const s = inverseMod(k, n).multiply(hash.add(this.secretMultiplier.multiply(r).remainder(n))).remainder(n)
+    if (s.isZero()) { throw new Error('amazingly unlucky random number s') }
     return new LJSignature(r, s)
   }
 }
@@ -379,7 +375,7 @@ LJPrivateKey.prototype.sign = function(hash, random_k) {
   }
 }*/
 
-let LJCurve = function(name, curve, generator, oid, openssl_name = null) {
+const LJCurve = function(name, curve, generator, oid, opensslName = null) {
   this.name = name
   // this.openssl_name = openssl_name;
   this.curve = curve
@@ -392,13 +388,13 @@ let LJCurve = function(name, curve, generator, oid, openssl_name = null) {
 }
 
 function calcHash(msghex) {
-  var hashObj = new jsSHA('SHA-256', 'HEX', { numRounds: 1 })
+  const hashObj = new jsSHA('SHA-256', 'HEX', { numRounds: 1 })
   hashObj.update(msghex)
   return hashObj.getHash('HEX')
 }// test OK
 function toHexString(bytes) {
-  var s = ''
-  var x = bytes
+  let s = ''
+  const x = bytes
   for (let i = 0; i < x.length; i++) {
     s = s + ('00' + (x[i] & 0xFF).toString(16)).slice(-2)
   }
@@ -412,15 +408,15 @@ const randrange = function(order) {
     if (k.compare(order) === -1 && k.compare(LJBigInteger.ZERO) === 1) return k
   }
 }
-const numberToHex = function(num_str) {
-  switch (num_str) {
+const numberToHex = function(numStr) {
+  switch (numStr) {
     case '10':return 'a'
     case '11':return 'b'
     case '12':return 'c'
     case '13':return 'd'
     case '14':return 'e'
     case '15':return 'f'
-    default: return num_str
+    default: return numStr
   }
 }
 const numberToString = function(n) {
@@ -466,9 +462,9 @@ class LJSigningKey {
 
   sign(msghex) {
     const msghash = calcHash(msghex)
-    const bi_msghash = LJBigInteger.parse(msghash, 16)
+    const biMsghash = LJBigInteger.parse(msghash, 16)
     const k = randrange(this.order)
-    const ljsignatue = this.prvkey.sign(bi_msghash, k)
+    const ljsignatue = this.prvkey.sign(biMsghash, k)
     return sigencodeString(ljsignatue.r, ljsignatue.s)
   }
 }
@@ -502,17 +498,14 @@ LJSigningKey.prototype.sign = function(msghex) {
 */
 
 const curveSecp256r1 = new LJCurveFp(_p, _a, _b)
-let generatorSecp256r1 = new LJPoint(curveSecp256r1, _Gx, _Gy, _r)
+const generatorSecp256r1 = new LJPoint(curveSecp256r1, _Gx, _Gy, _r)
 const SECP256r1 = new LJCurve('SECP256r1', curveSecp256r1, generatorSecp256r1, [1, 3, 132, 0, 10], 'SECP256r1')
 
-exports.ljSign = function(prvhex, msghex) {
-  const ljs = new LJSigningKey(prvhex)
-  return ljs.sign(msghex)
-}
+const ljSign = (prvhex, msghex) => (new LJSigningKey(prvhex)).sign(msghex)
 
 const ljWifkeyToBinkey = wif => Base58.decode(wif).subarray(1, 33)
 
-exports.ljWifkeyToHexkey = function(wif) {
+const ljWifkeyToHexkey = function(wif) {
   let s = ''
   const x = ljWifkeyToBinkey(wif)
   for (let i = 0; i < x.length; i++) {
@@ -527,18 +520,24 @@ const ljPrikeyToPubkey = function(prvhex) {
   if (secexp.compare(1) === -1 || secexp.compare(n) >= 0) {
     throw new Error('invalid private key for SECP256r1')
   }
-  const pubkey_point = generatorSecp256r1.mul(secexp)
-  const s_x = pubkey_point.x().toString(16)
-  const s_y = pubkey_point.y().toString(16)
-  const s_x_length = s_x.length
-  const s_y_length = s_y.length
+  const pubkeyPoint = generatorSecp256r1.mul(secexp)
+  let sX = pubkeyPoint.x().toString(16)
+  let sY = pubkeyPoint.y().toString(16)
+  const sXLength = sX.length
+  const sYLength = sY.length
 
-  for (let i = 0; i < 64 - s_x_length; i++, s_x = '0' + s_x) {}
-  for (let i = 0; i < 64 - s_y_length; i++, s_y = '0' + s_y) {}
-  return ('04' + s_x + s_y).toLowerCase()
+  for (let i = 0; i < 64 - sXLength; i++, sX = '0' + sX) {}
+  for (let i = 0; i < 64 - sYLength; i++, sY = '0' + sY) {}
+  return ('04' + sX + sY).toLowerCase()
 }
 
-exports.ljWifkeyToPubkey = function(wif) {
+const ljWifkeyToPubkey = function(wif) {
   const prvhex = ljWifkeyToHexkey(wif)
   return ljPrikeyToPubkey(prvhex)
+}
+
+export default {
+  ljWifkeyToHexkey,
+  ljWifkeyToPubkey,
+  ljSign
 }
