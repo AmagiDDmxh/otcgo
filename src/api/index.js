@@ -38,7 +38,7 @@ export const getC = publicKeyCompressed => {
   const unhex = CryptoJS.enc.Hex.parse(redeem)
   const scriptHash = CryptoJS.enc.Hex.parse('17' + CryptoJS.RIPEMD160(CryptoJS.SHA256(unhex)).toString())
   const address = scriptHash + CryptoJS.SHA256(CryptoJS.SHA256(scriptHash)).toString().substring(0, 8)
-  const bytes = Buffer.from(address, 'hex')
+  const bytes = Buffer.from([address], 'hex')
   return Base58.encode(bytes)
 }
 
@@ -47,7 +47,7 @@ export const getW = pr => {
   const unhex = CryptoJS.enc.Hex.parse(wif)
   wif = `${wif}${CryptoJS.SHA256(CryptoJS.SHA256(unhex)).toString().substring(0, 8)}`
 
-  const bytes = Buffer.from(wif, 'hex')
+  const bytes = Buffer.from([wif], 'hex')
   return Base58.encode(bytes)
 }
 
