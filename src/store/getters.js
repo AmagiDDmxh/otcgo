@@ -6,7 +6,7 @@ const check = ['address', 'privateKey', 'privateKeyEncrypted', 'publicKey', 'pub
 
 export default {
   assets: state => state.assets,
-  loggedIn: state => check.every(i => state.wa.hasOwnProperty(i)),
+  loggedIn: state => check.every(i => state.wa.hasOwnProperty(i)) && !state.signUp,
   wa: state => field => state.wa[field],
   uid: state => state.wa['uid'],
   balances: state => state.balances,
