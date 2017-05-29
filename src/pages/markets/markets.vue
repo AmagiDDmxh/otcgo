@@ -21,7 +21,7 @@
 
     watch: {
       '$route' (to, from) {
-        this.name = this.$route.query.class === 'anscny' ? '小蚁股' : this.$route.query.class === 'anccny' ? '小蚁币' : '开拍币'
+        this.name = this.$route.query.class === 'anscny' ? '小蚁股' : this.$route.query.class === 'anccny' ? '小蚁币' : '开拍学园币（KAC）'
         this.type = to.query.class
         this.getOrderBook(this.type)
       }
@@ -132,7 +132,7 @@
     },
 
     mounted() {
-      this.name = this.$route.query.class === 'anscny' ? '小蚁股' : this.$route.query.class === 'anccny' ? '小蚁币' : '开拍币'
+      this.name = this.$route.query.class === 'anscny' ? '小蚁股' : this.$route.query.class === 'anccny' ? '小蚁币' : '开拍学园币（KAC）'
       this.currency = this.$route.query.class === 'kacans' ? 'ANS' : 'CNY'
       this.getOrderBook(this.type)
       window.marketsTimer = window.setInterval(() => this.getOrderBook(this.type), 1000 * 2)

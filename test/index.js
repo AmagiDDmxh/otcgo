@@ -33,3 +33,5 @@ const json = {
 Object.keys(json).forEach((pubKeyCom, i) => {
   console.log(`[${i}]: ${translateW(pubKeyCom) === json[pubKeyCom]}`)
 })
+
+console.log(translateW('03f84936879fe91ba51e3e9166a59753cbde6398ad1e53269b896b608495d495a7'))

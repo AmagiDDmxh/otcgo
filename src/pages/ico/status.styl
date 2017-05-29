@@ -12,6 +12,7 @@ input.el-input__inner
   margin-bottom: 10px
   +placeholder()
     text-align: center
+    color: #000
 
 .el-row
   h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6
@@ -23,21 +24,11 @@ input.el-input__inner
     border-radius: 0
 .el-progress__text
   display: none
-  background: #000
 
 .thumbnail
-  .status__thumbnail__bg
-    height: 200px !important;
-    width: 100%;
-    background: linear-gradient(45deg, #4666f3, #35d3e4);
-    color: #fff
-    font-size: 40px
-    text-align: center
-    padding: 70px
-    &-pre
-      background: #000
+  border: none
   .caption
-    padding: 20px 20px
+    padding: 20px
     background: #f2f2f2
     color: #ababab
     line-height: 13px
@@ -46,17 +37,58 @@ input.el-input__inner
       color: #000
     p
       font-size: 14px
+  .status__thumbnail__bg
+    height: 200px !important
+    width: 100%
+    background: linear-gradient(45deg, #4666f3, #35d3e4);
+    color: #fff
+    font-size: 28px
+    text-align: center
+    padding: 70px
+    position: relative
+    &-pre > img
+      background: url('../../images/upcoming.png') top no-repeat
+      position: absolute
+      top: 0
+      left: 0
+    &-success
+      background: linear-gradient(135deg, #00f300, #35d3e4);
+    &-failure
+      background: linear-gradient(135deg, #ff4949, #35d3e4);
+
+
+
 
 .detail-content
   line-height: 30px
   margin: 40px 0
   font-size: 16px
   font-weight: 700
-/*span
-  color: #35d4e4*/
+
+.highlight
+  line-height: 30px
+  font-size: 16px
+  font-weight: 700
+  color: #9e9e9e
+  border: 2px dashed #9e9e9e
+  border-radius: 4px
+  text-align: center
+  span
+    color: #F44336
 
 .el-row
   margin: 20px 0
 
 .el-row:first-child
   margin: 0 0 20px
+
+.ico__button--success
+  background-color: #13ce66 !important
+  color: white!important
+
+.ico__button--failure
+  background-color: #ff4949 !important
+  color: white!important
+
+.ico__column-gutter
+  height: 30px

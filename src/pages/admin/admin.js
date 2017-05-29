@@ -2,7 +2,8 @@ import { mapGetters } from 'vuex'
 
 export default {
   data: () => ({
-    on: false
+    onHistory: false,
+    onOrder: false
   }),
 
   beforeRouteEnter(to, from, next) {
@@ -11,6 +12,15 @@ export default {
 
   computed: {
     ...mapGetters(['loggedIn'])
+  },
+
+  methods: {
+    handleNav(str) {
+      this.onHistory = this.onOrder = false
+      const arrStr = str.split('')
+      const capitalizeStr = arrStr[0].toUpperCase() + str.substr(str.indexOf(arrStr[0]) + 1)
+      this['on' + capitalizeStr] = true
+    }
   },
 
   updated() {

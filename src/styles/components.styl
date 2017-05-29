@@ -49,10 +49,12 @@ ul.drop-menu
 ul.drop-menu li
   display: none
 
-li.drop-trigger:hover,
-li.drop-trigger.on
-  & > a
-    background: #e2e2e2
-  & > ul.drop-menu li
-    display: block
+li.drop-trigger
+  cursor: pointer
+  &:active,
+  &.on
+    & > a
+      background: #e2e2e2
+    & > ul.drop-menu li
+      display: block
 

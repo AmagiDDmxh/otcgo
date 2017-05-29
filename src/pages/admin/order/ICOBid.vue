@@ -1,0 +1,63 @@
+<template lang="pug">
+  table.table.data-table.table-bordered.table-striped
+    thead
+      th 资产名称
+      th 买入数量
+      th 买入单价ANS
+      th 总计ANS
+      th(style={ width: '260px' })
+    tbody
+      tr(v-for="item in orders")
+        td {{ item.name }}
+        td {{ item.amount }}
+        td {{ item.price }}
+        td {{ item.price * item.amount }}
+        td.td-btn
+          el-button.btn.ljbutton(:loading="item.loading", v-if="item.status === 0", @click="cancel(item)")  撤销
+</template>
+
+<script>
+  export default {
+
+    data: () => ({
+      orders: []
+    }),
+
+    methods: {
+      getOrders() {
+        return this.$store.dispatch('GET_ORDER')
+                   .then(orders => this.orders = orders['bids'].map(i => { i.loading = false; return i }))
+                   .catch(e => this.$message.error('获取挂单失败！请稍后再试！'))
+      },
+
+      async cancel(item) {
+        const id = item.id
+        try {
+          const res = await this.$store.dispatch('CANCEL', { id })
+          if (res) {
+            this.getOrders()
+            this.$message.success('撤单成功！')
+          }
+        } catch(e) {
+          this.getOrders()
+          this.$message.error(e.body.non_field_errors[0])
+        }
+      }
+    },
+
+    mounted() {
+      this.getOrders()
+      window.orderTimer = window.setInterval(() => this.getOrders(), 1000 * 2)
+    },
+
+    destroyed() {
+      window.clearInterval(window.orderTimer)
+    }
+
+  }
+</script>
+
+<style lang="css">
+
+
+</style>

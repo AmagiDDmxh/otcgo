@@ -2,6 +2,8 @@ import { img } from '~utils/config'
 import { required, minLength, maxLength } from 'vuelidate/lib/validators'
 import { decrypt, doValidatePwd } from '~utils/ljsign'
 
+
+
 export default {
   data() {
     return {
@@ -40,6 +42,7 @@ export default {
           this.$message.error('验证失败,请检查文件格式与密码重试!')
         }
       } catch (e) {
+        console.log(e)
         this.$message.error('验证失败,请检查文件格式与密码重试!')
       }
     },

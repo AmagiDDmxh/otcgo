@@ -12,7 +12,8 @@
       shares: '',
       status: '',
       adminAddress: '',
-      loading: false
+      loading: false,
+      antchain: "https://antchain.xyz/tx/hash/"
     }),
 
     computed: {
@@ -27,7 +28,6 @@
             !this.shares ||
             this.status === 'success' ||
             this.status === 'failure'
-
       },
 
       p() {
@@ -36,12 +36,24 @@
         return Number((currentShares / totalShares * 100).toFixed(2)) || 0
       },
 
+      progressStatus() {
+        if (this.status === 'success') return 'success'
+        if (this.status === 'failure') return 'exception'
+        return ''
+      },
+
+      countdown() {
+        return '申购倒计时：' + this.$moment(this.data.countDown).format("dddd, MMMM Do YYYY, h:mm:ss a")
+      }
+
     },
 
-    watchers: {
+    watch: {
       status(val) {
-        if (val === 'success' || val === 'failure' ||
-            val === 'waitingForPromise') window.clearInterval(this.icoTimer)
+        if (val === 'success' || val === 'failure') {
+          this.getICO()
+          window.clearInterval(this.icoTimer)
+        }
       }
     },
 
@@ -49,6 +61,7 @@
       async bid() {
         if (!this.loggedIn) return void this.$message.error('申购前请先确认登陆！')
         if (this.p === 100) return void this.$message.error('申购已结束！')
+        if (!Number.isInteger(this.shares)) return void this.$message.error('请输入整数！')
 
         this.$store.commit('SET_RECEIVE', '小蚁股')
         if (this.receive.valid < Number(this.data.valuePerShare))
@@ -57,43 +70,66 @@
         try {
           this.loading = true
           setTimeout(() => this.loading = false, 2000)
-          const res = await this.$store.dispatch('BID_ICO', { id: 2, shares: this.shares })
+          const res = await this.$store.dispatch('BID_ICO', {
+            id: 5, shares: this.shares
+          })
           if (res.result) {
             this.$message.success('申购发起成功，请等待验收！')
-            this.getICO(this.type)
-            this.loading = false
+            setTimeout(
+                () => {
+                  this.getICO()
+                  this.loading = false
+                }
+                , 2000)
           } else {
             this.$message.error('申购失败，请稍候再试。')
-            this.getICO(this.type)
+            setTimeout(
+                () => {
+                  this.getICO()
+                  this.loading = false
+                }
+                , 2000)
           }
         } catch(e) {
-          this.$message.error('申购失败，请稍候再试。')
-          this.getICO(this.type)
-          this.loading = false
+          this.$message.error(e.body.non_field_errors[0])
+          setTimeout(
+              () => {
+                this.getICO()
+                this.loading = false
+              }
+              , 2000)
         }
       },
 
       async ask() {
         if (this.adminAddress !== this.address) return this.$message.error('你不是承兑有效者！')
         this.loading = true
-        this.$store.dispatch('ASK_ICO', { id: 2, adminAdd: this.adminAddress})
+        this.$store.dispatch('ASK_ICO', { id: 5, adminAdd: this.adminAddress})
+            .then(r => r.json())
             .then(() => {
               this.$message.success('承兑发起，请等待验收！')
               setTimeout(() => this.loading = false, 2000)
-            })
-            .catch(() => {
-              this.$message.error('承兑失败，请稍后再试。')
+            }, e => {
+              console.log(e)
+              this.$message.error(e.non_field_errors[0])
               setTimeout(() => this.loading = false, 2000)
+            })
+            .catch(e => {
+              console.log(e)
             })
       },
 
       async getICO() {
-        this.data = await this.$store.dispatch('GET_ICO', 2)
+        this.data = await this.$store.dispatch('GET_ICO', 5)
+        this.status = this.data.status
+        this.address = this.data.adminAddress
       }
     },
 
-    mounted() {
-      this.getICO().then(() => [this.status = '', this.adminAddress = ''] = [this.data.status, this.data.adminAddress])
+    created() {
+      this.getICO().then(() =>
+          [ this.status = '', this.adminAddress = '' ] = [ this.data.status, this.data.adminAddress ]
+      )
       this.icoTimer = setInterval(() => this.getICO(), 2000)
     },
 
