@@ -14,7 +14,7 @@ const fetching = async (endPoint, data={}, method="get") => {
 
 const getN = () => 'aaaaaaaa'
 
-const sign = data => fetching('sign', data, 'post')
+const sign = async data => await fetching('sign', data, 'post')
 
 const signatureRedeem = async data => fetching('signature/redeem', data, 'post')
 
@@ -109,7 +109,7 @@ export const cancel = async (id, pr) => {
   const cancelJson = await fetching('cancel', data, 'post')
   data.signature = ljSign(pr, cancelJson.transaction)
 
-  return sign(await data)
+  return sign(data)
 }
 
 const signICO = async data => await (fetching('ico/sign', data, 'post'))

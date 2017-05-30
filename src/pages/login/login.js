@@ -3,7 +3,6 @@ import { required, minLength, maxLength } from 'vuelidate/lib/validators'
 import { decrypt, doValidatePwd } from '~utils/ljsign'
 
 
-
 export default {
   data() {
     return {
@@ -12,7 +11,8 @@ export default {
       password: '',
       filenameError: '',
       wallet: {},
-      success: false
+      success: false,
+      loading: false
     }
   },
 
@@ -27,6 +27,7 @@ export default {
   methods: {
     login() {
       try {
+        this.loading = true
         const privateKey = decrypt(this.wallet['privateKeyEncrypted'], this.password)
         const result = doValidatePwd(privateKey, this.wallet['publicKey'])
 
@@ -35,14 +36,16 @@ export default {
           this.$store.dispatch('LOGIN', this.wallet)
               .then(() => {
                 delete this.wallet
+                this.loading = false
                 this.$message.success('验证成功!')
                 this.$router.push({ path: '/admin/balances' })
               })
         } else {
+          this.loading = false
           this.$message.error('验证失败,请检查文件格式与密码重试!')
         }
       } catch (e) {
-        console.log(e)
+        this.loading = false
         this.$message.error('验证失败,请检查文件格式与密码重试!')
       }
     },

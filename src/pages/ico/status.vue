@@ -144,6 +144,7 @@
 
       async ask({ id, adminAddress }) {
         if (this.adminAddress !== this.address) return this.$message.error('你不是承兑有效者！')
+
         this.loading = true
         this.$store.dispatch('ASK_ICO', { id, adminAddress })
             .then(r => r.json())

@@ -16,7 +16,6 @@
           <td>{{item.price * item.amount}}</td>
           <td class="td-btn">
             <el-button
-                :loading="item.loading"
                 class="btn ljbutton"
                 v-if="item.status === 0"
                 @click="cancel(item)"> 撤单
@@ -37,23 +36,22 @@
     methods: {
       getOrders() {
         return this.$store.dispatch('GET_ORDER')
-          .then(orders => this.orders = orders['asks'].map(i => { i.loading = false; return i }))
+          .then(orders => this.orders = orders['asks'])
           .catch(e => this.$message.error('获取挂单失败！请稍后再试！'))
       },
 
-      async cancel(item) {
-        await this.stopFetch()
-        const id = item.id
+      async cancel({ id }) {
+        // await this.stopFetch()
 
-        this.$_.set(item, 'loading', true)
         try {
           const res = await this.$store.dispatch('CANCEL', { id })
           if (res) {
-            this.startFetch()
+            // this.startFetch()
             this.$message.success('撤单成功！')
           }
         } catch(e) {
-          this.startFetch()
+          // this.startFetch()
+          console.log(e)
           this.$message.error('撤单失败！请重新尝试！')
         }
       },

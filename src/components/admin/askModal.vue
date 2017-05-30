@@ -7,12 +7,11 @@
     text-indent: 0;
   }
 
-  .btn-lj-green {
+  .btn-lj-green,
+  .btn-lj-green:hover,
+  .btn-lj-green:focus{
     background-color: #669a00;
-    color: #fff;
-  }
-  .btn-lj-green:hover {
-    background-color: #669a00;
+    border-color: #669a00;
     color: #fff;
   }
 </style>

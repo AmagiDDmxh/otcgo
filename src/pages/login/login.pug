@@ -34,7 +34,7 @@
 
 				// Login button
 				.input-group
-					button.form-control.text-center.select-file.btn-lj(type="button", style="border-radius:6px;", @click="login", :disabled="$v.$invalid")
+					el-button.form-control(type="primary", style="border-radius:6px;", @click="login", :disabled="$v.$invalid", :loading="loading")
 						| 登 &nbsp &nbsp 录
 				.register.text-center
 					router-link(to="/signUp") 没有钱包?立即创建!
