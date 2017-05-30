@@ -44,28 +44,37 @@
       async cancel(item) {
         const id = item.id
 
+        this.stopFetch()
+
         this.$_.set(item, 'loading', true)
         try {
           const res = await this.$store.dispatch('CANCEL', { id })
           if (res) {
-            this.getOrders()
+            this.startFetch()
             this.$message.success('撤单成功！')
           }
         } catch(e) {
-          console.log(e)
-          this.getOrders()
+          this.startFetch()
           this.$message.error('撤单失败！请重新尝试！')
         }
+      },
+
+      startFetch() {
+        this.getOrders()
+        window.orderTimer = window.setInterval(() => this.getOrders(), 1000 * 2)
+      },
+
+      stopFetch() {
+        window.clearInterval(window.orderTimer)
       }
     },
 
-    mounted() {
-      this.getOrders()
-      window.orderTimer = window.setInterval(() => this.getOrders(), 1000 * 2)
+    created() {
+      this.startFetch()
     },
 
     destroyed() {
-      window.clearInterval(window.orderTimer)
+      this.stopFetch()
     }
   }
 </script>

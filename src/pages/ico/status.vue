@@ -58,10 +58,6 @@
           this.getICO()
           window.clearInterval(this.icoTimer)
         }
-      },
-
-      [data.countdown](val) {
-        if (val === 0) window.clearInterval(this.countdownTimer)
       }
     },
 
