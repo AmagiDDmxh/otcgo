@@ -3,6 +3,8 @@ import VueResource from 'vue-resource'
 import Base58 from 'bs58'
 import CryptoJS from 'crypto-js'
 
+import { ljSign } from '~libs/LJSign'
+
 Vue.use(VueResource)
 
 const fetching = async (endPoint, data={}, method="get") => {
@@ -128,6 +130,7 @@ export const askICO = async ({ id, hexPubkey }, pr) => {
   })
 }
 
+export const getIO = async add => (await fetching(`ico/order/${add}`))
 
 export default {
   getI,
@@ -145,7 +148,8 @@ export default {
   ask,
   bid,
   askICO,
-  bidICO
+  bidICO,
+  getIO
 }
 
 /**

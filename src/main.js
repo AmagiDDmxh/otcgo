@@ -21,10 +21,9 @@ Vue.use(ElementUI)
 Vue.use(Vuelidate)
 Vue.use(require('vue-moment'), { moment })
 
-
 // Define lodash, make it use as this.$_ instead of globally
 Object.defineProperty(Vue.prototype, '$_', { value: _ })
-// Object.defineProperty(Vue.prototype, '$moment', { value: moment })
+Object.defineProperty(Vue.prototype, '$mo', { value: moment })
 
 Vue.config.devtools = process.env.NODE_ENV !== 'production'
 

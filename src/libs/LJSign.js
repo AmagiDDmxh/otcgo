@@ -70,15 +70,15 @@ class LJCurveFp {
     this.__b = b
   }
 
-  get p() {
+  p() {
     return this.__p
   }
 
-  get a() {
+  a() {
     return this.__a
   }
 
-  get b() {
+  b() {
     return this.__b
   }
 
@@ -501,11 +501,11 @@ const curveSecp256r1 = new LJCurveFp(_p, _a, _b)
 const generatorSecp256r1 = new LJPoint(curveSecp256r1, _Gx, _Gy, _r)
 const SECP256r1 = new LJCurve('SECP256r1', curveSecp256r1, generatorSecp256r1, [1, 3, 132, 0, 10], 'SECP256r1')
 
-const ljSign = (prvhex, msghex) => (new LJSigningKey(prvhex)).sign(msghex)
+export const ljSign = (prvhex, msghex) => (new LJSigningKey(prvhex)).sign(msghex)
 
-const ljWifkeyToBinkey = wif => Base58.decode(wif).subarray(1, 33)
+export const ljWifkeyToBinkey = wif => Base58.decode(wif).subarray(1, 33)
 
-const ljWifkeyToHexkey = function(wif) {
+export const ljWifkeyToHexkey = function(wif) {
   let s = ''
   const x = ljWifkeyToBinkey(wif)
   for (let i = 0; i < x.length; i++) {
@@ -514,7 +514,7 @@ const ljWifkeyToHexkey = function(wif) {
   return s
 }
 
-const ljPrikeyToPubkey = function(prvhex) {
+export const ljPrikeyToPubkey = function(prvhex) {
   const secexp = LJBigInteger.parse(prvhex, 16)
   const n = LJBigInteger('0xFFFFFFFF00000000FFFFFFFFFFFFFFFFBCE6FAADA7179E84F3B9CAC2FC632551')
   if (secexp.compare(1) === -1 || secexp.compare(n) >= 0) {
@@ -531,7 +531,7 @@ const ljPrikeyToPubkey = function(prvhex) {
   return ('04' + sX + sY).toLowerCase()
 }
 
-const ljWifkeyToPubkey = function(wif) {
+export const ljWifkeyToPubkey = function(wif) {
   const prvhex = ljWifkeyToHexkey(wif)
   return ljPrikeyToPubkey(prvhex)
 }

@@ -91,8 +91,7 @@ export default {}
 </script>
 <style lang="css">
 #footer {
-    background-color: #F4F4F4;
-    margin: 25px -15px 0;
+    background-color: #eee;
     width: 1224px;
 }
 .footer-top{

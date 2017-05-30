@@ -8,12 +8,15 @@
   export default {
     data: () => ({
       img,
+      id: 1,
       data: {},
-      shares: '',
-      status: '',
-      adminAddress: '',
+      shares: null,
+      status: null,
+      adminAddress: null,
       loading: false,
-      antchain: "https://antchain.xyz/tx/hash/"
+      antchain: "https://antchain.xyz/tx/hash/",
+      password: null,
+      countdownText: null
     }),
 
     computed: {
@@ -27,7 +30,8 @@
         return this.p === 100 ||
             !this.shares ||
             this.status === 'success' ||
-            this.status === 'failure'
+            this.status === 'failure' ||
+            !this.password
       },
 
       p() {
@@ -42,8 +46,8 @@
         return ''
       },
 
-      countdown() {
-        return '申购倒计时：' + this.$moment(this.data.countDown).format("dddd, MMMM Do YYYY, h:mm:ss a")
+      time() {
+        return new Date()
       }
 
     },
@@ -54,11 +58,43 @@
           this.getICO()
           window.clearInterval(this.icoTimer)
         }
+      },
+
+      [data.countdown](val) {
+        if (val === 0) window.clearInterval(this.countdownTimer)
       }
     },
 
     methods: {
-      async bid() {
+      formattingTime(time) {
+        let days = ''
+        let hours = ''
+        let seconds = ''
+        let minutes = ''
+
+        if (time.hours) hours = time.hours() + '小时'
+        if (time.seconds) seconds = time.seconds() + '秒'
+        if (time.minutes) minutes = time.minutes() + '分'
+        if (time.days) days = time.days() + '天'
+
+        return days + hours + minutes + seconds
+      },
+
+      countdown(time) {
+        const interval = 1000
+
+        if (time !== 0) {
+          let formatTime = this.$mo.duration(time*1000)
+
+          this.countdownText = this.formattingTime(formatTime)
+
+          this.countdownTimer = setInterval(() => {
+            this.countdownText = this.formattingTime(formatTime.subtract(interval))
+          }, interval)
+        }
+      },
+
+      async bid({ id, shares, password }) {
         if (!this.loggedIn) return void this.$message.error('申购前请先确认登陆！')
         if (this.p === 100) return void this.$message.error('申购已结束！')
         if (!Number.isInteger(this.shares)) return void this.$message.error('请输入整数！')
@@ -68,50 +104,61 @@
           return this.$message.warning(`${this.receive.name}余额不足，请进行充值！`)
 
         try {
-          this.loading = true
-          setTimeout(() => this.loading = false, 2000)
-          const res = await this.$store.dispatch('BID_ICO', {
-            id: 5, shares: this.shares
-          })
-          if (res.result) {
-            this.$message.success('申购发起成功，请等待验收！')
-            setTimeout(
-                () => {
-                  this.getICO()
-                  this.loading = false
+          this.$msgbox({
+            title: '提示',
+            message: `是否确认申购${this.shares}份？`,
+            showCancelButton: true,
+            beforeClose: async (action, instance, done) => {
+              instance.confirmButtonLoading = false
+
+              if (action === 'confirm') {
+                if (this.receive.valid < total) {
+                  this.$message.warning(`${this.receive.name}余额不足，请进行充值！`)
+                  done()
+                  return
                 }
-                , 2000)
-          } else {
-            this.$message.error('申购失败，请稍候再试。')
-            setTimeout(
-                () => {
-                  this.getICO()
-                  this.loading = false
+                instance.confirmButtonLoading = true
+                instance.confirmButtonText = '执行中...'
+                try {
+                  const res = await this.$store.dispatch('BID_ICO', { id, shares, password })
+                  if (res.result) {
+                    this.$message.success('申购发起成功，请等待验收！')
+                    setTimeout(() => { this.getICO(); this.loading = false }, 2000)
+                  } else {
+                    this.$message.error('申购失败，请稍候再试。')
+                    setTimeout(() => { this.getICO(); this.loading = false }, 2000)
+                  }
+                } catch(e) {
+                  this.$message.error('申购失败，请稍候再试。')
+                  this.getOrderBook(this.type)
+                  setTimeout(() => {
+                    this.getICO()
+                    this.loading = false
+                    instance.confirmButtonLoading = false
+                  }, 2000)
+                  done()
                 }
-                , 2000)
-          }
-        } catch(e) {
-          this.$message.error(e.body.non_field_errors[0])
-          setTimeout(
-              () => {
-                this.getICO()
-                this.loading = false
+              } else {
+                done()
               }
-              , 2000)
+            }
+          })
+        } catch(e) {
+          this.$message.error(e)
+          setTimeout(() => { this.getICO(); this.loading = false }, 2000)
         }
       },
 
-      async ask() {
+      async ask({ id, adminAddress }) {
         if (this.adminAddress !== this.address) return this.$message.error('你不是承兑有效者！')
         this.loading = true
-        this.$store.dispatch('ASK_ICO', { id: 5, adminAdd: this.adminAddress})
+        this.$store.dispatch('ASK_ICO', { id, adminAddress })
             .then(r => r.json())
             .then(() => {
               this.$message.success('承兑发起，请等待验收！')
               setTimeout(() => this.loading = false, 2000)
             }, e => {
-              console.log(e)
-              this.$message.error(e.non_field_errors[0])
+              this.$message.error(e.error)
               setTimeout(() => this.loading = false, 2000)
             })
             .catch(e => {
@@ -120,21 +167,30 @@
       },
 
       async getICO() {
-        this.data = await this.$store.dispatch('GET_ICO', 5)
+        this.data = await this.$store.dispatch('GET_ICO', this.id)
         this.status = this.data.status
-        this.address = this.data.adminAddress
+        this.adminAddress = this.data.adminAddress
+        return {
+          ...this.data
+        }
       }
     },
 
     created() {
-      this.getICO().then(() =>
-          [ this.status = '', this.adminAddress = '' ] = [ this.data.status, this.data.adminAddress ]
-      )
+      const id = this.id
+
+      this.getICO().then(r => {
+        this.status = r.status
+        this.adminAddress = r.adminAddress
+        this.countdown(r.countdown)
+      })
+
       this.icoTimer = setInterval(() => this.getICO(), 2000)
     },
 
     destroyed() {
       clearInterval(this.icoTimer)
+      clearInterval(this.countdownTimer)
     }
   }
 </script>

@@ -23,6 +23,10 @@
 
 <style>
   /*common css*/
+  .container-padding {
+    padding: 0 20px 20px!important;
+  }
+
   .error-text {
     color: red;
     margin: 0;
@@ -51,6 +55,7 @@
 
   .pageDiv {
     min-width: 1224px;
+    padding: 0;
   }
 
   .logo {
@@ -180,8 +185,7 @@
     background: #000;
     height: 135px !important;
     border-top: 5px solid #009cff;
-    margin: 0 -15px;
-    width: 1224px !important;
+    max-width: 1224px !important;
     color: #fff;
     display: flex;
     align-items: center;
@@ -194,5 +198,9 @@
 
   .fade-enter, .fade-leave-active {
     opacity: 0;
+  }
+
+  body {
+    background-color: #eee;
   }
 </style>

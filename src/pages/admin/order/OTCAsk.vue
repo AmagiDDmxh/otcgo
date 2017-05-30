@@ -52,6 +52,7 @@
             this.$message.success('撤单成功！')
           }
         } catch(e) {
+          console.log(e)
           this.getOrders()
           this.$message.error('撤单失败！请重新尝试！')
         }

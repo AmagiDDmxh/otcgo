@@ -39,7 +39,7 @@
 					p 蓝鲸筹————超导交易模式的智能资产众筹平台
 					p 蓝鲸兑————小蚁生态首家承兑网关平台
 
-		el-col(:span="10")
+		el-col.status__operation(:span="10")
 			el-row
 				el-col(:span="16")
 					h4 ANS {{ data.assetPerShare * data.currentShares }}
@@ -62,12 +62,12 @@
 				p 每份发行价：
 					span {{ data.assetPerShare }} ANS
 
-
-
 			el-row
-				el-input(v-if="status === 'notStart'", :placeholder="countdown", readonly)
+				el-input(v-show="status === 'proceeding'", type="password", placeholder="请输入密码", v-model.trim="password")
 
-				el-input(v-if="promiser && p !== 100", placeholder="承兑者不可发起申购", :disabled="true")
+				el-input(v-if="status === 'notStart'", :placeholder="'申购倒计时：' + countdownText", readonly)
+
+				el-input(v-else-if="promiser && p !== 100", placeholder="承兑者不可发起申购", :disabled="true")
 
 				el-input(
 				v-else-if="p !== 100 && status === 'proceeding'", placeholder="请输入申购份数",
@@ -85,7 +85,7 @@
 					{{ status === 'success' ? '众筹成功' : '众筹失败' }}
 
 				el-button.btn-block(
-				v-else-if="promiser && p === 100", @click="ask", :loading="loading"
+				v-else-if="promiser && p === 100", @click="ask($data)", :loading="loading"
 				) 确认承兑
 
 				el-button.btn-block(
@@ -94,6 +94,6 @@
 
 				el-button.btn-block(
 				v-else,
-				type="primary", @click="bid",
+				type="primary", @click="bid($data)",
 				:disabled="disabled", :loading="loading"
 				) {{ p === 100 ? '等待承兑' : '确认申购' }}

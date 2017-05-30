@@ -99,10 +99,12 @@ export default {
     }, state.wa['privateKey'])
   },
 
-  [type.askICO]({ state }, { id, adminAdd }) {
+  [type.askICO]({ state }, { id, adminAddress }) {
     const add = state.wa['address']
-    if (add !== adminAdd) return Promise.reject('The address is completely invalid!')
+    if (add !== adminAddress) return Promise.reject('The address is completely invalid!')
 
     return service.askICO({ id, hexPubkey: state.wa['publicKey'] }, state.wa['privateKey'])
-  }
+  },
+
+  [type.getIO]: ({ state }) => service.getIO(state.wa['address'])
 }
