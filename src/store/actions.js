@@ -91,10 +91,11 @@ export default {
     return service.getI(id)
   },
 
-  [type.bidICO]({ state }, { id, shares }) {
+  [type.bidICO]({ state }, { id, shares, password }) {
     return service.bidICO({
       id,
       shares,
+      password,
       hexPubkey: state.wa['publicKey']
     }, state.wa['privateKey'])
   },
