@@ -108,30 +108,26 @@
               instance.confirmButtonLoading = false
 
               if (action === 'confirm') {
-                if (this.receive.valid < total) {
-                  this.$message.warning(`${this.receive.name}余额不足，请进行充值！`)
-                  done()
-                  return
-                }
                 instance.confirmButtonLoading = true
                 instance.confirmButtonText = '执行中...'
                 try {
                   const res = await this.$store.dispatch('BID_ICO', { id, shares, password })
                   if (res.result) {
                     this.$message.success('申购发起成功，请等待验收！')
-                    setTimeout(() => { this.getICO(); this.loading = false }, 2000)
+                    this.getICO();
+                    instance.confirmButtonLoading = this.loading = false;
                   } else {
                     this.$message.error('申购失败，请稍候再试。')
-                    setTimeout(() => { this.getICO(); this.loading = false }, 2000)
+                    this.getICO();
+                    instance.confirmButtonLoading = this.loading = false;
+                    done()
                   }
                 } catch(e) {
-                  this.$message.error('申购失败，请稍候再试。')
-                  this.getOrderBook(this.type)
-                  setTimeout(() => {
-                    this.getICO()
-                    this.loading = false
-                    instance.confirmButtonLoading = false
-                  }, 2000)
+                  this.$message.error(e.data.error)
+                  console.log(e.data.error)
+                  this.getICO()
+                  this.loading = false
+                  instance.confirmButtonLoading = false
                   done()
                 }
               } else {
@@ -176,6 +172,7 @@
       const id = this.id
 
       this.getICO().then(r => {
+        console.log(r)
         this.status = r.status
         this.adminAddress = r.adminAddress
         this.countdown(r.countdown)

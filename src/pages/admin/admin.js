@@ -14,6 +14,12 @@ export default {
     ...mapGetters(['loggedIn'])
   },
 
+  watch: {
+    loggedIn(val) {
+      if (!val) this.$router.push('/login')
+    }
+  },
+
   methods: {
     handleNav(str) {
       if (typeof str === 'string') {
@@ -26,7 +32,7 @@ export default {
     }
   },
 
-  updated() {
+  mounted() {
     if (!this.loggedIn) {
       this.$router.push('/login')
     }

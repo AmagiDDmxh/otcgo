@@ -50,20 +50,13 @@
 			.detail-content
 				p 目标金额：
 					span {{ data.amountToICO }} ANS
-				p 剩余天数：
-					span(
-					v-if="status === 'success' ||" +
-					" status === 'failure' ||" +
-					" status === 'waitingForPromis'") 0 天
-					template(v-else)
-						span {{ new Date(data.endTime) | moment("from") }}
 				p 当前支持人数：
 					span {{ data.backers }} 人
 				p 每份发行价：
 					span {{ data.assetPerShare }} ANS
 
 			el-row
-				el-input(v-show="status === 'proceeding'", type="password", placeholder="请输入密码", v-model.trim="password")
+				el-input(v-show="status === 'proceeding' && !promiser", type="password", placeholder="请输入密码", v-model.trim="password")
 
 				el-input(v-if="status === 'notStart'", :placeholder="'申购倒计时：' + countdownText", readonly)
 

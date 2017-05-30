@@ -20,7 +20,7 @@
       },
       logout() {
         this.LOGOUT()
-        this.$router.push('/login')
+        this.$message.success('你已成功退出！')
       }
     },
 

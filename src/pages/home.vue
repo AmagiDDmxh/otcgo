@@ -2,9 +2,9 @@
   .page-index
     .index
       el-carousel(:interval="5000", height="400px")
-        el-carousel-item
+        el-carousel-item(v-for="banner in banners")
           router-link(:to="{path: '/markets/', query: { class: 'kacans' }}")
-            img(:src="banners[0]", alt="Banner, 海报")
+            img(:src="banner", alt="Banner, 海报")
       o-content
 
       // el-button(:loading="loading", @click="hand") adadad
@@ -39,7 +39,10 @@
     components: { oContent },
 
     data: () => ({
-      banners: [require('../images/banner1.jpg'), require('../images/slide2.png'), require('../images/slide3.png')],
+      banners: [
+        require('../images/banner1.jpg'),
+        require('../images/banner2.jpg')
+      ],
       loading: false
     }),
 
