@@ -56,14 +56,26 @@ input.el-input__inner
     &-failure
       background: linear-gradient(135deg, #ff4949, #35d3e4);
 
+.status__body
+  padding: 30px 0
+
+.status__content
+  border-bottom: 1px solid #eee
 
 .status__operation
-  height: 360px
+  height: 375px
   display: flex
   flex-direction: column
   justify-content: space-between
   .el-row
     margin: 0
+  .el-button
+    margin-bottom: 10px
+  .btn.btn-block
+    padding: 0
+  /*.status__btn-details
+    background: #000
+    border-color: #000*/
 
 .detail-content
   font-size: 16px
