@@ -42,9 +42,8 @@
       },
 
       async cancel(item) {
+        await this.stopFetch()
         const id = item.id
-
-        this.stopFetch()
 
         this.$_.set(item, 'loading', true)
         try {
@@ -61,7 +60,7 @@
 
       startFetch() {
         this.getOrders()
-        window.orderTimer = window.setInterval(() => this.getOrders(), 1000 * 2)
+        window.orderTimer = window.setInterval(() => this.getOrders(), 1000 * 5)
       },
 
       stopFetch() {

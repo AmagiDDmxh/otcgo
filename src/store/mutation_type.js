@@ -26,5 +26,6 @@ export default {
   getBlock: 'GET_BLOCK',
   getICO: 'GET_ICO',
   bidICO: 'BID_ICO',
-  askICO: 'ASK_ICO'
+  askICO: 'ASK_ICO',
+  getIO: 'GET_ICO_ORDER'
 }

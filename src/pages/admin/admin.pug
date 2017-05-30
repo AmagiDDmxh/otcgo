@@ -22,7 +22,6 @@
                      ul.nav.nav-stacked.nav-pills.drop-menu
                         li(@click="on=true"): router-link(:to="{ name: 'transferH' }") 转账记录
                         li(@click="on=true"): router-link(:to="{ name: 'transactionH' }") 交易记录
-               li: a(href='//antchain.xyz', target='_blank') 区块浏览
                li(@click="handleNav"): router-link(to="/admin/uid") 个人中心
       .col-xs-9
          .admin-content
