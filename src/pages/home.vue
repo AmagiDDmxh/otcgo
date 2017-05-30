@@ -3,8 +3,8 @@
     .index
       el-carousel(:interval="5000", height="400px")
         el-carousel-item(v-for="banner in banners")
-          router-link(:to="{path: '/markets/', query: { class: 'kacans' }}")
-            img(:src="banner", alt="Banner, 海报")
+          router-link(:to="banner.route")
+            img(:src="banner.src", :alt="banner.dec")
       o-content
 
       // el-button(:loading="loading", @click="hand") adadad
@@ -40,8 +40,10 @@
 
     data: () => ({
       banners: [
-        require('../images/banner1.jpg'),
-        require('../images/banner2.jpg')
+        { src: require('../images/banner1.jpg'), dec: '蓝鲸淘正式上线开拍币\\小蚁股交易对',
+          route: { path: '/markets', query: { 'class': 'kacans' }}},
+        { src: require('../images/banner2.jpg'), dec: '去中心化 ‘ICO’ 功能上线，蓝鲸淘 ‘私募计划’ 启动',
+          route: { path: '/ico/status' }}
       ],
       loading: false
     }),
