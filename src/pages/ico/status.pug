@@ -76,11 +76,8 @@
 					:href="`${antchain}${data.txid}`", target="_blank"
 					): el-button.mb10.btn-block(type="primary") 交易详情
 
-					a.btn.btn-block(
-					:class="{ 'ico__button--success': status === 'success'," +
-					"         'ico__button--failure': status === 'failure' }",
-					v-if="status === 'success' || status === 'failure'").
-						{{ status === 'success' ? '众筹成功' : '众筹失败' }}
+					el-button.btn-block(type="danger", v-if="status === 'success' || status === 'failure'")
+						| {{ status === 'success' ? '众筹成功' : '众筹失败' }}
 
 					el-button.btn-block(
 					v-else-if="promiser && p === 100", @click="ask($data)", :loading="loading"

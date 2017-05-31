@@ -91,6 +91,7 @@
       },
 
       async bid({ id, shares, password }) {
+        if (!id || !shares || password) return
         if (!this.loggedIn) return void this.$message.error('申购前请先确认登陆！')
         if (this.p === 100) return void this.$message.error('申购已结束！')
         if (!Number.isInteger(this.shares)) return void this.$message.error('请输入整数！')
@@ -156,7 +157,7 @@
               setTimeout(() => this.loading = false, 2000)
             })
             .catch(e => {
-              console.log(e)
+              this.$message.error(e.body.error)
             })
       },
 
@@ -172,7 +173,7 @@
 
     created() {
       const id = this.id
-
+j
       this.getICO().then(r => {
         console.log(r)
         this.status = r.status

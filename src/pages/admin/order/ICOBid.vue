@@ -5,15 +5,15 @@
       th 买入数量
       th 买入单价ANS
       th 总计ANS
-      // th(style={ width: '260px' })
+      th(style={ width: '260px' })
     tbody
       tr(v-for="item in orders")
         td {{ item.name }}
         td ({{ item.baseAmount }} + {{ item.earlyBird }})
         td {{ item.price }}
         td {{ item.price * item.amount }}
-        // td.td-btn
-          el-button.btn.ljbutton(:loading="item.loading", v-if="item.status === 0", @click="cancel(item)")  撤销
+        td.td-btn
+          el-button.btn.ljbutton(:loading="item.loading", v-if="item.canCancel", @click="cancel(item)")  撤销
 </template>
 
 <script>
@@ -31,27 +31,39 @@
       },
 
       async cancel(item) {
+        await this.stopFetch()
+
         const id = item.id
+        this.$set(item, 'loading', true)
+        setTimeout(() => this.$set(item, 'loading', true), 2000)
         try {
           const res = await this.$store.dispatch('CANCEL', { id })
           if (res) {
-            this.getOrders()
+            this.startFetch()
             this.$message.success('撤单成功！')
           }
         } catch(e) {
-          this.getOrders()
+          this.startFetch()
           this.$message.error(e.body.non_field_errors[0])
         }
+      },
+
+      startFetch() {
+        this.getOrders()
+        this.orderTimer = window.setInterval(() => this.getOrders(), 1000 * 2)
+      },
+
+      stopFetch() {
+        clearInterval(this.orderTimer)
       }
     },
 
     mounted() {
-      this.getOrders()
-      window.orderTimer = window.setInterval(() => this.getOrders(), 1000 * 2)
+      this.startFetch()
     },
 
     destroyed() {
-      window.clearInterval(window.orderTimer)
+      this.stopFetch()
     }
 
   }

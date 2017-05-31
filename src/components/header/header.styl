@@ -102,40 +102,13 @@ ul > li > .menuactive
   color #fff !important
 
 
-.navbar-nav lihover
+.navbar-nav li:hover
   background #009cff
 
 
-.navbar-nav lihover a
+.navbar-nav li:hover a
   color #fff
   text-decoration none
-
-
-.menuhover ul
-  display block
-
-
-.menulist > li
-  list-style none
-  background #555
-  width 160px
-  height 38px
-  line-height 38px
-  text-align center
-  font-size 15px
-  border-top 1px solid #666
-
-
-.menulist > lihover
-  background #333
-
-
-.menulist > lihover a
-  color #337ab7
-
-
-.menulist > li > a
-  color #fff !important
 
 
 .menulist
@@ -145,11 +118,26 @@ ul > li > .menuactive
   z-index 100
   padding 0
   display none
-
+  ul
+    display block
+  & > li
+    list-style none
+    background #555
+    width 160px
+    height 38px
+    line-height 38px
+    text-align center
+    font-size 15px
+    border-top 1px solid #666
+    a
+      color #fff !important
+    &:hover
+      background #333
+      a
+        color #337ab7
 
 .search
   display inline-block
-
 
 #des
   display inline-block
@@ -158,7 +146,6 @@ ul > li > .menuactive
 
 .navbar-default
   margin 15px !important
-
 
 .navbar-collapse
   padding 0
