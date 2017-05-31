@@ -173,7 +173,7 @@
 
     created() {
       const id = this.id
-j
+
       this.getICO().then(r => {
         console.log(r)
         this.status = r.status
