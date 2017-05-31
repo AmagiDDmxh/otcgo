@@ -11,7 +11,7 @@
         td {{ item.name }}
         td ({{ item.baseAmount }} + {{ item.earlyBird }})
         td {{ item.price }}
-        td {{ item.price * item.amount }}
+        td {{ item.amount }}
         td.td-btn
           el-button.btn.ljbutton(:loading="item.loading", v-if="item.canCancel", @click="cancel(item)")  撤销
 </template>
