@@ -91,12 +91,14 @@
       },
 
       async bid({ id, shares, password }) {
-        if (!id || !shares || password) return
+        if (!id || !shares || !password) return this.$message.error('请输入有效字符！')
         if (!this.loggedIn) return void this.$message.error('申购前请先确认登陆！')
         if (this.p === 100) return void this.$message.error('申购已结束！')
         if (!Number.isInteger(this.shares)) return void this.$message.error('请输入整数！')
 
+        await this.$store.dispatch('GET_ASSET')
         this.$store.commit('SET_RECEIVE', '小蚁股')
+
         if (this.receive.valid < Number(this.data.valuePerShare))
           return this.$message.warning(`${this.receive.name}余额不足，请进行充值！`)
 
