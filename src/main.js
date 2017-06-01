@@ -30,9 +30,16 @@ Vue.config.devtools = process.env.NODE_ENV !== 'production'
 Vue.http.options.root = '/api/v1'
 Vue.http.options.emulateJSON = true;
 
-new Vue({
+
+const app = new Vue({
   el: '#app',
   router,
   store,
   render: r => r(App)
+})
+
+app.$notify.warning({
+  title: '警告',
+  message: '您正在使用的浏览器过于老旧，请试着下载最新的浏览器：{地址}，以防止无法使用全部功能。',
+  duration: 0
 })

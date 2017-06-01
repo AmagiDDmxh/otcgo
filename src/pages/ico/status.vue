@@ -14,7 +14,7 @@
       status: null,
       adminAddress: null,
       loading: false,
-      antchain: "https://antchain.xyz/tx/hash/",
+      antchain: "https://antchain.xyz/address/",
       password: null,
       countdownText: null
     }),
