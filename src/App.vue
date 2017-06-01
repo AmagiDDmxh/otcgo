@@ -1,23 +1,29 @@
 <template>
-  <div class="pageDiv container" style="background-color:#fff;">
-    <h></h>
+  <div class="app">
+    <!--<top-nav></top-nav>-->
+    <div class="pageDiv container" style="background-color:#fff;">
 
-    <transition name="fade" mode="out-in">
-      <router-view></router-view>
-    </transition>
+      <h></h>
 
-    <foot></foot>
-    <div class="footer-link">
-      Copyright &copy; 2017 &nbsp;<a href="https://otcgo.cn/">otcgo.cn</a>&nbsp; 版权所有 湘ICP备16019051号-1
+      <transition name="fade" mode="out-in">
+        <router-view></router-view>
+      </transition>
+
+      <foot></foot>
+      <div class="footer-link">
+        Copyright &copy; 2017 &nbsp;<a href="https://otcgo.cn/">otcgo.cn</a>&nbsp; 版权所有 湘ICP备16019051号-1
+      </div>
     </div>
   </div>
 </template>
 <script>
+  import topNav from '~components/header/topNav'
   import h from './components/header/header.vue'
   import foot from './components/footer/footer.vue'
 
+
   export default {
-    components: { h, foot }
+    components: { h, foot, topNav }
   }
 </script>
 

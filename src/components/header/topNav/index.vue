@@ -1,64 +1,57 @@
 <template>
-  <div class="wrapper">
-    <div class="top-nav" :class="{ expand: scrolled, opened: navOpen }">
-      <div class="nav-items hidden-xs">
-        <ul>
-          <!-- <li><router-link to="/articles">文章</router-link></li> -->
-          <li><router-link to="/designGuide" active-class >设计指南与资源</router-link></li>
-        </ul>
-      </div>
-      <div class="nav-items visible-xs">
+  <div id="topNav" class="navbar navbar-default navbar-static-top accounts topNav">
 
-      </div>
-      <div class="nav-full visible-xs" :class="{ visible: navOpen }">
-        <ul>
-          <!-- <li><router-link to="/articles">文章</router-link></li> -->
-          <li><router-link to="/designGuide" active-class >设计指南与资源</router-link></li>
-          <li><router-link to="/career" active-class >工作机会</router-link></li>
+    <div class="navbar-header">
+      <a class="btn btn-default navbar-toggle collapsed" data-toggle="collapse" data-target=".account-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+    </div>
+
+    <div class="navbar-collapse account-collapse collapse">
+      <div class="container-fluid">
+
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <a href="">
+              <el-button :plain="true" type="primary">区块浏览</el-button>
+            </a>
+          </li>
+          <li>
+            <a>
+              <block-counter></block-counter>
+            </a>
+          </li>
+
         </ul>
       </div>
     </div>
-
   </div>
 </template>
 
 <script>
+  import blockCounter from '~components/header/blockCounter'
+
   export default {
     name: 'topNav',
+
+    components: { blockCounter },
+
     data: () => ({
       scrolled: false,
       navOpen: false
-    }),
-
-    mounted() {
-      window.addEventListener('scroll', this.handleScroll)
-    },
-
-    methods: {
-      handleScroll() {
-        this.scrolled = window.scrollY > 40
-      },
-      navTriggerClick() {
-        this.navOpen = !this.navOpen
-      }
-    }
+    })
   }
 </script>
 
 <style lang="stylus" scoped>
-  @import "~styles/common";
+  @import "../../../styles/common";
+  @import "../../../styles/variables.styl";
 
-  .wrapper
-    display: flex
-    justify-content: center
-
-  .top-nav
-    width: 85%
-    display: flex
-    justify-content: space-between
-    align-items: center
-    padding: 0.5rem 1rem
-    background: white
-    border: 1px solid #eee
-
+  .topNav
+    background: white!important
+    margin: 0!important
+    .nav
+      width: 40%
 </style>

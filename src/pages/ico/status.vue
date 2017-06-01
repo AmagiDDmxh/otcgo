@@ -158,7 +158,7 @@
               setTimeout(() => this.loading = false, 2000)
             })
             .catch(e => {
-              this.$message.error(e.body.error)
+              console.log(e)
               setTimeout(() => this.loading = false, 2000)
             })
       },
