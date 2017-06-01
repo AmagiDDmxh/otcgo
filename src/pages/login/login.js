@@ -26,8 +26,8 @@ export default {
 
   methods: {
     login() {
+      this.loading = true
       try {
-        this.loading = true
         const privateKey = decrypt(this.wallet['privateKeyEncrypted'], this.password)
         const result = doValidatePwd(privateKey, this.wallet['publicKey'])
 
@@ -39,6 +39,9 @@ export default {
                 this.loading = false
                 this.$message.success('验证成功!')
                 this.$router.push({ path: '/admin/balances' })
+              }, () => {
+                this.$message.error('验证失败,请检查文件格式与密码重试!')
+                this.loading = false
               })
         } else {
           this.loading = false

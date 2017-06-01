@@ -128,7 +128,6 @@
                   }
                 } catch(e) {
                   this.$message.error(e.data.error)
-                  console.log(e.data.error)
                   this.getICO()
                   this.loading = false
                   instance.confirmButtonLoading = false
@@ -177,7 +176,6 @@
       const id = this.id
 
       this.getICO().then(r => {
-        console.log(r)
         this.status = r.status
         this.adminAddress = r.adminAddress
         this.countdown(r.countdown)

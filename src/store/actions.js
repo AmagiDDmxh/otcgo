@@ -9,7 +9,7 @@ export default {
   [type.login]({ commit, dispatch }, wa) {
     commit(type.setWallet, wa)
     commit(type.login)
-    return dispatch(type.getUID, wa)
+    return dispatch(type.getUID)
   },
 
   [type.logout]({ commit }) {
@@ -28,8 +28,8 @@ export default {
   },
 
   async [type.getUID] ({ commit, state }, _) {
-    commit(type.setUID, (await service.getU(state.wa['address'])).uid)
-    commit(type.setWif, service.getW(state.wa['privateKey']))
+    commit(type.setUID, (await service.getU(state.wa.address)).uid)
+    commit(type.setWif, service.getW(state.wa.privateKey))
   },
 
   [type.getMarkets]({}, { name, params}) {
