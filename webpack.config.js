@@ -43,6 +43,10 @@ module.exports = {
       {
         test: /\.styl$/,
         use: ['style-loader', 'css-loader', 'stylus-loader']
+      },
+      {
+        test: /\.(pdf|doc)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'file-loader?name=[name].[ext]'
       }
     ]
   },
@@ -50,6 +54,7 @@ module.exports = {
     extensions: ['.js', '.vue', '.less', '.css', '.scss'],
     alias: {
       'vue$': 'vue/dist/vue.common.js',
+      '~static': path.resolve(__dirname, 'src/static'),
       '~images': path.resolve(__dirname, 'src/images'),
       '~styles': path.resolve(__dirname, 'src/styles'),
       '~utils': path.resolve(__dirname, 'src/utils'),
