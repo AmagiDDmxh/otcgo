@@ -96,8 +96,6 @@
         if (this.p === 100) return void this.$message.error('申购已结束！')
         if (!Number.isInteger(this.shares)) return void this.$message.error('请输入整数！')
 
-        await this.$store.dispatch('GET_ASSET')
-        this.$store.commit('SET_RECEIVE', '小蚁股')
 
         try {
           this.$msgbox({
