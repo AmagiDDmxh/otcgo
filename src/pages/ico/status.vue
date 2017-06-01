@@ -99,9 +99,6 @@
         await this.$store.dispatch('GET_ASSET')
         this.$store.commit('SET_RECEIVE', '小蚁股')
 
-        if (this.receive.valid < Number(this.data.valuePerShare))
-          return this.$message.warning(`${this.receive.name}余额不足，请进行充值！`)
-
         try {
           this.$msgbox({
             title: '提示',

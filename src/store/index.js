@@ -22,7 +22,6 @@ const state = {
   fileName: ''
 }
 
-
 export default new Vuex.Store({
   state,
   actions,

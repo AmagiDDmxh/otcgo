@@ -90,7 +90,7 @@
         this.loading = true
         this.$store.commit('SET_FILE_NAME', `${this.username}.json`)
         this.$store.dispatch('SIGN_UP', { publicKeyCompressed, publicKey, privateKeyEncrypted, privateKey })
-            .then(() => { this.loading = false; this.$router.push('/signUpNext') },
+            .then(() => { this.loading = false; this.$router.push('/signUpNext'); },
                   () => { this.loading = false; this.$message.error('创建钱包失败，请重试') })
       }
     }

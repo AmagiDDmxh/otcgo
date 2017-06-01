@@ -82,6 +82,10 @@
 
     beforeRouteEnter(to, from, next) {
       next(vm => vm.signUp ? next() : next('/signUp'))
+    },
+
+    created() {
+      this.$message.warning('请确保已下载钱包文件，防止钱包文件丢失。')
     }
   }
 </script>
