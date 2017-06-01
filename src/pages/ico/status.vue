@@ -154,11 +154,12 @@
               this.$message.success('承兑发起，请等待验收！')
               setTimeout(() => this.loading = false, 2000)
             }, e => {
-              this.$message.error(e.error)
+              this.$message.error(e.body.error)
               setTimeout(() => this.loading = false, 2000)
             })
             .catch(e => {
               this.$message.error(e.body.error)
+              setTimeout(() => this.loading = false, 2000)
             })
       },
 
