@@ -32,7 +32,7 @@
 					"  'status__thumbnail__bg-failure': status === 'failure'" +
 					"}")
 						| {{ data.title }}
-						img(:src="require('~images/upcoming.png')", v-show="status === 'notStart'")
+						.img
 					.caption
 						h4 基于小蚁区块链的应用平台服务商
 						p 目前旗下产品有：

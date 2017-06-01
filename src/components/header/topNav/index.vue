@@ -45,7 +45,20 @@
   }
 </script>
 
-<style lang="css" scoped>@import "~styles/variables";
+<style lang="stylus" scoped>
+  @import "~styles/common";
 
+  .wrapper
+    display: flex
+    justify-content: center
+
+  .top-nav
+    width: 85%
+    display: flex
+    justify-content: space-between
+    align-items: center
+    padding: 0.5rem 1rem
+    background: white
+    border: 1px solid #eee
 
 </style>

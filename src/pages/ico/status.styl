@@ -1,3 +1,11 @@
+label(name, top=20px, left=0px)
+  background url('../../images/'+ name + '.png') no-repeat center
+  position absolute
+  top top
+  left left
+  width: 120px
+  height: 40px
+
 placeholder()
   &::-webkit-input-placeholder
     {block}
@@ -46,15 +54,17 @@ input.el-input__inner
     text-align: center
     padding: 70px
     position: relative
-    &-pre > img
-      background: url('../../images/upcoming.png') top no-repeat
-      position: absolute
-      top: 0
-      left: 0
+    & > .img
+      label('proceeding')
+    &-pre > .img
+      label('upcoming')
+    &-failure > .img, &-success > .img
+      label('over')
     &-success
       background: linear-gradient(135deg, #00f300, #35d3e4);
     &-failure
       background: linear-gradient(135deg, #ff4949, #35d3e4);
+
 
 .status__body
   padding: 30px 0

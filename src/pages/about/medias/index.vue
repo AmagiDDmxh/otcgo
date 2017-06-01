@@ -2,8 +2,8 @@
   .medias
     .medias__title: h3 媒体报道
     ul.medias__content
-      li: a(href="#/about/#") 申一科技入驻小蚁开源社区，上线智能资产管理平台
-      li: a(href="#/about/#") 超导交易：一场去中心化交易模式的革命！
+      li: a(href="http://www.sohu.com/a/142033091_456945") 申一科技入驻小蚁开源社区，上线智能资产管理平台
+      li: a(href="http://www.sohu.com/a/127277835_456945") 超导交易：一场去中心化交易模式的革命！
 </template>
 
 <script>
