@@ -19,9 +19,7 @@
 <script>
   export default {
 
-    data: () => ({
-      orders: []
-    }),
+    data: () => ({ orders: [] }),
 
     methods: {
       getOrders() {
@@ -32,9 +30,6 @@
 
       async cancel(item) {
         await this.stopFetch()
-
-        const id = item.id
-        this.$set(item, 'loading', true)
         setTimeout(() => this.$set(item, 'loading', true), 2000)
         try {
           const res = await this.$store.dispatch('CANCEL', { id })

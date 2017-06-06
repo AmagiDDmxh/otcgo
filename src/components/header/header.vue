@@ -1,13 +1,12 @@
 <template src="./header.html"></template>
-<style lang="stylus" src="./header.styl"></style>
+<style lang="stylus" src="./header.styl" scoped></style>
 
 <script>
-  import oNav from './oNav/oNav.vue'
   import blockCounter from '~components/header/blockCounter/index.vue'
   import { mapGetters, mapActions } from 'vuex'
 
   export default {
-    components: { oNav, blockCounter },
+    components: { blockCounter },
     name: 'h',
     data: () => ({
       activeMarkets: false

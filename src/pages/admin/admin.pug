@@ -14,8 +14,8 @@
                   a(@click="handleNav('order')") 我的挂单
                   transition(name='fade', mode='out-in')
                      ul.nav.nav-stacked.nav-pills.drop-menu
-                        li(@click="on=true"): router-link(:to="{ name: 'OTCAsk' }") OTC卖单
-                        li(@click="on=true"): router-link(:to="{ name: 'ICOBid' }") ICO申购单
+                        li(@click="on=true"): router-link(to="/admin/order/otc") OTC卖单
+                        li(@click="on=true"): router-link(to="/admin/order/ico") ICO申购单
                li(:class="[{'on': onHistory}, 'drop-trigger']")
                   a(@click="handleNav('history')") 历史交易记录
                   transition(name='fade', mode='out-in')

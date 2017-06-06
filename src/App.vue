@@ -1,9 +1,11 @@
 <template>
   <div class="app">
-    <!--<top-nav></top-nav>-->
+    <top-nav></top-nav>
     <div class="pageDiv container" style="background-color:#fff;">
 
       <h></h>
+
+      <o-nav></o-nav>
 
       <transition name="fade" mode="out-in">
         <router-view></router-view>
@@ -20,10 +22,10 @@
   import topNav from '~components/header/topNav'
   import h from './components/header/header.vue'
   import foot from './components/footer/footer.vue'
-
+  import oNav from '~components/header/oNav/oNav.vue'
 
   export default {
-    components: { h, foot, topNav }
+    components: { h, foot, topNav, oNav }
   }
 </script>
 

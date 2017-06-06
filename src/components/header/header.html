@@ -2,12 +2,10 @@
   <div class="logo">
     <div class="logo-left">
       <router-link to="/index"><img src="../../images/logo.png" alt=""/></router-link>
-      <span>基于智能合约的数字资产转让平台</span>
+      <span id="des">基于智能合约的数字资产转让平台</span>
     </div>
     <transition name="fade" mode="out-in">
       <div class="logo-right">
-        <block-counter></block-counter>
-
         <!-- login session -->
         <div style="margin-top: 20px;">
           <ul v-if="loggedIn">
@@ -27,7 +25,4 @@
       </div>
     </transition>
   </div>
-
-  <o-nav></o-nav>
-
 </div>

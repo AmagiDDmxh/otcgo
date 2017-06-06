@@ -5,13 +5,13 @@ Vue.use(VueRouter)
 
 const routes = [
   // 主页
-  { path: '/index', component: r => require(['~pages/home.vue'], r) },
+  { path: '/index', component: r => require(['~pages/home/home.vue'], r) },
 
   // 登陆
   { path: '/login', component: r => require(['~pages/login/index.vue'], r) },
 
   // 地址为空跳转Home页面
-  { path: '/', component: r => require(['~pages/home.vue'], r) },
+  { path: '/', component: r => require(['~pages/home/home.vue'], r) },
 
   // 钱包
   { path: '/admin', component: r => require(['~pages/admin/index.vue'], r),
@@ -21,8 +21,7 @@ const routes = [
       { path: 'balances', component: r => require(['~pages/admin/balances/balances.vue'], r) },
       { path: 'history/transfer', component: r => require(['~pages/admin/history/transfer.vue'], r), name: 'transferH' },
       { path: 'history/transaction', component: r => require(['~pages/admin/history/transaction.vue'], r), name: 'transactionH' },
-      { path: 'order/OTCAsk', component: r => require(['~pages/admin/order/OTCAsk.vue'], r), name: 'OTCAsk' },
-      { path: 'order/ICOBid', component: r => require(['~pages/admin/order/ICOBid.vue'], r), name: 'ICOBid' },
+      { path: 'order/:type', component: r => require(['~pages/admin/order'], r), name: 'order' },
       { path: '', component: r => require(['~pages/admin/balances/balances.vue'], r) }
     ]
   },

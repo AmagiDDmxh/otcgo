@@ -1,0 +1,48 @@
+@import "../../../styles/common";
+@import "../../../styles/variables.styl";
+
+.topNav
+  background: white!important
+  margin: 0!important
+  .nav
+    width: auto
+    & > li > a
+      padding: 10px 15px
+    .icon
+      padding-top: 20px
+      svg
+        margin-right: 5px
+
+  #block
+    .cls-1
+      fill: #6b6b6b
+      stroke: #fff
+      stroke-linecap: round
+      stroke-linejoin: round
+      stroke-width: .3px
+
+#clock
+  width: auto
+  height: auto
+  .cls-1, .cls-2
+    fill: none
+    stroke: #6b6b6b
+  .cls-1
+    stroke-miterlimit: 10
+    stroke-width: 0.25px
+  .cls-2
+    stroke-linecap: round
+    stroke-linejoin: round
+    stroke-width: 0.2px
+
+@media (min-width: 768px)
+  .topNav .nav
+    width: auto
+    & > li > a
+      padding-top: 15px
+      padding-bottom: 15px
+    .icon
+      padding-top: 20px
+      display: flex
+      svg
+        margin-right: 5px

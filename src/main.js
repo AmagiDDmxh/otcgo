@@ -7,6 +7,7 @@ import Vue from 'vue'
 import _ from 'lodash'
 import VueResource from 'vue-resource'
 import Vuelidate from 'vuelidate'
+import Icon from 'vue-awesome'
 import moment from 'moment'
 require('moment/locale/zh-cn')
 
@@ -15,9 +16,11 @@ import router from './routers'
 import store from './store'
 
 import ElementUI from 'element-ui'
+import VueSVGIcon from 'vue-svgicon'
 
 Vue.use(VueResource)
 Vue.use(ElementUI)
+Vue.use(VueSVGIcon)
 Vue.use(Vuelidate)
 Vue.use(require('vue-moment'), { moment })
 
@@ -28,8 +31,9 @@ Object.defineProperty(Vue.prototype, '$mo', { value: moment })
 Vue.config.devtools = process.env.NODE_ENV !== 'production'
 
 Vue.http.options.root = '/api/v1'
-Vue.http.options.emulateJSON = true;
+Vue.http.options.emulateJSON = true
 
+Vue.component('icon', Icon)
 
 const app = new Vue({
   el: '#app',
@@ -40,6 +44,6 @@ const app = new Vue({
 
 app.$notify.warning({
   title: '警告',
-  message: '您正在使用的浏览器过于老旧，请试着下载最新的浏览器：{地址}，以防止无法使用全部功能。',
+  message: '请下载最新版谷歌浏览器，以便无法使用全部功能。',
   duration: 0
 })

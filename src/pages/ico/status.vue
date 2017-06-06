@@ -112,12 +112,12 @@
                   const res = await this.$store.dispatch('BID_ICO', { id, shares, password })
                   if (res.result) {
                     this.$message.success('申购发起成功，请等待验收！')
-                    this.getICO();
-                    instance.confirmButtonLoading = this.loading = false;
+                    this.getICO()
+                    instance.confirmButtonLoading = this.loading = false
                     done()
                   } else {
                     this.$message.error('申购失败，请稍候再试。')
-                    this.getICO();
+                    this.getICO()
                     instance.confirmButtonLoading = this.loading = false;
                     done()
                   }
