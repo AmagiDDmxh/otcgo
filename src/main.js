@@ -34,6 +34,7 @@ Vue.http.options.root = '/api/v1'
 Vue.http.options.emulateJSON = true
 
 Vue.component('icon', Icon)
+Vue.component('Vuetable', require('vuetable-2/src/components/Vuetable.vue'))
 
 const app = new Vue({
   el: '#app',
@@ -43,7 +44,7 @@ const app = new Vue({
 })
 
 app.$notify.warning({
-  title: '警告',
-  message: '请下载最新版谷歌浏览器，以便无法使用全部功能。',
+  title: '提示',
+  message: '请使用最新版谷歌浏览器进行页面操作，否则可能导致部分功能无法正常使用。',
   duration: 0
 })

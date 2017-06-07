@@ -31,6 +31,10 @@
 
 <style>
   /*common css*/
+  body {
+    font-family: "Microsoft YaHei", serif;
+  }
+
   .container-padding {
     padding: 0 20px 20px!important;
   }

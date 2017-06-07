@@ -6,13 +6,12 @@
   </div>
   <div class="row">
     <div class="col-xs-3 col-lg-3">
+      <div class="flex">
+        <el-button type="primary">官方网站 <!--{{ officialName || '' }}--></el-button>
+        <el-button type="primary">代币详情</el-button>
+      </div>
       <div class="ad-tips" v-if="!loggedIn">
-        <div class="ad-tips__title">交易指南</div>
-        <div class="ad-tips__content">
-          <p>请确认<router-link to="/login" class="link-span">登录钱包</router-link>后!</p>
-          <p>再进行订单的“购买”操作!</p>
-          <p>请尽快结算，以防止抢单。</p>
-        </div>
+
       </div>
       <div class="ad-tips" v-else>
         <div class="ad-tips__title">交易指南</div>
@@ -32,6 +31,26 @@
     </div>
 
     <div class="content col-xs-9 col-lg-9">
+      <div class="content-header">
+        <div class="row">
+          <div class="col-sm-11">
+            <div class="col-sm-3">开拍币/小蚁股</div>
+            <div class="col-sm-3">最新价</div>
+            <div class="col-sm-3">24H成交量</div>
+            <div class="col-sm-3">24H涨跌幅</div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-11">
+            <div class="col-sm-3 blue-span">KAC/ANS</div>
+            <div class="col-sm-3 blue-span">0.01ANS</div>
+            <div class="col-sm-3 blue-span">5254421 KAC</div>
+            <div class="col-sm-3 red">+5.2%</div>
+          </div>
+        </div>
+      </div>
+
       <table class="table table-js table-striped">
         <thead>
           <th style="color: #009cff;">{{name}}</th>
@@ -40,6 +59,7 @@
           <th>总价 {{ receiveCurrency }}</th>
           <th class="th-bar"></th>
         </thead>
+
         <tbody class="pl27">
           <tr v-for="item in orders">
             <td class="sell-name" v-text="item.name"></td>
@@ -52,6 +72,14 @@
           </tr>
         </tbody>
       </table>
+
+      <vuetable
+          ref="vuetable"
+          api-url="https://vuetable.ratiw.net/api/users"
+          :fields="o"
+      ></vuetable>
+
+
 
       <div class="row">
         <div class="col-xs-12">
