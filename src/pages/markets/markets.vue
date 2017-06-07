@@ -15,21 +15,7 @@
         type: this.$route.query.class,
         total: 0,
         currentPage: 1,
-        pageLength: 7,
-        o: [ "status",
-             "contractAddress",
-             "name",
-             "modifiedTime",
-             "assetId",
-             "price",
-             "agent",
-             "amount",
-             "client",
-             "way",
-             "address",
-             "createdTime",
-             "valueId",
-             "id"]
+        pageLength: 7
       }
     },
 
