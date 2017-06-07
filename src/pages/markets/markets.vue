@@ -21,7 +21,20 @@
 
     watch: {
       '$route' (to, from) {
-        this.name = this.$route.query.class === 'anscny' ? '小蚁股' : this.$route.query.class === 'anccny' ? '小蚁币' : '开拍学园币（KAC）'
+        switch (to.query.class) {
+          case 'anscny':
+            this.name = '小蚁股'
+            break
+          case 'anccny':
+            this.name = '小蚁币'
+            break
+          case 'kacans':
+            this.name = '开拍学园币（KAC）'
+            break
+          case 'lzslzc':
+            this.name = '量子股份'
+            break
+        }
         this.type = to.query.class
         this.getOrderBook(this.type)
       }

@@ -13,6 +13,12 @@
                 :to="{path: '/markets',
                         query: { 'class': 'kacans' }}" tag="li">开拍币-小蚁股
             </router-link>
+
+            <router-link
+                class="text-center pointer"
+                :to="{path: '/markets',
+                      query: { 'class': 'lzslzc' }}" tag="li">量子股份-量子积分
+            </router-link>
           </ul>
         </a>
       </li>
