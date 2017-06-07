@@ -4,11 +4,11 @@
   <div id="topNav" class="navbar navbar-default navbar-static-top accounts topNav">
 
     <div class="navbar-header">
-      <a class="btn btn-default navbar-toggle collapsed" data-toggle="collapse" data-target=".account-collapse">
+      <!--<a class="btn btn-default navbar-toggle collapsed" data-toggle="collapse" data-target=".account-collapse">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
-      </a>
+      </a>-->
     </div>
 
     <div class="navbar-collapse account-collapse collapse">

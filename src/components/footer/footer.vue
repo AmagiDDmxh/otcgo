@@ -80,6 +80,7 @@
                     </div>
                     <div class="col-lg-2 text-center">
                         <h4 class="text-color text-type2">微信订阅号</h4>
+                        <img :src="require('~images/QRcode.jpg')" alt="QRcode" class="qrCode" />
                     </div>
                 </div>
             </div>
@@ -90,6 +91,10 @@
 export default {}
 </script>
 <style lang="css">
+.qrCode {
+  width: 100px;
+}
+
 #footer {
     background-color: #eee;
     width: 1224px;
