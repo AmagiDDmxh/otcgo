@@ -7,7 +7,7 @@
       .col-xs-3
          span.blue-span 冻结：{{ deliver.frozen }}
       .col-xs-3
-         span.blue-span 最新成交价：{{ deliver.current_price }}
+         span.blue-span 最新成交价：{{ deliver.currentPrice }}
    .row
       .col-xs-3
          b {{ receive.name }}：
@@ -32,7 +32,7 @@
          span(v-else-if='amount.success'): img(:src='img.yes')
 
    .row(style='margin-top:10px')
-      .col-xs-3(style="line-height: 30px;"): b 卖出单价{{deliver.marketSign.toUpperCase()}}：
+      .col-xs-3(style="line-height: 30px;"): b 卖出单价{{receive.marketSign.toUpperCase()}}：
       .col-xs-6
          input.form-control(
            placeholder='输入价格', style='width:100%!important',

@@ -4,7 +4,7 @@
       th 资产名称
       th 买入数量
       th 买入单价
-      th 总计ANS
+      th 总计
       th(style={ width: '260px' })
     tbody(v-if="$route.params === 'ico'")
       tr(v-for="item in orders")
