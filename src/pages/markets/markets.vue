@@ -30,9 +30,6 @@
     computed: {
       ...mapGetters(['loggedIn', 'deliver', 'receive']),
       deliverCurrency() {
-        if (this.deliver !== undefined) {
-          return ` ${this.deliver.marketSign.toUpperCase()}`
-        }
         switch (this.$route.query.class) {
           case 'kacans':
             return ' KAC'
@@ -45,9 +42,6 @@
         }
       },
       receiveCurrency() {
-        if (this.receive !== undefined) {
-          return ` ${this.receive.marketSign.toUpperCase()}`
-        }
         switch (this.$route.query.class) {
           case 'kacans':
             return ' ANS'
