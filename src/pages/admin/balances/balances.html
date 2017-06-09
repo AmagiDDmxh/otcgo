@@ -22,8 +22,9 @@
             <span class="link-span-seal">转账</span> <!--@click="balanceTransfer(balance['asset'],balance['divisible'],balance['name'],balance['valid'])"-->
           </template>
           <template v-else>
-            <span v-if="balance['marketSign'] === 'kac'" class="link-span"
-                  @click="ask(balance)">交易</span>
+            <span v-if="balance['marketSign'] === 'kac'" class="link-span" @click="ask(balance, '小蚁股')">交易</span>
+
+            <span v-else-if="balance['marketSign'] === 'lzg'" class="link-span" @click="ask(balance, '量子积分')">交易</span>
 
             <span v-else class="link-span-seal">交易</span>
 

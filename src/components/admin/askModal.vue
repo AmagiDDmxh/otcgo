@@ -69,7 +69,8 @@
             this.$emit('success')
           }
         } catch(e) {
-          this.$message.error('操作繁忙，请稍候重试！')
+          console.log(e)
+          this.$message.error(e.body.error)
           this.loading = false
           this.$store.dispatch('GET_ASSET')
         }
@@ -107,6 +108,7 @@
         }
         const priceStr = String(this.price.value)
         const priceNum = Number(this.price.value)
+        this.price.value = priceNum
         if (priceStr.indexOf('.') > -1) {
           this.$set(this.price, 'value', Number(
               priceStr.trim().slice(0, priceStr.indexOf('.') + 9))
@@ -114,7 +116,7 @@
         }
 
         if (!priceStr) this.price.empty = true
-        if (!this.$_.isNumber(priceNum) || priceNum === 0) this.price.wrong = true
+        if (!this.$_.isNumber(priceNum) || priceNum <= 0) this.price.wrong = true
         if (priceStr.slice(priceStr.indexOf('.')).length > 9) this.price.lenErr = true
         if (!this.receive['divisible']){
           const total = this.price.value * this.amount.value

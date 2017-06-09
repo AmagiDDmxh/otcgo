@@ -17,7 +17,7 @@
             <router-link
                 class="text-center pointer"
                 :to="{path: '/markets',
-                      query: { 'class': 'lzslzc' }}" tag="li">量子股份-量子积分
+                      query: { 'class': 'lzglzj' }}" tag="li">量子股份-量子积分
             </router-link>
           </ul>
         </a>

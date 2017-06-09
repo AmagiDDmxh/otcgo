@@ -2,34 +2,14 @@
   .page-index
     .index
       el-carousel(:interval="5000", height="400px")
-        el-carousel-item(v-for="banner in banners")
+        el-carousel-item.progressive(v-for="banner in banners")
           router-link(:to="banner.route")
-            img(:src="banner.src", :alt="banner.dec")
+            img.preview(
+            v-progressive="banner.src",
+            :src="banner.preview",
+            :alt="banner.dec"
+            )
       o-content
-
-      // el-button(:loading="loading", @click="hand") adadad
-      // el-menu(default-active="2", @open="handleOpen", @close="handleClose")
-        el-submenu(index="1")
-          template(slot="title") 导航一
-          el-menu-item-group(title="分组一")
-            el-menu-item(index="1-1") 选项1
-            el-menu-item(index="1-2") 选项2
-          el-menu-item-group(title="分组2")
-            el-menu-item(index="1-3") 选项3
-          el-menu-item-group
-            el-submenu(index="1-4")
-              template(slot="title") 选项4
-              el-menu-item(index="1-4-1") 选项1
-        el-submenu(index="2")
-          template(slot="title") 导航二
-          el-menu-item(index="2-1") 选项1
-          el-menu-item(index="2-2") 选项2
-          el-menu-item-group
-            el-submenu(index="2-3")
-              template(slot="title") 选项3
-              el-menu-item(index="2-3-1") 选项3-4
-        el-menu-item(index="3") 导航三
-
 </template>
 
 <script>
@@ -40,7 +20,10 @@
 
     data: () => ({
       banners: [
-        { src: require('../../images/banner1.jpg'), dec: '蓝鲸淘正式上线开拍币\\小蚁股交易对',
+        {
+          src: require('~images/banner1.jpg'),
+          preview: require('~images/banner1_r.jpg'),
+          dec: '蓝鲸淘正式上线开拍币\\小蚁股交易对',
           route: {
             path: '/markets',
             query: { 'class': 'kacans' }

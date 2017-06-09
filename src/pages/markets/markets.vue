@@ -21,7 +21,10 @@
 
     watch: {
       '$route' (to, from) {
-        this.watchChange(to)
+        console.log(to)
+        if (to.path === '/markets')
+          this.watchChange(to)
+        else this.$destroy()
       }
     },
 
@@ -53,12 +56,14 @@
           case 'kacans':
             this.name = '开拍学园币（KAC）'
             break
-          case 'lzslzc':
-            this.name = '交易对'
+          case 'lzglzj':
+            this.name = '量子股份'
             break
         }
         this.type = to.query.class
-        this.getOrderBook(this.type)
+        console.log(to)
+        if (to.path === '/markets')
+          this.getOrderBook(this.type)
       },
 
       handleSizeChange(val) {
@@ -150,7 +155,7 @@
 
     mounted() {
       this.watchChange(this.$route)
-      window.marketsTimer = window.setInterval(() => this.getOrderBook(this.type), 1000 * 2)
+      this.marketsTimer = window.setInterval(() => this.getOrderBook(this.type), 1000 * 2)
     },
 
     destroyed() {

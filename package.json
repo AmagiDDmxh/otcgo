@@ -24,6 +24,7 @@
     "jssha": "^2.3.0",
     "moment": "^2.18.1",
     "moment-countdown": "0.0.3",
+    "progressive-image": "^1.1.0",
     "vee-validate": "^2.0.0-beta.22",
     "vue": "^2.1.0",
     "vue-awesome": "^2.3.1",

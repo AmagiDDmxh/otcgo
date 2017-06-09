@@ -1,13 +1,14 @@
 import 'bootstrap/dist/css/bootstrap.css'
 import '../theme/index.css'
+import 'progressive-image/dist/index.css'
 import '~styles/common.styl'
-import 'moment'
 
 import Vue from 'vue'
 import _ from 'lodash'
 import VueResource from 'vue-resource'
 import Vuelidate from 'vuelidate'
 import Icon from 'vue-awesome'
+import progressive from 'progressive-image/dist/vue'
 import moment from 'moment'
 require('moment/locale/zh-cn')
 
@@ -23,6 +24,10 @@ Vue.use(ElementUI)
 Vue.use(VueSVGIcon)
 Vue.use(Vuelidate)
 Vue.use(require('vue-moment'), { moment })
+Vue.use(progressive, {
+  removePreview: true,
+  scale: true
+})
 
 // Define lodash, make it use as this.$_ instead of globally
 Object.defineProperty(Vue.prototype, '$_', { value: _ })

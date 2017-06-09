@@ -20,7 +20,7 @@ const signatureRedeem = async data => fetching('signature/redeem', data, 'post')
 
 const getI = async id => (await fetching(`ico/${id}`))
 
-export const getB = async add => (await fetching(`balances/${add}`))
+export const getA = async add => (await fetching(`balances/${add}`))
 export const getU = async add => (await fetching(`uid/${add}`))
 
 export const getH = async (name, add, params) => {
@@ -29,7 +29,7 @@ export const getH = async (name, add, params) => {
   throw new Error('No name accepted')
 }
 
-export const getBh = async () => await fetching('block/count')
+export const getB = async () => await fetching('block/count')
 
 export const getM = async (name, params) => await fetching(`order_book/${name}`, { params })
 
@@ -133,23 +133,24 @@ export const askICO = async ({ id, hexPubkey }, pr) => {
 export const getIO = async add => (await fetching(`ico/order/${add}`))
 
 export default {
-  getI,
-  getW,
-  getC,
-  getO,
-  getH,
+  getA,
   getB,
+  getC,
+  getH,
+  getI,
+  getO,
   getM,
   getU,
-  getBh,
-  redeem,
-  transfer,
-  cancel,
+  getW,
+
   ask,
-  bid,
   askICO,
+  bid,
   bidICO,
-  getIO
+  cancel,
+  getIO,
+  redeem,
+  transfer
 }
 
 /**

@@ -28,9 +28,9 @@
       transferSuccess() {
         this.transferModal = false
       },
-      ask({ name }) {
+      ask({ name }, receiverName) {
         this.$store.commit('SET_DELIVER', name)
-        this.$store.commit('SET_RECEIVE', '小蚁股')
+        this.$store.commit('SET_RECEIVE', receiverName)
         this.askModal = true
       },
       askSuccess() {

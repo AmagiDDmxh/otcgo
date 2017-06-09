@@ -24,7 +24,7 @@ export default {
   },
 
   async [type.getAsset] ({ commit, state }) {
-    commit(type.setAsset, (await service.getB(state.wa['address'])).balances)
+    commit(type.setAsset, (await service.getA(state.wa['address'])).balances)
   },
 
   async [type.getUID] ({ commit, state }, _) {
@@ -84,7 +84,7 @@ export default {
   },
 
   [type.getBlock]() {
-    return service.getBh()
+    return service.getB()
   },
 
   [type.getICO](_, id) {
