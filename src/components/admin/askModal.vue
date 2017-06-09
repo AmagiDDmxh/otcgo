@@ -69,7 +69,6 @@
             this.$emit('success')
           }
         } catch(e) {
-          console.log(e)
           this.$message.error(e.body.error)
           this.loading = false
           this.$store.dispatch('GET_ASSET')
