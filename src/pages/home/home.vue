@@ -8,7 +8,7 @@
             v-progressive="banner.src",
             :src="banner.preview",
             :alt="banner.dec",
-            data-src="banner.src"
+            :data-src="banner.src"
             )
       o-content
 </template>
