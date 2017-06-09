@@ -33,11 +33,12 @@ export default {
       this.contentOne = false
       this.contentTwo = true
     },
+
     async getPrice() {
-      const kacansData = await this.$http.get(`price/kacans`)
-      this.kacans = kacansData.data || 0
-      this.anccny = (await this.$http.get(`price/anccny`)) || 0
-      this.anscny = (await this.$http.get(`price/anscny`)) || 0
+      console.log((await this.$http.get(`price/kacans`)).body)
+      this.kacans = (await this.$http.get(`price/kacans`)).body
+      this.anccny = ((await this.$http.get(`price/anccny`)).body) || 0
+      this.anscny = ((await this.$http.get(`price/anscny`)).body) || 0
     },
     toMarkets() {
       this.$router.push({ path: '/markets', query: { class: 'kacans' }})

@@ -40,27 +40,30 @@ export default {
                 this.$message.success('验证成功!')
                 this.$router.push({ path: '/admin/balances' })
               }, () => {
-                this.$message.error('验证失败,请检查文件格式与密码重试!')
+                this.$message.error('验证失败，请检查钱包文件与密码重试!')
                 this.loading = false
               })
         } else {
           this.loading = false
-          this.$message.error('验证失败,请检查文件格式与密码重试!')
+          this.$message.error('验证失败，请检查钱包文件与密码重试!')
         }
       } catch (e) {
         this.loading = false
-        this.$message.error('验证失败,请检查文件格式与密码重试!')
+        this.$message.error('验证失败，请检查钱包文件与密码重试!')
       }
     },
     readFile(file) {
       const reader = new window.FileReader()
-      reader.onload = e => {
+      let vm = this
+
+      reader.onload = function (e) {
         try {
           const data = JSON.parse(e.target.result)
-          if (this.checkFile(data, file.name)) this.wallet = data
+          if (!vm.checkFile(data, file.name)) throw new Error('钱包文件错误！')
+          vm.wallet = data
         } catch (err) {
-          this.filenameError = '文件格式错误！'
-          this.filename = ''
+          vm.filenameError = err.message
+          vm.filename = ''
         }
       }
       reader.readAsText(file)
@@ -68,7 +71,7 @@ export default {
     checkFile(file, filename) {
       if (!file.hasOwnProperty('publicKey') || !file.hasOwnProperty('publicKeyCompressed') ||
           !file.hasOwnProperty('privateKeyEncrypted') || !file.hasOwnProperty('address') ||
-          !/json/.test(filename)) return false
+          !/.*\.json/.test(filename)) return false
       this.filename = filename
       this.filenameError = ''
       return true
