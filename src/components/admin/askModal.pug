@@ -32,7 +32,7 @@
          span(v-else-if='amount.success'): img(:src='img.yes')
 
    .row(style='margin-top:10px')
-      .col-xs-3(style="line-height: 30px;"): b 卖出单价ANS：
+      .col-xs-3(style="line-height: 30px;"): b 卖出单价{{deliver.marketSign.toUpperCase()}}：
       .col-xs-6
          input.form-control(
            placeholder='输入价格', style='width:100%!important',
@@ -51,7 +51,7 @@
       .col-xs-6
          el-button.btn.btn-lj-green.btn-block(:loading="loading", @click='transfer').
            {{ loading ? '执行中':'卖出' }}
-   .row(style='margin-top: 15px;')
+   .row(style='margin-top: 15px;', v-if="deliver.marketSign === 'kac'")
       .col-xs-offset-2
          b 友情提示！由于小蚁股不可分割，请确保卖出总价（即卖出量*卖出单价）为整数！
 

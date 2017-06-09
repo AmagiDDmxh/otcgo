@@ -8,28 +8,24 @@ div.oContent
          table.table.table-bordred.table-striped.text-center.table-hover
             thead
                tr.active
-                  th 权益代码
+                  th 代币代码
                   th 资产名称
-                  th 资产类型
                   th 发行方
                   th 最新价格ANS
             tbody(v-if='contentOne')
                tr.pointer(@click="toMarkets")
                   td 00003
                   td 开拍币
-                  td 股权\消费权
                   td 开拍学园
                   td {{ kacans.price || '暂未' }}
             tbody(v-else-if='contentTwo')
                tr
                   td 00001
                   td 小蚁股ANS
-                  td 股权
                   td 小蚁区块链
                   td {{ anscny.price || '暂未' }}
                tr
                   td 00002
                   td 小蚁币ANC
-                  td 消费权
                   td 小蚁区块链
                   td {{ anccny.price || '暂未'}}

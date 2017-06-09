@@ -6,7 +6,7 @@
     <ul class="nav navbar-nav">
       <li class="first">
         <a class="menu">
-          分类资产
+          交易对
           <ul class="menulist">
             <router-link
                 class="text-center pointer"
