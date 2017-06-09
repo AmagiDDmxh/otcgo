@@ -6,7 +6,7 @@
           <th>类型</th>
           <th>交易对</th>
           <th>成交数量</th>
-          <th>单价ANS</th>
+          <th>单价</th>
           <th>成交时间</th>
           <th>操作</th>
         </tr>
