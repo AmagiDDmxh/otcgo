@@ -27,5 +27,6 @@ export default {
   getICO: 'GET_ICO',
   bidICO: 'BID_ICO',
   askICO: 'ASK_ICO',
-  getIO: 'GET_ICO_ORDER'
+  getIO: 'GET_ICO_ORDER',
+  setWalletTemporary: 'SET_WALLET_TEMPORARY'
 }

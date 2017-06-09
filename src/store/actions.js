@@ -17,7 +17,7 @@ export default {
   },
 
   async [type.signUp]({ commit }, { publicKeyCompressed, publicKey, privateKeyEncrypted, privateKey }) {
-    commit(type.setWallet, { publicKeyCompressed, publicKey, privateKeyEncrypted, privateKey, address: service.getC(publicKeyCompressed) })
+    commit(type.setWalletTemporary, { publicKeyCompressed, publicKey, privateKeyEncrypted, privateKey, address: service.getC(publicKeyCompressed) })
     commit(type.downloadWallet)
     commit(type.signUp)
     return Promise.resolve(true)

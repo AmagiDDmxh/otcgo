@@ -16,6 +16,7 @@ Vue.use(Vuex)
 const state = {
   balances: [],
   wa: {},
+  waT: {},
   signUp: false,
   receive: {},
   deliver: {},
