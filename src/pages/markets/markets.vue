@@ -21,7 +21,6 @@
 
     watch: {
       '$route' (to, from) {
-        console.log(to)
         if (to.path === '/markets')
           this.watchChange(to)
         else this.$destroy()
@@ -31,16 +30,34 @@
     computed: {
       ...mapGetters(['loggedIn', 'deliver', 'receive']),
       deliverCurrency() {
-        if (this.deliver.marketId) {
+        if (this.deliver !== undefined) {
           return ` ${this.deliver.marketSign.toUpperCase()}`
         }
-        return ' KAC'
+        switch (this.$route.query.class) {
+          case 'kacans':
+            return ' KAC'
+            break
+          case 'lzglzj':
+            return ' LZG'
+            break
+          default:
+            return ' KAC'
+        }
       },
       receiveCurrency() {
-        if (this.receive.marketId) {
+        if (this.receive !== undefined) {
           return ` ${this.receive.marketSign.toUpperCase()}`
         }
-        return ' ANS'
+        switch (this.$route.query.class) {
+          case 'kacans':
+            return ' ANS'
+            break
+          case 'lzglzj':
+            return ' LZJ'
+            break
+          default:
+            return ' ANS'
+        }
       }
     },
 
@@ -55,13 +72,17 @@
             break
           case 'kacans':
             this.name = '开拍学园币（KAC）'
+            this.receiveCurrency = ' ANS'
+            this.deliverCurrency = ' KAC'
             break
           case 'lzglzj':
             this.name = '量子股份'
+            this.receiveCurrency = ' LZJ'
+            this.deliverCurrency = ' LZG'
             break
         }
         this.type = to.query.class
-        console.log(to)
+
         if (to.path === '/markets')
           this.getOrderBook(this.type)
       },
@@ -107,8 +128,8 @@
           return
         }
 
-        this.$store.commit('SET_DELIVER', '开拍学园币（KAC）')
-        this.$store.commit('SET_RECEIVE', '小蚁股')
+        this.$store.commit('SET_DELIVER', this.$route.query.class.slice(0, 3))
+        this.$store.commit('SET_RECEIVE', this.$route.query.class.slice(3))
 
         this.$store.dispatch('GET_ASSET')
 
