@@ -35,7 +35,6 @@ export default {
     },
 
     async getPrice() {
-      console.log((await this.$http.get(`price/kacans`)).body)
       this.kacans = (await this.$http.get(`price/kacans`)).body
       this.anccny = ((await this.$http.get(`price/anccny`)).body) || 0
       this.anscny = ((await this.$http.get(`price/anscny`)).body) || 0
