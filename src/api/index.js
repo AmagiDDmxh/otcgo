@@ -213,7 +213,7 @@ export const otcSign = async ({ id, signature }) =>
 export const getPriceById = async marketId => await (fetching(`price/${marketId}`))
 
 /**
- * 获取指定地址的交易记录
+ * 获取指定地址的交易记录用于个人成交单查询
  * @param {*} param
  */
 export const getRedeem = async address => await (fetching(`redeem/${address}`))

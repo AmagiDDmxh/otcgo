@@ -10,7 +10,7 @@
         <button class="el-button el-button--primary" type="button">官方网站</button>
         <button class="el-button el-button--primary" type="button">代币详情</button>
       </div>
-      <div class="el-content-pannel">
+      <div class="el-content-pannel" v-if="loggedIn">
         <h3 class="el-content-title">
           我的{{ deliverCurrency }}资产:
         </h3>
@@ -23,6 +23,11 @@
         <p>可用：<span class="blue-span">11</span></p>
         <p>冻结：<span class="blue-span">11</span></p>
         <p>总量：<span class="blue-span">11</span></p>
+      </div>
+      <div class="el-content-pannel" v-else>
+        <h3 class="el-content-title">
+          我的{{ deliverCurrency }}资产: <router-link :to="{path: 'login'}">登录</router-link> | <router-link :to="{path: 'signUp'}">注册</router-link>
+        </h3>
       </div>
       <div class="el-content-pannel">
         <h3 class="el-content-title red-span">

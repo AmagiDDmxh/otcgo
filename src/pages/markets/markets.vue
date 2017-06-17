@@ -3,6 +3,7 @@
 
 <script>
   import { mapGetters } from 'vuex'
+  import { findBalances } from '../../utils/util'
   import Table from '../../components/common/Table'
 
   const tableHeader = ['类型', '委托价格', '委托数量', '操作']
@@ -32,10 +33,13 @@
         total: 0,
         currentPage: 1,
         pageLength: 7,
+        ownAsset: {},
+        assetId: '',
+        valueId: '',
         payNum: '', // 买入的数量
         payAnsPrice: '', // 买入的单价
-        sellNum: '', // 买卖出的数量
-        sellAnsPrice: '' // 卖出的数量
+        sellNum: '', // 卖出的数量
+        sellAnsPrice: '' // 卖出的价格
       }
     },
 
@@ -48,7 +52,7 @@
     },
 
     computed: {
-      ...mapGetters(['loggedIn', 'deliver', 'receive']),
+      ...mapGetters(['loggedIn', 'deliver', 'receive', 'balances']),
       deliverCurrency() {
         switch (this.$route.query.class) {
           case 'kacans':
@@ -82,6 +86,49 @@
     },
 
     methods: {
+      // 挂卖单
+      bidAction () {
+        this.loggedIn ? this.$store.dispatch('SEND_BID', {
+          price: this.sellAnsPrice,
+          amount: this.sellNum,
+          assetId: this.ownAsset[0].assetId,
+          valueId: this.ownAsset[1].assetId
+        })
+        .then(data => {
+          console.log('%cbidAction: ', 'color: red', data)
+          if (data.hasOwnProperty('result') && data.result) {
+            this.$message.success('挂单成功')
+          }
+          if (data.error) {
+            this.$message.warning(data.error)
+          }
+        }).catch(err => this.$message.error('挂单失败'))
+        : window.$router.push({
+          name: 'login'
+        })
+      },
+
+      // 挂买单
+      askAction () {
+        this.loggedIn ? this.$store.dispatch('SEND_ASK', {
+          price: this.payAnsPrice,
+          amount: this.payNum,
+          assetId: this.ownAsset[0].assetId,
+          valueId: this.ownAsset[1].assetId
+        })
+        .then(data => {
+          console.log('%caskAction: ', 'color: red', data)
+          if (data.hasOwnProperty('result') && data.result) {
+            this.$message.success('挂单成功')
+          }
+          if (data.error) {
+            this.$message.warning(data.error)
+          }
+        }).catch(err => this.$message.error('挂单失败'))
+        : window.$router.push({
+          name: 'login'
+        })
+      },
 
       buyOrder (items) {
         this.loggedIn ? this.$store.dispatch('SEND_FREE_BID', {
@@ -112,10 +159,12 @@
           name: 'login'
         })
       },
+
       // 撤销买卖单
       cancel (item) {
         console.log('%c撤销单：', item)
       },
+
       watchChange (to) {
         switch (to.query.class) {
           case 'anscny':
@@ -164,6 +213,8 @@
         // })
         // .catch(err => this.$message.error('获取交易记录失败')) : []
 
+        this.ownAsset = [findBalances(this.balances, this.deliverCurrency.toLocaleLowerCase())[0], findBalances(this.balances, this.receiveCurrency.toLocaleLowerCase())[0]]
+        console.log('this.ownAsset: ', this.ownAsset)
         // 委托单
         this.loggedIn ? this.$store.dispatch('GET_ORDER_BY_ADDRESS').then(data => {
           this.actionDataSource = data['asks'].reduce(
@@ -202,7 +253,6 @@
         return this.$store.dispatch('GET_MARKETS', { name, params })
             .then(d => {
               this.total = d['item_num']
-
               this.orders = d.data['asks'].reduce(
                   (acc, item) => acc.concat({
                     id: {
