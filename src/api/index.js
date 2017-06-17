@@ -132,6 +132,99 @@ export const askICO = async ({ id, hexPubkey }, pr) => {
 
 export const getIO = async add => (await fetching(`ico/order/${add}`))
 
+/**
+ * 获取随机字符串
+ */
+
+export const getNonce = async () => await (fetching(`nonce`))
+
+/**
+ * 获取所有市场详情
+ */
+export const getMarkets = async () => await (fetching('markets'))
+
+/**
+ * 获取单一市场的市场详情
+ */
+
+export const getMarketsById = async marketId => await (fetching(`markets/${marketId}`))
+
+/**
+ * 挂卖单
+ */
+
+export const sendAsk = async ({ assetId, valueId, price, amount, hexPubkey }, pr) => {
+  const { transaction, order } = await (fetching('otc/ask', { assetId, valueId, price, amount, hexPubkey }, 'post'))
+  return otcSign({
+    id: order.id,
+    signature: ljSign(pr, transaction)
+  })
+}
+
+/**
+ * 挂买单
+ */
+
+export const sendBid = async ({ assetId, valueId, price, amount, hexPubkey }, pr) => {
+  const { transaction, order } = await (fetching('otc/bid', { assetId, valueId, price, amount, hexPubkey }, 'post'))
+  // 不需要随机字符
+  // const nonce = getNonce()
+  return otcSign({
+    id: order.id,
+    signature: ljSign(pr, transaction)
+  })
+}
+
+/**
+ * 卖家吃单
+ */
+
+export const sendFreeAsk = async ({ id, hexPubkey }, pr) => {
+  const { transaction, order } = await (fetching('otc/free/ask', { id, hexPubkey }, 'post'))
+  return otcSign({
+    id: order.id,
+    signature: ljSign(pr, transaction)
+  })
+}
+
+/**
+ * 买家吃单
+ * @param {*} param
+ */
+export const sendFreeBid = async ({ id, hexPubkey }, pr) => {
+  const { transaction, order } = await (fetching('otc/free/bid', { id, hexPubkey }, 'post'))
+  return otcSign({
+    id: order.id,
+    signature: ljSign(pr, transaction)
+  })
+}
+
+/**
+ * 订单签名
+ * @param {*} param
+ */
+export const otcSign = async ({ id, signature }) =>
+  await (fetching('otc/sign', { id, signature }, 'post'))
+
+/**
+ * 获取市场最新价格
+ */
+
+export const getPriceById = async marketId => await (fetching(`price/${marketId}`))
+
+/**
+ * 获取指定地址的交易记录
+ * @param {*} param
+ */
+export const getRedeem = async address => await (fetching(`redeem/${address}`))
+
+/**
+ * 获取指定地址的交易订单
+ * @param {*} param
+ */
+
+export const getOrderByAddress = async address => await (fetching(`order/${address}`))
+
 export default {
   getA,
   getB,
@@ -150,7 +243,18 @@ export default {
   cancel,
   getIO,
   redeem,
-  transfer
+  transfer,
+
+  getMarkets,
+  getMarketsById,
+  sendAsk,
+  sendBid,
+  sendFreeAsk,
+  sendFreeBid,
+  otcSign,
+  getPriceById,
+  getRedeem,
+  getOrderByAddress
 }
 
 /**

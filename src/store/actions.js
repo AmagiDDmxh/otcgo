@@ -107,5 +107,29 @@ export default {
     return service.askICO({ id, hexPubkey: state.wa['publicKey'] }, state.wa['privateKey'])
   },
 
-  [type.getIO]: ({ state }) => service.getIO(state.wa['address'])
+  [type.getIO]: ({ state }) => service.getIO(state.wa['address']),
+
+  [type.getMarketsById]: ({ state }, { marketId }) => service.getMarketsById({ marketId }),
+
+  [type.sendAsk]: ({ state }, payload) => service.sendAsk(Object.assign(payload, {
+    hexPubkey: state.wa['publicKey']
+  }), state.wa['privateKey']),
+
+  [type.sendBid]: ({ state }, payload) => service.sendBid(Object.assign(payload, {
+    hexPubkey: state.wa['publicKey']
+  }), state.wa['privateKey']),
+
+  [type.sendFreeAsk]: ({ state }, payload) => service.sendFreeAsk(Object.assign(payload, {
+    hexPubkey: state.wa['publicKey']
+  }), state.wa['privateKey']),
+
+  [type.sendFreeBid]: ({ state }, payload) => service.sendFreeBid(Object.assign(payload, {
+    hexPubkey: state.wa['publicKey']
+  }), state.wa['privateKey']),
+
+  [type.getPriceById]: ({ state }, marketId) => service.getPriceById(marketId),
+
+  [type.getRedeem]: ({ state }) => service.getRedeem(state['wa'].address),
+
+  [type.getOrderByAddress]: ({ state }) => service.getOrderByAddress(state['wa'].address)
 }

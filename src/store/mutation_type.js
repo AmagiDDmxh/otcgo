@@ -28,5 +28,14 @@ export default {
   bidICO: 'BID_ICO',
   askICO: 'ASK_ICO',
   getIO: 'GET_ICO_ORDER',
-  setWalletTemporary: 'SET_WALLET_TEMPORARY'
+  setWalletTemporary: 'SET_WALLET_TEMPORARY',
+  getMarketsById: 'GET_MARKETSBYID',
+  sendAsk: 'SEND_ASK',
+  sendBid: 'SEND_BID',
+  sendFreeAsk: 'SEND_FREE_ASK',
+  sendFreeBid: 'SEND_FREE_BID',
+  otcSign: 'OTC_SIGN',
+  getPriceById: 'GET_PRICEBYID',
+  getRedeem: 'GET_REDEEM',
+  getOrderByAddress: 'GET_ORDER_BY_ADDRESS'
 }

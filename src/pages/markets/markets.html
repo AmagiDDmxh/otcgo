@@ -5,70 +5,108 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-xs-3 col-lg-3">
-      <div class="ad-tips" v-if="!loggedIn">
-        <div class="ad-tips__title">交易指南</div>
-        <div class="ad-tips__content">
-          <p>请确认<router-link to="/login" class="link-span">登录钱包</router-link>后!</p>
-          <p>再进行订单的“购买”操作!</p>
-          <p>请尽快结算，以防止抢单。</p>
-        </div>
+    <div class="el-content-left">
+      <div class="el-flex-between">
+        <button class="el-button el-button--primary" type="button">官方网站</button>
+        <button class="el-button el-button--primary" type="button">代币详情</button>
       </div>
-      <div class="ad-tips" v-else>
-        <div class="ad-tips__title">交易指南</div>
-        <div class="ad-tips__content">
-          <p>你已登陆个人钱包，</p>
-          <br>
-          <p>点击“购买”后，请尽快结算，</p>
-          <p>以防止抢单。</p>
-          <br>
-          <p>如果提示“交易失败”，可能</p>
-          <p>的原因是：</p>
-          <p>1.订单被别人抢先结算</p>
-          <p>2.确认时间内（大约15-20秒）</p>
-          <p>内，频繁发起交易请求</p>
-        </div>
+      <div class="el-content-pannel">
+        <h3 class="el-content-title">
+          我的{{ deliverCurrency }}资产:
+        </h3>
+        <p>可用：<span class="blue-span">11</span></p>
+        <p>冻结：<span class="blue-span">11</span></p>
+        <p>总量：<span class="blue-span">11</span></p>
+        <h3 class="el-content-title bk-margin-top-20">
+          我的ANS资产:
+        </h3>
+        <p>可用：<span class="blue-span">11</span></p>
+        <p>冻结：<span class="blue-span">11</span></p>
+        <p>总量：<span class="blue-span">11</span></p>
       </div>
+      <div class="el-content-pannel">
+        <h3 class="el-content-title red-span">
+          创建{{ deliverCurrency }}买单:
+        </h3>
+        <div class="bk-margin-top-10">
+          <input class="form-control" type="number" v-model.trim.number="payNum" placeholder="请输入购买数量" />
+        </div>
+        <div class="bk-margin-top-10">
+          <input class="form-control" type="number" v-model.trim.number="payAnsPrice" placeholder="请输入购买单价ANS" />
+        </div>
+        <p class="font-12 bk-margin-top-10">订单总额：<span class="red-span font-14">{{ totoalMoney }} ANS</span></p>
+        <button type="button" @click="askAction" class="el-button el-button--danger el-button--fill bk-margin-top-10">买入</button>
+        <p class="font-12 weak-span bk-margin-top-10">友情提示：由于小蚁不可分割，请确保买入总价（买入量*买入价）为整数！</p>
+      </div>
+      <div class="el-content-pannel">
+        <h3 class="el-content-title green-span">
+          创建{{ deliverCurrency }}卖单:
+        </h3>
+        <div class="bk-margin-top-10">
+          <input class="form-control" type="number" v-model.trim.number="sellNum" placeholder="请输入卖出数量" />
+        </div>
+        <div class="bk-margin-top-10">
+          <input class="form-control" type="number" v-model.trim.number="sellAnsPrice" placeholder="请输入卖出单价ANS" />
+        </div>
+        <p class="font-12 bk-margin-top-10">订单总额：<span class="green-span font-14">{{ totoalSellMoney }} ANS</span></p>
+        <button type="button" @click="bidAction" class="el-button el-button--success el-button--fill bk-margin-top-10">卖出</button>
+        <p class="font-12 weak-span bk-margin-top-10">友情提示：由于小蚁不可分割，请确保买入总价（买入量*买入价）为整数！</p>
+      </div>
+      <table-container
+        :tableHeader="tableHeader"
+        nodata="请登陆后查看"
+        class="bk-margin-top-10"
+        :dataSource="actionDataSource"
+        show
+        @cancel-click="cancel">
+        <span slot="table-left" class="font-14">我的委托单:</span>
+      </table-container>
     </div>
-
-    <div class="content col-xs-9 col-lg-9">
-      <table class="table table-js table-striped">
-        <thead>
-          <th style="color: #009cff;">{{name}}</th>
-          <th>数量 {{ deliverCurrency }}</th>
-          <th>单价 {{ receiveCurrency }}</th>
-          <th>总价 {{ receiveCurrency }}</th>
-          <th class="th-bar"></th>
-        </thead>
-        <tbody class="pl27">
-          <tr v-for="item in orders">
-            <td class="sell-name" v-text="item.name"></td>
-            <td>{{ item.amount + deliverCurrency }}</td>
-            <td>{{ item.price + receiveCurrency }}</td>
-            <td>{{ item.total + receiveCurrency }}</td>
-            <td class="amount-tb-bar">
-              <button class="btn btn--purchase" @click="purchase(item)">购买</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
+    <div class="el-content-right">
       <div class="row">
-        <div class="col-xs-12">
-          <div class="pull-right">
-            <div class="block">
-              <el-pagination
-                  @size-change="handleSizeChange"
-                  @current-change="handleCurrentChange"
-                  :current-page="currentPage"
-                  :page-sizes="[7, 15, 30, 50]"
-                  :page-size="pageLength"
-                  layout="total, sizes, prev, pager, next, jumper"
-                  :total="total">
-              </el-pagination>
-            </div>
-          </div>
+        <div class="col-xs-3 text-center">
+          <p>{{ name }}/小蚁</p>
+          <p class="blue-span">{{ deliverCurrency }}/ANS</p>
         </div>
+        <div class="col-xs-3 text-center">
+          <p>最新价</p>
+          <p class="blue-span">{{ currentPrice }}ANS</p>
+        </div>
+        <div class="col-xs-3 text-center">
+          <p>24H成交量</p>
+          <p class="blue-span">{{ totalTrade }}{{ deliverCurrency }}</p>
+        </div>
+        <div class="col-xs-3 text-center">
+          <p>24H涨跌幅</p>
+          <p>{{ currentPrice }}%</p>
+        </div>
+      </div>
+      <div class="row">
+        <table-container
+          :showHeader="false"
+          size="table-lg"
+          :tableHeader="tradeHeader"
+          class="bk-margin-ftop-30"
+          type="sell"
+          :dataSource="orders"
+          trade 
+          @cancel-click="buyOrder">
+        </table-container>
+        <table-container
+          :tableHeader="tradeHeader"
+          size="table-lg"
+          type="buy"
+          :dataSource="bills"
+          trade 
+          @cancel-click="sellOrder">
+        </table-container>
+        <table-container
+          class="bk-margin-top-30"
+          :tableHeader="mytradeHeader"
+          :dataSource="tradeDataSource">
+          <span slot="table-left" class="font-14 table-left">最新成交:</span>
+          <a slot="table-right" class="bk-point-cursor font-14 blue-span table-right">我的成交单</a>
+        </table-container>
       </div>
     </div>
   </div>
