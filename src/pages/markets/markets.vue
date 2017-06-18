@@ -102,10 +102,7 @@
           if (data.error) {
             this.$message.warning('挂买单成功')
           }
-        }).catch(err => {
-          console.log(err)
-          this.$message.error('ss')
-        })
+        }).catch(err => this.$message.error(JSON.parse(err.bodyText).error))
         : window.$router.push({
           name: 'login'
         })
@@ -127,7 +124,7 @@
           if (data.error) {
             this.$message.warning(data.error)
           }
-        }).catch(err => this.$message.error('挂卖单失败'))
+        }).catch(err => this.$message.error(JSON.parse(err.bodyText).error))
         : window.$router.push({
           name: 'login'
         })
@@ -143,7 +140,7 @@
             this.$message.success('买入成功')
           }
         })
-        .catch(err => this.$message.error('买入成功'))
+        .catch(err => this.$message.error(JSON.parse(err.bodyText).error))
         : window.$router.push({
           name: 'login'
         })
@@ -157,7 +154,7 @@
             this.$message.success('卖出成功')
           }
         })
-        .catch(err => this.$message.error('卖出失败'))
+        .catch(err => this.$message.error(JSON.parse(err.bodyText).error))
         : window.$router.push({
           name: 'login'
         })
@@ -172,7 +169,7 @@
         .then(data => {
           this.$message.success('撤销成功')
         })
-        .catch(err => this.$message.error('撤销失败'))
+        .catch(err => this.$message.error(JSON.parse(err.bodyText).error))
         : window.$router.push({
           name: 'login'
         })
@@ -224,7 +221,7 @@
           this.mytradeDataSource = data.data
           console.log('GET_REDEEM: ', data)
         })
-        .catch(err => this.$message.error('获取交易记录失败')) : []
+        .catch(err => this.$message.error(JSON.parse(err.bodyText).error)) : []
 
         this.ownAsset = [findBalances(this.balances, this.deliverCurrency.toLocaleLowerCase())[0], findBalances(this.balances, this.receiveCurrency.toLocaleLowerCase())[0]]
         console.log('ownAsset: ', this.ownAsset)
@@ -277,7 +274,7 @@
           this.actionDataSource = ask.concat(bids)
           console.log('actionDataSource: ', this.actionDataSource)
         })
-        .catch(err => this.$message.error('获取委托单失败')) : []
+        .catch(err => this.$message.error(JSON.parse(err.bodyText).error)) : []
         
         // 获取最新成交价
         this.$store.dispatch('GET_PRICEBYID', this.$route.query.class).then(data => {
@@ -285,7 +282,7 @@
           this.totalTrade = data.volumnOfLast24Hours || '0.00'
           console.log('GET_PRICEBYID: ', data)
         })
-        .catch(err => this.$message.error('获取交易记录失败'))
+        .catch(err => this.$message.error(JSON.parse(err.bodyText).error))
 
         return this.$store.dispatch('GET_MARKETS', { name, params })
             .then(d => {
@@ -334,9 +331,7 @@
               )
               return d
             })
-            .catch(r => {
-              this.$message.error('获取集市买(卖)单错误')
-            })
+            .catch(err => this.$message.error(JSON.parse(err.bodyText).error))
       },
       // remove
       purchase({ total, id }) {
