@@ -6,7 +6,7 @@
   import { findBalances } from '../../utils/util'
   import Table from '../../components/common/Table'
 
-  const tableHeader = ['类型', '委托价格', '委托数量', '操作']
+  const tableHeader = ['类型', '委托价格', '委托数量', '操作', '']
   const tradeHeader = ['卖／买', '数量KAC', '单价ANS', '总价ANS', '']
   const mytradeHeader = ['类型', '成交价格', '成交数量', '总价', '成交时间']
 
@@ -86,45 +86,48 @@
     },
 
     methods: {
-      // 挂卖单
+      // 挂买单
       bidAction () {
         this.loggedIn ? this.$store.dispatch('SEND_BID', {
-          price: this.sellAnsPrice,
-          amount: this.sellNum,
-          assetId: this.ownAsset[0].assetId,
-          valueId: this.ownAsset[1].assetId
-        })
-        .then(data => {
-          console.log('%cbidAction: ', 'color: red', data)
-          if (data.hasOwnProperty('result') && data.result) {
-            this.$message.success('挂单成功')
-          }
-          if (data.error) {
-            this.$message.warning(data.error)
-          }
-        }).catch(err => this.$message.error('挂单失败'))
-        : window.$router.push({
-          name: 'login'
-        })
-      },
-
-      // 挂买单
-      askAction () {
-        this.loggedIn ? this.$store.dispatch('SEND_ASK', {
           price: this.payAnsPrice,
           amount: this.payNum,
           assetId: this.ownAsset[0].assetId,
           valueId: this.ownAsset[1].assetId
         })
         .then(data => {
+          console.log('%cbidAction: ', 'color: red', data)
+          if (data.hasOwnProperty('result') && data.result) {
+            this.$message.success('挂买单成功')
+          }
+          if (data.error) {
+            this.$message.warning('挂买单成功')
+          }
+        }).catch(err => {
+          console.log(err)
+          this.$message.error('ss')
+        })
+        : window.$router.push({
+          name: 'login'
+        })
+      },
+
+      // 挂卖单
+      askAction () {
+        this.loggedIn ? this.$store.dispatch('SEND_ASK', {
+          price: this.sellAnsPrice,
+          amount: this.sellNum,
+          assetId: this.ownAsset[0].assetId,
+          valueId: this.ownAsset[1].assetId
+        })
+        .then(data => {
           console.log('%caskAction: ', 'color: red', data)
           if (data.hasOwnProperty('result') && data.result) {
-            this.$message.success('挂单成功')
+            this.$message.success('挂卖单成功')
           }
           if (data.error) {
             this.$message.warning(data.error)
           }
-        }).catch(err => this.$message.error('挂单失败'))
+        }).catch(err => this.$message.error('挂卖单失败'))
         : window.$router.push({
           name: 'login'
         })
@@ -140,7 +143,7 @@
             this.$message.success('买入成功')
           }
         })
-        .catch(err => this.$message.error('交易失败'))
+        .catch(err => this.$message.error('买入成功'))
         : window.$router.push({
           name: 'login'
         })
@@ -154,7 +157,7 @@
             this.$message.success('卖出成功')
           }
         })
-        .catch(err => this.$message.error('交易失败'))
+        .catch(err => this.$message.error('卖出失败'))
         : window.$router.push({
           name: 'login'
         })
@@ -162,7 +165,17 @@
 
       // 撤销买卖单
       cancel (item) {
-        console.log('%c撤销单：', item)
+        this.loggedIn
+        ? this.$store.dispatch('CANCEL', {
+          id: item.id.value
+        })
+        .then(data => {
+          this.$message.success('撤销成功')
+        })
+        .catch(err => this.$message.error('撤销失败'))
+        : window.$router.push({
+          name: 'login'
+        })
       },
 
       watchChange (to) {
@@ -207,21 +220,26 @@
         }
         
         // 交易记录
-        // this.loggedIn ? this.$store.dispatch('GET_REDEEM').then(data => {
-        //   this.mytradeDataSource = data.data
-        //   console.log('GET_REDEEM: ', data)
-        // })
-        // .catch(err => this.$message.error('获取交易记录失败')) : []
+        this.loggedIn ? this.$store.dispatch('GET_REDEEM').then(data => {
+          this.mytradeDataSource = data.data
+          console.log('GET_REDEEM: ', data)
+        })
+        .catch(err => this.$message.error('获取交易记录失败')) : []
 
         this.ownAsset = [findBalances(this.balances, this.deliverCurrency.toLocaleLowerCase())[0], findBalances(this.balances, this.receiveCurrency.toLocaleLowerCase())[0]]
-        console.log('this.ownAsset: ', this.ownAsset)
+
         // 委托单
         this.loggedIn ? this.$store.dispatch('GET_ORDER_BY_ADDRESS').then(data => {
-          this.actionDataSource = data['asks'].reduce(
+          let ask = data['asks'].reduce(
               (acc, item) => acc.concat({
                 id: {
                   render: false,
                   value: item.id
+                },
+                type: {
+                  render: true,
+                  value: '卖出',
+                  class: 'green-span'
                 },
                 price: {
                   render: true,
@@ -230,14 +248,33 @@
                 amount: {
                   render: true,
                   value: item.amount
-                },
-                type: {
-                  render: false,
-                  value: 'asks'
                 }
               }),
               []
           )
+          let bids = data['bids'].reduce(
+              (acc, item) => acc.concat({
+                id: {
+                  render: false,
+                  value: item.id
+                },
+                type: {
+                  render: true,
+                  value: '买入',
+                  class: 'red-span'
+                },
+                price: {
+                  render: true,
+                  value: item.price
+                },
+                amount: {
+                  render: true,
+                  value: item.amount
+                }
+              }),
+              []
+          )
+          this.actionDataSource = ask.concat(bids)
           console.log('actionDataSource: ', this.actionDataSource)
         })
         .catch(err => this.$message.error('获取委托单失败')) : []

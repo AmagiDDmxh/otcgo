@@ -40,7 +40,7 @@
           <input class="form-control" type="number" v-model.trim.number="payAnsPrice" placeholder="请输入购买单价ANS" />
         </div>
         <p class="font-12 bk-margin-top-10">订单总额：<span class="red-span font-14">{{ totoalMoney }} ANS</span></p>
-        <button type="button" @click="askAction" class="el-button el-button--danger el-button--fill bk-margin-top-10">买入</button>
+        <button type="button" @click="bidAction" class="el-button el-button--danger el-button--fill bk-margin-top-10">买入</button>
         <p class="font-12 weak-span bk-margin-top-10">友情提示：由于小蚁不可分割，请确保买入总价（买入量*买入价）为整数！</p>
       </div>
       <div class="el-content-pannel">
@@ -54,7 +54,7 @@
           <input class="form-control" type="number" v-model.trim.number="sellAnsPrice" placeholder="请输入卖出单价ANS" />
         </div>
         <p class="font-12 bk-margin-top-10">订单总额：<span class="green-span font-14">{{ totoalSellMoney }} ANS</span></p>
-        <button type="button" @click="bidAction" class="el-button el-button--success el-button--fill bk-margin-top-10">卖出</button>
+        <button type="button" @click="askAction" class="el-button el-button--success el-button--fill bk-margin-top-10">卖出</button>
         <p class="font-12 weak-span bk-margin-top-10">友情提示：由于小蚁不可分割，请确保买入总价（买入量*买入价）为整数！</p>
       </div>
       <table-container

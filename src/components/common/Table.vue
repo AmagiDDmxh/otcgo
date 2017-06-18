@@ -17,8 +17,8 @@
               {{ type === 'buy' ? `买${index}` : `卖${index}` }}
             </span>
           </td>
-          <td v-for="items in item" v-if="items.render">{{ items.value }}</td>
-          <td v-if="show" @click="cancel(item)"><a :class="['red-span']">撤销</a></td>
+          <td v-for="items in item" v-if="items.render" :class="[items.class ? items.class : '']">{{ items.value }}</td>
+          <td v-if="show" @click="cancel(item)"><a class="red-span bk-point-cursor">撤销</a></td>
           <td v-if="trade" @click="cancel(item)">
             <a :class="['btn-trade', type === 'buy' ? 'btn-blue' : 'btn-red']">
               {{ type === 'buy' ? '卖出' : '买入'}}
