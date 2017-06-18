@@ -3,10 +3,27 @@
 
 <script>
   import { mapGetters } from 'vuex'
+  import { findBalances } from '../../utils/util'
+  import Table from '../../components/common/Table'
+
+  const tableHeader = ['类型', '委托价格', '委托数量', '操作', '']
+  const tradeHeader = ['卖／买', '数量KAC', '单价ANS', '总价ANS', '']
+  const mytradeHeader = ['类型', '成交价格', '成交数量', '总价', '成交时间']
 
   export default {
+    components: {
+      'table-container': Table
+    },
     data() {
       return {
+        mytradeHeader: mytradeHeader,
+        tradeHeader: tradeHeader,
+        tableHeader: tableHeader,
+        totalTrade: '0.00', // 24小时成交量
+        currentPrice: '0.00', // 当前价
+        mytradeDataSource: [], // 我的交易记录
+        tradeDataSource: [], // 最新交易
+        actionDataSource: [], // 用户操作列表
         bills: [],  // 买单列表
         orders: [],  // 卖单列表
         amountMax: 0,
@@ -15,7 +32,14 @@
         type: this.$route.query.class,
         total: 0,
         currentPage: 1,
-        pageLength: 7
+        pageLength: 7,
+        ownAsset: {},
+        assetId: '',
+        valueId: '',
+        payNum: '', // 买入的数量
+        payAnsPrice: '', // 买入的单价
+        sellNum: '', // 卖出的数量
+        sellAnsPrice: '' // 卖出的价格
       }
     },
 
@@ -28,35 +52,133 @@
     },
 
     computed: {
-      ...mapGetters(['loggedIn', 'deliver', 'receive']),
+      ...mapGetters(['loggedIn', 'deliver', 'receive', 'balances']),
       deliverCurrency() {
         switch (this.$route.query.class) {
           case 'kacans':
-            return ' KAC'
+            return 'KAC'
             break
           case 'lzglzj':
-            return ' LZG'
+            return 'LZG'
             break
           default:
-            return ' KAC'
+            return 'KAC'
         }
+      },
+      totoalMoney () {
+        return this.payNum * this.payAnsPrice
+      },
+      totoalSellMoney () {
+        return this.sellNum * this.sellAnsPrice
       },
       receiveCurrency() {
         switch (this.$route.query.class) {
           case 'kacans':
-            return ' ANS'
+            return 'ANS'
             break
           case 'lzglzj':
-            return ' LZJ'
+            return 'LZJ'
             break
           default:
-            return ' ANS'
+            return 'ANS'
         }
       }
     },
 
     methods: {
-      watchChange(to) {
+      // 挂买单
+      bidAction () {
+        this.loggedIn ? this.$store.dispatch('SEND_BID', {
+          price: this.payAnsPrice,
+          amount: this.payNum,
+          assetId: this.ownAsset[0].assetId,
+          valueId: this.ownAsset[1].assetId
+        })
+        .then(data => {
+          console.log('%cbidAction: ', 'color: red', data)
+          if (data.hasOwnProperty('result') && data.result) {
+            this.$message.success('挂买单成功')
+          }
+          if (data.error) {
+            this.$message.warning('挂买单成功')
+          }
+        }).catch(err => {
+          console.log(err)
+          this.$message.error('ss')
+        })
+        : window.$router.push({
+          name: 'login'
+        })
+      },
+
+      // 挂卖单
+      askAction () {
+        this.loggedIn ? this.$store.dispatch('SEND_ASK', {
+          price: this.sellAnsPrice,
+          amount: this.sellNum,
+          assetId: this.ownAsset[0].assetId,
+          valueId: this.ownAsset[1].assetId
+        })
+        .then(data => {
+          console.log('%caskAction: ', 'color: red', data)
+          if (data.hasOwnProperty('result') && data.result) {
+            this.$message.success('挂卖单成功')
+          }
+          if (data.error) {
+            this.$message.warning(data.error)
+          }
+        }).catch(err => this.$message.error('挂卖单失败'))
+        : window.$router.push({
+          name: 'login'
+        })
+      },
+
+      buyOrder (items) {
+        this.loggedIn ? this.$store.dispatch('SEND_FREE_BID', {
+          id: items.id.value
+        })
+        .then(data => {
+          console.log('buy: ', data)
+          if (data.hasOwnProperty('result') && data.result) {
+            this.$message.success('买入成功')
+          }
+        })
+        .catch(err => this.$message.error('买入成功'))
+        : window.$router.push({
+          name: 'login'
+        })
+      },
+      sellOrder (items) {
+        this.loggedIn ? this.$store.dispatch('SEND_FREE_ASK', {
+          id: items.id.value
+        })
+        .then(data => {
+          if (data.hasOwnProperty('result') && data.result) {
+            this.$message.success('卖出成功')
+          }
+        })
+        .catch(err => this.$message.error('卖出失败'))
+        : window.$router.push({
+          name: 'login'
+        })
+      },
+
+      // 撤销买卖单
+      cancel (item) {
+        this.loggedIn
+        ? this.$store.dispatch('CANCEL', {
+          id: item.id.value
+        })
+        .then(data => {
+          this.$message.success('撤销成功')
+        })
+        .catch(err => this.$message.error('撤销失败'))
+        : window.$router.push({
+          name: 'login'
+        })
+      },
+
+      watchChange (to) {
         switch (to.query.class) {
           case 'anscny':
             this.name = '小蚁股'
@@ -66,13 +188,13 @@
             break
           case 'kacans':
             this.name = '开拍学园币（KAC）'
-            this.receiveCurrency = ' ANS'
-            this.deliverCurrency = ' KAC'
+            this.receiveCurrency = 'ANS'
+            this.deliverCurrency = 'KAC'
             break
           case 'lzglzj':
             this.name = '量子股份'
-            this.receiveCurrency = ' LZJ'
-            this.deliverCurrency = ' LZG'
+            this.receiveCurrency = 'LZJ'
+            this.deliverCurrency = 'LZG'
             break
         }
         this.type = to.query.class
@@ -96,17 +218,117 @@
           active: this.currentPage,
           length: this.pageLength
         }
+        
+        // 交易记录
+        this.loggedIn ? this.$store.dispatch('GET_REDEEM').then(data => {
+          this.mytradeDataSource = data.data
+          console.log('GET_REDEEM: ', data)
+        })
+        .catch(err => this.$message.error('获取交易记录失败')) : []
+
+        this.ownAsset = [findBalances(this.balances, this.deliverCurrency.toLocaleLowerCase())[0], findBalances(this.balances, this.receiveCurrency.toLocaleLowerCase())[0]]
+
+        // 委托单
+        this.loggedIn ? this.$store.dispatch('GET_ORDER_BY_ADDRESS').then(data => {
+          let ask = data['asks'].reduce(
+              (acc, item) => acc.concat({
+                id: {
+                  render: false,
+                  value: item.id
+                },
+                type: {
+                  render: true,
+                  value: '卖出',
+                  class: 'green-span'
+                },
+                price: {
+                  render: true,
+                  value: item.price
+                },
+                amount: {
+                  render: true,
+                  value: item.amount
+                }
+              }),
+              []
+          )
+          let bids = data['bids'].reduce(
+              (acc, item) => acc.concat({
+                id: {
+                  render: false,
+                  value: item.id
+                },
+                type: {
+                  render: true,
+                  value: '买入',
+                  class: 'red-span'
+                },
+                price: {
+                  render: true,
+                  value: item.price
+                },
+                amount: {
+                  render: true,
+                  value: item.amount
+                }
+              }),
+              []
+          )
+          this.actionDataSource = ask.concat(bids)
+          console.log('actionDataSource: ', this.actionDataSource)
+        })
+        .catch(err => this.$message.error('获取委托单失败')) : []
+        
+        // 获取最新成交价
+        this.$store.dispatch('GET_PRICEBYID', this.$route.query.class).then(data => {
+          this.currentPrice = data.price || '0.00'
+          this.totalTrade = data.volumnOfLast24Hours || '0.00'
+          console.log('GET_PRICEBYID: ', data)
+        })
+        .catch(err => this.$message.error('获取交易记录失败'))
 
         return this.$store.dispatch('GET_MARKETS', { name, params })
             .then(d => {
               this.total = d['item_num']
-
               this.orders = d.data['asks'].reduce(
                   (acc, item) => acc.concat({
-                    id: item.id,
-                    price: item.price,
-                    amount: item.amount,
-                    total: item.price * item.amount
+                    id: {
+                      render: false,
+                      value: item.id
+                    },
+                    amount: {
+                      render: true,
+                      value: item.amount
+                    },
+                    price: {
+                      render: true,
+                      value: item.price
+                    },
+                    total: {
+                      render: true,
+                      value: item.price * item.amount
+                    }
+                  }),
+                  []
+              )
+              this.bills = d.data['bids'].reduce(
+                  (acc, item) => acc.concat({
+                    id: {
+                      render: false,
+                      value: item.id
+                    },
+                    amount: {
+                      render: true,
+                      value: item.amount
+                    },
+                    price: {
+                      render: true,
+                      value: item.price
+                    },
+                    total: {
+                      render: true,
+                      value: item.price * item.amount
+                    }
                   }),
                   []
               )
@@ -116,12 +338,12 @@
               this.$message.error('获取集市买(卖)单错误')
             })
       },
+      // remove
       purchase({ total, id }) {
         if (!this.loggedIn) {
           this.$message.error('购买前请先确认登陆！')
           return
         }
-
         this.$store.commit('SET_DELIVER', this.$route.query.class.slice(0, 3))
         this.$store.commit('SET_RECEIVE', this.$route.query.class.slice(3))
 
