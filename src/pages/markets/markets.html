@@ -14,15 +14,15 @@
         <h3 class="el-content-title">
           我的{{ deliverCurrency }}资产:
         </h3>
-        <p>可用：<span class="blue-span">11</span></p>
-        <p>冻结：<span class="blue-span">11</span></p>
-        <p>总量：<span class="blue-span">11</span></p>
+        <p>可用：<span class="blue-span">{{ ownAsset && ownAsset.length && ownAsset[0].valid }}</span></p>
+        <p>冻结：<span class="blue-span">{{ ownAsset && ownAsset.length && ownAsset[0].frozen }}</span></p>
+        <p>总量：<span class="blue-span">{{ ownAsset && ownAsset.length && ownAsset[0].total }}</span></p>
         <h3 class="el-content-title bk-margin-top-20">
           我的ANS资产:
         </h3>
-        <p>可用：<span class="blue-span">11</span></p>
-        <p>冻结：<span class="blue-span">11</span></p>
-        <p>总量：<span class="blue-span">11</span></p>
+        <p>可用：<span class="blue-span">{{ ownAsset && ownAsset.length && ownAsset[1].valid }}</span></p>
+        <p>冻结：<span class="blue-span">{{ ownAsset && ownAsset.length && ownAsset[1].frozen }}</span></p>
+        <p>总量：<span class="blue-span">{{ ownAsset && ownAsset.length && ownAsset[1].total }}</span></p>
       </div>
       <div class="el-content-pannel" v-else>
         <h3 class="el-content-title">

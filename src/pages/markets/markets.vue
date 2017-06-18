@@ -227,7 +227,7 @@
         .catch(err => this.$message.error('获取交易记录失败')) : []
 
         this.ownAsset = [findBalances(this.balances, this.deliverCurrency.toLocaleLowerCase())[0], findBalances(this.balances, this.receiveCurrency.toLocaleLowerCase())[0]]
-
+        console.log('ownAsset: ', this.ownAsset)
         // 委托单
         this.loggedIn ? this.$store.dispatch('GET_ORDER_BY_ADDRESS').then(data => {
           let ask = data['asks'].reduce(
