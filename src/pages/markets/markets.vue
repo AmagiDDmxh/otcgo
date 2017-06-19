@@ -28,6 +28,7 @@
         orders: [],  // 卖单列表
         amountMax: 0,
         name: '',
+        receiveName: '',
         currency: '',
         type: this.$route.query.class,
         total: 0,
@@ -35,6 +36,8 @@
         pageLength: 7,
         ownAsset: {},
         assetId: '',
+        sellPlaceHolder: '',
+        buyPlaceHolder: '',
         valueId: '',
         payNum: '', // 买入的数量
         payAnsPrice: '', // 买入的单价
@@ -74,12 +77,18 @@
       receiveCurrency() {
         switch (this.$route.query.class) {
           case 'kacans':
+            this.sellPlaceHolder = '请输入卖出单价ANS'
+            this.buyPlaceHolder = '请输入买入单价ANS'
             return 'ANS'
             break
           case 'lzglzj':
+            this.sellPlaceHolder = '请输入卖出单价LZJ'
+            this.buyPlaceHolder = '请输入买入单价LZJ'
             return 'LZJ'
             break
           default:
+            this.sellPlaceHolder = '请输入卖出单价CNY'
+            this.buyPlaceHolder = '请输入买入单价CNY'
             return 'ANS'
         }
       }
@@ -179,17 +188,21 @@
         switch (to.query.class) {
           case 'anscny':
             this.name = '小蚁股'
+            this.receiveName ='人民币'
             break
           case 'anccny':
             this.name = '小蚁币'
+            this.receiveName ='人民币'
             break
           case 'kacans':
             this.name = '开拍学园币（KAC）'
+            this.receiveName ='小蚁股'
             this.receiveCurrency = 'ANS'
             this.deliverCurrency = 'KAC'
             break
           case 'lzglzj':
             this.name = '量子股份'
+            this.receiveName = '量子积分'
             this.receiveCurrency = 'LZJ'
             this.deliverCurrency = 'LZG'
             break

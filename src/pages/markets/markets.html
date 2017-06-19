@@ -37,9 +37,9 @@
           <input class="form-control" type="number" v-model.trim.number="payNum" placeholder="请输入购买数量" />
         </div>
         <div class="bk-margin-top-10">
-          <input class="form-control" type="number" v-model.trim.number="payAnsPrice" placeholder="请输入购买单价ANS" />
+          <input class="form-control" type="number" v-model.trim.number="payAnsPrice" :placeholder="buyPlaceHolder" />
         </div>
-        <p class="font-12 bk-margin-top-10">订单总额：<span class="red-span font-14">{{ totoalMoney }} ANS</span></p>
+        <p class="font-12 bk-margin-top-10">订单总额：<span class="red-span font-14">{{ totoalMoney }} {{ receiveCurrency }}</span></p>
         <button type="button" @click="bidAction" class="el-button el-button--danger el-button--fill bk-margin-top-10">买入</button>
         <p class="font-12 weak-span bk-margin-top-10">友情提示：由于小蚁不可分割，请确保买入总价（买入量*买入价）为整数！</p>
       </div>
@@ -51,9 +51,9 @@
           <input class="form-control" type="number" v-model.trim.number="sellNum" placeholder="请输入卖出数量" />
         </div>
         <div class="bk-margin-top-10">
-          <input class="form-control" type="number" v-model.trim.number="sellAnsPrice" placeholder="请输入卖出单价ANS" />
+          <input class="form-control" type="number" v-model.trim.number="sellAnsPrice" :placeholder="sellPlaceHolder" />
         </div>
-        <p class="font-12 bk-margin-top-10">订单总额：<span class="green-span font-14">{{ totoalSellMoney }} ANS</span></p>
+        <p class="font-12 bk-margin-top-10">订单总额：<span class="green-span font-14">{{ totoalSellMoney }} {{ receiveCurrency }}</span></p>
         <button type="button" @click="askAction" class="el-button el-button--success el-button--fill bk-margin-top-10">卖出</button>
         <p class="font-12 weak-span bk-margin-top-10">友情提示：由于小蚁不可分割，请确保买入总价（买入量*买入价）为整数！</p>
       </div>
@@ -70,12 +70,12 @@
     <div class="el-content-right">
       <div class="row">
         <div class="col-xs-3 text-center">
-          <p>{{ name }}/小蚁</p>
-          <p class="blue-span">{{ deliverCurrency }}/ANS</p>
+          <p>{{ name }}/{{ receiveName }}</p>
+          <p class="blue-span">{{ deliverCurrency }}/{{ receiveCurrency }}</p>
         </div>
         <div class="col-xs-3 text-center">
           <p>最新价</p>
-          <p class="blue-span">{{ currentPrice }}ANS</p>
+          <p class="blue-span">{{ currentPrice }}{{ receiveCurrency }}</p>
         </div>
         <div class="col-xs-3 text-center">
           <p>24H成交量</p>
