@@ -64,6 +64,12 @@
           case 'lzglzj':
             return 'LZG'
             break
+          case 'anscny':
+            return 'CNY'
+            break
+          case 'anccny':
+            return 'CNY'
+            break
           default:
             return 'KAC'
         }
@@ -89,7 +95,7 @@
           default:
             this.sellPlaceHolder = '请输入卖出单价CNY'
             this.buyPlaceHolder = '请输入买入单价CNY'
-            return 'ANS'
+            return 'CNY'
         }
       }
     },

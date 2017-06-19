@@ -11,6 +11,16 @@
             <router-link
                 class="text-center pointer"
                 :to="{path: '/markets',
+                      query: { 'class': 'anscny' }}" tag="li">小蚁股-人民币
+            </router-link>
+            <router-link
+                class="text-center pointer"
+                :to="{path: '/markets',
+                      query: { 'class': 'anccny' }}" tag="li">小蚁币-人民币
+            </router-link>
+            <router-link
+                class="text-center pointer"
+                :to="{path: '/markets',
                         query: { 'class': 'kacans' }}" tag="li">开拍币-小蚁股
             </router-link>
 
