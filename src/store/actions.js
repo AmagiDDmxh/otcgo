@@ -109,7 +109,7 @@ export default {
 
   [type.getIO]: ({ state }) => service.getIO(state.wa['address']),
 
-  [type.getMarketsById]: ({ state }, { marketId }) => service.getMarketsById({ marketId }),
+  [type.getMarketsById]: ({ state }, marketId) => service.getMarketsById(marketId),
 
   [type.sendAsk]: ({ state }, payload) => service.sendAsk(Object.assign(payload, {
     hexPubkey: state.wa['publicKey']

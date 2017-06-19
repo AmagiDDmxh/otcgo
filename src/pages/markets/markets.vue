@@ -32,6 +32,7 @@
         currency: '',
         type: this.$route.query.class,
         total: 0,
+        rate: 0,
         currentPage: 1,
         pageLength: 7,
         ownAsset: {},
@@ -294,11 +295,12 @@
           console.log('actionDataSource: ', this.actionDataSource)
         })
         .catch(err => this.$message.error(JSON.parse(err.bodyText).error)) : []
-        
-        // 获取最新成交价
-        this.$store.dispatch('GET_PRICEBYID', this.$route.query.class).then(data => {
+
+        // 获取单一市场详情
+        this.$store.dispatch('GET_MARKETSBYID', this.$route.query.class).then(data => {
           this.currentPrice = data.price || '0.00'
           this.totalTrade = data.volumnOfLast24Hours || '0.00'
+          this.rate = Number(data.rate).toFixed(4) * 100 
           console.log('GET_PRICEBYID: ', data)
         })
         .catch(err => this.$message.error(JSON.parse(err.bodyText).error))

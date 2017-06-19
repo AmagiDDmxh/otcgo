@@ -83,7 +83,7 @@
         </div>
         <div class="col-xs-3 text-center">
           <p>24H涨跌幅</p>
-          <p>{{ currentPrice }}%</p>
+          <p :class="[rate > 0 ? 'red-span' : 'green-span']">{{ rate }}%</p>
         </div>
       </div>
       <div class="row">
