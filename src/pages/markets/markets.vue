@@ -7,7 +7,7 @@
   import Table from '../../components/common/Table'
 
   const tableHeader = ['类型', '委托价格', '委托数量', '操作', '']
-  const tradeHeader = ['卖／买', '数量KAC', '单价ANS', '总价ANS', '']
+  const tradeHeader = ['卖／买', '数量KAC', '单价ANS', '总价ANS', '操作']
   const mytradeHeader = ['类型', '成交价格', '成交数量', '总价', '成交时间']
 
   export default {

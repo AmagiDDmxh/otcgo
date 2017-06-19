@@ -152,4 +152,10 @@ export default {
   font-size: 20px;
   width: 100%;
 }
+.table-striped > tbody > tr:nth-child(add) {
+  background: #fff;
+}
+.table-striped > tbody > tr:nth-child(even) {
+  background: #f5f5f5;
+}
 </style>
