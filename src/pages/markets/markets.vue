@@ -65,10 +65,10 @@
             return 'LZG'
             break
           case 'anscny':
-            return 'CNY'
+            return 'ANS'
             break
           case 'anccny':
-            return 'CNY'
+            return 'ANC'
             break
           default:
             return 'KAC'
