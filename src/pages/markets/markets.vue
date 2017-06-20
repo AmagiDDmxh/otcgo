@@ -210,9 +210,9 @@
       getMyHistory () {
         // 获取最新交易
         this.loggedIn
-        ? this.myHistoryStatus
-        ? this.success('GET_MY_HISTORY_BY_ID', true)
-        : this.success('GET_HISTORY_BY_ID', false)
+        ? window.$router.push({
+          name: 'transactionH'
+        })
         : window.$router.push({
           name: 'login'
         })
