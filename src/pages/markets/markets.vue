@@ -3,7 +3,7 @@
 
 <script>
   import { mapGetters } from 'vuex'
-  import { findBalances } from '../../utils/util'
+  import { findBalances, fillArray } from '../../utils/util'
   import Table from '../../components/common/Table'
 
   const tableHeader = [{
@@ -31,6 +31,11 @@
     label: '成交时间'
   }]
 
+  const fillObj = {
+    id: '--',
+    amount: '--',
+    price: '--'
+  }
   export default {
     components: {
       'table-container': Table
@@ -424,7 +429,7 @@
         return this.$store.dispatch('GET_MARKETS', { name, params })
             .then(d => {
               this.total = d['item_num']
-              this.orders = d.data['asks'].reduce(
+              this.orders = fillArray(d.data['asks'], 7, fillObj).reduce(
                   (acc, item, index) => acc.concat({
                     level: {
                       render: true,
@@ -445,36 +450,36 @@
                     },
                     total: {
                       render: true,
-                      value: item.price * item.amount
+                      value: isNaN(item.price * item.amount) ? '--' : item.price * item.amount
                     }
                   }),
                   []
               ).reverse()
-              this.bills = d.data['bids'].reduce(
-                  (acc, item) => acc.concat({
-                    level: {
-                      render: true,
-                      class: 'red-span',
-                      value: `买${index}`
-                    },
-                    id: {
-                      render: false,
-                      value: item.id
-                    },
-                    amount: {
-                      render: true,
-                      value: item.amount
-                    },
-                    price: {
-                      render: true,
-                      value: item.price
-                    },
-                    total: {
-                      render: true,
-                      value: item.price * item.amount
-                    }
-                  }),
-                  []
+              this.bills = fillArray(d.data['bids'], 7, fillObj).reduce(
+                (acc, item, index) => acc.concat({
+                  level: {
+                    render: true,
+                    class: 'red-span',
+                    value: `买${index}`
+                  },
+                  id: {
+                    render: false,
+                    value: item.id
+                  },
+                  amount: {
+                    render: true,
+                    value: item.amount
+                  },
+                  price: {
+                    render: true,
+                    value: item.price
+                  },
+                  total: {
+                    render: true,
+                    value: isNaN(item.price * item.amount) ? '--' : item.price * item.amount
+                  }
+                }),
+                []
               )
               return d
             })

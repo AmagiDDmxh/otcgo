@@ -2,7 +2,7 @@
  * @Author: Lyp 
  * @Date: 2017-06-15 17:33:14 
  * @Last Modified by: Lyp
- * @Last Modified time: 2017-06-17 23:41:36
+ * @Last Modified time: 2017-06-20 20:54:17
  */
 
 export const formatPrice = (value) => {
@@ -15,4 +15,20 @@ export const formatPrice = (value) => {
 // Find data from balances
 export const findBalances = (balances, marketSign) => {
   return balances.filter(item => item.marketSign === marketSign)
+}
+
+/**
+ * Fill array when length less num
+ * @param {*} array 
+ * @param {*} num 
+ * @param {*} node 
+ */
+export const fillArray = (array, num, node) => {
+  if (typeof array !== 'object' && !(array instanceof Array)) return console.warn('the first argument must be Array')
+  if (array.length < num) {
+    while (num - array.length) {
+      array.push(node)
+    }
+  }
+  return array
 }
