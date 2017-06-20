@@ -79,19 +79,6 @@
 
     computed: {
       ...mapGetters(['loggedIn', 'deliver', 'receive', 'balances']),
-      tradeHeader () {
-        return [{
-          label: '卖／买'
-        }, {
-          label: '数量'
-        }, {
-          label: '单价ANS'
-        }, {
-          label: '总价ANS'
-        }, {
-          label: ''
-        }]
-      },
       deliverCurrency() {
         switch (this.$route.query.class) {
           case 'kacans':
