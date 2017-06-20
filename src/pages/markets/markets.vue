@@ -6,9 +6,41 @@
   import { findBalances } from '../../utils/util'
   import Table from '../../components/common/Table'
 
-  const tableHeader = ['类型', '委托价格', '委托数量', '操作', '']
-  const tradeHeader = ['卖／买', '数量KAC', '单价ANS', '总价ANS', '操作']
-  const mytradeHeader = ['类型', '成交价格', '成交数量', '总价', '成交时间']
+  const tableHeader = [{
+    label: '类型',
+    width: '25%'
+  }, {
+    label: '委托价格',
+    width: '25%'
+  }, {
+    label: '委托数量',
+    width: '25%'
+  }, {
+    label: '操作',
+    width: '25%'
+  }]
+  const tradeHeader = [{
+    label: '卖／买'
+  }, {
+    label: '数量KAC'
+  }, {
+    label: '单价ANS'
+  }, {
+    label: '总价ANS'
+  }, {
+    label: ''
+  }]
+  const mytradeHeader = [{
+    label: '类型'
+  }, {
+    label: '成交价格'
+  }, {
+    label: '成交数量'
+  }, {
+    label: '总价'
+  }, {
+    label: '成交时间'
+  }]
 
   export default {
     components: {
@@ -40,6 +72,7 @@
         sellPlaceHolder: '',
         buyPlaceHolder: '',
         valueId: '',
+        myHistoryStatus: false,
         payNum: '', // 买入的数量
         payAnsPrice: '', // 买入的单价
         sellNum: '', // 卖出的数量
@@ -102,6 +135,55 @@
     },
 
     methods: {
+      success (type, myHistoryStatus) {
+        const success = data => {
+          this.tradeDataSource = data.data.reduce(
+          (acc, item) => acc.concat({
+            type: {
+              render: true,
+              value: item.ways ? '卖出' : '买入',
+              class: item.ways ? 'green-span' : 'red-span'
+            },
+            price: {
+              render: true,
+              value: item.price
+            },
+            amount: {
+              render: true,
+              value: item.amount
+            },
+            total: {
+              render: true,
+              value: `${Number(item.price.match(/\d+(\.\d+)?/)[0]) * Number(item.amount.match(/\d+(\.\d+)?/)[0])}${this.receiveCurrency}`
+            },
+            time: {
+              render: true,
+              value: item.time
+            }
+          }),
+          []
+        ) || []
+        }
+        this.$store.dispatch(type, {
+          marketId: this.$route.query.class,
+          active: 1,
+          length: 20
+        }).then(data => {
+          this.myHistoryStatus = myHistoryStatus
+          success(data)
+        })
+        .catch(err => this.$message.error(JSON.parse(err.bodyText).error))
+      },
+      getMyHistory () {
+        // 获取最新交易
+        this.loggedIn
+        ? this.myHistoryStatus
+        ? this.success('GET_MY_HISTORY_BY_ID', true)
+        : this.success('GET_HISTORY_BY_ID', false)
+        : window.$router.push({
+          name: 'login'
+        })
+      },
       // 挂买单
       bidAction () {
         this.loggedIn ? this.$store.dispatch('SEND_BID', {
@@ -235,13 +317,6 @@
           active: this.currentPage,
           length: this.pageLength
         }
-        
-        // 交易记录
-        this.loggedIn ? this.$store.dispatch('GET_REDEEM').then(data => {
-          this.mytradeDataSource = data.data
-          console.log('GET_REDEEM: ', data)
-        })
-        .catch(err => this.$message.error(JSON.parse(err.bodyText).error)) : []
 
         this.ownAsset = [findBalances(this.balances, this.deliverCurrency.toLocaleLowerCase())[0], findBalances(this.balances, this.receiveCurrency.toLocaleLowerCase())[0]]
         console.log('ownAsset: ', this.ownAsset)
@@ -251,20 +326,24 @@
               (acc, item) => acc.concat({
                 id: {
                   render: false,
-                  value: item.id
+                  value: item.id,
+                  width: '25%'
                 },
                 type: {
                   render: true,
                   value: '卖出',
-                  class: 'green-span'
+                  class: 'green-span',
+                  width: '25%'
                 },
                 price: {
                   render: true,
-                  value: item.price
+                  value: item.price,
+                  width: '25%'
                 },
                 amount: {
                   render: true,
-                  value: item.amount
+                  value: item.amount,
+                  width: '25%'
                 }
               }),
               []
@@ -304,6 +383,10 @@
           console.log('GET_PRICEBYID: ', data)
         })
         .catch(err => this.$message.error(JSON.parse(err.bodyText).error))
+
+
+        // 获取最新交易
+        this.success('GET_HISTORY_BY_ID', false)
 
         return this.$store.dispatch('GET_MARKETS', { name, params })
             .then(d => {

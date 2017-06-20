@@ -4,34 +4,41 @@
       <slot name="table-left" class="table-left"></slot>
       <slot name="table-right" class="table-right"></slot>
     </div>
-    <table :class="['table table-bordred table-striped text-center table-hover', size]">
-      <thead v-show="tableHeader.length" :class="['table-head', showHeader ? '' : 'hide-table']">
-        <tr>
-          <th v-for="label in tableHeader">{{ label }}</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(item, index) in dataSource" v-if="dataSource.length">
-          <td v-if="trade">
-            <span :class="type === 'buy' ? 'red-span' : 'green-span'">
-              {{ type === 'buy' ? `买${index}` : `卖${index}` }}
-            </span>
-          </td>
-          <td v-for="items in item" v-if="items.render" :class="[items.class ? items.class : '']">{{ items.value }}</td>
-          <td v-if="show" @click="cancel(item)"><a class="red-span bk-point-cursor">撤销</a></td>
-          <td v-if="trade" @click="cancel(item)">
-            <a :class="['btn-trade', type === 'buy' ? 'btn-blue' : 'btn-red']">
-              {{ type === 'buy' ? '卖出' : '买入'}}
-            </a>
-          </td>
-        </tr>
-        <tr v-if="!dataSource.length">
-          <td class="table-nodata" :colspan="tableHeader.length">
-            {{ nodata }}
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div v-if="showHeader" class="table-header">
+      <div class="header-list" :style="{
+        width: item.width || '20%'
+      }" v-for="item in tableHeader">
+        {{ item.label }}
+      </div>
+    </div>
+    <div class="table-scroll">
+      <table :class="['table table-bordred table-striped text-center table-hover', size]">
+        <tbody>
+          <tr v-for="(item, index) in dataSource" v-if="dataSource.length">
+            <td v-if="trade">
+              <span :class="type === 'buy' ? 'red-span' : 'green-span'">
+                {{ type === 'buy' ? `买${index}` : `卖${index}` }}
+              </span>
+            </td>
+            <td :style="{
+              width: items.width || '20%'
+            }" v-for="items in item" v-if="items.render" :class="[items.class ? items.class : '']">{{ items.value }}</td>
+            <td v-if="show" @click="cancel(item)"><a class="red-span bk-point-cursor">撤销</a></td>
+            <td v-if="trade" class="table-action" @click="cancel(item)">
+              <a :class="['btn-trade', type === 'buy' ? 'btn-blue' : 'btn-red']">
+                {{ type === 'buy' ? '卖出' : '买入'}}
+              </a>
+            </td>
+          </tr>
+          
+          <tr v-if="!dataSource.length">
+            <td class="table-nodata" :colspan="tableHeader.length">
+              {{ nodata }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
@@ -145,6 +152,24 @@ export default {
 .table > tbody > tr > td,
 .table > tfoot > tr > td {
   padding: 8px 3px !important;
+  border-top: 0;
+}
+.table-wrap {
+  position: relative;
+}
+.table-header {
+  display: table;
+  width: 100%;
+  background: #eee;
+}
+.header-list {
+  display: table-cell;
+  text-align: center;
+  padding: 8px 3px;
+}
+.table-scroll {
+  max-height: 400px;
+  overflow-y: scroll;
 }
 .table-nodata {
   height: 100px;
@@ -157,5 +182,13 @@ export default {
 }
 .table-striped > tbody > tr:nth-child(even) {
   background: #f5f5f5;
+}
+.table-striped > tbody > tr:nth-child(odd) {
+  background-color: #f9f9f9 !important;
+}
+.table > tbody > tr > td.table-action {
+  text-align: right;
+  width: 20%;
+  padding-right: 40px !important;
 }
 </style>

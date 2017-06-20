@@ -87,30 +87,31 @@
         </div>
       </div>
       <div class="row">
-        <table-container
-          :showHeader="false"
-          size="table-lg"
-          :tableHeader="tradeHeader"
-          class="bk-margin-ftop-30"
-          type="sell"
-          :dataSource="orders"
-          trade 
-          @cancel-click="buyOrder">
-        </table-container>
-        <table-container
-          :tableHeader="tradeHeader"
-          size="table-lg"
-          type="buy"
-          :dataSource="bills"
-          trade 
-          @cancel-click="sellOrder">
-        </table-container>
+        <div class="marketTrade-container">
+          <table-container
+            :showHeader="false"
+            size="table-lg"
+            :tableHeader="tradeHeader"
+            type="sell"
+            :dataSource="orders"
+            trade 
+            @cancel-click="buyOrder">
+          </table-container>
+          <table-container
+            :tableHeader="tradeHeader"
+            size="table-lg"
+            type="buy"
+            :dataSource="bills"
+            trade 
+            @cancel-click="sellOrder">
+          </table-container>
+        </div>
         <table-container
           class="bk-margin-top-30"
           :tableHeader="mytradeHeader"
           :dataSource="tradeDataSource">
           <span slot="table-left" class="font-14 table-left">最新成交:</span>
-          <a slot="table-right" class="bk-point-cursor font-14 blue-span table-right">我的成交单</a>
+          <a slot="table-right" class="bk-point-cursor font-14 blue-span table-right" @click="getMyHistory">{{ myHistoryStatus ? '最新成交单' : '我的成交单'}}</a>
         </table-container>
       </div>
     </div>

@@ -225,6 +225,18 @@ export const getRedeem = async address => await (fetching(`redeem/${address}`))
 
 export const getOrderByAddress = async address => await (fetching(`order/${address}`))
 
+/**
+ * 获取市场最新交易
+ * @param {市场ID} marketId 
+ */
+export const getHistoryById = async ({marketId, active, length}) => await(fetching(`history/${marketId}`, { active, length }))
+
+/**
+ * 获取我的成交单
+ * @param {市场ID} marketId 
+ */
+export const getMyHistoryById = async ({marketId, address, active, length}) => await(fetching(`history/${marketId}`, { address, active, length }))
+
 export default {
   getA,
   getB,
@@ -254,7 +266,9 @@ export default {
   otcSign,
   getPriceById,
   getRedeem,
-  getOrderByAddress
+  getOrderByAddress,
+  getHistoryById,
+  getMyHistoryById
 }
 
 /**

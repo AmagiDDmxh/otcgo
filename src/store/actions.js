@@ -131,5 +131,11 @@ export default {
 
   [type.getRedeem]: ({ state }) => service.getRedeem(state['wa'].address),
 
-  [type.getOrderByAddress]: ({ state }) => service.getOrderByAddress(state['wa'].address)
+  [type.getOrderByAddress]: ({ state }) => service.getOrderByAddress(state['wa'].address),
+
+  [type.getHistoryById]: ({ state }, { marketId, active, length }) => service.getHistoryById({ marketId, active, length }),
+
+  [type.getMyHistoryById]: ({ state }, { marketId, active, length }) => service.getMyHistoryById(Object.assign({ marketId, active, length }, {
+    address: state.wa['address']
+  }))
 }

@@ -37,5 +37,7 @@ export default {
   otcSign: 'OTC_SIGN',
   getPriceById: 'GET_PRICEBYID',
   getRedeem: 'GET_REDEEM',
-  getOrderByAddress: 'GET_ORDER_BY_ADDRESS'
+  getOrderByAddress: 'GET_ORDER_BY_ADDRESS',
+  getHistoryById: 'GET_HISTORY_BY_ID',
+  getMyHistoryById: 'GET_MY_HISTORY_BY_ID'
 }
