@@ -19,17 +19,6 @@
     label: '操作',
     width: '25%'
   }]
-  const tradeHeader = [{
-    label: '卖／买'
-  }, {
-    label: '数量KAC'
-  }, {
-    label: '单价ANS'
-  }, {
-    label: '总价ANS'
-  }, {
-    label: ''
-  }]
   const mytradeHeader = [{
     label: '类型'
   }, {
@@ -49,8 +38,8 @@
     data() {
       return {
         mytradeHeader: mytradeHeader,
-        tradeHeader: tradeHeader,
         tableHeader: tableHeader,
+        tradeHeader: [],
         totalTrade: '0.00', // 24小时成交量
         currentPrice: '0.00', // 当前价
         mytradeDataSource: [], // 我的交易记录
@@ -90,18 +79,75 @@
 
     computed: {
       ...mapGetters(['loggedIn', 'deliver', 'receive', 'balances']),
+      tradeHeader () {
+        return [{
+          label: '卖／买'
+        }, {
+          label: '数量'
+        }, {
+          label: '单价ANS'
+        }, {
+          label: '总价ANS'
+        }, {
+          label: ''
+        }]
+      },
       deliverCurrency() {
         switch (this.$route.query.class) {
           case 'kacans':
+            this.tradeHeader = [{
+              label: '卖／买'
+            }, {
+              label: '数量KAC'
+            }, {
+              label: '单价ANS'
+            }, {
+              label: '总价ANS'
+            }, {
+              label: ''
+            }]
             return 'KAC'
             break
           case 'lzglzj':
+            this.tradeHeader = [{
+              label: '卖／买'
+            }, {
+              label: '数量LZG'
+            }, {
+              label: '单价LZJ'
+            }, {
+              label: '总价LZJ'
+            }, {
+              label: ''
+            }]
             return 'LZG'
             break
           case 'anscny':
+            this.tradeHeader = [{
+              label: '卖／买'
+            }, {
+              label: '数量ANS'
+            }, {
+              label: '单价CNY'
+            }, {
+              label: '总价CNY'
+            }, {
+              label: ''
+            }]
             return 'ANS'
             break
           case 'anccny':
+            this.tradeHeader = [{
+              label: '卖／买'
+            }, {
+              label: '数量ANC'
+            }, {
+              label: '单价CNY'
+            }, {
+              label: '总价CNY'
+            }, {
+              label: ''
+            }]
             return 'ANC'
             break
           default:
@@ -138,31 +184,31 @@
       success (type, myHistoryStatus) {
         const success = data => {
           this.tradeDataSource = data.data.reduce(
-          (acc, item) => acc.concat({
-            type: {
-              render: true,
-              value: item.ways ? '卖出' : '买入',
-              class: item.ways ? 'green-span' : 'red-span'
-            },
-            price: {
-              render: true,
-              value: item.price
-            },
-            amount: {
-              render: true,
-              value: item.amount
-            },
-            total: {
-              render: true,
-              value: `${Number(item.price.match(/\d+(\.\d+)?/)[0]) * Number(item.amount.match(/\d+(\.\d+)?/)[0])}${this.receiveCurrency}`
-            },
-            time: {
-              render: true,
-              value: item.time
-            }
-          }),
-          []
-        ) || []
+            (acc, item) => acc.concat({
+              type: {
+                render: true,
+                value: item.ways ? '卖出' : '买入',
+                class: item.ways ? 'green-span' : 'red-span'
+              },
+              price: {
+                render: true,
+                value: item.price
+              },
+              amount: {
+                render: true,
+                value: item.amount
+              },
+              total: {
+                render: true,
+                value: `${Number(item.price.match(/\d+(\.\d+)?/)[0]) * Number(item.amount.match(/\d+(\.\d+)?/)[0])}${this.receiveCurrency}`
+              },
+              time: {
+                render: true,
+                value: item.time
+              }
+            }),
+            []
+          ) || []
         }
         this.$store.dispatch(type, {
           marketId: this.$route.query.class,
@@ -392,7 +438,12 @@
             .then(d => {
               this.total = d['item_num']
               this.orders = d.data['asks'].reduce(
-                  (acc, item) => acc.concat({
+                  (acc, item, index) => acc.concat({
+                    level: {
+                      render: true,
+                      class: 'green-span',
+                      value: `卖${index}`
+                    },
                     id: {
                       render: false,
                       value: item.id
@@ -411,9 +462,14 @@
                     }
                   }),
                   []
-              )
+              ).reverse()
               this.bills = d.data['bids'].reduce(
                   (acc, item) => acc.concat({
+                    level: {
+                      render: true,
+                      class: 'red-span',
+                      value: `买${index}`
+                    },
                     id: {
                       render: false,
                       value: item.id

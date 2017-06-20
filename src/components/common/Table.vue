@@ -15,11 +15,6 @@
       <table :class="['table table-bordred table-striped text-center table-hover', size]">
         <tbody>
           <tr v-for="(item, index) in dataSource" v-if="dataSource.length">
-            <td v-if="trade">
-              <span :class="type === 'buy' ? 'red-span' : 'green-span'">
-                {{ type === 'buy' ? `买${index}` : `卖${index}` }}
-              </span>
-            </td>
             <td :style="{
               width: items.width || '20%'
             }" v-for="items in item" v-if="items.render" :class="[items.class ? items.class : '']">{{ items.value }}</td>
