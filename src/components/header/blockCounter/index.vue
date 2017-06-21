@@ -38,8 +38,8 @@
     },
 
     methods: {
-      async getCount() {
-        this.blockHigh = (await this.$store.dispatch('GET_BLOCK')).height
+      getCount() {
+        this.$store.dispatch('GET_BLOCK')
       },
       run() {
         this.counter = setInterval(() => this.blockTime++, 1000)

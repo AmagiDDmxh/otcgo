@@ -8,7 +8,7 @@ const routes = [
   { path: '/index', component: r => require(['~pages/home/home.vue'], r) },
 
   // 登陆
-  { path: '/login', component: r => require(['~pages/login/index.vue'], r) },
+  { path: '/login', name: 'login', component: r => require(['~pages/login/index.vue'], r) },
 
   // 地址为空跳转Home页面
   { path: '/', component: r => require(['~pages/home/home.vue'], r) },
@@ -56,7 +56,12 @@ const routes = [
   { path: '*', redirect: { path: '/index' }}
 ]
 
-export default new VueRouter({
+const router = new VueRouter({
   routes,
   linkActiveClass: 'active'
 })
+
+// mouted router
+window.$router = router
+
+export default router

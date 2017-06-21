@@ -29,7 +29,7 @@
                   <path class="cls-1" d="M5.07 1.61l-2.4 1.48L.15 1.63 2.55.15l2.52 1.46z"/>
                 </g>
               </svg>
-              {{ blockHigh }}
+              {{ blockHeight }}
             </a>
           </li>
 
@@ -51,12 +51,16 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
   export default {
     name: 'topNav',
 
+    computed: {
+      ...mapGetters(['blockHeight'])
+    },
+
     data: () => ({
-      blockTime: 0,
-      blockHigh: NaN
+      blockTime: 0
     }),
 
     watch: {
@@ -64,8 +68,8 @@
     },
 
     methods: {
-      async getCount() {
-        this.blockHigh = (await this.$store.dispatch('GET_BLOCK')).height
+      getCount() {
+        this.$store.dispatch('GET_BLOCK')
       },
       run() {
         this.counter = setInterval(() => this.blockTime++, 1000)

@@ -24,9 +24,21 @@ export default {
   setWif: 'GET_WIF',
   setFileName: 'SET_FILE_NAME',
   getBlock: 'GET_BLOCK',
+  setBlock: 'SET_BLOCK',
   getICO: 'GET_ICO',
   bidICO: 'BID_ICO',
   askICO: 'ASK_ICO',
   getIO: 'GET_ICO_ORDER',
-  setWalletTemporary: 'SET_WALLET_TEMPORARY'
+  setWalletTemporary: 'SET_WALLET_TEMPORARY',
+  getMarketsById: 'GET_MARKETSBYID',
+  sendAsk: 'SEND_ASK',
+  sendBid: 'SEND_BID',
+  sendFreeAsk: 'SEND_FREE_ASK',
+  sendFreeBid: 'SEND_FREE_BID',
+  otcSign: 'OTC_SIGN',
+  getPriceById: 'GET_PRICEBYID',
+  getRedeem: 'GET_REDEEM',
+  getOrderByAddress: 'GET_ORDER_BY_ADDRESS',
+  getHistoryById: 'GET_HISTORY_BY_ID',
+  getMyHistoryById: 'GET_MY_HISTORY_BY_ID'
 }
