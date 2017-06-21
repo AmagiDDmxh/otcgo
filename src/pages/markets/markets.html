@@ -7,8 +7,8 @@
   <div class="row">
     <div class="el-content-left">
       <div class="el-flex-between">
-        <button class="el-button el-button--primary" type="button">官方网站</button>
-        <button class="el-button el-button--primary" type="button">代币详情</button>
+        <button class="el-button el-button--primary el-button-lg" type="button">官方网站</button>
+        <button class="el-button el-button--primary el-button-lg" type="button">代币详情</button>
       </div>
       <div class="el-content-pannel" v-if="loggedIn">
         <h3 class="el-content-title">
@@ -94,7 +94,7 @@
             :tableHeader="tradeHeader"
             type="sell"
             :dataSource="orders"
-            trade 
+            :buttonStatus="buyButtonStatus"
             @cancel-click="buyOrder">
           </table-container>
           <table-container
@@ -102,7 +102,7 @@
             size="table-lg"
             type="buy"
             :dataSource="bills"
-            trade 
+            :buttonStatus="sellButtonStatus"
             @cancel-click="sellOrder">
           </table-container>
         </div>
@@ -111,7 +111,7 @@
           :tableHeader="mytradeHeader"
           :dataSource="tradeDataSource">
           <span slot="table-left" class="font-14 table-left">最新成交:</span>
-          <a slot="table-right" class="bk-point-cursor font-14 blue-span table-right" @click="getMyHistory">{{ myHistoryStatus ? '最新成交单' : '我的成交单'}}</a>
+          <a slot="table-right" class="bk-point-cursor font-14 blue-span table-right" @click="getMyHistory">交易记录</a>
         </table-container>
       </div>
     </div>

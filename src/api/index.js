@@ -229,13 +229,13 @@ export const getOrderByAddress = async address => await (fetching(`order/${addre
  * 获取市场最新交易
  * @param {市场ID} marketId 
  */
-export const getHistoryById = async ({marketId, active, length}) => await(fetching(`history/${marketId}`, { active, length }))
+export const getHistoryById = async ({marketId, active, length}) => await(fetching(`history/${marketId}`, { params: {active, length } }))
 
 /**
  * 获取我的成交单
  * @param {市场ID} marketId 
  */
-export const getMyHistoryById = async ({marketId, address, active, length}) => await(fetching(`history/${marketId}`, { address, active, length }))
+export const getMyHistoryById = async ({marketId, address, active, length}) => await(fetching(`history/${marketId}`, { params: {address, active, length} }))
 
 export default {
   getA,

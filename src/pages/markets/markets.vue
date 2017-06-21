@@ -34,7 +34,8 @@
   const fillObj = {
     id: '--',
     amount: '--',
-    price: '--'
+    price: '--',
+    isEmpty: true
   }
   export default {
     components: {
@@ -66,7 +67,8 @@
         sellPlaceHolder: '',
         buyPlaceHolder: '',
         valueId: '',
-        myHistoryStatus: false,
+        buyButtonStatus: true,
+        sellButtonStatus: true,
         payNum: '', // 买入的数量
         payAnsPrice: '', // 买入的单价
         sellNum: '', // 卖出的数量
@@ -79,11 +81,17 @@
         if (to.path === '/markets')
           this.watchChange(to)
         else this.$destroy()
+      },
+      'blockHeight' (val) {
+        if (val) {
+          this.buyButtonStatus = true
+          this.sellButtonStatus = true
+        }
       }
     },
 
     computed: {
-      ...mapGetters(['loggedIn', 'deliver', 'receive', 'balances']),
+      ...mapGetters(['loggedIn', 'deliver', 'receive', 'balances', 'blockHeight']),
       deliverCurrency() {
         switch (this.$route.query.class) {
           case 'kacans':
@@ -173,7 +181,7 @@
     },
 
     methods: {
-      success (type, myHistoryStatus) {
+      success (type) {
         const success = data => {
           this.tradeDataSource = data.data.reduce(
             (acc, item) => acc.concat({
@@ -207,7 +215,6 @@
           active: 1,
           length: 20
         }).then(data => {
-          this.myHistoryStatus = myHistoryStatus
           success(data)
         })
         .catch(err => this.$message.error(JSON.parse(err.bodyText).error))
@@ -266,34 +273,55 @@
         })
       },
 
-      buyOrder (items) {
-        this.loggedIn ? this.$store.dispatch('SEND_FREE_BID', {
-          id: items.id.value
-        })
-        .then(data => {
-          console.log('buy: ', data)
-          if (data.hasOwnProperty('result') && data.result) {
-            this.$message.success('买入成功')
-          }
-        })
-        .catch(err => this.$message.error(JSON.parse(err.bodyText).error))
-        : window.$router.push({
-          name: 'login'
-        })
+      buyOrder (id, eventCallBack) {
+        if (this.loggedIn) {
+          if (!this.buyButtonStatus) return
+          this.buyButtonStatus = false
+          eventCallBack(true)
+          this.$store.dispatch('SEND_FREE_BID', {
+            id: id
+          })
+          .then(data => {
+            console.log('buy: ', data)
+            if (data.hasOwnProperty('result') && data.result) {
+              this.$message.success('买入成功')
+              eventCallBack(false)
+            }
+          })
+          .catch(err => {
+            this.buyButtonStatus = true
+            this.$message.error(JSON.parse(err.bodyText).error)
+          })
+        } else {
+          window.$router.push({
+            name: 'login'
+          })
+        }
       },
-      sellOrder (items) {
-        this.loggedIn ? this.$store.dispatch('SEND_FREE_ASK', {
-          id: items.id.value
-        })
-        .then(data => {
-          if (data.hasOwnProperty('result') && data.result) {
-            this.$message.success('卖出成功')
-          }
-        })
-        .catch(err => this.$message.error(JSON.parse(err.bodyText).error))
-        : window.$router.push({
-          name: 'login'
-        })
+      sellOrder (id, eventCallBack) {
+        if (this.loggedIn) {
+          if (!this.sellButtonStatus) return
+          this.sellButtonStatus = false
+          eventCallBack(true)
+          this.$store.dispatch('SEND_FREE_ASK', {
+            id: id
+          })
+          .then(data => {
+            console.log('buy: ', data)
+            if (data.hasOwnProperty('result') && data.result) {
+              this.$message.success('卖出成功')
+              eventCallBack(false)
+            }
+          })
+          .catch(err => {
+            this.sellButtonStatus = true
+            this.$message.error(JSON.parse(err.bodyText).error)
+          })
+        } else {
+          window.$router.push({
+            name: 'login'
+          })
+        }
       },
 
       // 撤销买卖单
@@ -340,23 +368,16 @@
           this.getOrderBook(this.type)
       },
 
-      handleSizeChange(val) {
-        this.pageLength = val
-        this.getOrderBook(this.type)
-      },
-
-      handleCurrentChange(val) {
-        this.currentPage = val
-        this.getOrderBook(this.type)
-      },
-
       getOrderBook(name) {
         const params = {
           active: this.currentPage,
           length: this.pageLength
         }
 
-        this.ownAsset = [findBalances(this.balances, this.deliverCurrency.toLocaleLowerCase())[0], findBalances(this.balances, this.receiveCurrency.toLocaleLowerCase())[0]]
+        this.ownAsset = [
+          findBalances(this.balances, this.deliverCurrency.toLocaleLowerCase())[0],
+          findBalances(this.balances, this.receiveCurrency.toLocaleLowerCase())[0]
+        ]
         console.log('ownAsset: ', this.ownAsset)
         // 委托单
         this.loggedIn ? this.$store.dispatch('GET_ORDER_BY_ADDRESS').then(data => {
@@ -434,7 +455,7 @@
                     level: {
                       render: true,
                       class: 'green-span',
-                      value: `卖${index}`
+                      value: `卖${index + 1}`
                     },
                     id: {
                       render: false,
@@ -451,6 +472,15 @@
                     total: {
                       render: true,
                       value: isNaN(item.price * item.amount) ? '--' : item.price * item.amount
+                    },
+                    button: {
+                      btnClass: 'btn-red',
+                      value: '买入',
+                      render: true,
+                      hide: item.isEmpty,
+                      event: (eventCallBack) => {
+                        this.buyOrder(item.id, eventCallBack)
+                      }
                     }
                   }),
                   []
@@ -460,7 +490,7 @@
                   level: {
                     render: true,
                     class: 'red-span',
-                    value: `买${index}`
+                    value: `买${index + 1}`
                   },
                   id: {
                     render: false,
@@ -477,6 +507,15 @@
                   total: {
                     render: true,
                     value: isNaN(item.price * item.amount) ? '--' : item.price * item.amount
+                  },
+                  button: {
+                    btnClass: 'btn-blue',
+                    value: '卖出',
+                    render: true,
+                    hide: item.isEmpty,
+                    event: (eventCallBack) => {
+                      this.sellOrder(item.id, eventCallBack)
+                    }
                   }
                 }),
                 []
@@ -484,56 +523,6 @@
               return d
             })
             .catch(err => this.$message.error(JSON.parse(err.bodyText).error))
-      },
-      // remove
-      purchase({ total, id }) {
-        if (!this.loggedIn) {
-          this.$message.error('购买前请先确认登陆！')
-          return
-        }
-        this.$store.commit('SET_DELIVER', this.$route.query.class.slice(0, 3))
-        this.$store.commit('SET_RECEIVE', this.$route.query.class.slice(3))
-
-        this.$store.dispatch('GET_ASSET')
-
-        this.$msgbox({
-          title: '提示',
-          message: `您将要购买总价${total}${this.receive.marketSign.toUpperCase()}的${this.name}，当前${this.receiveCurrency}可用余额为${this.receive.valid}是否确认下单？`,
-          showCancelButton: true,
-          beforeClose: async (action, instance, done) => {
-            instance.confirmButtonLoading = false
-
-            if (action === 'confirm') {
-              if (this.receive.valid < total) {
-                this.$message.warning(`${this.receive.name}余额不足，请进行充值！`)
-                done()
-                return
-              }
-              instance.confirmButtonLoading = true
-              instance.confirmButtonText = '执行中...'
-              try {
-                let res = await this.$store.dispatch('BID', {id, name: this.$route.query.class})
-                if (res.result) {
-                  this.$message.success('交易发起成功，请等待验收！')
-                  this.getOrderBook(this.type)
-                  done()
-                  instance.confirmButtonLoading = false
-                } else {
-                  this.$message.error('交易失败，请稍候再试。')
-                  done()
-                  this.getOrderBook(this.type)
-                }
-              } catch(e) {
-                this.$message.error('交易失败，请稍候再试。')
-                this.getOrderBook(this.type)
-                instance.confirmButtonLoading = false
-                done()
-              }
-            } else {
-              done()
-            }
-          }
-        })
       }
     },
 

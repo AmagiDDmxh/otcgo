@@ -24,6 +24,7 @@ export default {
   setWif: 'GET_WIF',
   setFileName: 'SET_FILE_NAME',
   getBlock: 'GET_BLOCK',
+  setBlock: 'SET_BLOCK',
   getICO: 'GET_ICO',
   bidICO: 'BID_ICO',
   askICO: 'ASK_ICO',

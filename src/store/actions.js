@@ -83,8 +83,8 @@ export default {
     return service.cancel(id, state.wa['privateKey'])
   },
 
-  [type.getBlock]() {
-    return service.getB()
+  async [type.getBlock]({ commit }) {
+    commit(type.setBlock, (await service.getB()))
   },
 
   [type.getICO](_, id) {

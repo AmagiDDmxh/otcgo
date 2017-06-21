@@ -13,5 +13,6 @@ export default {
   deliver: state => state.deliver,
   receive: state => state.receive,
   fileName: state => state.fileName,
-  signUp: state => state.signUp
+  signUp: state => state.signUp,
+  blockHeight: state => state.blockHeight
 }

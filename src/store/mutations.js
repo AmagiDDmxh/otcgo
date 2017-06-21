@@ -74,5 +74,8 @@ export default {
   },
   [type.setWif](state, wif) {
     state.wa['wif'] = wif
+  },
+  [type.setBlock] (state, block) {
+    state.blockHeight = block.height
   }
 }

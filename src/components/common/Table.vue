@@ -17,13 +17,13 @@
           <tr v-for="(item, index) in dataSource" v-if="dataSource.length">
             <td :style="{
               width: items.width || '20%'
-            }" v-for="items in item" v-if="items.render" :class="[items.class ? items.class : '']">{{ items.value }}</td>
-            <td v-if="show" @click="cancel(item)"><a class="red-span bk-point-cursor">撤销</a></td>
-            <td v-if="trade" class="table-action" @click="cancel(item)">
-              <a :class="['btn-trade', type === 'buy' ? 'btn-blue' : 'btn-red']">
-                {{ type === 'buy' ? '卖出' : '买入'}}
+            }" v-for="items in item" v-if="items.render" :class="[items.class ? items.class : '']">
+              <span v-if="!items.event">{{ items.value }}</span>
+              <a v-if="items.event && !items.hide" :class="['btn-trade', items.btnClass, buttonStatus ? '' : 'disabled']" @click="buttonEvent(items.event)">
+                {{ status ? items.value : '执行中' }}
               </a>
             </td>
+            <td v-if="show" @click="cancel(item)"><a class="red-span bk-point-cursor">撤销</a></td>
           </tr>
           
           <tr v-if="!dataSource.length">
@@ -53,7 +53,7 @@ export default {
       type: Array,
       default: () => []
     },
-    trade: {
+    buttonStatus: {
       type: Boolean,
       default: false
     },
@@ -78,9 +78,24 @@ export default {
       default: '暂无数据'
     }
   },
+
+  data () {
+    return {
+      status: true
+    }
+  },
+
   methods: {
     cancel (item) {
       this.$emit('cancel-click', item)
+    },
+    buttonEvent (fn) {
+      if (typeof fn !== 'function') return console.warn('请传入方法')
+      const eventCallBack = (status) => {
+        console.log(status)
+        this.status = status
+      }
+      fn(eventCallBack)
     }
   }
 }
@@ -128,8 +143,19 @@ export default {
   border: 1px solid #13ce66;
   color: #13ce66;
 }
+.btn-trade.disabled {
+  background: #c9c9c9;
+  border: 1px solid #f8f8f8;
+  color: #fff;
+  cursor: default;
+}
 .btn-trade.btn-blue:hover {
   background: #13ce66;
+  color: #fff;
+}
+.btn-trade.disabled:hover {
+  background: #c9c9c9;
+  border: 1px solid #f8f8f8;
   color: #fff;
 }
 .table.table-lg > thead > tr > th,
@@ -165,6 +191,10 @@ export default {
 .table-scroll {
   max-height: 400px;
   overflow-y: scroll;
+  overflow-x: hidden;
+}
+.table-scroll::-webkit-scrollbar {
+    display: none;
 }
 .table-nodata {
   height: 100px;
