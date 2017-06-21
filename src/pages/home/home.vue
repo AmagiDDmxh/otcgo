@@ -2,12 +2,13 @@
   .page-index
     .index
       el-carousel(:interval="5000", height="400px")
-        el-carousel-item.progressive(v-for="banner in banners")
-          router-link(:to="banner.route")
+        el-carousel-item(v-for="banner in banners")
+          router-link(:to="banner.route").progressive
             img.preview(
             v-progressive="banner.src",
             :src="banner.preview",
-            :alt="banner.dec"
+            :alt="banner.dec",
+            :data-src="banner.src"
             )
       o-content
 </template>
@@ -21,8 +22,17 @@
     data: () => ({
       banners: [
         {
-          src: require('~images/banner1.jpg'),
-          preview: require('~images/banner1_r.jpg'),
+          src: require('~images/banner_LZG-LZJ.jpg'),
+          preview: require('~images/banner_LZG-LZJ-r.jpg'),
+          dec: '量子积分与量子股份交易对海报',
+          route: {
+            path: '/markets',
+            query: { 'class': 'lzglzj' }
+          }
+        },
+        {
+          src: require('~images/banner_KAC-ANS.jpg'),
+          preview: require('~images/banner_KAC-ANS-r.jpg'),
           dec: '蓝鲸淘正式上线开拍币\\小蚁股交易对',
           route: {
             path: '/markets',

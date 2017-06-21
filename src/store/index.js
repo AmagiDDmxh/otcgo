@@ -16,10 +16,12 @@ Vue.use(Vuex)
 const state = {
   balances: [],
   wa: {},
+  waT: {},
   signUp: false,
   receive: {},
   deliver: {},
-  fileName: ''
+  fileName: '',
+  blockHeight: NaN
 }
 
 export default new Vuex.Store({

@@ -72,7 +72,7 @@
       login() {
         this.$store.commit('LOGIN')
         this.$store.commit('SIGN_UP')
-        this.$router.push('/admin')
+        this.$router.push('/login')
       },
 
       download() {

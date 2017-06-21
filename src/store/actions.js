@@ -17,7 +17,7 @@ export default {
   },
 
   async [type.signUp]({ commit }, { publicKeyCompressed, publicKey, privateKeyEncrypted, privateKey }) {
-    commit(type.setWallet, { publicKeyCompressed, publicKey, privateKeyEncrypted, privateKey, address: service.getC(publicKeyCompressed) })
+    commit(type.setWalletTemporary, { publicKeyCompressed, publicKey, privateKeyEncrypted, privateKey, address: service.getC(publicKeyCompressed) })
     commit(type.downloadWallet)
     commit(type.signUp)
     return Promise.resolve(true)
@@ -83,8 +83,8 @@ export default {
     return service.cancel(id, state.wa['privateKey'])
   },
 
-  [type.getBlock]() {
-    return service.getB()
+  async [type.getBlock]({ commit }) {
+    commit(type.setBlock, (await service.getB()))
   },
 
   [type.getICO](_, id) {
@@ -107,5 +107,35 @@ export default {
     return service.askICO({ id, hexPubkey: state.wa['publicKey'] }, state.wa['privateKey'])
   },
 
-  [type.getIO]: ({ state }) => service.getIO(state.wa['address'])
+  [type.getIO]: ({ state }) => service.getIO(state.wa['address']),
+
+  [type.getMarketsById]: ({ state }, marketId) => service.getMarketsById(marketId),
+
+  [type.sendAsk]: ({ state }, payload) => service.sendAsk(Object.assign(payload, {
+    hexPubkey: state.wa['publicKey']
+  }), state.wa['privateKey']),
+
+  [type.sendBid]: ({ state }, payload) => service.sendBid(Object.assign(payload, {
+    hexPubkey: state.wa['publicKey']
+  }), state.wa['privateKey']),
+
+  [type.sendFreeAsk]: ({ state }, payload) => service.sendFreeAsk(Object.assign(payload, {
+    hexPubkey: state.wa['publicKey']
+  }), state.wa['privateKey']),
+
+  [type.sendFreeBid]: ({ state }, payload) => service.sendFreeBid(Object.assign(payload, {
+    hexPubkey: state.wa['publicKey']
+  }), state.wa['privateKey']),
+
+  [type.getPriceById]: ({ state }, marketId) => service.getPriceById(marketId),
+
+  [type.getRedeem]: ({ state }) => service.getRedeem(state['wa'].address),
+
+  [type.getOrderByAddress]: ({ state }) => service.getOrderByAddress(state['wa'].address),
+
+  [type.getHistoryById]: ({ state }, { marketId, active, length }) => service.getHistoryById({ marketId, active, length }),
+
+  [type.getMyHistoryById]: ({ state }, { marketId, active, length }) => service.getMyHistoryById(Object.assign({ marketId, active, length }, {
+    address: state.wa['address']
+  }))
 }

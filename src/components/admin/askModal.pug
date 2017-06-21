@@ -51,8 +51,8 @@
       .col-xs-6
          el-button.btn.btn-lj-green.btn-block(:loading="loading", @click='transfer').
            {{ loading ? '执行中':'卖出' }}
-   .row(style='margin-top: 15px;', v-if="deliver.marketSign === 'kac'")
+   .row(style='margin-top: 15px;')
       .col-xs-offset-2
-         b 友情提示！由于小蚁股不可分割，请确保卖出总价（即卖出量*卖出单价）为整数！
+         b 友情提示！由于{{deliver.marketSign === 'kac' ? '小蚁股' : '量子积分'}}不可分割，请确保卖出总价（即卖出量*卖出单价）为整数！
 
 

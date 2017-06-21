@@ -34,6 +34,11 @@ export default {
     state.wa = wa
   },
 
+  // TODO: There needed a another mutation to clear up those temporary state
+  [type.setWalletTemporary](state, wa) {
+    state.waT = wa
+  },
+
   // TODO: Might wanna change the func like a find field in a specific, not just by the name
   [type.setReceive](state, name) {
     state.receive = state.balances.find(i => {
@@ -52,7 +57,7 @@ export default {
     })
   },
   [type.downloadWallet](state) {
-    const { publicKeyCompressed, publicKey, privateKeyEncrypted, address } = state.wa
+    const { publicKeyCompressed, publicKey, privateKeyEncrypted, address } = state.waT
     const text = JSON.stringify({
       address, publicKey, publicKeyCompressed, privateKeyEncrypted
     })
@@ -69,5 +74,8 @@ export default {
   },
   [type.setWif](state, wif) {
     state.wa['wif'] = wif
+  },
+  [type.setBlock] (state, block) {
+    state.blockHeight = block.height
   }
 }
