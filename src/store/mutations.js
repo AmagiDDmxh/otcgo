@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import type from './mutation_type'
+import '~polyfill'
 
 /**
  * Created by Administrator on 4/24/2017.

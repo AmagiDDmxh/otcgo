@@ -27,10 +27,12 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
+
   export default {
     data: () => ({
       blockTime: 0,
-      blockHigh: NaN
+      ...mapGetters(['blockHigh'])
     }),
 
     watch: {

@@ -237,6 +237,12 @@ export const getHistoryById = async ({marketId, active, length}) => await(fetchi
  */
 export const getMyHistoryById = async ({marketId, address, active, length}) => await(fetching(`history/${marketId}`, { params: {address, active, length} }))
 
+/**
+ * 获取区块高度
+ * @return {height} [number] 高度
+ */
+export const getBlockHigh = async () => await (fetching('block/count/')).height
+
 export default {
   getA,
   getB,
@@ -268,7 +274,8 @@ export default {
   getRedeem,
   getOrderByAddress,
   getHistoryById,
-  getMyHistoryById
+  getMyHistoryById,
+  getBlockHigh
 }
 
 /**

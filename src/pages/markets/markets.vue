@@ -246,9 +246,8 @@
             this.$message.warning('挂买单成功')
           }
         }).catch(err => this.$message.error(JSON.parse(err.bodyText).error))
-        : window.$router.push({
-          name: 'login'
-        })
+
+        : window.$router.push({ name: 'login' })
       },
 
       // 挂卖单
@@ -343,15 +342,15 @@
         switch (to.query.class) {
           case 'anscny':
             this.name = '小蚁股'
-            this.receiveName ='人民币'
+            this.receiveName = '人民币'
             break
           case 'anccny':
             this.name = '小蚁币'
-            this.receiveName ='人民币'
+            this.receiveName = '人民币'
             break
           case 'kacans':
             this.name = '开拍学园币（KAC）'
-            this.receiveName ='小蚁股'
+            this.receiveName = '小蚁股'
             this.receiveCurrency = 'ANS'
             this.deliverCurrency = 'KAC'
             break
@@ -364,8 +363,7 @@
         }
         this.type = to.query.class
 
-        if (to.path === '/markets')
-          this.getOrderBook(this.type)
+        if (to.path === '/markets') this.getOrderBook(this.type)
       },
 
       getOrderBook(name) {
@@ -438,8 +436,7 @@
         this.$store.dispatch('GET_MARKETSBYID', this.$route.query.class).then(data => {
           this.currentPrice = data.price || '0.00'
           this.totalTrade = data.volumnOfLast24Hours || '0.00'
-          this.rate = Number(data.rate).toFixed(4) * 100 
-          console.log('GET_PRICEBYID: ', data)
+          this.rate = Number(data.rate).toFixed(4) * 100
         })
         .catch(err => this.$message.error(JSON.parse(err.bodyText).error))
 

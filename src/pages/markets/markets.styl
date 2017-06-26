@@ -116,15 +116,24 @@
 /*container*/
 .el-content-right
   float: left
-  width: 900px
+  width: 850px
   padding-right: 20px
   padding-left: 20px
+  &-header
+    font-weight: lighter
+    & h4
+      font-weight: lighter !important
+      font-size: 20px
+
 
 .el-content-left
   float: left
   padding: 0 20px
-  width: 300px
+  width: 350px
   box-sizing: border-box
+  .el-button-lg
+    padding: 15px 35px
+    font-size: 17px
   .el-content-pannel
     border: 1px solid #ddd
     padding: 10px
@@ -143,3 +152,17 @@
         top: 1px
 .marketTrade-container
   border: 1px solid #ddd
+
+.noAssets
+  display: flex
+  align-items: center
+  justify-content: center
+  height: 250px
+  & > *
+    font-size: 16px !important
+    color: #dadada !important
+  &-login
+    color: #009cff
+  &-signup
+    color: #7c7c7c
+

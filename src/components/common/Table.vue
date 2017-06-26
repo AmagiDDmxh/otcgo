@@ -101,7 +101,7 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
 .table-title {
   overflow: hidden;
   background: #fff;
@@ -187,6 +187,7 @@ export default {
   display: table-cell;
   text-align: center;
   padding: 8px 3px;
+
 }
 .table-scroll {
   max-height: 400px;

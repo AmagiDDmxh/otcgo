@@ -24,9 +24,10 @@
         <p>冻结：<span class="blue-span">{{ ownAsset && ownAsset.length && ownAsset[1].frozen }}</span></p>
         <p>总量：<span class="blue-span">{{ ownAsset && ownAsset.length && ownAsset[1].total }}</span></p>
       </div>
-      <div class="el-content-pannel" v-else>
+      <div class="el-content-pannel noAssets" v-else>
         <h3 class="el-content-title">
-          我的{{ deliverCurrency }}资产: <router-link :to="{path: 'login'}">登录</router-link> | <router-link :to="{path: 'signUp'}">注册</router-link>
+          |&nbsp;&nbsp;<router-link class="noAssets-login" :to="{path: 'login'}">登录钱包</router-link>
+          &nbsp;|&nbsp;&nbsp;<router-link class="noAssets-signup" :to="{path: 'signUp'}">创建钱包</router-link>&nbsp;&nbsp;|
         </h3>
       </div>
       <div class="el-content-pannel">
@@ -41,7 +42,7 @@
         </div>
         <p class="font-12 bk-margin-top-10">订单总额：<span class="red-span font-14">{{ totoalMoney }} {{ receiveCurrency }}</span></p>
         <button type="button" @click="bidAction" class="el-button el-button--danger el-button--fill bk-margin-top-10">买入</button>
-        <p class="font-12 weak-span bk-margin-top-10">友情提示：由于小蚁不可分割，请确保买入总价（买入量*买入价）为整数！</p>
+        <p class="font-12 weak-span bk-margin-top-10" v-if="deliverCurrency === 'ANS'">友情提示：由于小蚁股不可分割，请确保买入总价（买入量*买入价）为整数！</p>
       </div>
       <div class="el-content-pannel">
         <h3 class="el-content-title green-span">
@@ -55,7 +56,7 @@
         </div>
         <p class="font-12 bk-margin-top-10">订单总额：<span class="green-span font-14">{{ totoalSellMoney }} {{ receiveCurrency }}</span></p>
         <button type="button" @click="askAction" class="el-button el-button--success el-button--fill bk-margin-top-10">卖出</button>
-        <p class="font-12 weak-span bk-margin-top-10">友情提示：由于小蚁不可分割，请确保买入总价（买入量*买入价）为整数！</p>
+        <p class="font-12 weak-span bk-margin-top-10" v-if="deliverCurrency === 'ANS'">友情提示：由于小蚁股不可分割，请确保买入总价（买入量*买入价）为整数！</p>
       </div>
       <table-container
         :tableHeader="tableHeader"
@@ -68,21 +69,21 @@
       </table-container>
     </div>
     <div class="el-content-right">
-      <div class="row">
-        <div class="col-xs-3 text-center">
-          <p>{{ name }}/{{ receiveName }}</p>
+      <div class="row el-content-right-header">
+        <div class="col-xs-3">
+          <h4>{{ name }}/{{ receiveName }}</h4>
           <p class="blue-span">{{ deliverCurrency }}/{{ receiveCurrency }}</p>
         </div>
-        <div class="col-xs-3 text-center">
-          <p>最新价</p>
+        <div class="col-xs-3">
+          <h4>最新价</h4>
           <p class="blue-span">{{ currentPrice }}{{ receiveCurrency }}</p>
         </div>
-        <div class="col-xs-3 text-center">
-          <p>24H成交量</p>
+        <div class="col-xs-3">
+          <h4>24H成交量</h4>
           <p class="blue-span">{{ totalTrade }}{{ deliverCurrency }}</p>
         </div>
-        <div class="col-xs-3 text-center">
-          <p>24H涨跌幅</p>
+        <div class="col-xs-3">
+          <h4>24H涨跌幅</h4>
           <p :class="[rate > 0 ? 'red-span' : 'green-span']">{{ rate }}%</p>
         </div>
       </div>
