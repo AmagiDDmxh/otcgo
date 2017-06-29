@@ -36,7 +36,7 @@
     }),
 
     watch: {
-      blockHigh() { this.blockTime = 0 }
+      'blockHigh'() { this.blockTime = 0 }
     },
 
     methods: {

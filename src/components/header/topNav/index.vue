@@ -55,17 +55,11 @@
   export default {
     name: 'topNav',
 
-    computed: {
-      ...mapGetters(['blockHeight'])
-    },
+    computed: mapGetters(['blockHeight']),
 
     data: () => ({
       blockTime: 0
     }),
-
-    watch: {
-      blockHigh() { this.blockTime = 0 }
-    },
 
     methods: {
       getCount() {
@@ -80,6 +74,7 @@
     mounted() {
       this.getCount()
       this.run()
+      this.$store.watch(state => state.blockHeight, () => { this.blockTime = 0 })
     },
 
     destroyed() {

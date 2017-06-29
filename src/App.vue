@@ -3,7 +3,7 @@
     <top-nav></top-nav>
     <div class="pageDiv container" style="background-color:#fff;">
       <h></h>
-
+      <el-button @click="test">Add </el-button>
       <o-nav></o-nav>
 
 
@@ -19,6 +19,7 @@
         Copyright &copy; 2017 &nbsp;<a href="https://otcgo.cn/">otcgo.cn</a>&nbsp; 版权所有 湘ICP备16019051号-1
       </div>
     </div>
+
   </div>
 </template>
 <script>
@@ -27,8 +28,34 @@
   import foot from './components/footer/footer.vue'
   import oNav from '~components/header/oNav/oNav.vue'
 
+  import { sendAskTest, otcSignTest } from '~api'
+  import { decrypt } from '~utils/ljsign'
+
   export default {
-    components: { h, foot, topNav, oNav }
+    components: { h, foot, topNav, oNav },
+    methods: {
+      test() {
+        // setInterval(() => fetching(`http://jsonplaceholder.typicode.com/posts`, {}, 'post').then(console.log), 2000);
+        const wallet = {
+          "address":"AcUprLEfgLzqhv3uB9eFJkPrJtFXh1zBAf",
+          "publicKey":"0420386c057ff5a0079f35f7decbd71c39704d6edae1122dad967f8b6a742474024ad273c015a4931138a47c2ac2d240bda46bf70260dec4ce75769e93028c25db","publicKeyCompressed":"0320386c057ff5a0079f35f7decbd71c39704d6edae1122dad967f8b6a74247402","privateKeyEncrypted":"U2FsdGVkX19j7l/dRK95npI4tYjB/e5+TkqhAleSciPNdDUqIV2UYLxXx0VJN8f5fiTewH5OBGXteoO0KBCQXRj9irQS1pKTHeVmwnVmq9Wjt1KjiqcHvo4IEVKjRf+t"
+        }
+        const privateKey = decrypt(wallet['privateKeyEncrypted'], 'otcgo.cn')
+
+        sendAskTest({
+          price: 1,
+          amount: 2,
+          assetId: 'c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b',
+          valueId: '2dbd5d6be093f6bdd7e59d1faedfd2656422aaf749719903e8dab412b4349e81',
+          hexPubkey: wallet.publicKey
+        }, privateKey)
+            .then(({ order, transaction }) => {
+              otcSignTest({
+                id: order.id, pr: privateKey, transaction
+              })
+            })
+      }
+    }
   }
 </script>
 

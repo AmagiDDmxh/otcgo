@@ -41,7 +41,11 @@
           <input class="form-control" type="number" v-model.trim.number="payAnsPrice" :placeholder="buyPlaceHolder" />
         </div>
         <p class="font-12 bk-margin-top-10">订单总额：<span class="red-span font-14">{{ totoalMoney }} {{ receiveCurrency }}</span></p>
-        <button type="button" @click="bidAction" class="el-button el-button--danger el-button--fill bk-margin-top-10">买入</button>
+        <el-button type="danger" @click="bidAction"
+                   class="btn-block bk-margin-top-10"
+                   :loading="bidLoading">买入</el-button>
+                <!--class="el-button el-button&#45;&#45;danger el-button&#45;&#45;fill bk-margin-top-10"-->
+
         <p class="font-12 weak-span bk-margin-top-10" v-if="deliverCurrency === 'ANS'">友情提示：由于小蚁股不可分割，请确保买入总价（买入量*买入价）为整数！</p>
       </div>
       <div class="el-content-pannel">
@@ -60,7 +64,7 @@
       </div>
       <table-container
         :tableHeader="tableHeader"
-        nodata="请登陆后查看"
+        :nodata="loggedIn ? '暂无' : '请登陆后查看'"
         class="bk-margin-top-10"
         :dataSource="actionDataSource"
         show
@@ -112,7 +116,8 @@
           :tableHeader="mytradeHeader"
           :dataSource="tradeDataSource">
           <span slot="table-left" class="font-14 table-left">最新成交:</span>
-          <a slot="table-right" class="bk-point-cursor font-14 blue-span table-right" @click="getMyHistory">交易记录</a>
+          <a slot="table-right" class="bk-point-cursor font-14 blue-span table-right" @click="getMyHistory">
+            交易记录</a>
         </table-container>
       </div>
     </div>

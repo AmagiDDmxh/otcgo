@@ -53,5 +53,3 @@ app.$notify.warning({
   message: '请使用最新版谷歌浏览器进行页面操作，否则可能导致部分功能无法正常使用。',
   offset: 100
 })
-
-
